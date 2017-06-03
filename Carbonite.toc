@@ -1,0 +1,22 @@
+## Interface: 70200
+## Title: Carbonite Maps 7.2.0
+## Version: 7.2.0
+## Author: No one
+## Notes: Released Under GPL
+## DefaultState: Enabled
+## LoadOnDemand: 0
+## SavedVariables: CarbData
+
+Libs\libs.xml
+Locales\Locales.xml
+Carbonite.lua
+NxUI.lua
+NxOptions.lua
+NxCom.lua
+NxHUD.lua
+Data\data.xml
+NxMapData.lua
+NxMap.lua
+NxMapGuide.lua
+NxTravel.lua
+Carbonite.xml
