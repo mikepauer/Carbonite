@@ -1490,7 +1490,7 @@ function Nx.Map.Guide:UpdateMapGeneralIcons (cont, showType, hideFac, tx, name, 
 				if a ~= "Mode" then
 					local mapId = a
 					if mapId then
-						if not showMapid or mapId == showMapId then
+						if not showMapId or mapId == showMapId then
 							local temp_arr = { Nx.Split("|",b) }
 							for c,d in pairs(temp_arr) do
 								local fac,x,y,level = Nx.Split(",",d)
