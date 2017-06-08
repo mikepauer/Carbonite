@@ -1706,7 +1706,7 @@ function Nx.Map.Guide:FindClosest (findType)
 					if a ~= "Mode" then
 						local mapId = a
 						if mapId then
-							if not showMapid or mapId == showMapId then
+							if not showMapId or mapId == showMapId then
 								local temp_arr = { Nx.Split("|",b) }
 								if not string.find(b,"|") then
 									temp_arr = {}
