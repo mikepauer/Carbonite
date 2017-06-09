@@ -3434,17 +3434,17 @@ function Nx:GatherNodeToCarb (id)
 end
 
 function Nx:GatherImportCarb (nodeType)
-	LoadAddOn("GatherMate2_Data_Carbonite")
+	LoadAddOn("Carbonite.Gathermate2_Data")
 	if nodeType == "NXMine" then
 		if not GatherMateData2MineDB then
-			Nx.prt (L["Gathermate2_Data_Carbonite addon is not loaded!"])
+			Nx.prt (L["Carbonite.Gathermate2_Data addon is not loaded!"])
 			return
 		end
 	end
 
 	if nodeType == "NXHerb" then
 		if not GatherMateData2HerbDB then
-			Nx.prt (L["Gathermate2_Data_Carbonite addon is not loaded!"])
+			Nx.prt (L["Carbonite.Gathermate2_Data addon is not loaded!"])
 			return
 		end
 	end
@@ -3470,7 +3470,7 @@ function Nx:GatherImportCarb (nodeType)
 			end
 		end
 
-		Nx.prt (L["Imported"] .. " %s " .. L["nodes from GatherMate2_Data"], cnt, nodeType)
+		Nx.prt (L["Imported"] .. " %s " .. L["nodes from Carbonite.Gathermate2_Data"], cnt, nodeType)
 	end
 end
 
