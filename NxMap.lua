@@ -8452,8 +8452,6 @@ end
 
 function Nx.Map:UpdateInstanceMap()
 	
-	if self.TestPlrFrm then self.TestPlrFrm:Hide() end
-	
 	local mapId = self.InstMapId
 	if not mapId or not Nx.Initialized then
 		return
@@ -8536,10 +8534,10 @@ function Nx.Map:UpdateInstanceMap()
 			NXWorldMapUnitPositionFrame:ClearAllPoints()
 			NXWorldMapUnitPositionFrame:SetFrameLevel(40)
 			local c = NXWorldMapUnitPositionFrame
-			local f = self.TestPlrFrm
-			if not self.TestPlrFrm then 
-				f = CreateFrame ("ScrollFrame", "TestPlrFrm", self.Frm)
-				self.TestPlrFrm = f
+			local f = self.NewPlrFrm
+			if not self.NewPlrFrm then 
+				f = CreateFrame ("ScrollFrame", "NewPlrFrm", self.Frm)
+				self.NewPlrFrm = f
 				f:SetFrameLevel(20)
 				f:SetFrameStrata("HIGH")
 				
@@ -8566,6 +8564,8 @@ function Nx.Map:UpdateInstanceMap()
 			c:SetPoint("BOTTOMRIGHT", x2 * -1, y2) -- 10, -10
 			
 			Nx.Map:UpdatePlayerPositions()
+		else 
+			if self.NewPlrFrm then self.NewPlrFrm:Hide() end
 		end
 		
 		self.Level = self.Level + 1
