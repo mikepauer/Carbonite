@@ -402,7 +402,9 @@ Nx.Zones = {
 	[1161] = L["Stormstout Brewery"] .. "|86|87|3|5|807|39.16|338.43|0",
 	[1164] = L["Fields of the Eternal Hunt"] .. "|100|110|3|5|1017|68.3|66.2|0",
 	[1165] = L["The Fel Hammer"] .. "|100|110|3|5|1021|0|0|0",
-	[1166] = L["The Eye of Eternity"] .. "|80|83|3|5|486|27.5|26.03|0"
+	[1166] = L["The Eye of Eternity"] .. "|80|83|3|5|486|27.5|26.03|0",
+	[1172] = L["Hall of Communion"] .. "|110|110|3|5|493|50|50|0", -- No idea what this is for yet, placeholder location
+	[1177] = L["The Deaths of Chromie"] .. "|110|110|3|5|488|59.8|53.7|0"
 }
 
 Nx.SubNames = {
