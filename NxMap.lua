@@ -3454,14 +3454,17 @@ function Nx.Map:OnEvent (event, ...)
 		if Nx.Map.NInstMapId then 
 			self:Menu_OnScaleRestore()
 			Nx.Map.NInstMapId = nil
+			Nx.Map:HideNewPlrFrame()
 		end
 	elseif event == "ZONE_CHANGED" then
 		Nx.Map.Indoors = false
 		Nx.Map.NInstMapId = nil
+		Nx.Map:HideNewPlrFrame()
 		SetMapToCurrentZone()
 	elseif event == "ZONE_CHANGED_INDOORS" then
 		Nx.Map.Indoors = true
 		Nx.Map.NInstMapId = nil
+		Nx.Map:HideNewPlrFrame()
 		SetMapToCurrentZone()
 	end
 end
@@ -8565,7 +8568,7 @@ function Nx.Map:UpdateInstanceMap()
 			
 			Nx.Map:NXWorldMapUnitPositionFrame_UpdatePlayerPins()
 		else 
-			if self.NewPlrFrm then self.NewPlrFrm:Hide() end
+			Nx.Map:HideNewPlrFrame()
 		end
 		
 		self.Level = self.Level + 1
@@ -11113,6 +11116,10 @@ function Nx.Map.NXWorldMapUnitPositionFrame_UpdatePeriodic(timeNow)
 			NXWorldMapUnitPositionFrame:SetUnitColor(unit, r, g, b, 1)
 		end
 	end
+end
+
+function Nx.Map:HideNewPlrFrame()
+	if self.NewPlrFrm then self.NewPlrFrm:Hide() end
 end
 
 function Nx.Map.GetPlayerMapPosition (unit)
