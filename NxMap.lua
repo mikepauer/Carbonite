@@ -3454,14 +3454,17 @@ function Nx.Map:OnEvent (event, ...)
 		if Nx.Map.NInstMapId then 
 			self:Menu_OnScaleRestore()
 			Nx.Map.NInstMapId = nil
+			Nx.Map:HideNewPlrFrame()
 		end
 	elseif event == "ZONE_CHANGED" then
 		Nx.Map.Indoors = false
 		Nx.Map.NInstMapId = nil
+		Nx.Map:HideNewPlrFrame()
 		SetMapToCurrentZone()
 	elseif event == "ZONE_CHANGED_INDOORS" then
 		Nx.Map.Indoors = true
 		Nx.Map.NInstMapId = nil
+		Nx.Map:HideNewPlrFrame()
 		SetMapToCurrentZone()
 	end
 end
@@ -8563,9 +8566,9 @@ function Nx.Map:UpdateInstanceMap()
 			c:SetPoint("TOPLEFT", x1 * -1, y1) -- -10, 10
 			c:SetPoint("BOTTOMRIGHT", x2 * -1, y2) -- 10, -10
 			
-			Nx.Map:UpdatePlayerPositions()
+			Nx.Map:NXWorldMapUnitPositionFrame_UpdatePlayerPins()
 		else 
-			if self.NewPlrFrm then self.NewPlrFrm:Hide() end
+			Nx.Map:HideNewPlrFrame()
 		end
 		
 		self.Level = self.Level + 1
@@ -10967,7 +10970,7 @@ function Nx.Map.MoveWorldMap()
 	NXWorldMapUnitPositionFrame:SetParent("WMDF")
 	NXWorldMapUnitPositionFrame:SetAllPoints()
 	NXWorldMapUnitPositionFrame:SetFrameLevel(40)
-	Nx.Map:UpdatePlayerPositions()
+	Nx.Map:NXWorldMapUnitPositionFrame_UpdatePlayerPins()
 	
 	if Nx.db.char.Map.ShowRaidBoss then
 		local width = Nx.Map.WMDF:GetWidth()
@@ -11045,6 +11048,78 @@ function Nx.Map:UpdatePlayerPositions() -- Copy of the local defined player arro
 	end
 
 	NXWorldMapUnitPositionFrame:FinalizeUnits()
+end
+
+function Nx.Map.NXWorldMapUnitPositionFrame_UpdatePlayerPins()
+	if NXWorldMapUnitPositionFrame:NeedsFullUpdate()then
+		Nx.Map.NXWorldMapUnitPositionFrame_UpdateFull(GetTime());	
+	elseif NXWorldMapUnitPositionFrame:NeedsPeriodicUpdate() then
+		Nx.Map.NXWorldMapUnitPositionFrame_UpdatePeriodic(GetTime());
+	end
+end
+
+function Nx.Map.NXWorldMapUnitPositionFrame_UpdateFull(timeNow)
+	assert(NXWorldMapUnitPositionFrame:NeedsFullUpdate());
+	NXWorldMapUnitPositionFrame:ClearUnits()
+
+	local r, g, b = CheckColorOverrideForPVPInactive("player", timeNow, 1, 1, 1)	
+	NXWorldMapUnitPositionFrame:AddUnit("player", "Interface\\WorldMap\\WorldMapArrow", Nx.db.profile.Map.InstancePlayerSize, Nx.db.profile.Map.InstancePlayerSize, r, g, b, 1, 7, true)
+
+	local isInRaid = IsInRaid()
+	local memberCount = 0
+	local unitBase
+
+	if isInRaid then
+		memberCount = MAX_RAID_MEMBERS
+		unitBase = "raid"
+	elseif IsInGroup() then
+		memberCount = MAX_PARTY_MEMBERS
+		unitBase = "party"
+	end
+
+	for i = 1, memberCount do
+		local unit = unitBase..i
+		if UnitExists(unit) and not UnitIsUnit(unit, "player") then
+			local atlas = UnitInSubgroup(unit) and "WhiteCircle-RaidBlips" or "WhiteDotCircle-RaidBlips"
+			local class = select(2, UnitClass(unit))
+			local r, g, b = CheckColorOverrideForPVPInactive(unit, timeNow, GetClassColor(class))
+			NXWorldMapUnitPositionFrame:AddUnitAtlas(unit, atlas, Nx.db.profile.Map.InstanceGroupSize, Nx.db.profile.Map.InstanceGroupSize, r, g, b, 1)
+		end
+	end
+	
+	NXWorldMapUnitPositionFrame:FinalizeUnits()
+	NXWorldMapUnitPositionFrame.needsFullUpdate = false;
+end
+
+function Nx.Map.NXWorldMapUnitPositionFrame_UpdatePeriodic(timeNow)
+	local r, g, b = CheckColorOverrideForPVPInactive("player", timeNow, 1, 1, 1)
+	NXWorldMapUnitPositionFrame:SetUnitColor("player", r, g, b, 1);
+	
+	local isInRaid = IsInRaid()
+	local memberCount = 0
+	local unitBase
+
+	if isInRaid then
+		memberCount = MAX_RAID_MEMBERS
+		unitBase = "raid"
+	elseif IsInGroup() then
+		memberCount = MAX_PARTY_MEMBERS
+		unitBase = "party"
+	end
+
+	for i = 1, memberCount do
+		local unit = unitBase..i
+		if UnitExists(unit) and not UnitIsUnit(unit, "player") then
+			local atlas = UnitInSubgroup(unit) and "WhiteCircle-RaidBlips" or "WhiteDotCircle-RaidBlips"
+			local class = select(2, UnitClass(unit))
+			local r, g, b = CheckColorOverrideForPVPInactive(unit, timeNow, GetClassColor(class))
+			NXWorldMapUnitPositionFrame:SetUnitColor(unit, r, g, b, 1)
+		end
+	end
+end
+
+function Nx.Map:HideNewPlrFrame()
+	if self.NewPlrFrm then self.NewPlrFrm:Hide() end
 end
 
 function Nx.Map.GetPlayerMapPosition (unit)
