@@ -11119,7 +11119,7 @@ function Nx.Map.NXWorldMapUnitPositionFrame_UpdatePeriodic(timeNow)
 end
 
 function Nx.Map:HideNewPlrFrame()
-	if self.NewPlrFrm then self.NewPlrFrm:Hide() end
+	if NewPlrFrm then NewPlrFrm:Hide() end
 end
 
 function Nx.Map.GetPlayerMapPosition (unit)
