@@ -25,8 +25,8 @@ local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite")
 Nx.WebSite = "wowinterface.com"
 NXTITLEFULL = L["Carbonite"]
 
-Nx.VERMAJOR			= 7.0
-Nx.VERMINOR			= .3				-- Not 0 is a test version
+Nx.VERMAJOR			= 7.2
+Nx.VERMINOR			= .5				-- Not 0 is a test version
 Nx.BUILD			= "$Format:%h$"
 if Nx.BUILD:find("Format:%h", 1, true) then Nx.BUILD = string.sub("@project-revision@", 0, 7) end
 if Nx.BUILD:find("project-revision", 1, true) then Nx.BUILD = "0" end
