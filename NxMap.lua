@@ -3712,18 +3712,6 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 		end
 	end
 	
---	if IsControlKeyDown() then		return	end
-
-	if _G['ImmersionFrame'] then
-		if not _G['ImmersionFrame'].CarbFix then
-			_G['ImmersionFrame'].CarbFix = true
-			_G['ImmersionFrame'].TitleButtons:UnregisterEvent('QUEST_LOG_UPDATE')
-			_G['ImmersionFrame'].TitleButtons:RegisterEvent('UNIT_QUEST_LOG_UPDATE')
-			_G['ImmersionFrame'].TitleButtons:HookScript('OnEvent', function(self, event, ...)
-				if(event == 'UNIT_QUEST_LOG_UPDATE') then _G['ImmersionFrame'].TitleButtons:QUEST_LOG_UPDATE() end
-			end)
-		end
-	end
 	if _G['ReputationFrame'] then
 		if not _G['ReputationFrame'].CarbFix then
 			_G['ReputationFrame'].CarbFix = true
