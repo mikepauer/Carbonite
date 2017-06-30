@@ -419,6 +419,7 @@ local defaults = {
 			InstanceBossSize = 32,
 			InstancePlayerSize = 24,
 			InstanceGroupSize = 24,
+			InstanceScale = 16,
 		},
 		MiniMap = {
 			AboveIcons = false,
