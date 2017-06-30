@@ -2353,7 +2353,6 @@ function Nx.Map:MinimapUpdateEnd()
 			or info.City and not info.MMOutside -- Cites
 			or C_Garrison.IsPlayerInGarrison(LE_GARRISON_TYPE_7_0) -- Order Halls 
 		then
-			Nx.prt("hiding")
 			mm:SetPoint ("TOPLEFT", 1, 0)
 			mm:SetScale (.02)
 			mm:SetFrameLevel (1)
