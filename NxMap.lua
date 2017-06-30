@@ -7277,7 +7277,7 @@ function Nx.Map:ClipFrameMF (frm, bx, by, w, h, dir)
 
 	h = vy2 - vy1
 	
-	frm:SetPoint("TOPLEFT", x / 100 * self.MapW, -y / 100 * self.MapH)
+	frm:SetPoint("TOPLEFT", x / 100 * self.MapW - 8, -y  / 100 * self.MapH + 8)
 	
 	frm:SetWidth (Nx.db.profile.Map.InstanceScale)
 	frm:SetHeight (Nx.db.profile.Map.InstanceScale)
@@ -9598,8 +9598,8 @@ end
 -- Convert frame (top left) to zone positions
 
 function Nx.Map:FramePosToZonePos (x, y)
-	x = x / self.MapW * 100
-	y = y / self.MapH * 100
+	x = x / (self.MapW - self.PadX) * 100
+	y = y / (self.MapH - self.TitleH) * 100
 	return x, y
 end
 
