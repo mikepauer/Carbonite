@@ -8932,7 +8932,7 @@ function Nx.Map:InitTables()
 			winfo.Y = y				-- Y
 			winfo[4] = x				-- X
 			winfo[5] = y				-- Y
-			winfo.Cont = cont
+			winfo.Cont = entrycont
 			winfo.Zone = mid
 			self.MapWorldInfo[mid] = winfo
 		end
