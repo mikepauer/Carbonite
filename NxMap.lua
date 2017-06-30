@@ -4322,7 +4322,7 @@ function Nx.Map:Update (elapsed)
 	end
 	local dungeontest = GetCurrentMapDungeonLevel()
 	self.InstanceId = false
-	if self:IsInstanceMap (Nx.Map.UpdateMapID) then
+	if self:IsInstanceMap (Nx.Map.UpdateMapID) and not self.CurOpts.NXInstanceMaps then
 		self.InstanceId = Nx.Map.UpdateMapID
 		plZX = plZX * 100
 		plZY = plZY * 100
@@ -5650,8 +5650,7 @@ function Nx.Map:UpdatePlyrHistory()
 			if self:ClipFrameByMapType (f, x, y, size, size, dir) then
 				f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconCircleFade")
 				local a = (fadeTime - tmdif) / fadeTime * .9
-				f.texture:SetVertexColor (1, 0, 0, a)								
-				f:SetFrameLevel(100)
+				f.texture:SetVertexColor (1, 0, 0, a)												
 			end
 
 		end
@@ -7225,7 +7224,8 @@ end
 -- Clip a frame to the main carbonite map frame (absolute to TOPLEFT)
 
 function Nx.Map:ClipFrameMF (frm, bx, by, w, h, dir)
-	local x, y = Nx.Map:GetZonePos(self.MapId, bx, by)		
+	local x, y = Nx.Map:GetZonePos(self.MapId, bx, by)	
+	
 	local bw = w
 	local clipW = self.MapW	
 
@@ -7298,7 +7298,7 @@ function Nx.Map:ClipFrameMF (frm, bx, by, w, h, dir)
 		t4y = texX2 * -si + texY2 * co + .5
 		frm.texture:SetTexCoord (t1x, t1y, t2x, t2y, t3x, t3y, t4x, t4y)
 	end
-	
+	frm:SetFrameLevel(50)
 	frm:Show()
 
 	return true, x, y
@@ -7837,9 +7837,9 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 						local _h = 3 * (668 / 768)
 						local _dungeonLevel = GetCurrentMapDungeonLevel() > 0 and GetCurrentMapDungeonLevel() -1 or 0
 						--Level = Nx.Map.DungeonLevel
-						if Nx.Map:IsInstanceMap(Nx.Map.RMapId) then
+						if Nx.Map:IsInstanceMap(Nx.Map.RMapId) and not self.CurOpts.NXInstanceMaps then
 							offY = _h * _dungeonLevel
-						end
+						end						
 						if (not Level and Nx.Map.DungeonLevel == 0) or (Level and Level == Nx.Map.DungeonLevel) then												
 							local icon = v[n]
 							local f = self:GetIconStatic(v.Lvl)
