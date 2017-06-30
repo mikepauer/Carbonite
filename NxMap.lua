@@ -918,6 +918,8 @@ function Nx.Map:Create (index)
 	local item = ismenu:AddItem (0, L["Raid Boss Size"])
 	item:SetSlider (Nx.db.profile.Map, 1, 50, nil, "InstanceBossSize")
 	
+	local item = ismenu:AddItem (0, L["Icon Scaling Size"])
+	item:SetSlider (Nx.db.profile.Map, 1, 50, nil, "InstanceScale")
 	
 	-- Create transparency sub menu
 
@@ -2161,6 +2163,7 @@ function Nx.Map:MinimapUpdate()
 	--
 
 	local mm = self.MMFrm
+	
 	local lOpts = self.LOpts
 
 	local scales = self.MMScales
@@ -2171,7 +2174,7 @@ function Nx.Map:MinimapUpdate()
 	if info.City and not info.MMOutside then
 		scales = self.MMScalesC
 	end
-
+	
 	local zoomType = 0
 	local zoom = mm:GetZoom (1)
 
@@ -2181,6 +2184,10 @@ function Nx.Map:MinimapUpdate()
 		dock = true
 	end
 
+	if (self:IsInstanceMap(Nx.Map.RMapId) or self:IsBattleGroundMap(Nx.Map.RMapId)) and self.CurOpts.NXInstanceMaps then
+		dock = true
+	end
+	
 	if not dock and not self.InstanceId
 			and self.ScaleDraw > lOpts.NXMMDockOnAtScale then
 		if not InCombatLockdown() then
@@ -2220,9 +2227,9 @@ function Nx.Map:MinimapUpdate()
 			bugged = true
 		end
 	end
-	if self.InstanceId then
+	if self.InstanceId and not self.CurOpts.NXInstanceMaps then
 		al = 1
-	else
+	else		
 		if indoors and Nx.db.profile.MiniMap.DockIndoors then
 			zoomType = 0
 		end
@@ -2261,7 +2268,7 @@ function Nx.Map:MinimapUpdate()
 
 	if self.MMZoomType ~= zoomType or zoomType > 0 and self.MMScale ~= self.ScaleDraw
 			or indoorChange then
-
+		
 		self.MMZoomType = zoomType
 		self.MMScale = self.ScaleDraw
 
@@ -2283,7 +2290,7 @@ function Nx.Map:MinimapUpdate()
 	end
 
 	mm:SetAlpha (al)
-
+	
 	self:MinimapDetachFrms()
 
 	if zoomType > 0 then
@@ -2300,8 +2307,6 @@ function Nx.Map:MinimapUpdate()
 		if above then
 			lvl = lvl + 15
 		end
-
-		mm:SetFrameLevel (lvl)
 
 		self:MinimapUpdateDetachedFrms (lvl + 1)
 		self.Level = self.Level + 2
@@ -2340,26 +2345,27 @@ function Nx.Map:MinimapUpdateEnd()
 	
 	local info = self:GetWorldZone(GetCurrentMapAreaID())
 	local _, class = UnitClass("player");
-	if self.Win:IsSizeMax() and Nx.db.profile.MiniMap.HideOnMax 
-		or self.MMFScale < .02 
-		or Nx.Map.NInstMapId ~= nil -- Instance
-		or info.City and not info.MMOutside -- Cites
-		or C_Garrison.IsPlayerInGarrison(LE_GARRISON_TYPE_7_0) -- Order Halls 
-	then
-
-		mm:SetPoint ("TOPLEFT", 1, 0)
-		mm:SetScale (.02)
-		mm:SetFrameLevel (1)
+	if (self:IsInstanceMap(Nx.Map.UpdateMapID) or self:IsBattleGroundMap(Nx.Map.UpdateMapID)) and self.CurOpts.NXInstanceMaps then
+	else
+		if self.Win:IsSizeMax() and Nx.db.profile.MiniMap.HideOnMax 
+			or self.MMFScale < .02 
+			or Nx.Map.NInstMapId ~= nil -- Instance
+			or info.City and not info.MMOutside -- Cites
+			or C_Garrison.IsPlayerInGarrison(LE_GARRISON_TYPE_7_0) -- Order Halls 
+		then
+			mm:SetPoint ("TOPLEFT", 1, 0)
+			mm:SetScale (.02)
+			mm:SetFrameLevel (1)
 --		mm:Hide()
 
-		for n, f in ipairs (self.MMModels) do
-			f:SetScale (.001)
+			for n, f in ipairs (self.MMModels) do
+				f:SetScale (.001)
+			end
+			return
 		end
-		return
 	end
 
-	if self.MMZoomType == 0 then
-
+	if self.MMZoomType == 0 then		
 		self:MinimapUpdateMask ("DockSquare")
 
 		local iconScale = Nx.db.profile.MiniMap.DockIScale
@@ -2382,8 +2388,11 @@ function Nx.Map:MinimapUpdateEnd()
 		mm:SetPoint ("TOPLEFT", (x + Nx.db.profile.MiniMap.DXO) / iconScale,
 										(-y - Nx.db.profile.MiniMap.DYO) / iconScale)
 		mm:Show()
-
-		mm:SetFrameLevel (self.Level)
+		if (self:IsInstanceMap(Nx.Map.RMapId) or self:IsBattleGroundMap(Nx.Map.RMapId)) and self.CurOpts.NXInstanceMaps then
+			mm:SetFrameLevel (self.Level + 50)
+		else
+			mm:SetFrameLevel (self.Level)
+		end
 		self:MinimapUpdateDetachedFrms (self.Level + 1)
 		self.Level = self.Level + 2
 	end
@@ -4320,7 +4329,7 @@ function Nx.Map:Update (elapsed)
 	end
 	local dungeontest = GetCurrentMapDungeonLevel()
 	self.InstanceId = false
-	if self:IsInstanceMap (Nx.Map.UpdateMapID) then
+	if self:IsInstanceMap (Nx.Map.UpdateMapID) and not self.CurOpts.NXInstanceMaps then
 		self.InstanceId = Nx.Map.UpdateMapID
 		plZX = plZX * 100
 		plZY = plZY * 100
@@ -4605,7 +4614,7 @@ function Nx.Map:Update (elapsed)
 
 	self:DrawContinentsPOIs()
 
-	if Nx.db.profile.Map.ShowTrail then
+	if Nx.db.profile.Map.ShowTrail then		
 		self:UpdatePlyrHistory()
 	end
 
@@ -4950,7 +4959,7 @@ function Nx.Map:Update (elapsed)
 
 			f.NxTip = Map.TaxiName
 			f.texture:SetTexture ("Interface\\Icons\\Ability_Mount_Wyvern_01")
-			self:ClipFrameW (f, x, y, 16, 16, 0)
+			self:ClipFrameByMapType (f, x, y, 16, 16, 0)
 
 			self.Level = self.Level + 2
 		end
@@ -5270,7 +5279,7 @@ function Nx.Map:DrawContinentsPOIs()
 
 			local f = self:GetIcon (z)
 
-			if self:ClipFrameW (f, poi.WX, poi.WY, 16, 16, 0) then
+			if self:ClipFrameByMapType (f, poi.WX, poi.WY, 16, 16, 0) then
 
 				f.NxTip = poi.Name			 --.. poi.TxIndex
 
@@ -5420,7 +5429,7 @@ function Nx.Map:UpdateGroup (plX, plY)
 
 			local f1 = self:GetIcon (1)
 
-			if self:ClipFrameW (f1, wx, wy, sz, sz, 0) then
+			if self:ClipFrameByMapType (f1, wx, wy, sz, sz, 0) then
 
 				f1.NXType = 1000
 				f1.NXData = unit
@@ -5467,7 +5476,7 @@ function Nx.Map:UpdateGroup (plX, plY)
 					f.texture:SetColorTexture (1, 1, 1, 1)
 
 				else
-					self:ClipFrameW (f, wx, wy, 7, 7, 0)
+					self:ClipFrameByMapType (f, wx, wy, 7, 7, 0)
 --					self:ClipFrameZ (f, pX, pY, 7, 7, 0)
 
 					if per > 0 then
@@ -5593,11 +5602,21 @@ function Nx.Map:UpdatePlyrHistory()
 	local tm = GetTime()
 
 	local scale = self.BaseScale
-
+	local usezone = nil
+	
 	local x = hist.LastX - self.MoveLastX
 	local y = hist.LastY - self.MoveLastY
-	local moveDist = (x * x + y * y) ^ .5
-
+	
+	if (self:IsInstanceMap(Nx.Map.UpdateMapID) or self:IsBattleGroundMap(Nx.Map.UpdateMapID)) and self.CurOpts.NXInstanceMaps then
+		local _x1, _y1 = self:GetZonePos(Nx.Map.UpdateMapID,hist.LastX,hist.LastY)
+		local _x2, _y2 = self:GetZonePos(Nx.Map.UpdateMapID,self.MoveLastX,self.MoveLastY)
+		x = _x1 - _x2
+		y = _y1 - _y2
+		scale = 1
+	end		
+	
+	local moveDist = (x * x + y * y) ^ .5	
+	
 	if moveDist > Nx.db.profile.Map.TrailDist * scale then
 
 		hist.LastX = self.MoveLastX
@@ -5621,8 +5640,7 @@ function Nx.Map:UpdatePlyrHistory()
 	end
 
 	local size = min (max (4 * self.ScaleDraw * self.BaseScale, 3), 25)
-	local fadeTime = Nx.db.profile.Map.TrailTime
-
+	local fadeTime = Nx.db.profile.Map.TrailTime	
 	for n = 1, hist.Cnt * 4, 4 do
 
 		local secs = hist[n]
@@ -5633,18 +5651,13 @@ function Nx.Map:UpdatePlyrHistory()
 			local x = hist[n + 1]
 			local y = hist[n + 2]
 			local dir = hist[n + 3]
-
+			
 			local f = self:GetIconNI()
-
-			if self:ClipFrameW (f, x, y, size, size, dir) then
-
+			
+			if self:ClipFrameByMapType (f, x, y, size, size, dir) then
 				f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconCircleFade")
 				local a = (fadeTime - tmdif) / fadeTime * .9
-				f.texture:SetVertexColor (1, 0, 0, a)
-
---				f.texture:SetTexture ("Interface\\Minimap\\MinimapArrow")
---				self:ClipFrameW (f, x, y, 16, 16, dir)
---				f.texture:SetVertexColor (1, 1, 1, .3)
+				f.texture:SetVertexColor (1, 0, 0, a)												
 			end
 
 		end
@@ -5665,9 +5678,18 @@ function Nx.Map:UpdateTargets()
 	local tar = self.Targets[1]
 
 	local x = tar.TargetMX - self.PlyrX
-	local y = tar.TargetMY - self.PlyrY
+	local y = tar.TargetMY - self.PlyrY	
+	
 	local distYd = (x * x + y * y) ^ .5 * 4.575
 
+	if (self:IsInstanceMap(Nx.Map.RMapId) or self:IsBattleGroundMap(Nx.Map.RMapId)) and self.CurOpts.NXInstanceMaps then
+		local _x1, _y1 = self:GetZonePos(Nx.Map.RMapId,tar.TargetMX,tar.TargetMY)
+		local _x2, _y2 = self:GetZonePos(Nx.Map.RMapId,self.PlyrX,self.PlyrY)
+		x = _x1 - _x2
+		y = _y1 - _y2
+		distYd = (x * x + y * y) ^ .5
+	end	
+	
 	if distYd < (tar.Radius or 7) * self.BaseScale then
 
 		if tar.TargetType ~= "Q" then	-- Not for quest, so clear
@@ -5779,7 +5801,7 @@ function Nx.Map:DrawTracking (srcX, srcY, dstX, dstY, tex, mode, name)
 		local f = self:GetIcon (1)
 
 		local size = 16 * self.IconNavScale
-		self:ClipFrameW (f, dstX, dstY, size, size, 0)
+		self:ClipFrameByMapType (f, dstX, dstY, size, size, 0)
 
 		local s = name or self.TrackName
 
@@ -5845,7 +5867,7 @@ function Nx.Map:DrawTracking (srcX, srcY, dstX, dstY, tex, mode, name)
 					f = self:GetIconNI()
 				end
 
-				if self:ClipFrameW (f, wx, wy, size, size, dir) then
+				if self:ClipFrameByMapType (f, wx, wy, size, size, dir) then
 
 					f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconArrowGrad")
 
@@ -6802,7 +6824,7 @@ end
 function Nx.Map:ClipFrameZ (frm, x, y, w, h, dir)
 
 	x, y = self:GetWorldPos (self.MapId, x, y)
-	return self:ClipFrameW (frm, x, y, w, h, dir)
+	return self:ClipFrameByMapType (frm, x, y, w, h, dir)
 end
 
 --------
@@ -6823,6 +6845,15 @@ function Nx.Map:ClipFrameZTLO (frm, x, y, w, h, xo, yo)
 
 	x, y = self:GetWorldPos (self.MapId, x, y)
 	return self:ClipFrameTL (frm, x + xo / self.ScaleDraw, y + yo / self.ScaleDraw, w, h)
+end
+
+
+function Nx.Map:ClipFrameByMapType (frm, bx, by, w, h, dir)	
+	if (self:IsInstanceMap(Nx.Map.RMapId) or self:IsBattleGroundMap(Nx.Map.RMapId)) and self.CurOpts.NXInstanceMaps then
+		return self:ClipFrameMF (frm, bx, by, w, h, dir)
+	else
+		return self:ClipFrameW (frm, bx, by, w, h, dir)
+	end
 end
 
 --------
@@ -7199,20 +7230,85 @@ end
 --------
 -- Clip a frame to the main carbonite map frame (absolute to TOPLEFT)
 
-function Nx.Map:ClipFrameMF (frm, bx, by, w, h)
-	local x, y = Nx.Map:GetZonePos(self.MapId, bx, by)
+function Nx.Map:ClipFrameMF (frm, bx, by, w, h, dir)
+	local x, y = Nx.Map:GetZonePos(self.MapId, bx, by)	
+	
+	local bw = w
+	local clipW = self.MapW	
 
+	local texX1 = 0
+	local texX2 = 1
+
+	local vx0 = x - bw * .5
+	local vx1 = vx0
+	local vx2 = vx0 + bw
+
+	if vx1 < 0 then
+		vx1 = 0
+		texX1 = (vx1 - vx0) / bw
+	end
+
+	if vx2 > clipW then
+		vx2 = clipW
+		texX2 = (vx2 - vx0) / bw
+	end
+
+	w = vx2 - vx1
+	
+	local bh = h
+	local clipH = self.MapH	
+	
+	local texY1 = 0
+	local texY2 = 1
+
+	local vy0 = y - bh * .5		-- Center frame at by
+	local vy1 = vy0
+	local vy2 = vy0 + bh
+
+	if vy1 < 0 then
+		vy1 = 0
+		texY1 = (vy1 - vy0) / bh
+	end
+
+	if vy2 > clipH then
+		vy2 = clipH
+		texY2 = (vy2 - vy0) / bh
+	end
+
+	h = vy2 - vy1
+	
 	frm:SetPoint("TOPLEFT", x / 100 * self.MapW, -y / 100 * self.MapH)
-
-	local scale = self.MapW / self.MapH
-	frm:SetWidth (10 * scale)
-	frm:SetHeight (10 * scale)
+	
+	frm:SetWidth (Nx.db.profile.Map.InstanceScale)
+	frm:SetHeight (Nx.db.profile.Map.InstanceScale)
 	
 	frm.texture:SetTexCoord (0, 1, 0, 1)
-	
+
+	if dir == 0 then
+		frm.texture:SetTexCoord (texX1, texX2, texY1, texY2)
+	else
+		local t1x, t1y, t2x, t2y, t3x, t3y, t4x, t4y
+		texX1 = texX1 - .5
+		texX2 = texX2 - .5
+		texY1 = texY1 - .5
+		texY2 = texY2 - .5
+
+		local co = cos (dir)
+		local si = sin (dir)
+		t1x = texX1 * co + texY1 * si + .5
+		t1y = texX1 * -si + texY1 * co + .5
+		t2x = texX1 * co + texY2 * si + .5
+		t2y = texX1 * -si + texY2 * co + .5
+		t3x = texX2 * co + texY1 * si + .5
+		t3y = texX2 * -si + texY1 * co + .5
+		t4x = texX2 * co + texY2 * si + .5
+		t4y = texX2 * -si + texY2 * co + .5
+		frm.texture:SetTexCoord (t1x, t1y, t2x, t2y, t3x, t3y, t4x, t4y)
+	end
+	frm:SetFrameLevel(50)
 	frm:Show()
 
-	return true
+	return true, x, y
 end
 
 --------
@@ -7464,8 +7560,7 @@ function Nx.Map:InitIconType (iconType, drawMode, texture, w, h)
 	t.Tex = texture
 	t.W = w
 	t.H = h
-	t.Scale = 1	-- USED???
-	t.ClipFunc = self.ClipFrameW		-- For WP mode
+	t.Scale = 1	-- USED???	
 end
 
 --------
@@ -7644,12 +7739,15 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 	end
 
 	for type, v in pairs (d) do
-		v.Enabled = drawNonGuide or strbyte (type) == 33	-- "!" is guide types
-
+		v.Enabled = drawNonGuide or strbyte (type) == 33	-- "!" is guide types		
 		if v.AtScale then
-			if self.ScaleDraw < v.AtScale then
+			if self.ScaleDraw < v.AtScale then				
 				v.Enabled = false
 			end
+		end
+		if (self:IsInstanceMap(Nx.Map.UpdateMapID) or self:IsBattleGroundMap(Nx.Map.UpdateMapID)) and self.CurOpts.NXInstanceMaps then
+			v.Enabled = true	
+			v.Lvl = 20
 		end
 	end
 	for k, v in pairs (d) do
@@ -7658,17 +7756,15 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 
 		if v.Enabled then
 
-			if v.DrawMode == "ZP" then		-- Zone point
-
+			if v.DrawMode == "ZP" then		-- Zone point				
 				local scale = self.IconScale
 				local w = v.W * scale
 				local h = v.H * scale				
-				for n = 1, v.Num do					
+				for n = 1, v.Num do											
 					if (not v[n].Level and Nx.Map.DungeonLevel == 0) or (v[n].Level and v[n].Level == Nx.Map.DungeonLevel) then						
 						local icon = v[n]
 						local f = self:GetIconStatic (v.Lvl)
-						if self:ClipFrameZ (f, icon.X, icon.Y, w, h, 0) then
-	
+						if self:ClipFrameZ (f, icon.X, icon.Y, w, h, 0) then							
 							f.NxTip = icon.Tip
 
 	--						assert (icon.Tex or v.Tex or icon.Color)
@@ -7705,21 +7801,10 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 					end
 				end
 				
-				if k == "!HANDY" then
-					--[[if self:IsInstanceMap(curMapId) then
-						w = w / 150
-						h = h / 150
-					end]]--
-					
-					if self:IsMicroDungeon(curMapId) then
-						--w = w * 1.7
-						--h = h * 1.7
-						--self.MMFrm:Hide()
-					end
-					w = 15
-					h = 15
+				if (self:IsInstanceMap(Nx.Map.UpdateMapID) or self:IsBattleGroundMap(Nx.Map.UpdateMapID)) then
+					w = Nx.db.profile.Map.InstanceScale
+					h = Nx.db.profile.Map.InstanceScale
 				end
-				
 				if v.AlphaNear then
 
 					local aNear = v.AlphaNear * (abs (GetTime() % .7 - .35) / .7 + .5)	-- 50% to 100% pulse
@@ -7728,8 +7813,8 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 						if (not v[n].Level and Nx.Map.DungeonLevel == 0) or (v[n].Level and v[n].Level == Nx.Map.DungeonLevel) then
 							local icon = v[n]
 							local f = self:GetIconStatic (v.Lvl)
-							if v.ClipFunc (self, f, icon.X, icon.Y, w, h, 0) then
-								f.NxTip = icon.Tip
+							if self:ClipFrameByMapType (f, icon.X, icon.Y, w, h, 0) then								
+								f.NxTip = icon.Tip								
 								f.NXType = 3000
 								f.NXData = icon
 								if icon.Tex then
@@ -7755,17 +7840,13 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 				else
 					for n = 1, v.Num do	
 						local offY = nil
-						local Level = v[n].Level
-						local ClipFunc = v.ClipFunc
+						local Level = v[n].Level						
 						local _h = 3 * (668 / 768)
 						local _dungeonLevel = GetCurrentMapDungeonLevel() > 0 and GetCurrentMapDungeonLevel() -1 or 0
 						--Level = Nx.Map.DungeonLevel
-						if (Nx.Map:IsInstanceMap(Nx.Map.RMapId) or Nx.Map:IsBattleGroundMap(Nx.Map.RMapId)) and self.CurOpts.NXInstanceMaps then		
-							ClipFunc = self.ClipFrameMF
-							offY = nil
-						elseif Nx.Map:IsInstanceMap(Nx.Map.RMapId) then
+						if Nx.Map:IsInstanceMap(Nx.Map.RMapId) and not self.CurOpts.NXInstanceMaps then
 							offY = _h * _dungeonLevel
-						end
+						end						
 						if (not Level and Nx.Map.DungeonLevel == 0) or (Level and Level == Nx.Map.DungeonLevel) then												
 							local icon = v[n]
 							local f = self:GetIconStatic(v.Lvl)
@@ -7775,8 +7856,8 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 								actuallyIcon = true
 								f = icon.Tex
 							end
-							if ClipFunc (self, f, icon.X, icon.Y + (offY or 0), w, h, 0) then
-								f.NxTip = icon.Tip
+							if self:ClipFrameByMapType (f, icon.X, icon.Y + (offY or 0), w, h, 0) then
+								f.NxTip = icon.Tip																
 								f.NXType = 3000
 								f.NXData = icon
 								if actuallyIcon then
@@ -8820,13 +8901,18 @@ function Nx.Map:InitTables()
 --			Nx.prt ("Inst %s %d", name, id)
 
 			local entryZone = Nx.Zones[tonumber (entryId)]
-			local ename, _, _, _, cont = Nx.Split ("|", entryZone)
+			local ename, _, _, entryfact, entrycont, entrybase = Nx.Split ("|", entryZone)
 			local mid = id
 			tinsert(Nx.Map.MapZones[100],id)
 --			Nx.MapNameToId[name] = mid
 --			Nx.MapIdToName[mid] = name
 
 			local emid = tonumber(entryId)
+			while entryfact == "3" and entrycont == "5" do
+				Nx.prt(entrybase)
+				_, _, _, entryfact, entrycont, entrybase = Nx.Split ("|", entrybase)
+			end
+			
 			if self.MapWorldInfo[mid] and self.MapWorldInfo[mid].BaseMap then
 				mid = self.MapWorldInfo[mid].BaseMap
 			end
@@ -8847,14 +8933,13 @@ function Nx.Map:InitTables()
 			end
 
 			local winfo = {}
-
 			winfo.EntryMId = emid
 			winfo.Scale = 1002 / 25600 --ewinfo[1]		-- Scale
 			winfo.X = x				-- X
 			winfo.Y = y				-- Y
 			winfo[4] = x				-- X
 			winfo[5] = y				-- Y
-			winfo.Cont = cont
+			winfo.Cont = entrycont
 			winfo.Zone = mid
 			self.MapWorldInfo[mid] = winfo
 		end
@@ -9511,22 +9596,24 @@ end
 
 --------
 -- Convert frame (top left) to zone positions
---[[
+
 function Nx.Map:FramePosToZonePos (x, y)
-	x = self.ZonePosX + (x - self.PadX - self.MapW / 2) / 10.02 / self.Scale
-	y = self.ZonePosY + (y - self.TitleH - self.MapH / 2) / 6.68 / self.Scale
+	x = x / self.MapW * 100
+	y = y / self.MapH * 100
 	return x, y
 end
---]]
+
 
 --------
 -- Convert frame (top left) to world positions
 
 function Nx.Map:FramePosToWorldPos (x, y)
-	x = self.MapPosX + (x - self.PadX - self.MapW / 2) / 10.02 / self.MapScale
-	y = self.MapPosY + (y - self.TitleH - self.MapH / 2) / 10.02 / self.MapScale
+	x = self.MapPosX + (x - self.PadX - self.MapW / 2) / 10.02 / self.MapScale	
+	y = self.MapPosY + (y - self.TitleH - self.MapH / 2) / 10.02 / self.MapScale	
 	return x, y
 end
+
+
 
 --------
 -- Set map target
@@ -9686,7 +9773,13 @@ function Nx.Map:SetTargetAtClick()
 if Nx.Quest and Nx.Quest.Watch then
 	Nx.Quest.Watch:ClearAutoTarget()
 end
-	local wx, wy = self:FramePosToWorldPos (self.ClickFrmX, self.ClickFrmY)
+	local wx, wy
+	if (self:IsInstanceMap(Nx.Map.RMapId) or self:IsBattleGroundMap(Nx.Map.RMapId)) and self.CurOpts.NXInstanceMaps then
+		local _x, _y = self:FramePosToZonePos (self.ClickFrmX, self.ClickFrmY)
+		wx, wy = self:GetWorldPos(self.MapId, _x, _y)
+	else
+		wx,wy = self:FramePosToWorldPos (self.ClickFrmX, self.ClickFrmY)
+	end
 	local zx, zy = self:GetZonePos (self.MapId, wx, wy)
 	local str = format ("Goto %.0f, %.0f", zx, zy)
 
