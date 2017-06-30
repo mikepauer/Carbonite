@@ -2163,6 +2163,7 @@ function Nx.Map:MinimapUpdate()
 	--
 
 	local mm = self.MMFrm
+	
 	local lOpts = self.LOpts
 
 	local scales = self.MMScales
@@ -2173,7 +2174,7 @@ function Nx.Map:MinimapUpdate()
 	if info.City and not info.MMOutside then
 		scales = self.MMScalesC
 	end
-
+	
 	local zoomType = 0
 	local zoom = mm:GetZoom (1)
 
@@ -2183,6 +2184,10 @@ function Nx.Map:MinimapUpdate()
 		dock = true
 	end
 
+	if (self:IsInstanceMap(Nx.Map.RMapId) or self:IsBattleGroundMap(Nx.Map.RMapId)) and self.CurOpts.NXInstanceMaps then
+		dock = true
+	end
+	
 	if not dock and not self.InstanceId
 			and self.ScaleDraw > lOpts.NXMMDockOnAtScale then
 		if not InCombatLockdown() then
@@ -2222,9 +2227,9 @@ function Nx.Map:MinimapUpdate()
 			bugged = true
 		end
 	end
-	if self.InstanceId then
+	if self.InstanceId and not self.CurOpts.NXInstanceMaps then
 		al = 1
-	else
+	else		
 		if indoors and Nx.db.profile.MiniMap.DockIndoors then
 			zoomType = 0
 		end
@@ -2263,7 +2268,7 @@ function Nx.Map:MinimapUpdate()
 
 	if self.MMZoomType ~= zoomType or zoomType > 0 and self.MMScale ~= self.ScaleDraw
 			or indoorChange then
-
+		
 		self.MMZoomType = zoomType
 		self.MMScale = self.ScaleDraw
 
@@ -2285,7 +2290,7 @@ function Nx.Map:MinimapUpdate()
 	end
 
 	mm:SetAlpha (al)
-
+	
 	self:MinimapDetachFrms()
 
 	if zoomType > 0 then
@@ -2302,8 +2307,6 @@ function Nx.Map:MinimapUpdate()
 		if above then
 			lvl = lvl + 15
 		end
-
-		mm:SetFrameLevel (lvl)
 
 		self:MinimapUpdateDetachedFrms (lvl + 1)
 		self.Level = self.Level + 2
@@ -2342,26 +2345,28 @@ function Nx.Map:MinimapUpdateEnd()
 	
 	local info = self:GetWorldZone(GetCurrentMapAreaID())
 	local _, class = UnitClass("player");
-	if self.Win:IsSizeMax() and Nx.db.profile.MiniMap.HideOnMax 
-		or self.MMFScale < .02 
-		or Nx.Map.NInstMapId ~= nil -- Instance
-		or info.City and not info.MMOutside -- Cites
-		or C_Garrison.IsPlayerInGarrison(LE_GARRISON_TYPE_7_0) -- Order Halls 
-	then
-
-		mm:SetPoint ("TOPLEFT", 1, 0)
-		mm:SetScale (.02)
-		mm:SetFrameLevel (1)
+	if (self:IsInstanceMap(Nx.Map.UpdateMapID) or self:IsBattleGroundMap(Nx.Map.UpdateMapID)) and self.CurOpts.NXInstanceMaps then
+	else
+		if self.Win:IsSizeMax() and Nx.db.profile.MiniMap.HideOnMax 
+			or self.MMFScale < .02 
+			or Nx.Map.NInstMapId ~= nil -- Instance
+			or info.City and not info.MMOutside -- Cites
+			or C_Garrison.IsPlayerInGarrison(LE_GARRISON_TYPE_7_0) -- Order Halls 
+		then
+			Nx.prt("hiding")
+			mm:SetPoint ("TOPLEFT", 1, 0)
+			mm:SetScale (.02)
+			mm:SetFrameLevel (1)
 --		mm:Hide()
 
-		for n, f in ipairs (self.MMModels) do
-			f:SetScale (.001)
+			for n, f in ipairs (self.MMModels) do
+				f:SetScale (.001)
+			end
+			return
 		end
-		return
 	end
 
-	if self.MMZoomType == 0 then
-
+	if self.MMZoomType == 0 then		
 		self:MinimapUpdateMask ("DockSquare")
 
 		local iconScale = Nx.db.profile.MiniMap.DockIScale
@@ -2384,8 +2389,11 @@ function Nx.Map:MinimapUpdateEnd()
 		mm:SetPoint ("TOPLEFT", (x + Nx.db.profile.MiniMap.DXO) / iconScale,
 										(-y - Nx.db.profile.MiniMap.DYO) / iconScale)
 		mm:Show()
-
-		mm:SetFrameLevel (self.Level)
+		if (self:IsInstanceMap(Nx.Map.RMapId) or self:IsBattleGroundMap(Nx.Map.RMapId)) and self.CurOpts.NXInstanceMaps then
+			mm:SetFrameLevel (self.Level + 50)
+		else
+			mm:SetFrameLevel (self.Level)
+		end
 		self:MinimapUpdateDetachedFrms (self.Level + 1)
 		self.Level = self.Level + 2
 	end
