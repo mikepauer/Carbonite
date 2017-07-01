@@ -7285,7 +7285,9 @@ function Nx.Map:ClipFrameMF (frm, bx, by, w, h, dir)
 	frm.texture:SetTexCoord (0, 1, 0, 1)
 
 	if dir == 0 then
-		frm.texture:SetTexCoord (texX1, texX2, texY1, texY2)
+		if texX1 <= 1 and texX2 <= 1 and texY1 <= 1 and texY2 <= 1 then
+			frm.texture:SetTexCoord (texX1, texX2, texY1, texY2)
+		end
 	else
 		local t1x, t1y, t2x, t2y, t3x, t3y, t4x, t4y
 		texX1 = texX1 - .5
