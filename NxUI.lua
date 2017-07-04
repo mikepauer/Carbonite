@@ -5576,7 +5576,7 @@ function Nx.List:CreateStrings()
 
 			if not fstr then
 				fstr = f:CreateFontString()
-				self.Strs[strNum] = fstr
+				self.Strs[strNum] = fstr				
 			end
 
 			fstr:SetFontObject (column.FontObj)
@@ -5606,9 +5606,9 @@ function Nx.List:CreateStrings()
 	-- Hide extra strings
 
 --	prt ("ListSetSize "..self.Vis.." "..#self.Strs)
-
+				
 	for n = strNum, #self.Strs do
-		self.Strs[n]:Hide()
+		self.Strs[n]:Hide()		
 	end
 
 end
@@ -5999,6 +5999,15 @@ function Nx.List:ColumnAdd (name, columnId, width, justifyH, font)
 	self.Columns[colId] = column
 
 	self.SSW = nil			-- Cause resize
+end
+
+function Nx.List:ColumnSetWidth (columnId, width)
+	local column = self.Columns[columnId]
+	column.Width = width
+end
+
+function Nx.List:ColumnGetWidth (columnId)
+	return self.Columns[columnId].Width
 end
 
 function Nx.List:ColumnSetName (columnId, name)
