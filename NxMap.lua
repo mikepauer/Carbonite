@@ -2308,6 +2308,7 @@ function Nx.Map:MinimapUpdate()
 			lvl = lvl + 15
 		end
 
+		mm:SetFrameLevel (lvl)
 		self:MinimapUpdateDetachedFrms (lvl + 1)
 		self.Level = self.Level + 2
 
