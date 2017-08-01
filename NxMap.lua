@@ -7306,7 +7306,9 @@ function Nx.Map:ClipFrameMF (frm, bx, by, w, h, dir)
 		t3y = texX2 * -si + texY1 * co + .5
 		t4x = texX2 * co + texY2 * si + .5
 		t4y = texX2 * -si + texY2 * co + .5
-		frm.texture:SetTexCoord (t1x, t1y, t2x, t2y, t3x, t3y, t4x, t4y)
+		if t1x <= 1 and t1x >= 0 and t2x <= 1 and t2x >= 0 and t3x <= 1 and t3x >= 0 and t4x <= 1 and t4x >= 0 and t1y <= 1 and t1y >= 0 and t2y <= 1 and t2y >= 0 and t3y <= 1 and t3y >= 0 and t4y <= 1 and t4y >= 0 then
+			frm.texture:SetTexCoord (t1x, t1y, t2x, t2y, t3x, t3y, t4x, t4y)
+		end
 	end
 	frm:SetFrameLevel(50)
 	frm:Show()
