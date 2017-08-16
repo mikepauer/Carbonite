@@ -99,7 +99,7 @@ Nx.Travel = {}
 
 Nx.Title = {}
 Nx.AuctionAssist = {}
---Nx.Combat = {}
+Nx.Combat = {}
 
 Nx.UEvents = {}
 Nx.UEvents.List = {}
