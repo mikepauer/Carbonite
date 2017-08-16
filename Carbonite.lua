@@ -99,7 +99,7 @@ Nx.Travel = {}
 
 Nx.Title = {}
 Nx.AuctionAssist = {}
-Nx.Combat = {}
+--Nx.Combat = {}
 
 Nx.UEvents = {}
 Nx.UEvents.List = {}
@@ -496,7 +496,7 @@ Nx.BrokerMenuTemplate = {
 	{ text = "Carbonite", icon = icon, isTitle = true },
 	{ text = L["Options"], func = function() Nx.Opts:Open() end },
 	{ text = L["Toggle Map"], func = function() Nx.Map:ToggleSize(0) end },
-	{ text = L["Toggle Combat Graph"], func = function() Nx.Combat:Open() end },
+--	{ text = L["Toggle Combat Graph"], func = function() Nx.Combat:Open() end },
 	{ text = L["Toggle Events"], func = function() Nx.UEvents.List:Open() end },
 }
 
@@ -659,8 +659,8 @@ function Nx.slashCommand (txt)
 	elseif cmd == "addopen" then
 		UEvents:AddOpen (a1, a2)
 
-	elseif cmd == "c" then
-		Nx.Combat:Open()
+	--elseif cmd == "c" then
+	--	Nx.Combat:Open()
 
 	elseif cmd == "cap" then
 		Nx.CaptureItems()
@@ -692,11 +692,11 @@ function Nx.slashCommand (txt)
 	elseif cmd == "events" then
 		UEvents.List:Open()
 
-	elseif cmd == "g" then
+--[[	elseif cmd == "g" then
 		Nx.Graph:Create (20, 50, UIParent)
 
 		local g2 = Nx.Graph:Create (200, 20, UIParent)
-		g2.Frm:SetPoint ("CENTER", 0, 100)
+		g2.Frm:SetPoint ("CENTER", 0, 100)--]]
 
 	elseif cmd == "item" then
 		local id = format ("Hitem:%s", a1)
@@ -793,9 +793,9 @@ function Nx:SetupEverything()
 	Nx.Map:Open()
 	Nx.Travel:Init()
 
-	Nx.Combat:Init()
+--	Nx.Combat:Init()
 
-	Nx.Combat:Open()
+--	Nx.Combat:Open()
 
 	Nx.UEvents:Init()
 	Nx.UEvents.List:Open()
@@ -2332,7 +2332,7 @@ end
 
 --------
 -- Init combat
-
+--[[
 function Nx.Combat:Init()
 
 	self.KBs = 0
@@ -2618,7 +2618,7 @@ function Nx.Combat:SetLine (value, colorStr, infoStr)
 	local txt = string.format (L["Hit"] .. " %3.0f " .. L["Peak"] .. " "..self.HitPeak.." " .. L["Best"] .. " "..self.HitBest.." " .. L["Total"] .. " %.0f " .. L["Time"] .. " %.2f DPS %.1f", value, self.HitTotal, time, self.HitTotal / time)
 	self.Win:SetTitle (txt)
 end
-
+--]]
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
 -- User events recording and list
@@ -3583,7 +3583,7 @@ function Nx.NXMiniMapBut:Init()
 --PAIDS!
 	if not Nx.Free then
 
-		menu:AddItem (0, L["Show Combat Graph"], self.Menu_OnShowCombat, self)
+--		menu:AddItem (0, L["Show Combat Graph"], self.Menu_OnShowCombat, self)
 		menu:AddItem (0, L["Show Events"], self.Menu_OnShowEvents, self)
 		menu:AddItem (0, "", nil, self)
 
@@ -3624,10 +3624,10 @@ function Nx.NXMiniMapBut:Menu_OnShowMap()
 	Nx.Map:ToggleSize()
 end
 
-function Nx.NXMiniMapBut:Menu_OnShowCombat()
+--[[function Nx.NXMiniMapBut:Menu_OnShowCombat()
 	Nx.Combat:Open()
 end
-
+--]]
 function Nx.NXMiniMapBut:Menu_OnShowEvents()
 	Nx.UEvents.List:Open()
 end
