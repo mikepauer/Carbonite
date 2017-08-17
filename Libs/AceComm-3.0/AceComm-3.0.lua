@@ -9,7 +9,7 @@
 -- make into AceComm.
 -- @class file
 -- @name AceComm-3.0
--- @release $Id: AceComm-3.0.lua 1161 2017-08-12 14:30:16Z funkydude $
+-- @release $Id: AceComm-3.0.lua 1107 2014-02-19 16:40:32Z nevcairiel $
 
 --[[ AceComm-3.0
 
@@ -17,13 +17,14 @@ TODO: Time out old data rotting around from dead senders? Not a HUGE deal since 
 
 ]]
 
-local CallbackHandler = LibStub("CallbackHandler-1.0")
-local CTL = assert(ChatThrottleLib, "AceComm-3.0 requires ChatThrottleLib")
+local MAJOR, MINOR = "AceComm-3.0", 9
 
-local MAJOR, MINOR = "AceComm-3.0", 10
 local AceComm,oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 
 if not AceComm then return end
+
+local CallbackHandler = LibStub:GetLibrary("CallbackHandler-1.0")
+local CTL = assert(ChatThrottleLib, "AceComm-3.0 requires ChatThrottleLib")
 
 -- Lua APIs
 local type, next, pairs, tostring = type, next, pairs, tostring

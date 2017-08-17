@@ -21,7 +21,7 @@ local CreateFrame, UIParent = CreateFrame, UIParent
 ]]
 do
 	local Type = "Window"
-	local Version = 6
+	local Version = 5
 
 	local function frameOnShow(this)
 		this.obj:Fire("OnShow")
@@ -32,7 +32,7 @@ do
 	end
 	
 	local function closeOnClick(this)
-		PlaySound(PlaySoundKitID and "gsTitleOptionExit" or 799) -- SOUNDKIT.GS_TITLE_OPTION_EXIT
+		PlaySound("gsTitleOptionExit")
 		this.obj:Hide()
 	end
 	

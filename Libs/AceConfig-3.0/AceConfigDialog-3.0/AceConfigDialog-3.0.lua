@@ -1,13 +1,10 @@
 --- AceConfigDialog-3.0 generates AceGUI-3.0 based windows based on option tables.
 -- @class file
 -- @name AceConfigDialog-3.0
--- @release $Id: AceConfigDialog-3.0.lua 1161 2017-08-12 14:30:16Z funkydude $
+-- @release $Id: AceConfigDialog-3.0.lua 1139 2016-07-03 07:43:51Z nevcairiel $
 
 local LibStub = LibStub
-local gui = LibStub("AceGUI-3.0")
-local reg = LibStub("AceConfigRegistry-3.0")
-
-local MAJOR, MINOR = "AceConfigDialog-3.0", 62
+local MAJOR, MINOR = "AceConfigDialog-3.0", 61
 local AceConfigDialog, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 
 if not AceConfigDialog then return end
@@ -19,6 +16,9 @@ AceConfigDialog.frame = AceConfigDialog.frame or CreateFrame("Frame")
 AceConfigDialog.frame.apps = AceConfigDialog.frame.apps or {}
 AceConfigDialog.frame.closing = AceConfigDialog.frame.closing or {}
 AceConfigDialog.frame.closeAllOverride = AceConfigDialog.frame.closeAllOverride or {}
+
+local gui = LibStub("AceGUI-3.0")
+local reg = LibStub("AceConfigRegistry-3.0")
 
 -- Lua APIs
 local tconcat, tinsert, tsort, tremove, tsort = table.concat, table.insert, table.sort, table.remove, table.sort
@@ -703,7 +703,7 @@ local function ActivateControl(widget, event, ...)
 		else
 			-- TODO: do something else.
 		end
-		PlaySound(PlaySoundKitID and "igPlayerInviteDecline" or 882) -- SOUNDKIT.IG_PLAYER_INVITE_DECLINE || XXX _DECLINE is actually missing from the table
+		PlaySound("igPlayerInviteDecline")
 		del(info)
 		return true
 	elseif not validated then
@@ -721,7 +721,7 @@ local function ActivateControl(widget, event, ...)
 		else
 			-- TODO: do something else
 		end
-		PlaySound(PlaySoundKitID and "igPlayerInviteDecline" or 882) -- SOUNDKIT.IG_PLAYER_INVITE_DECLINE || XXX _DECLINE is actually missing from the table
+		PlaySound("igPlayerInviteDecline")
 		del(info)
 		return true
 	else

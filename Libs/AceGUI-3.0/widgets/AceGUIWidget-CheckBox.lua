@@ -1,7 +1,7 @@
 --[[-----------------------------------------------------------------------------
 Checkbox Widget
 -------------------------------------------------------------------------------]]
-local Type, Version = "CheckBox", 23
+local Type, Version = "CheckBox", 22
 local AceGUI = LibStub and LibStub("AceGUI-3.0", true)
 if not AceGUI or (AceGUI:GetWidgetVersion(Type) or 0) >= Version then return end
 
@@ -60,9 +60,9 @@ local function CheckBox_OnMouseUp(frame)
 		self:ToggleChecked()
 
 		if self.checked then
-			PlaySound(PlaySoundKitID and "igMainMenuOptionCheckBoxOn" or 856) -- SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON
+			PlaySound("igMainMenuOptionCheckBoxOn")
 		else -- for both nil and false (tristate)
-			PlaySound(PlaySoundKitID and "igMainMenuOptionCheckBoxOff" or 857) -- SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF
+			PlaySound("igMainMenuOptionCheckBoxOff")
 		end
 
 		self:Fire("OnValueChanged", self.checked)
