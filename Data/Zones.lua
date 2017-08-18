@@ -223,6 +223,7 @@ Nx.Zones = {
 	[809] = L["Kun-Lai Summit"] .. "|86|88|2|6||",
 	[810] = L["Townlong Steppes"] .. "|88|89|2|6||",
 	[811] = L["Vale of Eternal Blossoms"] .. "|90|90|2|6||",
+	[813] = L["Eye of the Storm"] .. "|0|0|3|4||",
 	[816] = L["Well of Eternity"] .. "|85|85|3|5|161|65.34|50|5",
 	[819] = L["Hour of Twilight"] .. "|85|85|3|5|161|65.34|50|5",
 	[820] = L["End Time"] .. "|85|85|3|5|161|65.34|50|5",
