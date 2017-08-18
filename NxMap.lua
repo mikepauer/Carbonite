@@ -9845,37 +9845,38 @@ function Nx.Map:ParseTargetStr (str)
 
 	local mid = Nx.Map.UpdateMapID
 
-	if zone then
+	if zone then		
 		mid = nil
---[[
-		for name, id in pairs (Nx.MapNameToId) do
-			if strlower(name) == zone then
-				mid = id
-				break
+		local cont = 0
+		local curmid = GetCurrentMapAreaID()				
+		
+		for contN = 1, Nx.Map.ContCnt do		
+			local doesExist = string.find(zone, ":" .. string.lower(Nx.Map.MapInfo[contN].Name))			
+			if doesExist then
+				zone = string.sub(zone,0,doesExist-1)
+				cont = contN
 			end
 		end
-		if not mid then
-			for name, id in pairs (Nx.MapNameToId) do
-				if strfind (strlower (name), zone, 1, true) then
-					mid = id
-					break
-				end
-			end
-		end
-]]
-		local curmid = GetCurrentMapAreaID()
+		
 		for id, zonedesc in pairs (Nx.Zones) do
 			local name = strlower (string.gsub (zonedesc, "|.*", ""))
 			if name == zone or string.sub (name, 1, #zone) == zone then
-				-- choose zone id closest to current zone id
-				if not mid or math.abs(mid - curmid) > math.abs(mid - id) then
+				if (cont > 0) and Nx.Map.MapWorldInfo[id].Cont == cont then
 					mid = id
-				end
+				elseif (cont == 0) then
+					if not mid or math.abs(mid - curmid) > math.abs(mid - id) then
+						mid = id
+					end				
+				end			
 			end
 		end
 
-		if not mid then
-			Nx.prt ("zone %s not found", zone)
+		if not mid then			
+			if cont ~= 0 then
+				Nx.prt("zone %s not found on continent %s",zone,Nx.Map.MapInfo[cont].Name)
+			else
+				Nx.prt ("zone %s not found", zone)
+			end
 			return
 		end
 	end
