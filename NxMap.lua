@@ -1591,10 +1591,6 @@ function Nx.Map:OnButToggleGuide (but)
 	self.Guide:ToggleShow()
 end
 
-function Nx.Map:OnButToggleCombat (but)
-	Nx.Combat:Open()
-end
-
 function Nx.Map:OnButToggleEvent (but)
 	Nx.UEvents.List:Open()
 end
@@ -4198,7 +4194,7 @@ function Nx.Map:Update (elapsed)
 	if Nx.InBG and Nx.InBG ~= rid then	-- Left or changed BG?
 
 --		Nx.prt ("Left BG %s", Nx.InBG)
-
+		
 		local cb = Nx.Combat
 
 		if Nx.InArena then
