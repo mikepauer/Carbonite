@@ -842,7 +842,7 @@ function Nx:InitEvents()
 		"CHAT_MSG_CHANNEL_LEAVE", Com.OnChatEvent,
 		"CHAT_MSG_CHANNEL", Com.OnChat_msg_channel,
 
-		"CHANNEL_ROSTER_UPDATE", Com.OnChannel_roster_update,
+--		"CHANNEL_ROSTER_UPDATE", Com.OnChannel_roster_update,
 
 		"CHAT_MSG_BG_SYSTEM_NEUTRAL", Nx.OnChat_msg_bg_system_neutral,
 
