@@ -2665,7 +2665,7 @@ function Nx.Map:Menu_OnScaleRestore()
 end
 
 function Nx:NXMapKeyScaleRestore()
-	local map = self.Map:GetMap (1)
+	local map = Nx.Map:GetMap (1)
 	map:Menu_OnScaleRestore()
 end
 
