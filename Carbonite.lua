@@ -2117,7 +2117,7 @@ function Nx.Title:TickWait2 (proc)
 --	Nx.prt ("Y %s", self.Y)
 
 	if Nx.db.profile.General.TitleSoundOn then
-		PlaySound ("ReadyCheck")
+		PlaySound (SOUNDKIT.READY_CHECK)
 	end
 
 	Nx.Proc:SetFunc (proc, self.Tick)
