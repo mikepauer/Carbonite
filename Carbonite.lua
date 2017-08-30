@@ -25,10 +25,11 @@ local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite")
 Nx.WebSite = "wowinterface.com"
 NXTITLEFULL = L["Carbonite"]
 
-Nx.VERMAJOR			= 7.0
-Nx.VERMINOR			= .3				-- Not 0 is a test version
+Nx.VERMAJOR			= 7.2
+Nx.VERMINOR			= .5				-- Not 0 is a test version
 Nx.BUILD			= "$Format:%h$"
-if Nx.BUILD:find("Format:%h", 1, true) then Nx.BUILD = "0" end
+if Nx.BUILD:find("Format:%h", 1, true) then Nx.BUILD = string.sub("@project-revision@", 0, 7) end
+if Nx.BUILD:find("project-revision", 1, true) then Nx.BUILD = "0" end
 
 Nx.VERSION			= Nx.VERMAJOR + Nx.VERMINOR / 100
 
@@ -64,6 +65,7 @@ BINDING_NAME_NxMAPTOGTIMBER	= L["NxMAPTOGTIMBER"]
 
 Nx.Tick = 0
 
+Nx.Combat = {}
 Nx.Font = {}
 Nx.Skin = {}
 Nx.Window = {}
@@ -98,7 +100,6 @@ Nx.Travel = {}
 
 Nx.Title = {}
 Nx.AuctionAssist = {}
-Nx.Combat = {}
 
 Nx.UEvents = {}
 Nx.UEvents.List = {}
@@ -418,6 +419,7 @@ local defaults = {
 			InstanceBossSize = 32,
 			InstancePlayerSize = 24,
 			InstanceGroupSize = 24,
+			InstanceScale = 16,
 		},
 		MiniMap = {
 			AboveIcons = false,
@@ -494,7 +496,6 @@ Nx.BrokerMenuTemplate = {
 	{ text = "Carbonite", icon = icon, isTitle = true },
 	{ text = L["Options"], func = function() Nx.Opts:Open() end },
 	{ text = L["Toggle Map"], func = function() Nx.Map:ToggleSize(0) end },
-	{ text = L["Toggle Combat Graph"], func = function() Nx.Combat:Open() end },
 	{ text = L["Toggle Events"], func = function() Nx.UEvents.List:Open() end },
 }
 
@@ -657,9 +658,6 @@ function Nx.slashCommand (txt)
 	elseif cmd == "addopen" then
 		UEvents:AddOpen (a1, a2)
 
-	elseif cmd == "c" then
-		Nx.Combat:Open()
-
 	elseif cmd == "cap" then
 		Nx.CaptureItems()
 
@@ -689,12 +687,6 @@ function Nx.slashCommand (txt)
 
 	elseif cmd == "events" then
 		UEvents.List:Open()
-
-	elseif cmd == "g" then
-		Nx.Graph:Create (20, 50, UIParent)
-
-		local g2 = Nx.Graph:Create (200, 20, UIParent)
-		g2.Frm:SetPoint ("CENTER", 0, 100)
 
 	elseif cmd == "item" then
 		local id = format ("Hitem:%s", a1)
@@ -791,10 +783,6 @@ function Nx:SetupEverything()
 	Nx.Map:Open()
 	Nx.Travel:Init()
 
-	Nx.Combat:Init()
-
-	Nx.Combat:Open()
-
 	Nx.UEvents:Init()
 	Nx.UEvents.List:Open()
 
@@ -854,7 +842,7 @@ function Nx:InitEvents()
 		"CHAT_MSG_CHANNEL_LEAVE", Com.OnChatEvent,
 		"CHAT_MSG_CHANNEL", Com.OnChat_msg_channel,
 
-		"CHANNEL_ROSTER_UPDATE", Com.OnChannel_roster_update,
+--		"CHANNEL_ROSTER_UPDATE", Com.OnChannel_roster_update,
 
 		"CHAT_MSG_BG_SYSTEM_NEUTRAL", Nx.OnChat_msg_bg_system_neutral,
 
@@ -2129,7 +2117,7 @@ function Nx.Title:TickWait2 (proc)
 --	Nx.prt ("Y %s", self.Y)
 
 	if Nx.db.profile.General.TitleSoundOn then
-		PlaySound ("ReadyCheck")
+		PlaySound (8960)
 	end
 
 	Nx.Proc:SetFunc (proc, self.Tick)
@@ -2320,301 +2308,6 @@ function Nx.AuctionAssist.AuctionFrameBrowse_Update()
 	if lowName then
 		lowIName:SetText (format ("%s * low", lowName))
 	end
-end
-
---PAIDE!
-
--------------------------------------------------------------------------------
--------------------------------------------------------------------------------
--- Combat
-
---------
--- Init combat
-
-function Nx.Combat:Init()
-
-	self.KBs = 0
-	self.Deaths = 0
-	self.HKs = 0
-	self.Honor = 0
-	self.DamDone = 0
-	self.HealDone = 0
-
-	self.Frm = nil
-	self.HitPeak = 1
-	self.HitTotal = 0
-	self.HitBest = 0
-	self.W = 400
-	self.H = 80
-	self.InCombat = false
-	self.AttackerName = "?"
-end
-
---------
--- Open and init or toggle combat frame
-
-function Nx.Combat:Open()
-
---PAIDS!
-
-	local win = self.Win
-
-	if win then
-		if win:IsShown() then
-			win:Show (false)
-		else
-			win:Show()
-		end
-		return
-	end
-
-
-	self.EventTable = {
-	}
-
-	local win = Nx.Window:Create ("NxCombat", nil, nil, nil, nil, nil, true)
-	self.Win = win
-
-	win:InitLayoutData (nil, -.7, -.7, -.3, -.06)
-
-	win:CreateButtons (true)
-
-	-- Create frame
-
-	local f = CreateFrame ("Frame", nil, UIParent)
-	self.Frm = f
-	f.NxCombat = self
-
-	win:Attach (f, 0, 1, 0, 1)
-
-	f:SetScript ("OnEvent", self.OnEvent)
-
-	f:RegisterEvent ("COMBAT_LOG_EVENT_UNFILTERED")
-	f:RegisterEvent ("CHAT_MSG_COMBAT_XP_GAIN")
-	f:RegisterEvent ("CHAT_MSG_COMBAT_HONOR_GAIN")
-	f:RegisterEvent ("CHAT_MSG_LOOT")
-	f:RegisterEvent ("PLAYER_REGEN_DISABLED")
-	f:RegisterEvent ("PLAYER_REGEN_ENABLED")
-
-	for k, v in pairs (self.EventTable) do
-		f:RegisterEvent (k)
-	end
-
-	f:RegisterEvent ("PLAYER_DEAD")
-
-	f:SetScript ("OnUpdate", self.OnUpdate)
-
-	f:SetScript ("OnEnter", self.OnEnter)
-	f:SetScript ("OnLeave", self.OnEnter)
-	f:EnableMouse (true)
-
-	f:SetFrameStrata ("MEDIUM")
-
-	local t = f:CreateTexture()
-	t:SetColorTexture (.2, .2, .2, .5)
-	t:SetAllPoints (f)
-	f.texture = t
-
-	f:Show()
-
-	self:OpenGraph()
-
-end
-
-function Nx.Combat:OpenGraph()
-	self.GraphHits = Nx.Graph:Create (self.W, 50, self.Frm)
-	local f = self.GraphHits.MainFrm
-	self.Win:Attach (f, 0, 1, 0, 1)
-end
-
---------
-
-function Nx.Combat:OnEvent (event, ...)
-
-	local arg1, arg2, arg3 = select (1, ...)
-
-	local Combat = Nx.Combat
-	local UEvents = Nx.UEvents
-	local prtD = Nx.prtD
-	if event == "COMBAT_LOG_EVENT_UNFILTERED" then
-
-		local OBJ_AFFILIATION_MINE = 1
-		local OBJ_TYPE_PET			= 0x00001000
-		local OBJ_TYPE_GUARDIAN		= 0x00002000
-
-		local time, cEvent, _hideCaster, sId, sName, sFlags, sf2, dId, dName, dFlags, df2, a1, a2, a3, a4 = select (1, ...)
-		local pre, mid, post = Nx.Split ("_", cEvent)
-		if not post then
-			post = mid
-		end
-
-		if bit.band (sFlags, OBJ_AFFILIATION_MINE) > 0 then
-
-			local spellId, spellName, spellSchool
-			local i = 12
-
-			if pre ~= "SWING" then
-				spellId, spellName, spellSchool = select (12, ...)
-				i = 15
-			end
-
-			local amount, school, resist, block, absorb, crit = select (i, ...)
-
-			if post == "DAMAGE" then
-
-				local v = amount
-
-				local hitStr = crit and "|cffff00ff" .. L["crit"] or L["hit"]
-
-				if spellName then
-					hitStr = spellName
-					if mid == "PERIODIC" then
-						hitStr = spellName .. " dot"
-					end
-					if crit then
-						hitStr = hitStr .. " |cffff00ff" .. L["crit"]
-					end
-				end
-				local s = format ("|cff00ff00%s|r %s |cffff0000'%s'|r %d", sName or "?", hitStr, dName, amount)
-
-				if bit.band (sFlags, OBJ_TYPE_PET + OBJ_TYPE_GUARDIAN) > 0 then
-					if pre == "SPELL" then
-						if crit then
-							Combat:SetLine (v, "e0a000", s)
-						else
-							Combat:SetLine (v, "906000", s)
-						end
-					else
-						if crit then
-							Combat:SetLine (v, "e0a0a0", s)
-						else
-							Combat:SetLine (v, "806060", s)
-						end
-					end
-				else
-					if pre == "SPELL" then
-						if crit then
-							Combat:SetLine (v, "e0e000", s)
-						else
-							Combat:SetLine (v, "909000", s)
-						end
-					else
-						if crit then
-							Combat:SetLine (v, "e0e0e0", s)
-						else
-							Combat:SetLine (v, "808080", s)
-						end
-					end
-				end
-
-			elseif cEvent == "PARTY_KILL" then
-
-				Combat:SetLine (-1, "e02020", L["Killed"] .. " " .. dName)
-				UEvents:AddKill (dName)
-			end
-
-		elseif bit.band (dFlags, OBJ_AFFILIATION_MINE) > 0 then
-
-			if post == "DAMAGE" and sName then
-				Combat.AttackerName = sName
-			end
-		end
-	elseif event == "CHAT_MSG_COMBAT_XP_GAIN" then
-		local s1, s2, name = strfind (arg1, "gain (%d+) ex")
-		if s1 then
-			Combat:SetLine (-1, "20e020", arg1)
-			UEvents:AddInfo ("+"..name.." xp")
-		end
-	elseif event == "CHAT_MSG_COMBAT_HONOR_GAIN" then
-		local s1, s2, val = strfind (arg1, "(%d*%.%d+) %aonor")	--V4
-		if s1 then
-			UEvents:AddHonor ("+".. val .." " .. L["honor"])
-			return
-		end
-
-		local s1, s2, name = strfind (arg1, "(%d+) %aonor")
-		if s1 and name ~= "0" then
-			UEvents:AddHonor ("+"..name.." " .. L["honor"])
-		end
-
-	elseif event == "CHAT_MSG_LOOT" then
-		local s1, s2 = strfind (arg1, "Honor Points%.")	--V4
-		if s1 then
-			UEvents:AddHonor ("+1 " .. L["honor"])
-			return
-		end
-
-		local s1, s2, val = strfind (arg1, "Honor Points x(%d+)")	--V4
-		if s1 then
-			UEvents:AddHonor ("+" .. val .. " " .. L["honor"])
-			return
-		end
-
-	elseif event == "PLAYER_REGEN_DISABLED" then
-		Combat:EnterCombat()
-
-	elseif event == "PLAYER_REGEN_ENABLED" then
-		Combat.InCombat = false
-
-	elseif event == "PLAYER_DEAD" then
-		UEvents:AddDeath (Combat.AttackerName)
-
-	else
-		if Combat.EventTable[event] then
-			Combat.EventTable[event] (Combat, arg1)
-		end
-
-	end
-end
-
-function Nx.Combat:OnUpdate (...)
-
-end
-
-function Nx.Combat:OnEnter (motion)
-
-end
-
---------
--- Start combat
-
-function Nx.Combat:EnterCombat (value)
-
-	if not self.InCombat then
-		self.InCombat = true
-		self.HitPeak = 10
-		self.HitTotal = 0
-		self.TimeStart = GetTime()
-
-		self.GraphHits:Clear()
-		self.GraphHits:SetPeak (self.HitPeak)
-	end
-end
-
---------
--- Set a new graph line to value
-
-function Nx.Combat:SetLine (value, colorStr, infoStr)
-
-	self:EnterCombat()
-
-	if value > self.HitPeak then
-		self.HitPeak = value
-		self.GraphHits:SetPeak (self.HitPeak)
-	end
-
-	self.HitTotal = self.HitTotal + value
-
-	if value > self.HitBest then
-		self.HitBest = value
-	end
-
-	local time = GetTime() - self.TimeStart + .001		-- Dont allow zero
-
-	self.GraphHits:SetLine (time, value, colorStr, infoStr)
-
-	local txt = string.format (L["Hit"] .. " %3.0f " .. L["Peak"] .. " "..self.HitPeak.." " .. L["Best"] .. " "..self.HitBest.." " .. L["Total"] .. " %.0f " .. L["Time"] .. " %.2f DPS %.1f", value, self.HitTotal, time, self.HitTotal / time)
-	self.Win:SetTitle (txt)
 end
 
 -------------------------------------------------------------------------------
@@ -3577,16 +3270,8 @@ function Nx.NXMiniMapBut:Init()
 	self.Menu = menu
 	menu:AddItem (0, L["Options"], self.Menu_OnOptions, self)
 	menu:AddItem (0, L["Show Map"], self.Menu_OnShowMap, self)
-
---PAIDS!
-	if not Nx.Free then
-
-		menu:AddItem (0, L["Show Combat Graph"], self.Menu_OnShowCombat, self)
-		menu:AddItem (0, L["Show Events"], self.Menu_OnShowEvents, self)
-		menu:AddItem (0, "", nil, self)
-
-	end
---PAIDE!
+	menu:AddItem (0, L["Show Events"], self.Menu_OnShowEvents, self)
+	menu:AddItem (0, "", nil, self)
 
 	local item = menu:AddItem (0, L["Show Auction Buyout Per Item"], self.Menu_OnShowAuction, self)
 	item:SetChecked (false)
@@ -3620,10 +3305,6 @@ end
 
 function Nx.NXMiniMapBut:Menu_OnShowMap()
 	Nx.Map:ToggleSize()
-end
-
-function Nx.NXMiniMapBut:Menu_OnShowCombat()
-	Nx.Combat:Open()
 end
 
 function Nx.NXMiniMapBut:Menu_OnShowEvents()

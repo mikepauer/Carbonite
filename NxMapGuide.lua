@@ -726,7 +726,7 @@ function Nx.Map.Guide:OnListEventDo (list, eventName, sel, val2, click)
 						map:GotoPlayer()
 					end
 				else
-					PlaySound ("igPlayerInviteDecline")
+					PlaySound (882)
 				end
 			end
 		end
@@ -1447,9 +1447,7 @@ function Nx.Map.Guide:UpdateMapGeneralIcons (cont, showType, hideFac, tx, name, 
 	if cont >= 9 then
 		return
 	end
-	if Nx.Map:IsInstanceMap(Nx.Map:GetRealMapId()) then
-		return
-	end
+
 	local Map = Nx.Map
 	local map = self.Map
 	if not Nx.GuideData[showType] then
@@ -1537,8 +1535,6 @@ function Nx.Map.Guide:UpdateZonePOIIcons()
 	local alphaRange = atScale * .25
 	local s = atScale - alphaRange
 	local draw = map.ScaleDraw > s and Nx.db.profile.Map.ShowPOI
-	if Nx.Map:IsMicroDungeon(mapId) then draw = false end
-	if Nx.Map:IsInstanceMap(Nx.Map:GetRealMapId()) then	draw = false end
 	local alpha = min ((map.ScaleDraw - s) / alphaRange, 1) * Nx.db.profile.Map.IconPOIAlpha
 	map:SetIconTypeAlpha ("!POI", alpha)
 	map:SetIconTypeAlpha ("!CUSTOM", alpha)
@@ -1593,7 +1589,7 @@ function Nx.Map.Guide:UpdateInstanceIcons (cont)
 			if winfo and winfo.EntryMId == map.MapId then
 				local wx = winfo.X
 				local wy = winfo.Y
-				local icon = map:AddIconPt ("!POIIn", wx, wy, level, nil, "Interface\\Icons\\INV_Misc_ShadowEgg")
+				local icon = map:AddIconPt ("!POIIn", wx, wy, 0, nil, "Interface\\Icons\\INV_Misc_ShadowEgg")				
 				map:SetIconTip (icon, folder.InstTip)
 				map:SetIconUserData (icon, folder.InstMapId)
 			end
@@ -1609,8 +1605,6 @@ function Nx.Map.Guide:UpdateCustomIcons()
 	local map = self.Map
 	local mapId = map:GetCurrentMapId()
 	if not mapId then return end
-	if Nx.Map:IsMicroDungeon(mapId) then return end
-	if Nx.Map:IsInstanceMap(Nx.Map:GetRealMapId()) then	return end
 	if not Nx.CustomIcons then return end
 	if not Nx.CustomIcons[map.MapId] then return end
 	for a,b in pairs(Nx.CustomIcons[map.MapId]) do
