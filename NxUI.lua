@@ -61,7 +61,7 @@ end
 function Nx.prtStack (str)
 	local s = debugstack (2, 3, 2)
 	s = gsub (s, "Interface\\AddOns\\", "")
-	Nx.prt ("%s: %s", str, s)
+	Nx.prtD ("%s: %s", str, s)
 end
 
 ---------------------------------------------------------------------------------------
