@@ -845,8 +845,6 @@ function Nx:InitEvents()
 		"CHAT_MSG_CHANNEL_LEAVE", Com.OnChatEvent,
 		"CHAT_MSG_CHANNEL", Com.OnChat_msg_channel,
 
-		"CHAT_MSG_BG_SYSTEM_NEUTRAL", Nx.OnChat_msg_bg_system_neutral,
-
 		"AUCTION_HOUSE_SHOW", Nx.AuctionAssist.OnAuction_house_show,
 		"AUCTION_HOUSE_CLOSED", Nx.AuctionAssist.OnAuction_house_closed,
 		"AUCTION_ITEM_LIST_UPDATE", Nx.AuctionAssist.OnAuction_item_list_update,
