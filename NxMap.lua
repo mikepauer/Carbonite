@@ -7625,9 +7625,7 @@ function Nx.Map:AddIconPt (iconType, x, y, level, color, texture, tx1, ty1, tx2,
 
 	local tdata = d[iconType]
 	tdata.Num = tdata.Num + 1 -- Use # instead??	
-	if iconType == "!Ga" then
-		Nx.prt(tdata.Num)
-	end
+
 	local icon = {}
 	tdata[tdata.Num] = icon
 
