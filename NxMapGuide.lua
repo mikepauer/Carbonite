@@ -735,7 +735,7 @@ function Nx.Map.Guide:OnListEventDo (list, eventName, sel, val2, click)
 						map:GotoPlayer()
 					end
 				else
-					PlaySound ("igPlayerInviteDecline")
+					PlaySound (882)
 				end
 			end
 		end

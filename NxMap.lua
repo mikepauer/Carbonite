@@ -9328,7 +9328,7 @@ end
 function Nx.Map:IdToContZone (mapId)
 	local info = self.MapWorldInfo[mapId]
 	if not info then
-		Nx.prt("IdToCont Err " .. mapId)
+		Nx.prtD("IdToCont Err " .. mapId)
 		return 90, 0
 	end
 	return info.Cont or 90, info.Zone or 0
