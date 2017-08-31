@@ -610,15 +610,13 @@ function Nx.Map:Create (index)
 	WorldMap_HijackTooltip(m.Frm)
 	
 	win:Attach (f, 0, 1, 0, 1)
-
---	win:RegisterEvent ("PLAYER_LOGIN", self.OnEvent)
---	win:RegisterEvent ("PLAYER_ENTERING_WORLD", self.OnEvent)
-	win:RegisterEvent ("WORLD_MAP_UPDATE", self.OnEvent)
-	win:RegisterEvent ("PLAYER_REGEN_DISABLED", self.OnEvent)
-	win:RegisterEvent ("PLAYER_REGEN_ENABLED", self.OnEvent)
-	win:RegisterEvent ("ZONE_CHANGED", self.OnEvent)
-	win:RegisterEvent ("ZONE_CHANGED_INDOORS", self.OnEvent)
-	win:RegisterEvent ("ZONE_CHANGED_NEW_AREA", self.OnEvent)
+	LibStub("AceEvent-3.0"):Embed(Nx.Map)
+	Nx.Map:RegisterEvent ("WORLD_MAP_UPDATE", "OnEvent")
+	Nx.Map:RegisterEvent ("PLAYER_REGEN_DISABLED", "OnEvent")
+	Nx.Map:RegisterEvent ("PLAYER_REGEN_ENABLED", "OnEvent")
+	Nx.Map:RegisterEvent ("ZONE_CHANGED", "OnEvent")
+	Nx.Map:RegisterEvent ("ZONE_CHANGED_INDOORS", "OnEvent")
+	Nx.Map:RegisterEvent ("ZONE_CHANGED_NEW_AREA", "OnEvent")
 
 	f:SetScript ("OnMouseDown", self.OnMouseDown)
 	f:SetScript ("OnMouseUp", self.OnMouseUp)
@@ -1630,6 +1628,7 @@ function Nx.Map:InitFrames()
 		{ 1,1,1,1, 1,1,1,1, 1,1,1,1 },
 		{ 1,1,1,1, 1,1,1,1, 1,1,1,1 },
 		{ 1,1,1,1, 1,1,1,1, 1,1,1,1 },		
+		{ 1,1,1,1, 1,1,1,1, 1,1,1,1 },
 	}
 
 	self.ContFrms = {}
@@ -1831,8 +1830,6 @@ function Nx.Map:MinimapOwnInit()
 	mm:SetMaskTexture ("textures\\MinimapMask")
 	self:MinimapNodeGlowInit()
 	Nx.Map:MinimapButtonShowUpdate (true)
-
---	self.Win:RegisterEvent ("MINIMAP_UPDATE_ZOOM", self.OnEvent)
 
 	mm:SetClampedToScreen (true)
 	mm:SetWidth (140)
@@ -2654,11 +2651,11 @@ function Nx.Map:Menu_OnScaleSave()
 end
 
 function Nx.Map:Menu_OnScaleRestore()
-	local s = self.CurOpts.NXScaleSave
+	local s = Nx.Map:GetMap(1).CurOpts.NXScaleSave
 	if s then
-		self.Scale = s
-		self.RealScale = s
-		self.StepTime = 10
+		Nx.Map:GetMap(1).Scale = s
+		Nx.Map:GetMap(1).RealScale = s
+		Nx.Map:GetMap(1).StepTime = 10
 	else
 		Nx.prt ("Scale not set")
 	end
@@ -3430,35 +3427,36 @@ end
 -- self = map table
 
 function Nx.Map:OnEvent (event, ...)
-	local this = self.Win.Frm
 --	Nx.prtVar ("Map Event", self)
 --	Nx.prt ("Map Event %s", event)
-
+	local map = Nx.Map:GetMap (1)
 	if event == "WORLD_MAP_UPDATE" then
-		if this:IsVisible() then
-			this.NxMap:UpdateAll()
+		if not map.Win then
+			return
+		end		
+		if map.Win.Frm:IsVisible() then
+			map:UpdateAll()
 		end
 	elseif event == "PLAYER_REGEN_DISABLED" then
-		local map = self:GetMap (1)
 		local win = map.Win
 		if (Nx.db.profile.Map.HideCombat and win:IsSizeMax()) then
-			this:Hide()
+			map.Win.Frm:Hide()
 		end
-		self.Arch:Hide()
-		self.QuestWin:Hide()
-		self.Arch:SetParent(nil)
-		self.QuestWin:SetParent(nil)
-		self.Arch:ClearAllPoints()
-		self.QuestWin:ClearAllPoints()
+		map.Arch:Hide()
+		map.QuestWin:Hide()
+		map.Arch:SetParent(nil)
+		map.QuestWin:SetParent(nil)
+		map.Arch:ClearAllPoints()
+		map.QuestWin:ClearAllPoints()
 	elseif event == "PLAYER_REGEN_ENABLED" then
-		self.Arch:SetParent(this.NxMap.TextScFrm:GetScrollChild())		
-		self.QuestWin:SetParent(this.NxMap.TextScFrm:GetScrollChild())		
-		self.Arch:Show()
-		self.QuestWin:Hide()
+		map.Arch:SetParent(map.TextScFrm:GetScrollChild())		
+		map.QuestWin:SetParent(map.TextScFrm:GetScrollChild())		
+		map.Arch:Show()
+		map.QuestWin:Hide()
 	elseif event == "ZONE_CHANGED_NEW_AREA" then
 		-- DETECT EXIT INSTANCE
 		if Nx.Map.NInstMapId then 
-			self:Menu_OnScaleRestore()
+			Nx.Map:Menu_OnScaleRestore()
 			Nx.Map.NInstMapId = nil
 			Nx.Map:HideNewPlrFrame()
 		end
@@ -4068,10 +4066,8 @@ function Nx.Map:UpdateWorld()
 	end
 
 	self.NeedWorldUpdate = false
-	if not Nx.Map.MouseOver then	
-		NxMap1:UnregisterEvent("WORLD_MAP_UPDATE")
-		SetMapToCurrentZone()
-		NxMap1:RegisterEvent("WORLD_MAP_UPDATE", self.OnEvent)
+	if not Nx.Map.MouseOver then			
+		SetMapToCurrentZone()		
 	end
 	local mapId = self:GetCurrentMapId()
 	local winfo = self.MapWorldInfo[mapId]
@@ -6322,10 +6318,10 @@ function Nx.Map:UpdateZones()
 	local freeOrScale = self.ScaleDraw <= s
 
 	if freeOrScale or
-		winfo.City or
+		winfo.City or winfo.NoTilemap or 
 		(winfo.StartZone and Nx.Map.UpdateMapID == mapId) or
 		self:IsBattleGroundMap (Nx.Map.UpdateMapID) or
-		self:IsMicroDungeon(Nx.Map.UpdateMapID) then
+		self:IsMicroDungeon(Nx.Map.UpdateMapID)  then
 
 --		if freeOrScale and self.MapIdOld and self.MapIdOld ~= mapId then
 --			self:UpdateOverlay (id, .8, true)
@@ -7628,8 +7624,10 @@ function Nx.Map:AddIconPt (iconType, x, y, level, color, texture, tx1, ty1, tx2,
 	assert (d[iconType])
 
 	local tdata = d[iconType]
-	tdata.Num = tdata.Num + 1		-- Use # instead??
-
+	tdata.Num = tdata.Num + 1 -- Use # instead??	
+	if iconType == "!Ga" then
+		Nx.prt(tdata.Num)
+	end
 	local icon = {}
 	tdata[tdata.Num] = icon
 
@@ -8718,7 +8716,7 @@ function Nx.Map:InitTables()
 	--V403
 
 	Nx.Map.MapZones = {
-		 [0] = {13,14,466,485,751,862,962,1007,0,-1},
+		 [0] = {13,14,466,485,751,862,962,1007,1184,0,-1},
 		 [1] = {772,894,43,181,464,476,890,42,381,101,4,141,891,182,121,795,241,606,9,11,321,888,261,607,81,161,41,471,61,362,720,201,889,281},
 		 [2] = {614,16,17,19,29,866,32,892,27,34,23,30,462,463,545,611,24,341,499,610,35,895,37,864,36,684,685,28,615,480,21,301,689,893,38,673,26,502,20,708,709,700,382,613,22,39,40},
 		 [3] = {475,465,477,479,473,481,478,467},
@@ -8727,6 +8725,7 @@ function Nx.Map:InitTables()
 		 [6] = {858,929,928,857,809,905,903,806,873,808,951,810,811,807},
 		 [7] = {978,941,976,949,971,950,947,948,1009,946,945,970,1011},
 		 [8] = {1014,1015,1017,1018,1021,1024, 1028, 1033, 1080},
+		 [9] = {1135,1170,1171},
 		 [90] = {401,461,482,540,860,512,856,736,626,443,935,1010},
 		 [100] = {},
 	}
@@ -8743,9 +8742,13 @@ function Nx.Map:InitTables()
 	self.ZoneOverlays["lakewintergrasp"]["lakewintergrasp"] = "0,0,1024,768"
 
 	-- Support maps with multiple level
-
-	self.ContCnt = 8
-	continentNums = { 1, 2, 3, 4, 5, 6, 7, 8, 90 }
+    local _,_,_,buildversion = GetBuildInfo()
+		if buildversion < 70300 then
+			self.ContCnt = 8
+		else
+			self.ContCnt = 9
+	end
+	continentNums = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 90 }
 	for n = 1, 1999 do
 		local winfo = worldInfo[mapId]
 		if not winfo then
@@ -8877,12 +8880,14 @@ function Nx.Map:InitTables()
 		-- 1 Kalimdor
 		-- 2 EasternKingdoms
 		-- 3 Outland
-		-- 4 Battleground
-		-- 5 Dungeon
-		-- 6 Raid					-- OLD
-		-- 7 Northrend
-		-- 8 The Maelstrom
-		-- 9 Unknown
+		-- 4 Northrend
+		-- 5 Maelstorm
+		-- 6 Pandaria
+		-- 7 Draenor
+		-- 8 Broken Isles
+		-- 9 Argus
+		-- 99 Battlegrounds
+		-- 100 Instances
 
 		if faction == "3" and cont == "5" then		-- Instance
 
@@ -8922,8 +8927,7 @@ function Nx.Map:InitTables()
 				ey = ey + self.MapWorldInfo[mid].Y
 			end
 
---			Nx.prt ("Inst %s %s, %s %s %f %f", name, mid, ename, emid or "nil", ex, ey)
-
+--			Nx.prt ("Inst %s %s, %s %s %f %f", name, mid, ename, emid or "nil", ex, ey)			
 			local x, y = self:GetWorldPos (emid, ex, ey)
 
 --			Nx.prt ("Inst %s %d, %d %f %f", name, mid, emid, x, y)
@@ -9444,11 +9448,11 @@ end
 -- Get world info for a continent and zone
 -- (cont #, zone #)
 
-function Nx.Map:GetWorldZoneInfo (cont, zone)
+function Nx.Map:GetWorldZoneInfo (cont, zone)	
 	if not cont or not zone then
 		return "unknown", 0, 0, 1002, 668
 	end
-	local name = GetMapNameByID(zone)
+	local name = GetMapNameByID(zone) or "Unknown Zone"
 --	local cont = self.MapWorldInfo[zone].Cont
 	local info = self.MapInfo[cont]
 	if not info then

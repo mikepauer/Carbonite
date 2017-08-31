@@ -2759,21 +2759,6 @@ function Nx.Window:SetUser (user, func)
 end
 
 ---------------------------------------------------------------------------------------
--- Register for event and set event handler
--- (event name, handler to call)
----------------------------------------------------------------------------------------
-
-function Nx.Window:RegisterEvent (event, handler)
-	self.Frm:RegisterEvent (event)
-
-	if not self.Events then
-		self.Events = {}
-	end
-
-	self.Events[event] = handler
-end
-
----------------------------------------------------------------------------------------
 -- Register for hide notify
 ---------------------------------------------------------------------------------------
 
