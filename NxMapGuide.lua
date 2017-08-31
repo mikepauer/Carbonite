@@ -34,6 +34,7 @@ Nx.GuideAbr = {
 	["P"] = L["Pandaria"],
 	["D"] = L["Draenor"],
 	["B"] = L["Broken Isles"],
+	["A"] = L["Argus"],
 }
 Nx.GuideInfo = {
 	Name = L["All"],
@@ -347,6 +348,10 @@ Nx.GuideInfo = {
 			Name = "@B",
 			Inst = 8
 		},
+		{
+			Name = "@A",
+			Inst = 9
+		},
 	},
 	{
 		Name = L["Zone"],
@@ -387,6 +392,10 @@ Nx.GuideInfo = {
 			Name = "@B",
 			Map = 8
 		},
+		{
+			Name = "@A",
+			Map = 9
+		},		
 	},
 	{
 		Name = L["Trade Skill"],
@@ -887,19 +896,15 @@ function Nx.Map.Guide:PatchFolder (folder, parent)
 			folder[a] = f
 		end
 	elseif folder.Map then
-		if folder.Map == 4 and not Nx.V30 then
-			parent[5] = nil
-			return
-		end
 		local Map = Nx.Map
 		local cont1 = folder.Map
 		local cont2 = cont1
 		if cont1 == 0 then
 			cont1 = 1
-			cont2 = Map.ContCnt
+			cont2 = Map.ContCnt			
 		end
-		for cont = cont1, cont2 do
-			for _,id in pairs(Nx.Map.MapZones[cont]) do
+		for cont = cont1, cont2 do			
+			for _,id in pairs(Nx.Map.MapZones[cont]) do				
 				local f = {}
 				local color, infoStr, minLvl = Map:GetMapNameDesc (id)
 				local name = Map:IdToName (id)
@@ -1930,7 +1935,7 @@ function Nx.Map.Guide:CaptureNPC (data)
 	local facI = UnitFactionGroup ("player") == "Horde" and 1 or 0
 	npcs[name] = format ("%s^%d^%s", self.PlayerNPCTargetPos, facI, data)
 end
-function Nx.Map.Guide.OnMerchant_show()
+function Nx.Map.Guide.OnMerchant_show()	
 	local self = Nx.Map.Guide
 	self:SavePlayerNPCTarget()
 	self.VendorRepair = CanMerchantRepair()

@@ -2937,7 +2937,20 @@ local function guidegatherConfig ()
 							set = function()
 								Nx.db.profile.Guide.ShowHerbs[76] = not Nx.db.profile.Guide.ShowHerbs[76]
 							end,
-						},						
+						},
+						astralglory = {
+							order = 79,
+							type = "toggle",
+							width = "full",
+							name = L["Astral Glory"], 
+							desc = L["Display"] .. " " .. L["Astral Glory"] .. " " .. L["Nodes On Map"],
+							get = function()
+								return Nx.db.profile.Guide.ShowHerbs[77]
+							end,
+							set = function()
+								Nx.db.profile.Guide.ShowHerbs[77] = not Nx.db.profile.Guide.ShowHerbs[77]
+							end,
+						},							
 					},
 				},
 				MinesDisp = {
@@ -3604,17 +3617,43 @@ local function guidegatherConfig ()
 								Nx.db.profile.Guide.ShowMines[49] = not Nx.db.profile.Guide.ShowMines[49]
 							end,
 						},
-						infernalbrimstone = {
+						empyrium = {
 							order = 52,
 							type = "toggle",
 							width = "full",
-							name = L["Infernal Brimstone"],
-							desc = L["Display"] .. " " .. L["Infernal Brimstone"] .. " " .. L["Nodes On Map"],
+							name = L["Empyrium Deposit"],
+							desc = L["Display"] .. " " .. L["Empyrium Deposit"] .. " " .. L["Nodes On Map"],
 							get = function()
 								return Nx.db.profile.Guide.ShowMines[50]
 							end,
 							set = function()
 								Nx.db.profile.Guide.ShowMines[50] = not Nx.db.profile.Guide.ShowMines[50]
+							end,
+						},
+						richempyrium = {
+							order = 53,
+							type = "toggle",
+							width = "full",
+							name = L["Rich Empyrium Deposit"],
+							desc = L["Display"] .. " " .. L["Rich Empyrium Deposit"] .. " " .. L["Nodes On Map"],
+							get = function()
+								return Nx.db.profile.Guide.ShowMines[51]
+							end,
+							set = function()
+								Nx.db.profile.Guide.ShowMines[51] = not Nx.db.profile.Guide.ShowMines[51]
+							end,
+						},
+						empyriumseam = {
+							order = 54,
+							type = "toggle",
+							width = "full",
+							name = L["Empyrium Seam"],
+							desc = L["Display"] .. " " .. L["Empyrium Seam"] .. " " .. L["Nodes On Map"],
+							get = function()
+								return Nx.db.profile.Guide.ShowMines[52]
+							end,
+							set = function()
+								Nx.db.profile.Guide.ShowMines[52] = not Nx.db.profile.Guide.ShowMines[52]
 							end,
 						},						
 					},

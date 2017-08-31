@@ -19,14 +19,14 @@
 ---------------------------------------------------------------------------------------
 local _G = getfenv(0)
 
-Nx = LibStub("AceAddon-3.0"):NewAddon("Carbonite","AceConsole-3.0", "AceEvent-3.0", "AceTimer-3.0", "AceComm-3.0")
+Nx = LibStub("AceAddon-3.0"):NewAddon("Carbonite","AceConsole-3.0", "AceTimer-3.0", "AceEvent-3.0", "AceComm-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite")
 
 Nx.WebSite = "wowinterface.com"
 NXTITLEFULL = L["Carbonite"]
 
-Nx.VERMAJOR			= 7.2
-Nx.VERMINOR			= .5				-- Not 0 is a test version
+Nx.VERMAJOR			= 7.3
+Nx.VERMINOR			= .0				-- Not 0 is a test version
 Nx.BUILD			= "$Format:%h$"
 if Nx.BUILD:find("Format:%h", 1, true) then Nx.BUILD = string.sub("@project-revision@", 0, 7) end
 if Nx.BUILD:find("project-revision", 1, true) then Nx.BUILD = "0" end
@@ -243,7 +243,9 @@ local defaults = {
 				[47] = true,
 				[48] = true,
 				[49] = true,
-				[50] = true,				
+				[50] = true,
+				[51] = true,
+				[52] = true,
 			},
 			ShowHerbs = {
 				[1] = true,
@@ -321,7 +323,8 @@ local defaults = {
 				[73] = true,
 				[74] = true,
 				[75] = true,
-				[76] = true,				
+				[76] = true,	
+				[77] = true,
 			},
 			ShowTimber = {
 				[1] = true,
@@ -737,9 +740,9 @@ function Nx:NXOnLoad (frm)
 	self.TimeLast = 0
 	self.ClassColorStrs = Nx.Util_coltrgb2colstr (RAID_CLASS_COLORS)
 
-	self:RegisterEvent ("ADDON_LOADED", Nx.ADDON_LOADED)
-	self:RegisterEvent ("UNIT_NAME_UPDATE", Nx.UNIT_NAME_UPDATE)
-	self:RegisterEvent ("PLAYER_ENTERING_WORLD", Nx.UNIT_NAME_UPDATE)
+	Nx:RegisterEvent ("ADDON_LOADED")
+	Nx:RegisterEvent ("UNIT_NAME_UPDATE")
+	Nx:RegisterEvent ("PLAYER_ENTERING_WORLD", "UNIT_NAME_UPDATE")
 	Nx.CalendarDate = 0		-- For safety if Map update happens early
 end
 
@@ -842,15 +845,12 @@ function Nx:InitEvents()
 		"CHAT_MSG_CHANNEL_LEAVE", Com.OnChatEvent,
 		"CHAT_MSG_CHANNEL", Com.OnChat_msg_channel,
 
---		"CHANNEL_ROSTER_UPDATE", Com.OnChannel_roster_update,
-
 		"CHAT_MSG_BG_SYSTEM_NEUTRAL", Nx.OnChat_msg_bg_system_neutral,
 
 		"AUCTION_HOUSE_SHOW", Nx.AuctionAssist.OnAuction_house_show,
 		"AUCTION_HOUSE_CLOSED", Nx.AuctionAssist.OnAuction_house_closed,
 		"AUCTION_ITEM_LIST_UPDATE", Nx.AuctionAssist.OnAuction_item_list_update,
-
-		"PLAYER_TARGET_CHANGED", Guide.OnPlayer_target_changed,
+		
 		"MERCHANT_SHOW", Guide.OnMerchant_show,
 		"MERCHANT_UPDATE", Guide.OnMerchant_update,
 		"GOSSIP_SHOW", Guide.OnGossip_show,
@@ -867,23 +867,7 @@ function Nx:InitEvents()
 
 end
 
---------
--- Register for event and set event handler
--- (event name, handler to call)
-
-function Nx:RegisterEvent (event, handler)
-
-	self.Frm:RegisterEvent (event)
-
-	if not self.Events then
-		self.Events = {}
-	end
-
-	self.Events[event] = handler
-end
-
 -- Handle frame events
-
 function Nx:NXOnEvent (event, ...)
 	local h = self.Events[event]
 	if h then
@@ -910,7 +894,7 @@ end
 
 --------
 
-function Nx:OnUpdate_mouseover_unit (event, ...)
+function Nx:OnUpdate_mouseover_unit (event, ...)	
 	if Nx.Quest then
 		Nx.Quest:TooltipProcess (true)
 	end
@@ -2727,6 +2711,7 @@ Nx.GatherInfo = {
 		{ 700,	"inv_herbalism_70_fjarnskaggl",L["Fjarnskaggl"]},
 		{ 700,	"inv_herbalism_70_foxflower",L["Foxflower"]},
 		{ 700,	"inv_herbalism_70_starlightrosepetals",L["Starlight Rose"]},
+		{ 700,  "inv_misc_herb_astralglory",L["Astral Glory"]},
 	},
 	["M"] = {	-- Mine node
 		{ 325,	"inv_ore_adamantium",L["Adamantite Deposit"]},
@@ -2777,8 +2762,11 @@ Nx.GatherInfo = {
 		{ 700,	"inv_felslate",L["Living Felslate"]},
 		{ 700,	"inv_leystone",L["Leystone Deposit"]},
 		{ 700,	"inv_leystone",L["Leystone Seam"]},
-		{ 700,	"inv_leystone",L["Living Leystone"]},
-		{ 700,	"inv_infernalbrimstone",L["Infernal Brimstone"]},
+		{ 700,	"inv_leystone",L["Living Leystone"]},		
+		{ 700,  "inv_misc_starmetal",L["Empyrium Deposit"]},
+		{ 700,  "inv_misc_starmetal",L["Rich Empyrium Deposit"]},
+		{ 700,  "inv_misc_starmetal",L["Empyrium Seam"]},
+		
 	}
 }
 
@@ -3039,6 +3027,9 @@ function Nx:GatherNodeToCarb (id)
 		[256] = 44,
 		[257] = 46,
 		[258] = 45,
+		[259] = 50, -- guessing at this logically, needs confirmation after 7.3 release, regular node
+		[260] = 51, -- rich deposit
+		[261] = 52, -- seam
 	-- Herbalism Nodes
 		[401] = 30,
 		[402] = 34,
@@ -3122,6 +3113,7 @@ function Nx:GatherNodeToCarb (id)
 		[479] = 74,
 		[480] = 75,
 		[481] = 76,
+		[482] = 77, -- guessing at this logically, needs confirmation after 7.3 release
 	}
 	return gatherIDs[id]
 end

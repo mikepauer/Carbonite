@@ -59,7 +59,7 @@ Map.MapInfo = {
 		Name = L["The Maelstrom"],
 		FileName = "TheMaelstromContinent",
 		X = 1700,
-		Y = 500,
+		Y = 1350,
 	},
 	[6] = {
 		Name = L["Pandaria"],
@@ -77,7 +77,13 @@ Map.MapInfo = {
 		Name = L["Broken Isles"],
 		FileName = "BrokenIsles",
 		X = 3000,
-		Y = -900,
+		Y = -300,
+	},
+	[9] = {
+		Name = L["Argus"],
+		FileName = "Argus",
+		X = 4250,
+		Y = -1800,
 	},
 	[90] = {
 		Name = "BG",
@@ -1461,7 +1467,42 @@ Map.MapWorldInfo = {
 		Explored = true,
 		City = true,		
 		Overlay = "thundertotem",
-	},	
+	},
+	[1135] = {
+		Scale = 7.429172,
+		X = -754.584,
+		Y = -530.834,
+		Name = L["Krokuun"],
+		Overlay = "argussurface",
+		NoTilemap = true,
+		XOff = -100,
+		YOff = 100,
+	},
+	[1170] = {
+		 Scale = 6.5166,
+		 X = -2309.16,
+		 Y = -1324.584,
+		 Name = L["Mac'Aree"],
+		 Overlay = "argusmacaree",
+		 NoTilemap = true,
+		 XOff = 1400,
+		 YOff = 500,
+	},
+	[1171] = {
+		 Scale = 6.80006,
+		 X = -2255.84,
+		 Y = 357.916,
+		 Name = L["Antoran Wastes"],
+		 Overlay = "arguscore",
+		 NoTilemap = true,
+		 XOff = 800,
+		 YOff = -900,
+	},
+	[1184] = {
+		 Scale = 13.53196,
+		 X = -1457.47,
+		 Y = -852.756,
+	},
 	[9005] = {		-- Blade's Edge Arena
 		Name = L["Blade's Edge Arena"],
 		1,
@@ -3169,10 +3210,14 @@ Map.ZoneOverlays = {
 		["thastalah"] = "342,416,218,168",		
 	},
 	["brokenshore"] = {
-		["brokenshoresouth"] = "224,275,482,359",
-		["theblackcity"] = "257,95,478,328",
-		["thelosttemple"] = "613,126,337,289",
-		["tombofsargeras"] = "373,0,414,281",		
+	    ["brokenvalley"] = "254,84,338,322",	
+	    ["deadwoodlanding"] = "220,260,182,245",
+	    ["deliverancepoint"] = "312,302,387,314",
+	    ["felragestrand"] = "596,100,332,276",
+	    ["soulruin"] = "389,180,338,270",	    
+		["thelosttemple"] = "632,169,308,244",
+	    ["theweepingterrace"] = "350,13,276,213",
+	    ["tombofsargeras"] = "500,0,312,301",		
 	},
 	["highmountain"] = {
 		["bloodhunthighlands"] = "307,75,297,250",
@@ -3206,7 +3251,27 @@ Map.ZoneOverlays = {
 	},
 	["mardumtheshatteredabyss"] = {
 		["mardumtheshatteredabyss"] = "0,0,1024,768",
+	},	
+	["argussurface"] = {
+		["annihilanpits"] = "371,178,296,336",
+		["krokulhovel"] = "428,364,307,304",
+		["nathraxas"] = "167,0,835,422",
+		["petrifiedforest"] = "557,289,445,379",
+		["shatteredfields"] = "37,138,498,530",
 	},
+	["argusmacaree"] = {
+		["conservatory"] = "498,111,313,353",
+		["ruinsoforonaar"] = "278,284,265,310",
+		["seatoftriumvirate"] = "265,54,463,519",
+		["shadowguard"] = "0,0,498,461",
+		["triumvirates"] = "410,375,284,264",
+		["upperterrace"] = "0,0,701,323",
+	},
+	["arguscore"] = {
+		["defiledpath"] = "293,0,626,385",
+		["felfirearmory"] = "0,0,660,668",
+		["terminus"] = "535,238,467,430",
+	},	
 }
 
 --------
@@ -8359,19 +8424,7 @@ Map.BrokenIslesMapBlks = {
 	[3742]="",
 	[3743]="",
 }
-	
---[[
-Map.OrgMapBlks = {
-	[0000000] = "2874c241d5d9f4b84eba58c91d42943d",
-	[0010000] = "d8957f3998081a5d4f7b8d6e52fcd2df",
-}
 
-Map.ExodarMapBlks = {
-}
---]]
--- -1639.43046875, -6951.362984
---Nx.prt(Map.MapWorldInfo[862].X + 2604.5720703125)
---Nx.prt(Map.MapWorldInfo[862].Y + -69.16796875)
 Map.MiniMapBlks = {
 	[1] = {
 		Map.KalMapBlks,
@@ -8484,7 +8537,7 @@ Map.MiniMapBlks = {
 		16, 36,
 		Map.MapWorldInfo[823].X + Map.MapInfo[5].X + -253,Map.MapWorldInfo[823].Y + Map.MapInfo[5].Y + -238,
 		"World\\Minimaps\\DarkmoonFaire"
-	},
+	},	
 }
 
 --------
