@@ -1474,7 +1474,7 @@ Map.MapWorldInfo = {
 		Y = -530.834,
 		Name = L["Krokuun"],
 		Overlay = "argussurface",
-		NoTilemap = true,
+		MId = 1135,
 		XOff = -100,
 		YOff = 100,
 	},
@@ -1483,8 +1483,8 @@ Map.MapWorldInfo = {
 		 X = -2309.16,
 		 Y = -1324.584,
 		 Name = L["Mac'Aree"],
-		 Overlay = "argusmacaree",
-		 NoTilemap = true,
+		 Overlay = "argusmacaree",		 
+		 MId = 1170,
 		 XOff = 1400,
 		 YOff = 500,
 	},
@@ -1494,7 +1494,7 @@ Map.MapWorldInfo = {
 		 Y = 357.916,
 		 Name = L["Antoran Wastes"],
 		 Overlay = "arguscore",
-		 NoTilemap = true,
+		 MId = 1171,
 		 XOff = 800,
 		 YOff = -900,
 	},
@@ -8425,6 +8425,95 @@ Map.BrokenIslesMapBlks = {
 	[3743]="",
 }
 
+Map.Argus1MapBlks = {
+	[2627]="",
+	[2628]="",
+	[2629]="",
+	[2630]="",	
+	[2631]="",	
+	[2727]="",
+	[2728]="",
+	[2729]="",
+	[2730]="",	
+	[2731]="",
+	[2827]="",
+	[2828]="",
+	[2829]="",
+	[2830]="",	
+	[2831]="",
+	[2927]="",
+	[2928]="",
+	[2929]="",
+	[2930]="",	
+	[2931]="",
+	[3027]="",
+	[3028]="",
+	[3029]="",
+	[3030]="",	
+	[3031]="",		
+}
+
+Map.Argus2MapBlks = {
+	[1135]="",
+	[1136]="",
+	[1137]="",
+	[1138]="",
+	[1139]="",
+	[1235]="",
+	[1236]="",
+	[1237]="",
+	[1238]="",
+	[1239]="",
+	[1335]="",
+	[1336]="",
+	[1337]="",
+	[1338]="",
+	[1339]="",
+	[1435]="",
+	[1436]="",
+	[1437]="",
+	[1438]="",
+	[1439]="",
+	[1535]="",
+	[1536]="",
+	[1537]="",
+	[1538]="",
+	[1539]="",
+	[1635]="",
+	[1636]="",
+	[1637]="",
+	[1638]="",
+	[1639]="",
+}
+
+Map.Argus3MapBlks = {
+	[1119]="",
+	[1120]="",
+	[1121]="",
+	[1122]="",
+	[1123]="",
+	[1219]="",
+	[1220]="",
+	[1221]="",
+	[1222]="",
+	[1223]="",	
+	[1319]="",
+	[1320]="",
+	[1321]="",
+	[1322]="",
+	[1323]="",	
+	[1419]="",
+	[1420]="",
+	[1421]="",
+	[1422]="",
+	[1423]="",	
+	[1519]="",
+	[1520]="",
+	[1521]="",
+	[1522]="",
+	[1523]="",	
+}
+
 Map.MiniMapBlks = {
 	[1] = {
 		Map.KalMapBlks,
@@ -8444,14 +8533,14 @@ Map.MiniMapBlks = {
 		Map.OLMapBlks,
 		1221,
 		12, 21,
-		Map.MapWorldInfo[466].X + Map.MapInfo[3].X + 465.3811795, Map.MapWorldInfo[466].Y + Map.MapInfo[3].Y + -10.131282,
+		Map.MapWorldInfo[466].X + Map.MapInfo[3].X + 465.4, Map.MapWorldInfo[466].Y + Map.MapInfo[3].Y + -9.7,
 		"World\\Minimaps\\Expansion01"
 	},
 	[4] = {
 		Map.NRMapBlks,
 		1109,
 		11, 09,
-		Map.MapWorldInfo[485].X + Map.MapInfo[4].X + -396, Map.MapWorldInfo[485].Y + Map.MapInfo[4].Y + -332.687984,
+		Map.MapWorldInfo[485].X + Map.MapInfo[4].X + -397.1, Map.MapWorldInfo[485].Y + Map.MapInfo[4].Y + -334.1,
 		"World\\Minimaps\\Northrend"
 	},
 	[5] = {
@@ -8465,21 +8554,21 @@ Map.MiniMapBlks = {
 		Map.PandariaMapBlks,
 		1816,
 		18, 16,
-		Map.MapWorldInfo[862].X + Map.MapInfo[6].X + 254.5720703125, Map.MapWorldInfo[862].Y + Map.MapInfo[6].Y + -369.16796875,
+		Map.MapWorldInfo[862].X + Map.MapInfo[6].X + 256.3, Map.MapWorldInfo[862].Y + Map.MapInfo[6].Y + -371.0,
 		"World\\Minimaps\\HawaiiMainLand"
 	},
 	[7] = {
 		Map.DraenorMapBlks,
 		1220,
 		12, 20,
-		Map.MapWorldInfo[962].X + Map.MapInfo[7].X + 315, Map.MapWorldInfo[962].Y + Map.MapInfo[7].Y + 959,
+		Map.MapWorldInfo[962].X + Map.MapInfo[7].X + 314.8, Map.MapWorldInfo[962].Y + Map.MapInfo[7].Y + 958.6,
 		"World\\Minimaps\\Draenor"
 	},
 	[8] = {
 		Map.BrokenIslesMapBlks,
 		1117,
 		11, 17,
-		Map.MapWorldInfo[1007].X + Map.MapInfo[8].X + 380, Map.MapWorldInfo[1007].Y + Map.MapInfo[8].Y - 147.5,
+		Map.MapWorldInfo[1007].X + Map.MapInfo[8].X + 380, Map.MapWorldInfo[1007].Y + Map.MapInfo[8].Y - 147.8,
 		"World\\Minimaps\\Troll Raid"
 	},
 	[464] = {
@@ -8537,6 +8626,27 @@ Map.MiniMapBlks = {
 		16, 36,
 		Map.MapWorldInfo[823].X + Map.MapInfo[5].X + -253,Map.MapWorldInfo[823].Y + Map.MapInfo[5].Y + -238,
 		"World\\Minimaps\\DarkmoonFaire"
+	},	
+	[1135] = {
+		Map.Argus1MapBlks,
+		2627,
+		26, 27,
+		Map.MapWorldInfo[1135].X + Map.MapWorldInfo[1135].XOff + Map.MapInfo[9].X + 114.1, Map.MapWorldInfo[1135].Y + Map.MapWorldInfo[1135].YOff + Map.MapInfo[9].Y + -2.6,
+		"World\\Minimaps\\Argus 1"
+	},
+	[1170] = {
+		Map.Argus3MapBlks,
+		1119,
+		11, 19,
+		Map.MapWorldInfo[1170].X + Map.MapWorldInfo[1170].XOff + Map.MapInfo[9].X + 75, Map.MapWorldInfo[1170].Y + Map.MapWorldInfo[1170].YOff + Map.MapInfo[9].Y + -50,
+		"World\\Minimaps\\Argus 1"
+	},
+	[1171] = {
+		Map.Argus2MapBlks,
+		1135,
+		11, 35,
+		Map.MapWorldInfo[1171].X + Map.MapWorldInfo[1171].XOff + Map.MapInfo[9].X + 15.7, Map.MapWorldInfo[1171].Y + Map.MapWorldInfo[1171].YOff + Map.MapInfo[9].Y + -37.6,
+		"World\\Minimaps\\Argus 1"
 	},	
 }
 
