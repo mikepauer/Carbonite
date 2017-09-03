@@ -343,5 +343,30 @@ L["Cantrips & Crows"] = "Caboulot des Corbeaux"
 L["Circle of Wills"] = "Le cercle des Volont\195\169s"
 L["The Black Market"] = "Le march\195\169 Noir"
 L["The Underbelly"] = "Les Entrailles"
-
+-- 7.3 Changes
+L["Argus"] = true
+L["Mac'Aree"] = true
+L["Antoran Wastes"] = true
+L["Krokuun"] = true
+L["The Vindicaar"] = true
+L["The Deaths of Chromie"] = true
+L["The Seat of the Triumvirate"] = true
+L["Antorus, The Burning Throne"] = true
+L["Invasion Point: Aurinor"] = true
+L["Invasion Point: Bonich"] = true
+L["Invasion Point: Cen'gar"] = true
+L["Invasion Point: Naigtal"] = true
+L["Invasion Point: Sangua"] = true
+L["Invasion Point: Val"] = true
+L["Greater Invasion Point: Pit Lord Vilemus"] = true
+L["Greater Invasion Point: Mistress Alluradel"] = true
+L["Greater Invasion Point: Matron Folnuna"] = true
+L["Greater Invasion Point: Inquisitor Meto"] = true
+L["Greater Invasion Point: Sotanathor"] = true
+L["Greater Invasion Point: Occularus"] = true
+--
+L["Stormheim Invasion"] = true
+L["Azsuna Invasion"] = true
+L["Val'sharah Invasion"] = true
+L["Highmountain Invasion"] = true
 --EOF
