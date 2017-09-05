@@ -36,7 +36,7 @@ Nx.VERSION			= Nx.VERMAJOR + Nx.VERMINOR / 100
 Nx.VERSIONDATA			= .02				-- Main data
 Nx.VERSIONCHAR			= .02				-- Character data
 Nx.VERSIONCharData		= .4				-- Character specific saved data
-Nx.VERSIONGATHER		= .8				-- Gathered data
+Nx.VERSIONGATHER		= .9				-- Gathered data
 Nx.VERSIONGOPTS			= .102				-- Global options
 Nx.VERSIONHUDOPTS		= .03				-- HUD options
 Nx.VERSIONList			= .1				-- List header data
@@ -126,6 +126,15 @@ Nx.RealTom =  false
 Nx.PlayerFnd = false
 Nx.ModQAction = ""
 Nx.ModPAction = ""
+Nx.GlowOn = false
+
+Nx.Whatsnew = {}
+Nx.Whatsnew.Categories = {"Maps"}
+Nx.Whatsnew.Maps = {
+  [1504562405] = {"Sept 4th 2017","","Node Data had to be reset due to a duplication bug.","You will need to re-import Gathermate Data if you were using it previously."}
+}
+Nx.Whatsnew.WhichCat = 1
+Nx.Whatsnew.HasWhatsNew = nil
 
 if _G.TomTom then
 	Nx.RealTom = true
@@ -492,6 +501,9 @@ local defaults = {
 		},
 		WinSettings = {
 		},
+		Whatsnew = {
+			lastreadtime = 0,
+		},
    },
 }
 
@@ -819,50 +831,43 @@ function Nx:InitEvents()
 
 	local Com = Nx.Com
 	local Guide = Nx.Map.Guide
-	local events = {
+	local AuctionAssist = Nx.AuctionAssist
+	local Travel = Nx.Travel
+	
+	LibStub("AceEvent-3.0"):Embed(Com)
+	LibStub("AceEvent-3.0"):Embed(Guide)
+	LibStub("AceEvent-3.0"):Embed(AuctionAssist)
+	LibStub("AceEvent-3.0"):Embed(Travel)
+	
+	Nx:RegisterEvent("PLAYER_LOGIN", "OnPlayer_login")
+	Nx:RegisterEvent("UPDATE_MOUSEOVER_UNIT", "OnUpdate_mouseover_unit")
+	Nx:RegisterEvent("PLAYER_REGEN_DISABLED", "OnPlayer_regen_disabled")
+	Nx:RegisterEvent("PLAYER_REGEN_ENABLED", "OnPlayer_regen_enabled")
+	Nx:RegisterEvent("UNIT_SPELLCAST_SENT", "OnUnit_spellcast_sent")
+	Nx:RegisterEvent("ZONE_CHANGED_NEW_AREA", "OnZone_changed_new_area")
+	Nx:RegisterEvent("PLAYER_LEVEL_UP", "OnPlayer_level_up")
+	Nx:RegisterEvent("GROUP_ROSTER_UPDATE", "OnParty_members_changed")
+	Nx:RegisterEvent("UPDATE_BATTLEFIELD_SCORE", "OnUpdate_battlefield_score")
+	Nx:RegisterEvent("UPDATE_WORLD_STATES", "OnUpdate_battlefield_score")
+	
+	Com:RegisterEvent("PLAYER_LEAVING_WORLD", "OnEvent")
+	Com:RegisterEvent("FRIENDLIST_UPDATE", "OnFriendguild_update")
+	Com:RegisterEvent("GUILD_ROSTER_UPDATE", "OnFriendguild_update")
+	Com:RegisterEvent("CHAT_MSG_CHANNEL_JOIN", "OnChatEvent")
+	Com:RegisterEvent("CHAT_MSG_CHANNEL_NOTICE", "OnChatEvent")
+	Com:RegisterEvent("CHAT_MSG_CHANNEL_LEAVE", "OnChatEvent")
+	Com:RegisterEvent("CHAT_MSG_CHANNEL", "OnChat_msg_channel")
 
-		"PLAYER_LOGIN", Nx.OnPlayer_login,
-
-		"UPDATE_MOUSEOVER_UNIT", Nx.OnUpdate_mouseover_unit,
-
-		"PLAYER_REGEN_DISABLED", Nx.OnPlayer_regen_disabled,
-		"PLAYER_REGEN_ENABLED", Nx.OnPlayer_regen_enabled,
-		"UNIT_SPELLCAST_SENT", Nx.OnUnit_spellcast_sent,
-
-		"ZONE_CHANGED_NEW_AREA", Nx.OnZone_changed_new_area,
-		"PLAYER_LEVEL_UP", Nx.OnPlayer_level_up,
-
-		"GROUP_ROSTER_UPDATE", Nx.OnParty_members_changed,
-
-		"UPDATE_BATTLEFIELD_SCORE", Nx.OnUpdate_battlefield_score,
-		"UPDATE_WORLD_STATES", Nx.OnUpdate_battlefield_score,
-
-		"PLAYER_LEAVING_WORLD", Com.OnEvent,
-		"FRIENDLIST_UPDATE", Com.OnFriendguild_update,
-		"GUILD_ROSTER_UPDATE", Com.OnFriendguild_update,
-		"CHAT_MSG_CHANNEL_JOIN", Com.OnChatEvent,
-		"CHAT_MSG_CHANNEL_NOTICE", Com.OnChatEvent,
-		"CHAT_MSG_CHANNEL_LEAVE", Com.OnChatEvent,
-		"CHAT_MSG_CHANNEL", Com.OnChat_msg_channel,
-
-		"AUCTION_HOUSE_SHOW", Nx.AuctionAssist.OnAuction_house_show,
-		"AUCTION_HOUSE_CLOSED", Nx.AuctionAssist.OnAuction_house_closed,
-		"AUCTION_ITEM_LIST_UPDATE", Nx.AuctionAssist.OnAuction_item_list_update,
+	AuctionAssist:RegisterEvent("AUCTION_HOUSE_SHOW", "OnAuction_house_show")
+	AuctionAssist:RegisterEvent("AUCTION_HOUSE_CLOSED", "OnAuction_house_closed")
+	AuctionAssist:RegisterEvent("AUCTION_ITEM_LIST_UPDATE", "OnAuction_item_list_update")
 		
-		"MERCHANT_SHOW", Guide.OnMerchant_show,
-		"MERCHANT_UPDATE", Guide.OnMerchant_update,
-		"GOSSIP_SHOW", Guide.OnGossip_show,
-		"TRAINER_SHOW", Guide.OnTrainer_show,
+	Guide:RegisterEvent("MERCHANT_SHOW", "OnMerchant_show")
+	Guide:RegisterEvent("MERCHANT_UPDATE", "OnMerchant_update")
+	Guide:RegisterEvent("GOSSIP_SHOW", "OnGossip_show")
+	Guide:RegisterEvent("TRAINER_SHOW", "OnTrainer_show")
 
-		"TAXIMAP_OPENED", Nx.Travel.OnTaximap_opened,
-	}
-
-	local n = 1
-	while events[n] do
-		Nx:RegisterEvent (events[n], events[n + 1])
-		n = n + 2
-	end
-
+	Travel:RegisterEvent("TAXIMAP_OPENED", "OnTaximap_opened")
 end
 
 -- Handle frame events
@@ -1054,8 +1059,7 @@ function Nx:OnPlayer_regen_enabled()
 	Nx.Window:UpdateCombat()
 end
 
-function Nx:OnUnit_spellcast_sent (event, arg1, arg2, arg3, arg4)
-
+function Nx:OnUnit_spellcast_sent (event, arg1, arg2, arg3, arg4)	
 	if arg1 == "player" then
 
 		local Nx = Nx
@@ -1291,6 +1295,135 @@ function Nx:NXOnUpdate (elapsed)
 			Nx.Warehouse:RecordCharacter()
 		end
 	end
+	if Nx.WhatsNewUnread() then
+		if Nx.Tick % 50 == 0 then
+			if Nx.GlowOn then
+				NXMiniMapBut:SetNormalTexture("Interface\\AddOns\\Carbonite\\Gfx\\MMBut")
+				Nx.GlowOn = false
+			else
+				NXMiniMapBut:SetNormalTexture("Interface\\AddOns\\Carbonite\\Gfx\\MMButFilled")
+				Nx.GlowOn = true
+			end
+		end
+	end
+	if not Nx.Whatsnew.HasWhatsNew then -- Adding it here to be at bottom of menu always.
+		Nx.Whatsnew.HasWhatsNew = true
+		Nx.NXMiniMapBut.Menu:AddItem(0,"")
+		local function func ()
+			Nx.Whatsnew:ToggleShow()
+		end
+		Nx.NXMiniMapBut.Menu:AddItem(0, L["Whats New!"], func, Nx.NXMiniMapBut)			
+	end
+end
+
+function Nx:WhatsNewUnread()
+	local checkread
+	for a,b in pairs(Nx.Whatsnew.Categories) do
+		for c,d in pairs(Nx.Whatsnew[b]) do
+			if Nx.db.profile.Whatsnew.lastreadtime < c then
+				return true
+			end
+		end
+	end
+	return false
+end
+
+function Nx.Whatsnew:ToggleShow()
+
+	if not self.Win then
+		self:Create()
+	end
+
+	self.Win:Show (not self.Win:IsShown())
+
+	if self.Win:IsShown() then
+		self:Update()
+	end
+end
+
+function Nx.Whatsnew:Create()	
+	local win = Nx.Window:Create ("NxWhatsNew", nil, nil, nil, 1)
+	self.Win = win
+	self.SelectedLine = 1
+	win.Frm.NxInst = self
+	win:CreateButtons (true, true)
+	win:InitLayoutData (nil, -.25, -.15, -.5, -.6)
+	win.Frm:SetToplevel (true)	
+	win:Show (false)	
+	win.Frm:SetScript ("OnHide",self.Recordtime)
+	tinsert (UISpecialFrames, win.Frm:GetName())
+	Nx.List:SetCreateFont ("Font.Medium", 16)
+	local list = Nx.List:Create (false, 0, 0, 1, 1, win.Frm)
+	self.List = list
+	list:SetUser (self, self.OnListEvent)
+	list:SetLineHeight (4)
+	list:ColumnAdd ("", 1, 24)
+	list:ColumnAdd ("Date", 2, 200)	
+	list:SetUser (self, self.OnListEvent)
+	win:Attach (list.Frm, 0, .2, 0, 1)
+	local list = Nx.List:Create (false, 0, 0, 1, 1, win.Frm)
+	self.WhatsNewList = list	
+	list:ColumnAdd ("", 1, 500)
+	win:Attach (list.Frm, .2, 1, 0, 1)	
+	local bw, bh = win:GetBorderSize()
+	local pos = 150
+	for a,b in pairs(Nx.Whatsnew.Categories) do
+		local function func()
+			Nx.Whatsnew:Cat_button(a)
+		end
+		local but = Nx.Button:Create (win.Frm, "Txt64", b, nil, pos, -bh, "TOPLEFT", string.len(b)*10, 20, func, self)
+		pos = pos + but.Frm:GetWidth()
+	end
+	self:Update()
+	self.List:Select (0)
+	self.List:FullUpdate()	
+end
+
+function Nx.Whatsnew:Recordtime()
+	Nx.db.profile.Whatsnew.lastreadtime = time()
+	NXMiniMapBut:SetNormalTexture("Interface\\AddOns\\Carbonite\\Gfx\\MMBut")	
+end
+
+function Nx.Whatsnew:Cat_button(num)
+	Nx.Whatsnew.WhichCat = num
+	Nx.Whatsnew.SelectedLine = 1
+	Nx.Whatsnew:Update()
+end
+
+function Nx.Whatsnew:OnListEvent (eventName, sel, val2, click)
+	local data = self.List:ItemGetData (sel) or 0
+	local id = data % 1000
+	self.SelectedLine = id	
+	if eventName == "select" then
+		self:Update()
+	end
+end
+
+function Nx.Whatsnew:Update()
+	self.Win:SetTitle (L["Carbonite What's New"])
+	local list = self.List
+	list:Empty()
+	local cnt = 1
+	local display = {}
+	local cat = Nx.Whatsnew.Categories[Nx.Whatsnew.WhichCat]
+	for a,b in pairs(Nx.Whatsnew[cat]) do
+		list:ItemAdd(cnt)
+		list:ItemSet(2, date("%m/%d/%y",a))
+		if cnt == self.SelectedLine then			
+			display = b
+		end
+		cnt = cnt + 1
+	end
+	list:Update()
+	list = self.WhatsNewList
+	list:Empty()
+	cnt = 1		
+	for a,b in pairs(display) do	
+		list:ItemAdd(cnt)
+		list:ItemSet(1, b)
+		cnt = cnt + 1
+	end
+	list:Update()
 end
 
 --------
@@ -2401,8 +2534,7 @@ end
 ------
 -- Add mine to list
 
-function Nx.UEvents:AddMine (name)
-
+function Nx.UEvents:AddMine (name)	
 	local mapId, x, y, level = self:GetPlyrPos()
 	mapId = GetCurrentMapAreaID()
 	if Nx.db.profile.Guide.GatherEnabled then
@@ -2864,13 +2996,11 @@ end
 --------
 -- Add gathered item. xy zone coords 0-100
 
-function Nx:Gather (nodeType, id, mapId, x, y, level)
-
+function Nx:Gather (nodeType, id, mapId, x, y, level)	
 	local remap = self.GatherRemap[nodeType]
 	if remap then
 		id = remap[id] or id
-	end
-
+	end	
 	local data = Nx.db.profile.GatherData[nodeType]
 	if not data then
 		Nx.db.profile.GatherData[nodeType] = {}
@@ -2885,19 +3015,20 @@ function Nx:Gather (nodeType, id, mapId, x, y, level)
 		data[mapId] = zoneT
 	end
 
-	local maxDist = (5 / Nx.Map:GetWorldZoneScale (mapId)) ^ 2
-
+	local maxDist = (5 / Nx.Map:GetWorldZoneScale (mapId)) ^ 2	
 	local index
 	local nodeT = zoneT[id] or {}
 	zoneT[id] = nodeT
 
-	for n, node in ipairs (nodeT) do
-		local nx, ny, nlevel = Nx.Split("|",node)
+	for n, node in ipairs (nodeT) do		
+		local nx, ny, nlevel = Nx.Split("|",node)		
+		nx, ny, nlevel = tonumber(nx), tonumber(ny), tonumber(nlevel)
+		
 		if not nlevel then
 			nlevel = 0
 		end
-		if nlevel == level then
-			local dist = (nx - x) ^ 2 + (ny - y) ^ 2
+		if nlevel == level then			
+			local dist = (nx - x) ^ 2 + (ny - y) ^ 2			
 			if dist < maxDist then		-- Squared compare
 				index = n
 				break
@@ -2906,9 +3037,9 @@ function Nx:Gather (nodeType, id, mapId, x, y, level)
 	end
 	local cnt = 1
 	if not index then
-		index = #nodeT + 1
+		index = #nodeT + 1		
 	else
-		local nx,xy, level = Nx.Split ("|", nodeT[index])
+		local nx,xy, level = Nx.Split ("|", nodeT[index])		
 	end
 	nodeT[index] = format ("%f|%f|%d", x, y, level)
 end
