@@ -65,7 +65,15 @@ BINDING_NAME_NxMAPTOGTIMBER	= L["NxMAPTOGTIMBER"]
 
 Nx.Tick = 0
 
-Nx.Combat = {}
+Nx.Combat = {
+	["KBs"] = 0,
+	["Deaths"] = 0,
+	["HKs"] = 0,
+	["Honor"] = 0,
+	["DamDone"] = 0,
+	["HealDone"] = 0,
+}
+
 Nx.Font = {}
 Nx.Skin = {}
 Nx.Window = {}
