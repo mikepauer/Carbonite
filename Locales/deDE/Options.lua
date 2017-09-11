@@ -282,8 +282,8 @@ L["Lumbermill"] = "S\195\164gewerk"
 L["Delete"] = "L\195\182schen"
 L["Import"] = "Importieren"
 L["Cancel"] = "Abbrechen"
-
-
+L["Enable All"] = "Alle anzeigen"
+L["Disable All"] = "Alle ausblenden"
 
 -- Menu Options
 L["Menu Options"] = "Men\195\188einstellungen"
