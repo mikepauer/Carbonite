@@ -54,6 +54,10 @@ Nx.GuideInfo = {
 		Tx = "Ability_Mount_Wyvern_01",
 	},
 	{
+		T = L["Lightforged Beacon"],
+		Tx = "INV_Alchemy_AstralAlchemistStone",
+	},
+	{
 		Name = L["Common Place"],
 		Tx = "INV_Misc_Map02",
 		{
@@ -1449,7 +1453,7 @@ function Nx.Map.Guide:UpdateMapIcons()
 	end
 end
 function Nx.Map.Guide:UpdateMapGeneralIcons (cont, showType, hideFac, tx, name, iconType, showMapId)
-	if cont >= 9 then
+	if cont > Nx.Map.ContCnt then
 		return
 	end
 
@@ -1505,7 +1509,12 @@ function Nx.Map.Guide:UpdateMapGeneralIcons (cont, showType, hideFac, tx, name, 
 									end
 									local wx, wy = map:GetWorldPos(mapId, x, y)
 									if mapId == 504 then level = (level or 0) + 1 end -- Fixing Dalaran icons
-									local icon = map:AddIconPt (iconType, wx, wy, level, nil, tx)
+									local icon
+									if showType == "Lightforged Beacon" then
+										icon = map:AddIconPt (iconType, wx, wy, level, nil, "atlas:FlightMaster_Argus-TaxiNode_Neutral")
+									else
+										icon = map:AddIconPt (iconType, wx, wy, level, nil, tx)
+									end
 									if not GetMapNameByID(mapId) then
 										Nx.prt("Guide Icon Err: " .. mapId)
 									end
@@ -1525,6 +1534,7 @@ Nx.GuidePOI = {
 	L["Auctioneer"] .. "~Racial_Dwarf_FindTreasure",
 	L["Banker"] .. "~INV_Misc_Coin_02",
 	L["Flight Master"] .. "~Ability_Mount_Wyvern_01",
+	L["Lightforged Beacon"] .. "~INV_Alchemy_AstralAlchemistStone",
 	L["Innkeeper"] .. "~Spell_Shadow_Twilight",
 	L["Mailbox"] .. "~INV_Letter_15",
 	}
@@ -1563,8 +1573,8 @@ function Nx.Map.Guide:UpdateZonePOIIcons()
 	map:SetIconTypeAlpha ("!POIIn", alpha)
 	local hideFac = UnitFactionGroup ("player") == "Horde" and 1 or 2
 	local cont = map:IdToContZone (mapId)
-	cont = tonumber(cont)
-	if cont > 0 and cont < 9 then
+	cont = tonumber(cont)	
+	if cont > 0 and cont <= Nx.Map.ContCnt then
 		for k, name in ipairs (Nx.GuidePOI) do
 			local showType, tx = Nx.Split ("~", name)
 			if showType and Nx.db.char.Map.ShowMailboxes then

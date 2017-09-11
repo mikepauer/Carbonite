@@ -4248,20 +4248,6 @@ function Nx.Map:Update (elapsed)
 	-- Taxi update
 
 	Nx.Map.DungeonLevel = GetCurrentMapDungeonLevel()
-	local invasions = {181, 11, 161, 27, 24, 39}
-	local invmap = Nx.Map:GetMap(1)
-	for key, value in ipairs(invasions) do
-		local name, timeLeftMinutes, rewardQuestID = GetInvasionInfoByMapAreaID(value)
-		if (name ~= nil) then			
-			local wx, wy = Nx.Map:GetWorldPos (value, 50, 50)
-			local icon = invmap:AddIconPt ("!GQ", wx, wy, 0, "00FF00", "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconCirclePlus")
-			local tip = name .. " - " .. timeLeftMinutes .. " mins left"
-			if IsQuestFlaggedCompleted(rewardQuestID) then
-				tip = tip .. " [COMPLETED]"
-			end
-			invmap:SetIconTip(icon,tip)		
-		end
-	end	
 	
 	local ontaxi = UnitOnTaxi ("player")
 
@@ -4372,15 +4358,14 @@ function Nx.Map:Update (elapsed)
 				self.PlyrSpeedCalcTime = GetTime()
 				self.PlyrSpeed = 0
 				self.PlyrSpeedX = x
-				self.PlyrSpeedY = y
-
+				self.PlyrSpeedY = y				
 			else
 				local tmDif = GetTime() - self.PlyrSpeedCalcTime
 				if tmDif > .5 then
 					self.PlyrSpeedCalcTime = GetTime()
 					self.PlyrSpeed = ((x - self.PlyrSpeedX) ^ 2 + (y - self.PlyrSpeedY) ^ 2) ^ .5 * 4.575 / tmDif
 					self.PlyrSpeedX = x
-					self.PlyrSpeedY = y
+					self.PlyrSpeedY = y					
 				end
 			end
 		end
@@ -4848,18 +4833,8 @@ function Nx.Map:Update (elapsed)
 			self.Level = self.Level + 2
 		end
 	end
+
 	self:UpdateIcons (self.KillShow)
-	self.Level = self.Level - 2
-
-	self.Level = self.Level + 2
-
-	-- Test
-
---	for n = 0, 100 do
---		local f = self:GetIcon()
---		f.texture:SetColorTexture (1, 1, .5, 1)
---		self:ClipFrameZ (f, n, 50, 2, 2)
---	end
 
 	-- Battlefield flags
 
@@ -6853,8 +6828,7 @@ end
 -- Clip a frame to the map and set position, size and texture coords
 -- XY is center. Width and height are not scaled
 
-function Nx.Map:ClipFrameW (frm, bx, by, w, h, dir)
-
+function Nx.Map:ClipFrameW (frm, bx, by, w, h, dir)	
 	local scale = self.ScaleDraw
 
 	-- Calc x
@@ -7724,7 +7698,7 @@ end
 -- Update all icons
 
 function Nx.Map:UpdateIcons (drawNonGuide)
-
+	
 	local c2rgb = Nx.Util_c2rgb
 	local c2rgba = Nx.Util_c2rgba
 	local d = self.Data
@@ -7762,8 +7736,7 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 						local icon = v[n]
 						local f = self:GetIconStatic (v.Lvl)
 						if self:ClipFrameZ (f, icon.X, icon.Y, w, h, 0) then							
-							f.NxTip = icon.Tip
-
+							f.NxTip = icon.Tip							
 	--						assert (icon.Tex or v.Tex or icon.Color)
 
 							if icon.Tex then
@@ -7809,13 +7782,19 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 					for n = 1, v.Num do
 						if (not v[n].Level and Nx.Map.DungeonLevel == 0) or (v[n].Level and v[n].Level == Nx.Map.DungeonLevel) then
 							local icon = v[n]
-							local f = self:GetIconStatic (v.Lvl)
+							local f = self:GetIconStatic (v.Lvl)							
 							if self:ClipFrameByMapType (f, icon.X, icon.Y, w, h, 0) then								
 								f.NxTip = icon.Tip								
 								f.NXType = 3000
 								f.NXData = icon
 								if icon.Tex then
-									f.texture:SetTexture (icon.Tex)
+									local pos = string.find(icon.Tex, "atlas:")
+									if pos then
+										local whichatlas = string.sub (icon.Tex,7)										
+										f.texture:SetAtlas(whichatlas)
+									else
+										f.texture:SetTexture (icon.Tex)
+									end
 									if icon.Color then
 										f.texture:SetVertexColor (c2rgb (icon.Color))
 									end
@@ -7860,7 +7839,13 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 								if actuallyIcon then
 									f:SetFrameLevel(self.Level + (v.Lvl or 0))
 								elseif icon.Tex then
-									f.texture:SetTexture (icon.Tex)
+									local pos = string.find(icon.Tex, "atlas:")
+									if pos then
+										local whichatlas = string.sub (icon.Tex,7)											
+										f.texture:SetAtlas(whichatlas)
+									else
+										f.texture:SetTexture (icon.Tex)
+									end																	
 									if icon.Color then
 										f.texture:SetVertexColor (c2rgb (icon.Color))
 									end
@@ -8176,7 +8161,7 @@ function Nx.Map:GetIconStatic (levelAdd)
 	if pos > 1500 then
 		pos = 1500	-- Too many used. Reuse
 	end
-
+	
 	local f = frms[pos]
 	if not f then
 
