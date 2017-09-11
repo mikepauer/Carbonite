@@ -89,6 +89,8 @@ L["Felwort"] = "Teufelswurz"
 L["Fjarnskaggl"] = "Fjarnskaggl"
 L["Foxflower"] = "Fuchsblume"
 L["Starlight Rose"] = "Sternlichtrose"
+-- 7.3 Changes
+L["Astral Glory"] = "Astralwinde"
 
 -- Mines
 L["Adamantite Deposit"] = "Adamantitvorkommen"
@@ -143,3 +145,7 @@ L["Leystone Deposit"] = "Leysteinvorkommen"
 L["Leystone Seam"] = "Leysteinfl\195\182z"
 L["Living Leystone"] = "Lebender Leystein"
 L["Infernal Brimstone"] = "Infernoschwefel"
+-- 7.3 change
+L["Empyrium Deposit"] = "Empyriumvorkommen"
+L["Rich Empyrium Deposit"] = "Reiches Empyriumvorkommen"
+L["Empyrium Seam"] = "Empyriumflöz"

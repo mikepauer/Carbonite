@@ -65,6 +65,7 @@ L["Zone"] = "区域"
 L["Trade Skill"] = "商业技能"
 L["Alchemy Lab"] = "炼金实验室"
 L["Altar Of Shadows"] = "黑暗祭坛"
+L["Lightforged Beacon"] = true
 L["Mana Loom"] = "魔法织布机"
 L["Moonwell"] = "月亮井"
 

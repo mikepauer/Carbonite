@@ -89,6 +89,8 @@ L["Felwort"] = "邪能球茎"
 L["Fjarnskaggl"] = "夏斯卡格草"
 L["Foxflower"] = "狐尾花"
 L["Starlight Rose"] = "星光玫瑰"
+-- 7.3 Changes
+L["Astral Glory"] = true
 
 -- Mines
 L["Adamantite Deposit"] = "精金矿脉"
@@ -143,3 +145,7 @@ L["Leystone Deposit"] = "魔石矿脉"
 L["Leystone Seam"] = "魔石矿层"
 L["Living Leystone"] = "活性魔石"
 L["Infernal Brimstone"] = "地狱硫磺"
+-- 7.3 change
+L["Empyrium Deposit"] = true
+L["Rich Empyrium Deposit"] = true
+L["Empyrium Seam"] = true
