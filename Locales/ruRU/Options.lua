@@ -67,7 +67,7 @@ L["Attempts to hide the two gryphons on your action bar."] = "Пытается �
 L["Map Options"] = "Настройки карты"
 L["Use Carbonite Map instead of Blizzards (Alt-M will open world map)"] = "Использовать карту Carbonite вместо карты Blizzard (Alt-ь(M) откроет карту мира)"
 L["When enabled, pressing 'M' will maximize the carbonite map instead of opening the world map."] = "Когда Вкл., ь(M) откроет карту Carbonite вместо обычной карты."
-L["Enable Combat Compatibility Mode"] = true 
+L["Enable Combat Compatibility Mode"] = true
 L["Take Map Function Control"] = "Взять контроль над картой"
 L["When enabled Carbonite takes control of 2 blizzard map functions to help prevent map flickers, and unneccsary lag causing calls to change the map."] = "Когда Вкл., Carbonite перенимает контроль над функциями обеих карт blizzard, помогает предотвратить мерцание и нежелательные баги вызванные запросами на смену карты."
 L["Hide Map In Combat"] = "Прятать карту во время боя"
@@ -281,6 +281,8 @@ L["Lumbermill"] = "Лесорубка"
 L["Delete"] = "Удалить"
 L["Import"] = "Импортировать"
 L["Cancel"] = "Отменить"
+L["Enable All"] = true
+L["Disable All"] = true
 
 -- Menu Options
 L["Menu Options"] = "Настройки меню"

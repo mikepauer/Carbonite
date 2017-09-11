@@ -281,6 +281,8 @@ L["Lumbermill"] = "Scierie"
 L["Delete"] = "Effacer"
 L["Import"] = "+Importer"
 L["Cancel"] = "Annuler"
+L["Enable All"] = true
+L["Disable All"] = true
 
 -- Menu Options
 L["Menu Options"] = "Options du Menu"

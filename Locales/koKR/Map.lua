@@ -39,6 +39,7 @@ L["Show Cities"] = "대도시 보기"
 L["Show Towns"] = "마을 보기"
 L["Show Extras"] = "기타 보기"
 L["Show Kill Icons"] = "처치 아이콘 보기"
+L["Show Instance Raid Bosses"] = true
 L["Minimap..."] = "미니맵..."
 L["Full Size"] = "전체 크기"
 L["Transparency"] = "투명도"

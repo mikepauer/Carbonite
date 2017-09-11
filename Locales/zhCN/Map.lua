@@ -38,6 +38,7 @@ L["Show Cities"] = "显示主城"
 L["Show Towns"] = "显示城镇"
 L["Show Extras"] = "显示额外内容"
 L["Show Kill Icons"] = "显示击杀图标"
+L["Show Instance Raid Bosses"] = true
 L["Minimap..."] = "小地图..."
 L["Full Size"] = "完整尺寸"
 L["Transparency"] = "透明度"
