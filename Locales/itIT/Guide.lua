@@ -65,6 +65,7 @@ L["Zone"] = true
 L["Trade Skill"] = "Abilit\195\160 Commercio"
 L["Alchemy Lab"] = "Laboratorio Alchemico"
 L["Altar Of Shadows"] = "Altare delle Ombre"
+L["Lightforged Beacon"] = true
 L["Mana Loom"] = true
 L["Moonwell"] = "Pozzo Lunare"
 

@@ -281,6 +281,8 @@ L["Lumbermill"] = true
 L["Delete"] = true
 L["Import"] = true
 L["Cancel"] = true
+L["Enable All"] = true
+L["Disable All"] = true
 
 -- Menu Options
 L["Menu Options"] = "메뉴 옵션"

@@ -38,6 +38,7 @@ L["Show Cities"] = "Показать города"
 L["Show Towns"] = "Показать деревни"
 L["Show Extras"] = "Показать дополнения"
 L["Show Kill Icons"] = "Показать иконки смертей"
+L["Show Instance Raid Bosses"] = true
 L["Minimap..."] = "Миникарта..."
 L["Full Size"] = "Полноразмерность"
 L["Transparency"] = "Прозрачность"

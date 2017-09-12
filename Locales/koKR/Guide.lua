@@ -65,6 +65,7 @@ L["Zone"] = "지역"
 L["Trade Skill"] = "전문 기술"
 L["Alchemy Lab"] = "연금술 실험대"
 L["Altar Of Shadows"] = "어둠의 제단"
+L["Lightforged Beacon"] = true
 L["Mana Loom"] = "마나 베틀"
 L["Moonwell"] = "달샘"
 

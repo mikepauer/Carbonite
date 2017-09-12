@@ -89,6 +89,8 @@ L["Felwort"] = true
 L["Fjarnskaggl"] = true
 L["Foxflower"] = true
 L["Starlight Rose"] = true
+-- 7.3 Changes
+L["Astral Glory"] = true
 
 -- Mines
 L["Adamantite Deposit"] = true
@@ -143,3 +145,7 @@ L["Leystone Deposit"] = true
 L["Leystone Seam"] = true
 L["Living Leystone"] = true
 L["Infernal Brimstone"] = true
+-- 7.3 change
+L["Empyrium Deposit"] = true
+L["Rich Empyrium Deposit"] = true
+L["Empyrium Seam"] = true

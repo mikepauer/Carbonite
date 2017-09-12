@@ -281,6 +281,8 @@ L["Lumbermill"] = "伐木场"
 L["Delete"] = "删除"
 L["Import"] = "导入"
 L["Cancel"] = "取消"
+L["Enable All"] = true
+L["Disable All"] = true
 
 -- Menu Options
 L["Menu Options"] = "菜单选项"

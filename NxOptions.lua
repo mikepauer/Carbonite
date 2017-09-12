@@ -36,13 +36,13 @@ local function profilesConfig()
 	if not profiles then
 		profiles = {
 			type = "group",
-			name = L["Profiles"],			
+			name = L["Profiles"],
 			childGroups	= "tab",
 			args = {
 				main = {
 					type = "group",
 					name = L["Main"],
-					order = 1,		
+					order = 1,
 					args = {},
 				},
 			},
@@ -354,7 +354,7 @@ local function mapConfig ()
 							set = function()
 								Nx.db.profile.Map.WOwn = not Nx.db.profile.Map.WOwn
 							end,
-						}, 
+						},
 ]]--
 						restoreMap = {
 							order = 7,
@@ -1878,7 +1878,7 @@ local function guidegatherConfig ()
 							name = L["Delete Timber Gather Locations"],
 							func = function ()
 								Nx.Opts:NXCmdDeleteTimber()
-							end,						
+							end,
 						},
 						CmdDelMisc = {
 							order = 6,
@@ -1932,7 +1932,7 @@ local function guidegatherConfig ()
 							order = 1,
 							type = "execute",
 							width = "double",
-							name = "Enable All",
+							name = L["Enable All"],
 							func = function()
 								for i = 1,76 do
 									Nx.db.profile.Guide.ShowHerbs[i] = true
@@ -1943,7 +1943,7 @@ local function guidegatherConfig ()
 							order = 2,
 							type = "execute",
 							width = "double",
-							name = "Disable All",
+							name = L["Disable All"],
 							func = function()
 								for i = 1,76 do
 									Nx.db.profile.Guide.ShowHerbs[i] = false
@@ -2942,7 +2942,7 @@ local function guidegatherConfig ()
 							order = 79,
 							type = "toggle",
 							width = "full",
-							name = L["Astral Glory"], 
+							name = L["Astral Glory"],
 							desc = L["Display"] .. " " .. L["Astral Glory"] .. " " .. L["Nodes On Map"],
 							get = function()
 								return Nx.db.profile.Guide.ShowHerbs[77]
@@ -2950,7 +2950,7 @@ local function guidegatherConfig ()
 							set = function()
 								Nx.db.profile.Guide.ShowHerbs[77] = not Nx.db.profile.Guide.ShowHerbs[77]
 							end,
-						},							
+						},
 					},
 				},
 				MinesDisp = {
@@ -2962,7 +2962,7 @@ local function guidegatherConfig ()
 							order = 1,
 							type = "execute",
 							width = "double",
-							name = "Enable All",
+							name = L["Enable All"],
 							func = function()
 								for i = 1,50 do
 									Nx.db.profile.Guide.ShowMines[i] = true
@@ -2973,13 +2973,13 @@ local function guidegatherConfig ()
 							order = 2,
 							type = "execute",
 							width = "double",
-							name = "Disable All",
+							name = L["Disable All"],
 							func = function()
 								for i = 1,50 do
 									Nx.db.profile.Guide.ShowMines[i] = false
 								end
 							end,
-						},					
+						},
 						adamantite = {
 							order = 3,
 							type = "toggle",
@@ -3551,7 +3551,7 @@ local function guidegatherConfig ()
 							set = function()
 								Nx.db.profile.Guide.ShowMines[44] = not Nx.db.profile.Guide.ShowMines[44]
 							end,
-						},						
+						},
 						felslateseam = {
 							order = 47,
 							type = "toggle",
@@ -3655,7 +3655,7 @@ local function guidegatherConfig ()
 							set = function()
 								Nx.db.profile.Guide.ShowMines[52] = not Nx.db.profile.Guide.ShowMines[52]
 							end,
-						},						
+						},
 					},
 				},
 				TimberDisp = {
@@ -3667,7 +3667,7 @@ local function guidegatherConfig ()
 							order = 1,
 							type = "execute",
 							width = "double",
-							name = "Enable All",
+							name = L["Enable All"],
 							func = function()
 								for i = 1,3 do
 									Nx.db.profile.Guide.ShowTimber[i] = true
@@ -3678,13 +3678,13 @@ local function guidegatherConfig ()
 							order = 2,
 							type = "execute",
 							width = "double",
-							name = "Disable All",
+							name = L["Disable All"],
 							func = function()
 								for i = 1,3 do
 									Nx.db.profile.Guide.ShowTimber[i] = false
 								end
 							end,
-						},					
+						},
 						small = {
 							order = 3,
 							type = "toggle",
@@ -3710,7 +3710,7 @@ local function guidegatherConfig ()
 							set = function()
 								Nx.db.profile.Guide.ShowTimber[2] = not Nx.db.profile.Guide.ShowTimber[2]
 							end,
-						},						
+						},
 						large = {
 							order = 5,
 							type = "toggle",
@@ -3723,9 +3723,9 @@ local function guidegatherConfig ()
 							set = function()
 								Nx.db.profile.Guide.ShowTimber[3] = not Nx.db.profile.Guide.ShowTimber[3]
 							end,
-						},						
+						},
 					},
-				},				
+				},
 			},
 		}
 	end

@@ -89,6 +89,8 @@ L["Felwort"] = "Gangr\195\168che"
 L["Fjarnskaggl"] = "Fjarnskaggl"
 L["Foxflower"] = "Vulpille"
 L["Starlight Rose"] = "Rose Lum\195\169toile"
+-- 7.3 Changes
+L["Astral Glory"] = true
 
 -- Mines
 L["Adamantite Deposit"] = "Gisement d'adamantite"
@@ -143,3 +145,7 @@ L["Leystone Deposit"] = "Gisement de Tellurium"
 L["Leystone Seam"] = "Veine de Tellurium"
 L["Living Leystone"] = "Tellurium Vivant"
 L["Infernal Brimstone"] = "Soufre Infernal"
+-- 7.3 change
+L["Empyrium Deposit"] = true
+L["Rich Empyrium Deposit"] = true
+L["Empyrium Seam"] = true

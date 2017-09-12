@@ -61,6 +61,7 @@ L["Zone"] = true
 L["Trade Skill"] = true
 L["Alchemy Lab"] = true
 L["Altar Of Shadows"] = true
+L["Lightforged Beacon"] = true
 L["Mana Loom"] = true
 L["Moonwell"] = true
 
