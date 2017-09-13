@@ -680,8 +680,7 @@ function Nx.Map:Create (index)
 
 	local menu = Nx.Menu:Create (f)
 	m.Menu = menu
-    m.MenuIInstanceMaps = menu:AddItem (0, L["Show Instance Map"], self.Menu_InstanceMap, m)
-	menu:AddItem (0, L["Goto"], self.Menu_OnGoto, m)
+ 	menu:AddItem (0, L["Goto"], self.Menu_OnGoto, m)
 	menu:AddItem (0, L["Clear Goto"], self.Menu_OnClearGoto, m)
 	menu:AddItem (0, L["Save Map Scale"], self.Menu_OnScaleSave, m)
 	menu:AddItem (0, L["Restore Map Scale"], self.Menu_OnScaleRestore, m) 	
@@ -692,6 +691,7 @@ function Nx.Map:Create (index)
 	item:SetChecked (m, "NXCitiesUnder")
 
 	m.MenuIMonitorZone = menu:AddItem (0, L["Monitor Zone"], self.Menu_OnMonitorZone, m)
+	m.MenuIInstanceMaps = menu:AddItem (0, L["Show Instance Map"], self.Menu_InstanceMap, m)
 
 	menu:AddItem (0, "", nil, self)
 
