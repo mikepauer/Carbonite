@@ -179,6 +179,7 @@ local defaults = {
 			ShowGatherM = false,
 			ShowGatherL = false,
 			ShowQuestGivers = 1,
+			ShowContPois = true,
 			ShowMailboxes = true,
 			ShowRaidBoss = true,
 			ShowWorldQuest = true,
