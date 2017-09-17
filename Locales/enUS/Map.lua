@@ -35,6 +35,7 @@ L["Show Towns"] = true
 L["Show Extras"] = true
 L["Show Kill Icons"] = true
 L["Show Instance Raid Bosses"] = true
+L["Show Continent POIs"] = true
 L["Minimap..."] = true
 L["Full Size"] = true
 L["Transparency"] = true
