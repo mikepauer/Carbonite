@@ -680,8 +680,7 @@ function Nx.Map:Create (index)
 
 	local menu = Nx.Menu:Create (f)
 	m.Menu = menu
-    m.MenuIInstanceMaps = menu:AddItem (0, L["Show Instance Map"], self.Menu_InstanceMap, m)
-	menu:AddItem (0, L["Goto"], self.Menu_OnGoto, m)
+ 	menu:AddItem (0, L["Goto"], self.Menu_OnGoto, m)
 	menu:AddItem (0, L["Clear Goto"], self.Menu_OnClearGoto, m)
 	menu:AddItem (0, L["Save Map Scale"], self.Menu_OnScaleSave, m)
 	menu:AddItem (0, L["Restore Map Scale"], self.Menu_OnScaleRestore, m) 	
@@ -692,6 +691,7 @@ function Nx.Map:Create (index)
 	item:SetChecked (m, "NXCitiesUnder")
 
 	m.MenuIMonitorZone = menu:AddItem (0, L["Monitor Zone"], self.Menu_OnMonitorZone, m)
+	m.MenuIInstanceMaps = menu:AddItem (0, L["Show Instance Map"], self.Menu_InstanceMap, m)
 
 	menu:AddItem (0, "", nil, self)
 
@@ -765,9 +765,10 @@ function Nx.Map:Create (index)
 		Nx.Map.Guide:UpdateMapIcons()
 	end
 
+	local item = showMenu:AddItem (0, L["Show Continent POIs"], func, m)
+	item:SetChecked (Nx.db.char.Map, "ShowContPois")
 	local item = showMenu:AddItem (0, L["Show Guide POIs"], func, m)
 	item:SetChecked (Nx.db.char.Map, "ShowMailboxes")
-
 	local item = showMenu:AddItem (0, L["Show Custom Icons"], func, m)
 	item:SetChecked (Nx.db.char.Map, "ShowCustom")
 	local item = showMenu:AddItem(0, L["Show Instance Raid Bosses"], func, m)
@@ -4657,156 +4658,157 @@ function Nx.Map:Update (elapsed)
 		local type, name, desc, txIndex, pX, pY, mapLinkID, inBattleMap, graveyardID, areaID, poiID, isObjectIcon, atlasIcon = C_WorldMap.GetMapLandmarkInfo(i);
 		Nx.prtCtrl ("LandMs %s, %s, %s, %s, %s, %s, %s, %s", i, poiID, txIndex or '-', name, type, isObjectIcon, atlasIcon, WorldMap_IsSpecialPOI(poiID))
 		if atlasIcon or (pX and txIndex ~= 0) then		-- WotLK has 0 index POIs for named locations
+			if type ~= 4 or (type == 4 and Nx.db.char.Map.ShowArchBlobs) then
+				local tip = name
+				if desc then
+					tip = format ("%s\n%s", name, desc)
+				end			
+				pX = pX * 100
+				pY = pY * 100
+				
+	--			Nx.prtCtrl ("poi %d %s %s %d", i, name, desc, txIndex)
 
-			local tip = name
-			if desc then
-				tip = format ("%s\n%s", name, desc)
-			end			
-			pX = pX * 100
-			pY = pY * 100
-			
---			Nx.prtCtrl ("poi %d %s %s %d", i, name, desc, txIndex)
+				local f = self:GetIcon (3)
 
-			local f = self:GetIcon (3)
+				if self.CurMapBG then
 
-			if self.CurMapBG then
+					f.NXType = 2000
 
-				f.NXType = 2000
+					local iconType = Nx.MapPOITypes[txIndex]
 
-				local iconType = Nx.MapPOITypes[txIndex]
-
-				local sideStr = ""
-				if iconType == 1 then	-- Ally?
-					sideStr = " (Ally)"
-				elseif iconType == 2 then	-- Horde?
-					sideStr = " (Horde)"
-				end
-
-				if desc == L["In Conflict"] then
-
-					local state = self.BGTimers[name]
-					if state ~= txIndex then
-						self.BGTimers[name] = txIndex
-						self.BGTimers[name.."#"] = GetTime()
+					local sideStr = ""
+					if iconType == 1 then	-- Ally?
+						sideStr = " (Ally)"
+					elseif iconType == 2 then	-- Horde?
+						sideStr = " (Horde)"
 					end
 
-					local dur = GetTime() - self.BGTimers[name.."#"]
-					local doneDur = (rid == 461 or rid == 540 or rid == 736) and 64 or 241
-					local leftDur = max (doneDur - dur, 0)
-					local tmStr
+					if desc == L["In Conflict"] then
 
-					if leftDur < 60 then
-						tmStr = format (":%02d", leftDur)
-					else
-						tmStr = format ("%d:%02d", floor (leftDur / 60), floor (leftDur % 60))
-					end
-
-					f.NXData = format ("1~%f~%f~%s%s %s", pX, pY, name, sideStr, tmStr)
-
-					tip = format ("%s\n%s", tip, tmStr)
-
-					-- Horizontal bar
-
-					local sz = 30 / self.ScaleDraw
-
-					local f2 = self:GetIcon (0)
-					self:ClipFrameZTLO (f2, pX, pY, sz, sz, -15, -15)
-					f2.texture:SetColorTexture (0, 0, 0, .35)
-
-					f2.NXType = 2000
-					f2.NxTip = tip
-					f2.NXData = f.NXData
-
-					local f2 = self:GetIconNI (1)
-
-					if leftDur < 10 then
-
-						if self.BGGrowBars then
-
-							local al = abs (GetTime() % .4 - .2) / .2 * .2 + .8
-
-							local f3 = self:GetIconNI (2)
-							self:ClipFrameZTLO (f3, pX, pY, sz * (10 - leftDur) * .1, 3 / self.ScaleDraw, -15, -15)
-							f3.texture:SetColorTexture (.5, 1, .5, al)
-
-							local f3 = self:GetIconNI (2)
-							self:ClipFrameZTLO (f3, pX, pY, sz * (10 - leftDur) * .1, 3 / self.ScaleDraw, -15, 12)
-							f3.texture:SetColorTexture (.5, 1, .5, al)
+						local state = self.BGTimers[name]
+						if state ~= txIndex then
+							self.BGTimers[name] = txIndex
+							self.BGTimers[name.."#"] = GetTime()
 						end
 
---						f2.texture:SetColorTexture (.5, 1, .5, abs (GetTime() % .6 - .3) / .3 * .7 + .3)
+						local dur = GetTime() - self.BGTimers[name.."#"]
+						local doneDur = (rid == 461 or rid == 540 or rid == 736) and 64 or 241
+						local leftDur = max (doneDur - dur, 0)
+						local tmStr
+
+						if leftDur < 60 then
+							tmStr = format (":%02d", leftDur)
+						else
+							tmStr = format ("%d:%02d", floor (leftDur / 60), floor (leftDur % 60))
+						end
+
+						f.NXData = format ("1~%f~%f~%s%s %s", pX, pY, name, sideStr, tmStr)
+
+						tip = format ("%s\n%s", tip, tmStr)
+
+						-- Horizontal bar
+
+						local sz = 30 / self.ScaleDraw
+
+						local f2 = self:GetIcon (0)
+						self:ClipFrameZTLO (f2, pX, pY, sz, sz, -15, -15)
+						f2.texture:SetColorTexture (0, 0, 0, .35)
+
+						f2.NXType = 2000
+						f2.NxTip = tip
+						f2.NXData = f.NXData
+
+						local f2 = self:GetIconNI (1)
+
+						if leftDur < 10 then
+
+							if self.BGGrowBars then
+
+								local al = abs (GetTime() % .4 - .2) / .2 * .2 + .8
+
+								local f3 = self:GetIconNI (2)
+								self:ClipFrameZTLO (f3, pX, pY, sz * (10 - leftDur) * .1, 3 / self.ScaleDraw, -15, -15)
+								f3.texture:SetColorTexture (.5, 1, .5, al)
+
+								local f3 = self:GetIconNI (2)
+								self:ClipFrameZTLO (f3, pX, pY, sz * (10 - leftDur) * .1, 3 / self.ScaleDraw, -15, 12)
+								f3.texture:SetColorTexture (.5, 1, .5, al)
+							end
+
+	--						f2.texture:SetColorTexture (.5, 1, .5, abs (GetTime() % .6 - .3) / .3 * .7 + .3)
+						end
+
+						local red = .3
+						local blue = 1
+						if iconType == 2 then	-- Horde?
+							red = 1
+							blue = .3
+						end
+
+						f2.texture:SetColorTexture (red, .3, blue, abs (GetTime() % 2 - 1) * .5 + .5)
+
+						local per = leftDur / doneDur
+						local vper = per > .1 and 1 or per * 10
+
+						if self.BGGrowBars then
+							per = 1 - per
+							vper = 1
+						else
+							per = max (per, .1)
+						end
+
+						self:ClipFrameZTLO (f2, pX, pY, sz * per, sz * vper, -15, -15)
+
+					else	-- No conflict
+
+						f.NXData = format ("0~%f~%f~%s%s", pX, pY, name, sideStr)
+
+						self.BGTimers[name] = nil
+
+						-- Rect
+
+						local sz = 30 / self.ScaleDraw
+
+						local f2 = self:GetIcon (0)
+						self:ClipFrameZTLO (f2, pX, pY, sz, sz, -15, -15)
+
+	--					Nx.prtCtrl ("I %s %s %s", name, txIndex, iconType or "nil")
+
+						if iconType == 1 then	-- Ally?
+							f2.texture:SetColorTexture (0, 0, 1, .3)
+	--						Nx.prtCtrl ("Blue")
+						elseif iconType == 2 then	-- Horde?
+							f2.texture:SetColorTexture (1, 0, 0, .3)
+	--						Nx.prtCtrl ("Red")
+						else
+							f2.texture:SetColorTexture (0, 0, 0, .3)
+						end
+
+						f2.NXType = 2000
+						f2.NxTip = tip
+						f2.NXData = f.NXData
+
 					end
-
-					local red = .3
-					local blue = 1
-					if iconType == 2 then	-- Horde?
-						red = 1
-						blue = .3
-					end
-
-					f2.texture:SetColorTexture (red, .3, blue, abs (GetTime() % 2 - 1) * .5 + .5)
-
-					local per = leftDur / doneDur
-					local vper = per > .1 and 1 or per * 10
-
-					if self.BGGrowBars then
-						per = 1 - per
-						vper = 1
-					else
-						per = max (per, .1)
-					end
-
-					self:ClipFrameZTLO (f2, pX, pY, sz * per, sz * vper, -15, -15)
-
-				else	-- No conflict
-
-					f.NXData = format ("0~%f~%f~%s%s", pX, pY, name, sideStr)
-
-					self.BGTimers[name] = nil
-
-					-- Rect
-
-					local sz = 30 / self.ScaleDraw
-
-					local f2 = self:GetIcon (0)
-					self:ClipFrameZTLO (f2, pX, pY, sz, sz, -15, -15)
-
---					Nx.prtCtrl ("I %s %s %s", name, txIndex, iconType or "nil")
-
-					if iconType == 1 then	-- Ally?
-						f2.texture:SetColorTexture (0, 0, 1, .3)
---						Nx.prtCtrl ("Blue")
-					elseif iconType == 2 then	-- Horde?
-						f2.texture:SetColorTexture (1, 0, 0, .3)
---						Nx.prtCtrl ("Red")
-					else
-						f2.texture:SetColorTexture (0, 0, 0, .3)
-					end
-
-					f2.NXType = 2000
-					f2.NxTip = tip
-					f2.NXData = f.NXData
-
 				end
-			end
 
-			f.NxTip = tip
-			
-			-- Sentinax and Broken Shore bosses
-			if not IsAltKeyDown() and atlasIcon and (Nx.strpos(atlasIcon, 'DemonShip') == 1 or Nx.strpos(atlasIcon, 'DemonInvasion') == 1) then
-				pX, pY = self:GetWorldPos (self.MapId, pX, pY)
-				if self.ScaleDraw > 1 then	
-					self:ClipFrameTL (f, pX-16, pY-16, 32 / self.ScaleDraw, 32 / self.ScaleDraw, 0)
+				f.NxTip = tip
+				
+				-- Sentinax and Broken Shore bosses
+				if not IsAltKeyDown() and atlasIcon and (Nx.strpos(atlasIcon, 'DemonShip') == 1 or Nx.strpos(atlasIcon, 'DemonInvasion') == 1) then
+					pX, pY = self:GetWorldPos (self.MapId, pX, pY)
+					if self.ScaleDraw > 1 then	
+						self:ClipFrameTL (f, pX-16, pY-16, 32 / self.ScaleDraw, 32 / self.ScaleDraw, 0)
+					else
+						self:ClipFrameTL (f, pX-16, pY-16, 32, 32, 0)
+					end
+					f.texture:SetAtlas(atlasIcon)
 				else
-					self:ClipFrameTL (f, pX-16, pY-16, 32, 32, 0)
+					self:ClipFrameZ (f, pX, pY, 16, 16, 0)
+					f.texture:SetTexture ("Interface\\Minimap\\POIIcons")
+					txX1, txX2, txY1, txY2 = GetPOITextureCoords (txIndex)
+					f.texture:SetTexCoord (txX1 + .003, txX2 - .003, txY1 + .003, txY2 - .003)
+					f.texture:SetVertexColor (1, 1, 1, 1)
 				end
-				f.texture:SetAtlas(atlasIcon)
-			else
-				self:ClipFrameZ (f, pX, pY, 16, 16, 0)
-				f.texture:SetTexture ("Interface\\Minimap\\POIIcons")
-				txX1, txX2, txY1, txY2 = GetPOITextureCoords (txIndex)
-				f.texture:SetTexCoord (txX1 + .003, txX2 - .003, txY1 + .003, txY2 - .003)
-				f.texture:SetVertexColor (1, 1, 1, 1)
 			end
 		end
 	end
@@ -5229,14 +5231,18 @@ end
 -- Draw the continents POI data
 
 function Nx.Map:DrawContinentsPOIs()
-
+	
 	if self.ScaleDraw > self.LOpts.NXPOIAtScale then
 
 		if not Nx.db.char.Map.ShowGatherA then
 			return
 		end
 	end
-
+	
+	if not Nx.db.char.Map.ShowContPois then
+		return
+	end
+	
 	local getCoords = GetPOITextureCoords
 
 	for cont = 1, self.ContCnt do
