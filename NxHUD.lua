@@ -86,38 +86,36 @@ function Nx.HUD:Create()
 	f.NxInst = inst
 
 	f:EnableMouse (false)
---	f:SetScript ("OnMouseDown", self.OnMouseDown)
-
 	local t = f:CreateTexture()
 	t:SetAllPoints (f)
 	f.texture = t
-
-	-- Create button
-
---PAIDS!
-
 	local but = CreateFrame ("Button", nil, UIParent, "SecureUnitButtonTemplate")
 	inst.But = but
 
 	but:SetAttribute ("type", "target")
 	but:SetAttribute ("unit", "player")
 
-	but:RegisterForClicks ("LeftButtonDown", "RightButtonDown")
+--	but:RegisterForClicks ("LeftButtonDown")
 
 	local t = but:CreateTexture()
 	t:SetAllPoints (but)
 	t:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconCircle")
---	t:SetColorTexture (1, 1, 1, 1)
 	but.texture = t
-
 	but:SetWidth (10)
 	but:SetHeight (10)
-
---PAIDE!
-
-	--
-
-	self:UpdateOptions()
+	self:UpdateOptions()	
+	local menu = win.Menu	
+	local item = menu:AddItem(0,"--------------")
+	local function func ()
+		local map = Nx.Map:GetMap(1)
+		tremove (map.Targets, 1)
+	end
+	local item = menu:AddItem(0,"Remove Current Point", func, self)
+	local function func ()
+		local map = Nx.Map:GetMap(1)
+		map:Menu_OnClearGoto()
+	end
+	local item = menu:AddItem(0,"Remove All Points", func, self)
 end
 
 --------

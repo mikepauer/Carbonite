@@ -146,6 +146,10 @@ Nx.Whatsnew.HasWhatsNew = nil
 
 if _G.TomTom then
 	Nx.RealTom = true
+	SLASH_CBWAY1 = '/cbway'
+	SlashCmdList["CBWAY"] = function (msg, editbox)
+		Nx:TTWayCmd(msg)
+	end	
 end
 
 function Nx.EmulateTomTom()
@@ -163,7 +167,11 @@ function Nx.EmulateTomTom()
 	tom["RemoveWaypoint"] = Nx.TTRemoveWaypoint
 	tom["SetCrazyArrow"] = Nx.TTSetCrazyArrow
 	SLASH_WAY1 = '/way'
+	SLASH_CBWAY1 = '/cbway'
 	SlashCmdList["WAY"] = function (msg, editbox)
+		Nx:TTWayCmd(msg)
+	end
+	SlashCmdList["CBWAY"] = function (msg, editbox)
 		Nx:TTWayCmd(msg)
 	end
 end
@@ -3674,6 +3682,5 @@ function Nx.Proc:OnUpdate (elapsed)
 
 	self.TimeLeft = elapsed
 end
-
 ---------------------------------------------------------------------------------------
 --EOF

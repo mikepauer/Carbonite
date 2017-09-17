@@ -684,7 +684,7 @@ function Nx.Map:Create (index)
 	menu:AddItem (0, L["Clear Goto"], self.Menu_OnClearGoto, m)
 	menu:AddItem (0, L["Save Map Scale"], self.Menu_OnScaleSave, m)
 	menu:AddItem (0, L["Restore Map Scale"], self.Menu_OnScaleRestore, m) 	
-	 
+    menu:AddItem (0, "", nil, self)
 	m.MenuIPlyrFollow = menu:AddItem (0, L["Follow You"], self.Menu_OnPlyrFollow, m)
 
 	local item = menu:AddItem (0, L["Select Cities Last"], self.SetLevelWorldHotspots, m)
