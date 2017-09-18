@@ -1401,13 +1401,12 @@ Map.MapWorldInfo = {
 		Overlay = "ashranhordefactionhub",
 	},
 	[1014] = {
-		Scale = 1.6589 / 1.3,
-		X = -1000,
-		Y = 100,
+		Scale = 1.8,
+		X = -983,
+		Y = 112,
 		Overlay = "dalaran70",		
 		City = true,
 		Alpha = .85,
-		ScaleAdjust = 1.3,
 		MapLevel = 1,		
 	},
 	[1015] = {
@@ -8638,7 +8637,7 @@ Map.MiniMapBlks = {
 		Map.Argus3MapBlks,
 		1119,
 		11, 19,
-		Map.MapWorldInfo[1170].X + Map.MapWorldInfo[1170].XOff + Map.MapInfo[9].X + 75, Map.MapWorldInfo[1170].Y + Map.MapWorldInfo[1170].YOff + Map.MapInfo[9].Y + -50,
+		Map.MapWorldInfo[1170].X + Map.MapWorldInfo[1170].XOff + Map.MapInfo[9].X + 69.1, Map.MapWorldInfo[1170].Y + Map.MapWorldInfo[1170].YOff + Map.MapInfo[9].Y + -62.6,
 		"World\\Minimaps\\Argus 1"
 	},
 	[1171] = {

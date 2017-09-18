@@ -1224,7 +1224,7 @@ end
 --------
 -- Generic update
 
-function Nx:NXOnUpdate (elapsed)
+function Nx:NXOnUpdate (elapsed)    
 	if InCombatLockdown() and not Nx.Initialized and not Nx.CombatMessage then		
 		Nx.prt("You are in combat! Carbonite will resume loading when your safe.")
 		Nx.CombatMessage = true
@@ -1242,6 +1242,7 @@ function Nx:NXOnUpdate (elapsed)
 	if Nx.LootOn then
 		Nx:LootIt()
 	end
+	
 	Nx.Proc:OnUpdate (elapsed)
 
 	-- Tooltip stuff
@@ -1331,6 +1332,7 @@ function Nx:NXOnUpdate (elapsed)
 		end
 		Nx.NXMiniMapBut.Menu:AddItem(0, L["Whats New!"], func, Nx.NXMiniMapBut)			
 	end
+
 end
 
 function Nx:WhatsNewUnread()

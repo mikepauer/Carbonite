@@ -463,8 +463,7 @@ end
 
 function Nx.Map:Create (index)
 
-	local Map = Nx.Map
-
+	local Map = Nx.Map	
 	local m = {}
 
 	local opts = Nx.db.profile.MapSettings
