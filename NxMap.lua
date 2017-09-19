@@ -7778,10 +7778,15 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 					end
 				end
 				
+				self.iconClipFunc = self.ClipFrameW
 				if (self:IsInstanceMap(Nx.Map.UpdateMapID) or self:IsBattleGroundMap(Nx.Map.UpdateMapID)) then
 					w = Nx.db.profile.Map.InstanceScale
 					h = Nx.db.profile.Map.InstanceScale
+					if self.CurOpts.NXInstanceMaps then
+						self.iconClipFunc = self.ClipFrameMF
+					end
 				end
+				
 				if v.AlphaNear then
 
 					local aNear = v.AlphaNear * (abs (GetTime() % .7 - .35) / .7 + .5)	-- 50% to 100% pulse
@@ -7790,7 +7795,7 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 						if (not v[n].Level and Nx.Map.DungeonLevel == 0) or (v[n].Level and v[n].Level == Nx.Map.DungeonLevel) then
 							local icon = v[n]
 							local f = self:GetIconStatic (v.Lvl)							
-							if self:ClipFrameByMapType (f, icon.X, icon.Y, w, h, 0) then								
+							if self:iconClipFunc (f, icon.X, icon.Y, w, h, 0) then								
 								f.NxTip = icon.Tip								
 								f.NXType = 3000
 								f.NXData = icon
@@ -7839,7 +7844,7 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 								actuallyIcon = true
 								f = icon.Tex
 							end
-							if self:ClipFrameByMapType (f, icon.X, icon.Y + (offY or 0), w, h, 0) then
+							if self:iconClipFunc (f, icon.X, icon.Y + (offY or 0), w, h, 0) then
 								f.NxTip = icon.Tip																
 								f.NXType = 3000
 								f.NXData = icon
