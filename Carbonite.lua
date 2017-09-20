@@ -104,6 +104,7 @@ Nx.Map = {}
 Nx.Map.Dock = {}
 Nx.Map.Guide = {}
 Nx.Map.Guide.PlayerTargets = {}
+Nx.MapIsInstance = {}
 Nx.Travel = {}
 
 Nx.Title = {}
