@@ -8907,7 +8907,8 @@ function Nx.Map:InitTables()
 			tinsert(Nx.Map.MapZones[100],id)
 --			Nx.MapNameToId[name] = mid
 --			Nx.MapIdToName[mid] = name
-
+			tinsert(Nx.MapIsInstance, id, true)
+			
 			local emid = tonumber(entryId)
 			while entryfact == "3" and entrycont == "5" do
 				Nx.prt(entrybase)
@@ -9379,12 +9380,15 @@ function Nx.Map:IsInstanceMap (mapId)
 	if (Nx.Map.MapWorldInfo[mapId] and Nx.Map.MapWorldInfo[mapId].BaseMap) then
 	   mapId = Nx.Map.MapWorldInfo[mapId].BaseMap
 	end
+
+	return Nx.MapIsInstance[mapID] == true and true or false
+	--[[Nx.prt("IsInstanceMap fallback")
 	for _,map in pairs(Nx.Map.MapZones[100]) do
 		if map == mapId then
 			return true
 		end
 	end
-	return false
+	return false]]--
 end
 
 --------
