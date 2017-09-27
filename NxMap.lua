@@ -4805,10 +4805,14 @@ function Nx.Map:Update (elapsed)
 					f.texture:SetAtlas(atlasIcon)
 				else
 					self:ClipFrameZ (f, pX, pY, 16, 16, 0)
-					f.texture:SetTexture ("Interface\\Minimap\\POIIcons")
-					txX1, txX2, txY1, txY2 = GetPOITextureCoords (txIndex)
-					f.texture:SetTexCoord (txX1 + .003, txX2 - .003, txY1 + .003, txY2 - .003)
-					f.texture:SetVertexColor (1, 1, 1, 1)
+					if atlasIcon then
+						f.texture:SetAtlas(atlasIcon)
+					else
+						f.texture:SetTexture ("Interface\\Minimap\\POIIcons")
+						txX1, txX2, txY1, txY2 = GetPOITextureCoords (txIndex)
+						f.texture:SetTexCoord (txX1 + .003, txX2 - .003, txY1 + .003, txY2 - .003)
+						f.texture:SetVertexColor (1, 1, 1, 1)
+					end
 				end
 			end
 		end
