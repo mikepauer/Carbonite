@@ -8745,7 +8745,7 @@ function Nx.Map:InitTables()
 		else
 			self.ContCnt = 9
 	end
-	continentNums = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 90 }
+--	continentNums = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 90 }
 	for n = 1, 1999 do
 		local winfo = worldInfo[mapId]
 		if not winfo then
