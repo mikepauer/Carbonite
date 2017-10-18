@@ -90,7 +90,7 @@ L["Fjarnskaggl"] = "夏斯卡格草"
 L["Foxflower"] = "狐尾花"
 L["Starlight Rose"] = "星光玫瑰"
 -- 7.3 Changes
-L["Astral Glory"] = true
+L["Astral Glory"] = "星辰之耀"
 
 -- Mines
 L["Adamantite Deposit"] = "精金矿脉"
@@ -146,6 +146,6 @@ L["Leystone Seam"] = "魔石矿层"
 L["Living Leystone"] = "活性魔石"
 L["Infernal Brimstone"] = "地狱硫磺"
 -- 7.3 change
-L["Empyrium Deposit"] = true
-L["Rich Empyrium Deposit"] = true
-L["Empyrium Seam"] = true
+L["Empyrium Deposit"] = "天界金矿脉"
+L["Rich Empyrium Deposit"] = "富天界金矿脉"
+L["Empyrium Seam"] = "天界金矿层"
