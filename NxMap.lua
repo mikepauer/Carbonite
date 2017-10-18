@@ -5503,7 +5503,7 @@ function Nx.Map:UpdateGroup (plX, plY)
 						self:ClipFrameTL (f, wx - 9 / sc, wy - 2 / sc, 16 * per / sc, 1 / sc)
 						f.texture:SetColorTexture (0, 1, 0, 1)
 
-						tStr = format ("\n|cff80ff80%s %d %s %d", tName, tLvl, tCls, th)
+						tStr = format ("\n|cff80ff80%s %d %s %.f", tName, tLvl, tCls, th)
 
 						if not UnitIsPlayer (unitTarget) then	-- NPC?
 							tStr = tStr .. "%"
@@ -5514,12 +5514,12 @@ function Nx.Map:UpdateGroup (plX, plY)
 						if UnitIsPlayer (unitTarget) then
 
 							tEnPlayer = true
-							tStr = format ("\n|cffff4040%s %d %s %d%%", tName, tLvl, tCls, th)
+							tStr = format ("\n|cffff4040%s %d %s %.f%%", tName, tLvl, tCls, th)
 							f.texture:SetColorTexture (redGlow, .1, 0, 1)
 
 						elseif UnitIsEnemy ("player", unitTarget) then
 
-							tStr = format ("\n|cffffff40%s %d %s %d%%", tName, tLvl, tCls, th)
+							tStr = format ("\n|cffffff40%s %d %s %.f%%", tName, tLvl, tCls, th)
 
 							if Nx:UnitIsPlusMob (unitTarget) then
 								f.texture:SetColorTexture (1, .4, 1, 1)
@@ -5528,7 +5528,7 @@ function Nx.Map:UpdateGroup (plX, plY)
 							end
 
 						else
-							tStr = format ("\n|cffc0c0ff%s %d %s %d%%", tName, tLvl, tCls, th)
+							tStr = format ("\n|cffc0c0ff%s %d %s %.f%%", tName, tLvl, tCls, th)
 							f.texture:SetColorTexture (.7, .7, 1, 1)
 						end
 					end
