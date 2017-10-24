@@ -3706,7 +3706,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 	ttl = 0
 	
 	-- Temp HACK - Hide unused HANDYNOTES icons
-	--[[ if not WorldMapFrame:IsShown() then
+	if not WorldMapFrame:IsShown() then
 		for n = 1, 2000 do 
 			if _G["HandyNotesPin"..n] then
 				_G["HandyNotesPin"..n]:Hide()
@@ -3714,7 +3714,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 				break
 			end 
 		end
-	end ]]--
+	end
 	
 	if _G['ReputationFrame'] then
 		if not _G['ReputationFrame'].CarbFix then
