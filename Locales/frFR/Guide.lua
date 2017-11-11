@@ -65,7 +65,7 @@ L["Zone"] = "Zones"
 L["Trade Skill"] = "Comp\195\169tences m\195\169tier"
 L["Alchemy Lab"] = "Laboratoire d'alchimie"
 L["Altar Of Shadows"] = "Autel des Ombres"
-L["Lightforged Beacon"] = true
+L["Lightforged Beacon"] = "Balise Sancteforge"
 L["Mana Loom"] = "Tisse-Mana"
 L["Moonwell"] = "Puis de Lune"
 
