@@ -7711,7 +7711,6 @@ end
 -- Update all icons
 
 function Nx.Map:UpdateIcons (drawNonGuide)
-	
 	local c2rgb = Nx.Util_c2rgb
 	local c2rgba = Nx.Util_c2rgba
 	local d = self.Data
@@ -7721,7 +7720,9 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 	if wpMin >= 0 then
 		wpScale = self.ScaleDraw * .08
 	end
-
+	if Nx.Map:GetMap(1).LOpts.NXMMFull then
+		return
+	end
 	for type, v in pairs (d) do
 		v.Enabled = drawNonGuide or strbyte (type) == 33	-- "!" is guide types		
 		if v.AtScale then
