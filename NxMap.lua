@@ -11057,48 +11057,50 @@ function Nx.Map.MoveWorldMap()
 	NXWorldMapUnitPositionFrame:SetFrameLevel(40)
 	Nx.Map:NXWorldMapUnitPositionFrame_UpdatePlayerPins()
 	
+	local numEncounters = 0;
 	if Nx.db.char.Map.ShowRaidBoss then
-		local width = Nx.Map.WMDF:GetWidth()
-		local height = Nx.Map.WMDF:GetHeight()
+		local width = Nx.Map.WMDF:GetWidth();
+		local height = Nx.Map.WMDF:GetHeight();
 
-		local bossButton, questPOI, displayInfo, _
-		local index = 1
-		local x, y, instanceID, name, description, encounterID = EJ_GetMapEncounter(index, WorldMapFrame.fromJournal)
-		while name do
-			bossButton = _G["NXEJMapButton"..index]
-			if not bossButton then -- create button
-				bossButton = CreateFrame("Button", "NXEJMapButton"..index, Nx.Map.WMDF, "EncounterMapButtonTemplate")				
+	    local mapEncounters = C_EncounterJournal.GetCurrentMapEncounters(WorldMapFrame.fromJournal);
+		if ( mapEncounters ) then
+			numEncounters = #mapEncounters;
+			for index, mapEncounterInfo in ipairs(mapEncounters) do
+				local bossButton = _G["NXEJMapButton"..index]
+				if not bossButton then -- create button
+					bossButton = CreateFrame("Button", "NXEJMapButton"..index, Nx.Map.WMDF, "EncounterMapButtonTemplate");				
+				end
+
+				local name, description, encounterID, rootSectionID, link, instanceID = EJ_GetEncounterInfo(mapEncounterInfo.encounterID);
+				bossButton.instanceID = instanceID;
+				bossButton.encounterID = encounterID;
+				bossButton.tooltipTitle = name;
+				bossButton.tooltipText = description;
+				bossButton:SetPoint("CENTER", Nx.Map.WMDF, "BOTTOMLEFT", mapEncounterInfo.mapX*width, mapEncounterInfo.mapY*height);
+				bossButton:SetFrameStrata("HIGH");
+				local _, _, _, displayInfo = EJ_GetCreatureInfo(1, encounterID);
+				bossButton.displayInfo = displayInfo;
+				bossButton:SetWidth(Nx.db.profile.Map.InstanceBossSize);
+				bossButton:SetHeight(Nx.db.profile.Map.InstanceBossSize);
+				if ( displayInfo ) then
+					SetPortraitTexture(bossButton.bgImage, displayInfo);
+					bossButton.bgImage:SetWidth(Nx.db.profile.Map.InstanceBossSize / 1.3);
+					bossButton.bgImage:SetHeight(Nx.db.profile.Map.InstanceBossSize / 1.3);
+				else
+					bossButton.bgImage:SetTexture("DoesNotExist");
+				end			
+				bossButton:Show();
 			end
-
-			bossButton.instanceID = instanceID
-			bossButton.encounterID = encounterID
-			bossButton.tooltipTitle = name
-			bossButton.tooltipText = description
-			bossButton:SetPoint("CENTER", Nx.Map.WMDF, "BOTTOMLEFT", x*width, y*height)
-			bossButton:SetFrameStrata("HIGH")
-			_, _, _, displayInfo = EJ_GetCreatureInfo(1, encounterID)
-			bossButton.displayInfo = displayInfo
-			bossButton:SetWidth(Nx.db.profile.Map.InstanceBossSize)
-			bossButton:SetHeight(Nx.db.profile.Map.InstanceBossSize)
-			if ( displayInfo ) then
-				SetPortraitTexture(bossButton.bgImage, displayInfo)
-				bossButton.bgImage:SetWidth(Nx.db.profile.Map.InstanceBossSize / 1.3)
-				bossButton.bgImage:SetHeight(Nx.db.profile.Map.InstanceBossSize / 1.3)
-			else
-				bossButton.bgImage:SetTexture("DoesNotExist")
-			end			
-			bossButton:Show()
-			index = index + 1
-			x, y, instanceID, name, description, encounterID = EJ_GetMapEncounter(index, WorldMapFrame.fromJournal)
 		end
-		WorldMapFrame.hasBosses = index ~= 1
-		
-		bossButton = _G["NXEJMapButton"..index]
-		while bossButton do
-			bossButton:Hide()
-			index = index + 1
-			bossButton = _G["NXEJMapButton"..index]
-		end	
+	end	
+
+	WorldMapFrame.hasBosses = numEncounters > 0;
+	index = numEncounters + 1;	
+	local bossButton = _G["NXEJMapButton"..index];
+	while bossButton do
+		bossButton:Hide();
+		index = index + 1;
+		bossButton = _G["NXEJMapButton"..index];
 	end	
 end
 
