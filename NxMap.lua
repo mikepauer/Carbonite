@@ -3705,6 +3705,17 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 	end
 	ttl = 0
 	
+	-- Temp HACK - Hide unused HANDYNOTES icons
+	if not WorldMapFrame:IsShown() then
+		for n = 1, 2000 do 
+			if _G["HandyNotesPin"..n] then
+				_G["HandyNotesPin"..n]:Hide()
+			else
+				break
+			end 
+		end
+	end
+	
 	if _G['ReputationFrame'] then
 		if not _G['ReputationFrame'].CarbFix then
 			_G['ReputationFrame'].CarbFix = true
@@ -10193,12 +10204,9 @@ function Nx.Map.Dock:MinimapOwnInit()
 				local parent = f:GetParent()
 				if parent ~= mm and parent ~= mapf then
 --					Nx.prtFrame ("Dock Scan", f)
+
 					found[f] = 1
 				end
-				-- Ignore HandyNotesPins
-				if string.find(f:GetName(), 'HandyNotesPin') ~= nil then
-					map.MMOwnedFrms[f] = 0
-				end 
 			end
 
 			local reg = { f:GetRegions() }
