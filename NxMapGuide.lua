@@ -739,7 +739,7 @@ function Nx.Map.Guide:OnListEventDo (list, eventName, sel, val2, click)
 						map:GotoPlayer()
 					end
 				else
-					PlaySound (882)
+					PlaySound(SOUNDKIT.MONEY_FRAME_CLOSE);
 				end
 			end
 		end
