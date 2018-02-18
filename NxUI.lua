@@ -7914,6 +7914,7 @@ function NxWatchListItem_OnUpdate(self, elapsed)
 
 		self.rangeTimer = rangeTimer;
 	end
-
+end
+	
 ---------------------------------------------------------------------------------------
 --EOF
