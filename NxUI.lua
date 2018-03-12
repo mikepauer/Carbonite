@@ -5872,7 +5872,7 @@ function Nx.List:Update (showLast)
 					local start, duration, enable = GetQuestLogSpecialItemCooldown (id)
 					if start then
 						CooldownFrame_Set (f.Cooldown, start, duration, enable)
-						if duration > 0 and enable == 0 then
+						if ( duration > 0 and enable == 0 ) then
 							SetItemButtonTextureVertexColor (itemButton, 0.4, 0.4, 0.4)
 						else
 							SetItemButtonTextureVertexColor (itemButton, 1, 1, 1)
