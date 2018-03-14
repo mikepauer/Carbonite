@@ -10737,7 +10737,7 @@ function Nx.Map:RouteOptimize (route)
 
 	local swap
 
----[[ 1394.4788 len
+--[[ 1394.4788 len
 	for len = #route - 2, 2, -1 do
 
 		for n = 1, #route - len - 1 do
