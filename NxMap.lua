@@ -107,6 +107,11 @@ NXMapOptsMapsDefault = 	{
 		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
+	[813] = {   -- EOSv2	
+		NXPlyrFollow = true,
+		NXInstanceMaps = true,
+		NXWorldShow = false,	
+	},
 	[856] = {	-- TK
 		NXPlyrFollow = true,
 		NXInstanceMaps = true,
@@ -582,6 +587,7 @@ function Nx.Map:Create (index)
 	win:InitLayoutData ("461", -.0001, -.4, -.19, -.3, 1)
 	win:InitLayoutData ("935", -.0001, -.4, -.19, -.3, 1)
 	win:InitLayoutData ("482", -.0001, -.4, -.19, -.3, 1)
+	win:InitLayoutData ("813", -.0001, -.4, -.19, -.3, 1)
 	win:InitLayoutData ("540", -.0001, -.4, -.19, -.3, 1)
 	win:InitLayoutData ("860", -.0001, -.4, -.19, -.3, 1)
 	win:InitLayoutData ("512", -.0001, -.4, -.19, -.3, 1)
@@ -8724,7 +8730,7 @@ function Nx.Map:InitTables()
 		 [7] = {978,941,976,949,971,950,947,948,1009,946,945,970,1011},
 		 [8] = {1014,1015,1017,1018,1021,1024, 1028, 1033, 1080},
 		 [9] = {1135,1170,1171},
-		 [90] = {401,461,482,540,860,512,856,736,626,443,935,1010},
+		 [90] = {401,461,482,813,540,860,512,856,736,626,443,935,1010},
 		 [100] = {},
 	}
 
