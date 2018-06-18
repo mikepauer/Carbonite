@@ -4464,13 +4464,13 @@ function Nx.Opts:NXCmdCamForceMaxDist()
 end
 
 function Nx.Opts:NXCmdGryphonsUpdate()
-	if Nx.db.profile.General.GryphonsHide then
+	--[[if Nx.db.profile.General.GryphonsHide then
 		MainMenuBarLeftEndCap:Hide()
 		MainMenuBarRightEndCap:Hide()
 	else
 		MainMenuBarLeftEndCap:Show()
 		MainMenuBarRightEndCap:Show()
-	end
+	end]]--
 end
 
 function Nx.Opts:NXCmdDeleteHerb()
