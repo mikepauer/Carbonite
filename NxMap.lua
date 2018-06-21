@@ -4454,7 +4454,7 @@ function Nx.Map:Update (elapsed)
 					local dtx
 					local dty
 
-					local cX, cY = C_DeathInfo.GetCorpseMapPosition()
+					local cX, cY = C_DeathInfo.GetCorpseMapPosition(C_Map.GetBestMapForUnit("player"))
 
 					if cX ~= 0 or cY ~= 0 then
 
@@ -6423,7 +6423,7 @@ end
 
 function Nx.Map:TargetOverlayUnexplored()
 
-	local mapId = self:GetCurrentMapId()	
+	local mapId = self:GetCurrentMapId(true)	
 	self:ClearTargets()		-- Will change current mapid
 
 	local wzone = self:GetWorldZone (mapId)
@@ -11232,7 +11232,6 @@ function Nx.Map:ConvToUMapId(mapID)
 	local retMapID = Nx.Map.DMapIDs[mapID] and select(1, strsplit(",", Nx.Map.DMapIDs[mapID])) or mapID
 	return tonumber(retMapID)
 end
-
 
 function Nx.Map:GetMapNameByID (mapId)
 	local mapInfo = C_Map.GetMapInfo(Nx.Map:ConvToUMapId(mapId))
