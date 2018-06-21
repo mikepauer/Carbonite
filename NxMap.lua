@@ -4455,7 +4455,11 @@ function Nx.Map:Update (elapsed)
 					local dty
 
 					local cX, cY = C_DeathInfo.GetCorpseMapPosition(C_Map.GetBestMapForUnit("player"))
-
+					if cX == nil or cY == nil then
+						cX = 0
+						cY = 0
+					end
+					
 					if cX ~= 0 or cY ~= 0 then
 
 						midX, midY = self:GetWorldPos (mapId, cX * 100, cY * 100)
