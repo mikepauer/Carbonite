@@ -3144,12 +3144,12 @@ function Nx.Map:HijackBlizzBountyMap()
 end
 
 function Nx.Map:RestoreBlizzBountyMap(tooltip)
-	if tooltip ~= false then WorldMap_RestoreTooltip() end
+	--[[if tooltip ~= false then WorldMap_RestoreTooltip() end
 	if NXBountyBoard then 
 		NXBountyBoard:UnregisterEvent('QUEST_LOG_UPDATE')
 		NXBountyBoard:Clear()
 		NXBountyBoard:Hide()
-	end
+	end]]--
 end
 
 -------
