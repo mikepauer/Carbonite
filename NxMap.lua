@@ -67,67 +67,67 @@ NXMapOptsMapsDefault = 	{
 		NXInstanceMaps = true,
 		NXWorldShow = true,
 	},
-	[461] = {	-- AB
+	[93] = {	-- AB
 		NXPlyrFollow = true,
 		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
-	[443] = {	-- WG
+	[92] = {	-- WG
 		NXPlyrFollow = true,
 		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
-	[401] = {	-- AV
+	[91] = {	-- AV
 		NXPlyrFollow = true,
 		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
-	[482] = {	-- EOS
+	[112] = {	-- EOS
 		NXPlyrFollow = true,
 		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
-	[512] = {	-- SoA
+	[128] = {	-- SoA
 		NXPlyrFollow = true,
 		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
-	[540] = {	-- IC
+	[169] = {	-- IC
 		NXPlyrFollow = true,
 		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
-	[736] = {	-- TBG
+	[275] = {	-- TBG
 		NXPlyrFollow = true,
 		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
-	[626] = {	-- TP
+	[206] = {	-- TP
 		NXPlyrFollow = true,
 		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
-	[813] = {   -- EOSv2	
+	[397] = {   -- EOSv2	
 		NXPlyrFollow = true,
 		NXInstanceMaps = true,
 		NXWorldShow = false,	
 	},
-	[856] = {	-- TK
+	[417] = {	-- TK
 		NXPlyrFollow = true,
 		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
-	[860] = {	-- SM
+	[423] = {	-- SM
 		NXPlyrFollow = true,
 		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
-	[935] = {
+	[519] = {
 		NXPlyrFollow = true,
 		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
-	[1010] = {
+	[623] = {
 		NXPlyrFollow = true,
 		NXInstanceMaps = true,
 		NXWorldShow = false,
@@ -583,19 +583,19 @@ function Nx.Map:Create (index)
 	win:CreateButtons (true)
 	win:InitLayoutData (nil, -.0001, -.4, -.19, -.3, 1)
 
-	win:InitLayoutData ("401", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("461", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("935", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("482", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("813", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("540", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("860", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("512", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("856", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("736", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("626", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("443", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("1010", -.0001, -.4, -.19, -.3, 1)
+	win:InitLayoutData ("91", -.0001, -.4, -.19, -.3, 1)
+	win:InitLayoutData ("93", -.0001, -.4, -.19, -.3, 1)
+	win:InitLayoutData ("519", -.0001, -.4, -.19, -.3, 1)
+	win:InitLayoutData ("112", -.0001, -.4, -.19, -.3, 1)
+	win:InitLayoutData ("397", -.0001, -.4, -.19, -.3, 1)
+	win:InitLayoutData ("169", -.0001, -.4, -.19, -.3, 1)
+	win:InitLayoutData ("423", -.0001, -.4, -.19, -.3, 1)
+	win:InitLayoutData ("128", -.0001, -.4, -.19, -.3, 1)
+	win:InitLayoutData ("417", -.0001, -.4, -.19, -.3, 1)
+	win:InitLayoutData ("275", -.0001, -.4, -.19, -.3, 1)
+	win:InitLayoutData ("206", -.0001, -.4, -.19, -.3, 1)
+	win:InitLayoutData ("92", -.0001, -.4, -.19, -.3, 1)
+	win:InitLayoutData ("623", -.0001, -.4, -.19, -.3, 1)
 
 	win:SetUser (m, self.OnWin)
 	win.UserUpdateFade = m.WinUpdateFade
@@ -7795,7 +7795,7 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 				local curMapId = Nx.Map:GetCurrentMapAreaID()
 				if self.Win:IsSizeMax() then
 					local myzone = curMapId
-					if (myzone == 341) or (myzone == 504) then
+					if (myzone == 87) or (myzone == 125) then
 						w = w / 2
 						h = h / 2
 					end
@@ -8730,17 +8730,17 @@ function Nx.Map:InitTables()
 	--V403
 
 	Nx.Map.MapZones = {
-		 [0] = {13,14,466,485,751,862,962,1007,1184,0,-1},
-		 [1] = {772,894,43,181,464,476,890,42,381,101,4,141,891,182,121,795,241,606,9,11,321,888,261,607,81,161,41,471,61,362,720,201,889,281},
-		 [2] = {614,16,17,19,29,866,32,892,27,34,23,30,462,463,545,611,24,341,499,610,35,895,37,864,36,684,685,28,615,480,21,301,689,893,38,673,26,502,20,708,709,700,382,613,22,39,40},
-		 [3] = {475,465,477,479,473,481,478,467},
-		 [4] = {486,510,504,488,490,491,541,492,493,495,501,496},
-		 [5] = {640,605,544,737,823},
-		 [6] = {858,929,928,857,809,905,903,806,873,808,951,810,811,807},
-		 [7] = {978,941,976,949,971,950,947,948,1009,946,945,970,1011},
-		 [8] = {1014,1015,1017,1018,1021,1024, 1028, 1033, 1080},
-		 [9] = {1135,1170,1171},
-		 [90] = {401,461,482,813,540,860,512,856,736,626,443,935,1010},
+		 [0] = {12,13,101,113,948,424,572,619,758,0,-1},
+		 [1] = {1,7,10,57,62,63,64,65,66,69,70,71,76,77,78,80,81,83,85,88,89,97,103,106,198,199,249,327,338,460,461,462,463,468},
+		 [2] = {14,15,17,18,21,22,23,25,26,27,32,36,37,42,47,48,49,50,51,52,56,84,87,90,94,95,110,122,124,179,201,202,203,204,205,210,217,218,224,241,244,245,425,427,465,467,469},
+		 [3] = {100,102,104,105,107,108,109,111},
+		 [4] = {114,115,116,117,118,119,120,121,123,125,127,170},
+		 [5] = {174,194,207,276,407},
+		 [6] = {371,376,378,379,388,390,418,422,433,504,507,554},
+		 [7] = {525,539,535,534,542,543,550,577,579,585,588,622,624},
+		 [8] = {625,630,634,641,646,650,672,680,750},
+		 [9] = {830,882,885},
+		 [90] = {91,92,93,112,128,169,206,275,397,417,423,519,623},		 
 		 [100] = {},
 	}
 
@@ -9155,9 +9155,9 @@ function Nx.Map:SetToCurrentZone()
 	WorldMapFrame:SetMapID(MapUtil.GetDisplayableMapForPlayer())
 end
 
-function Nx.Map:GetCurrentMapAreaID(conv)
+function Nx.Map:GetCurrentMapAreaID()
 	local mapID = WorldMapFrame:GetMapID() or MapUtil.GetDisplayableMapForPlayer()
-	return conv and Nx.Map:ConvToMapId(mapID) or mapID
+	return mapID
 end
 
 --------
@@ -11238,7 +11238,7 @@ function Nx.Map:ConvToUMapId(mapID)
 end
 
 function Nx.Map:GetMapNameByID (mapId)
-	local mapInfo = C_Map.GetMapInfo(Nx.Map:ConvToUMapId(mapId))
+	local mapInfo = C_Map.GetMapInfo(mapId)
 	return mapInfo and mapInfo.name or nil
 end
 

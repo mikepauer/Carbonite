@@ -115,21 +115,21 @@ Map.MapWorldInfo = {
 		0, 0,		-- Index 4,5 XY world position created for zones in continents 1-5, 9
 		Overlay = "barrens",
 	},
-	[4] = {
+	[1] = {
 		Scale = 10.574999267578,
 		X = 392.49997558594,
 		Y = -361.66665039063,
 		Overlay = "durotar",
 		Name = L["Durotar"],
 	},
-	[9] = {
+	[7] = {
 		Scale = 10.899999511719,
 		X = -440.83330078125,
 		Y = 33.75,
 		Overlay = "mulgore",
 		Name = L["Mulgore"],
 	},
-	[11] = {
+	[10] = {
 		Scale = 11.491666656494,
 		X = -40.416665649414,
 		Y = -362.08332519531,
@@ -137,17 +137,17 @@ Map.MapWorldInfo = {
 		Name = L["Northern Barrens"],
 		QAchievementIdH = 4933,
 	},
-	[13] = {
+	[12] = {
 		Scale = 73.59962109375,
 		X = -3413.319921875,
 		Y = -2559.980078125,
 	},
-	[14] = {
+	[13] = {
 		Scale = 81.48236328125,
 		X = -3634.394140625,
 		Y = -2235.26875,
 	},
-	[16] = {
+	[14] = {
 		Scale = 6.9541665039062,
 		X = 225.41665039063,
 		Y = 28.333331298828,
@@ -155,7 +155,7 @@ Map.MapWorldInfo = {
 		Name = L["Arathi Highlands"],
 		QAchievementId = 4896,
 	},
-	[17] = {
+	[15] = {
 		Scale = 6.1416665039062,
 		X = 380.41665039063,
 		Y = 1170.8333007813,
@@ -163,7 +163,7 @@ Map.MapWorldInfo = {
 		Name = L["Badlands"],
 		QAchievementId = 4900,
 	},
-	[19] = {
+	[17] = {
 		Scale = 7.325,
 		X = 238.75,
 		Y = 2116.6666015625,
@@ -171,7 +171,7 @@ Map.MapWorldInfo = {
 		Name = L["Blasted Lands"],
 		QAchievementId = 4909,
 	},
-	[20] = {
+	[18] = {
 		Scale = 9.0374997558594,
 		X = -606.66665039063,
 		Y = -767.49995117188,
@@ -202,7 +202,7 @@ Map.MapWorldInfo = {
 		Name = L["Eastern Plaguelands"],
 		QAchievementId = 4892,
 	},
-	[24] = {
+	[25] = {
 		Scale = 9.7249997558594,
 		X = -369.99997558594,
 		Y = -296.25,
@@ -225,7 +225,7 @@ Map.MapWorldInfo = {
 		Overlay = "dunmorogh",
 		Name = L["Dun Morogh"],
 	},
-	[28] = {
+	[32] = {
 		Scale = 4.4624996948242,
 		X = 64.583331298828,
 		Y = 1220,
@@ -233,7 +233,7 @@ Map.MapWorldInfo = {
 		Name = L["Searing Gorge"],
 		QAchievementId = 4910,
 	},
-	[29] = {
+	[36] = {
 		Scale = 6.3041663818359,
 		X = 92.916662597656,
 		Y = 1397.0833007813,
@@ -241,21 +241,21 @@ Map.MapWorldInfo = {
 		Name = L["Burning Steppes"],
 		QAchievementId = 4901,
 	},
-	[30] = {
+	[37] = {
 		Scale = 6.9416665039062,
 		X = -307.08332519531,
 		Y = 1587.9166015625,
 		Overlay = "elwynn",
 		Name = L["Elwynn Forest"],
 	},
-	[32] = {
+	[42] = {
 		Scale = 4.9999998779297,
 		X = 166.66666259766,
 		Y = 1973.333203125,
 		Overlay = "deadwindpass",
 		Name = L["Deadwind Pass"],
 	},
-	[34] = {
+	[47] = {
 		Scale = 5.3999998779297,
 		X = -166.66666259766,
 		Y = 1943.333203125,
@@ -263,7 +263,7 @@ Map.MapWorldInfo = {
 		Name = L["Duskwood"],
 		QAchievementIdA = 4907,
 	},
-	[35] = {
+	[48] = {
 		Scale = 5.5166662597656,
 		X = 398.74997558594,
 		Y = 897.5,
@@ -271,7 +271,7 @@ Map.MapWorldInfo = {
 		Name = L["Loch Modan"],
 		QAchievementIdA = 4899,
 	},
-	[36] = {
+	[49] = {
 		Scale = 5.1374997558594,
 		X = 295.83332519531,
 		Y = 1702.9166015625,
@@ -279,7 +279,7 @@ Map.MapWorldInfo = {
 		Name = L["Redridge Mountains"],
 		QAchievementIdA = 4902,
 	},
-	[37] = {
+	[50] = {
 		Scale = 8.1999997558594,
 		X = -348.74997558594,
 		Y = 2203.333203125,
@@ -287,7 +287,7 @@ Map.MapWorldInfo = {
 		Name = L["Northern Stranglethorn"],
 		QAchievementId = 4906,
 	},
-	[38] = {
+	[51] = {
 		Scale = 5.016666015625,
 		X = 416.25,
 		Y = 1907.083203125,
@@ -295,7 +295,7 @@ Map.MapWorldInfo = {
 		Name = L["Swamp of Sorrows"],
 		QAchievementId = 4904,
 	},
-	[39] = {
+	[52] = {
 		Scale = 6.9999996337891,
 		X = -603.33330078125,
 		Y = 1880,
@@ -303,7 +303,7 @@ Map.MapWorldInfo = {
 		Name = L["Westfall"],
 		QAchievementIdA = 4903,
 	},
-	[40] = {
+	[56] = {
 		Scale = 8.2708333740234,
 		X = 77.916662597656,
 		Y = 429.58330078125,
@@ -311,14 +311,14 @@ Map.MapWorldInfo = {
 		Name = L["Wetlands"],
 		QAchievementIdA = 4898,
 	},
-	[41] = {
+	[57] = {
 		Scale = 11.749999511719,
 		X = -847.08330078125,
 		Y = -2369.583203125,
 		Overlay = "teldrassil",
 		Name = L["Teldrassil"],
 	},
-	[42] = {
+	[62] = {
 		Scale = 12.929166015625,
 		X = -603.33330078125,
 		Y = -1644.583203125,
@@ -326,7 +326,7 @@ Map.MapWorldInfo = {
 		Name = L["Darkshore"],
 		QAchievementIdA = 4928,
 	},
-	[43] = {
+	[63] = {
 		Scale = 11.533332763672,
 		X = -339.99997558594,
 		Y = -934.58330078125,
@@ -335,7 +335,7 @@ Map.MapWorldInfo = {
 		QAchievementId = 4925,
 		QAchievementIdH = 4976,
 	},
-	[61] = {
+	[64] = {
 		Scale = 8.7999993896484,
 		X = 86.666662597656,
 		Y = 793.33330078125,
@@ -343,7 +343,7 @@ Map.MapWorldInfo = {
 		Name = L["Thousand Needles"],
 		QAchievementId = 4938,
 	},
-	[81] = {
+	[65] = {
 		Scale = 11.799999755859,
 		X = -780.41665039063,
 		Y = -680.83330078125,
@@ -352,7 +352,7 @@ Map.MapWorldInfo = {
 		QAchievementId = 4936,
 		QAchievementIdH = 4980,
 	},
-	[101] = {
+	[66] = {
 		Scale = 8.991666015625,
 		X = -846.6666015625,
 		Y = -90.416662597656,
@@ -360,7 +360,7 @@ Map.MapWorldInfo = {
 		Name = L["Desolace"],
 		QAchievementId = 4930,
 	},
-	[121] = {
+	[69] = {
 		Scale = 13.899999511719,
 		X = -1088.3333007813,
 		Y = 473.33330078125,
@@ -369,7 +369,7 @@ Map.MapWorldInfo = {
 		QAchievementId = 4932,
 		QAchievementIdH = 4979,
 	},
-	[141] = {
+	[70] = {
 		Scale = 10.5,
 		X = 195,
 		Y = 406.666796875,
@@ -378,7 +378,7 @@ Map.MapWorldInfo = {
 		QAchievementId = 4929,
 		QAchievementIdH = 4978,
 	},
-	[161] = {
+	[71] = {
 		Scale = 14.424999031067,
 		X = 12.499999237061,
 		Y = 1154.1666015625,
@@ -386,7 +386,7 @@ Map.MapWorldInfo = {
 		Name = L["Tanaris"],
 		QAchievementId = 4935,
 	},
-	[181] = {
+	[76] = {
 		Scale = 11.029166992188,
 		X = 674.58330078125,
 		Y = -1076.25,
@@ -394,7 +394,7 @@ Map.MapWorldInfo = {
 		Name = L["Azshara"],
 		QAchievementIdH = 4927,
 	},
-	[182] = {
+	[77] = {
 		Scale = 12.124999267578,
 		X = -359.58332519531,
 		Y = -1447.4999023437,
@@ -402,7 +402,7 @@ Map.MapWorldInfo = {
 		Name = L["Felwood"],
 		QAchievementId = 4931,
 	},
-	[201] = {
+	[78] = {
 		Scale = 7.3999996337891,
 		X = -106.66666259766,
 		Y = 1193.3333007813,
@@ -410,14 +410,14 @@ Map.MapWorldInfo = {
 		Name = L["Un'Goro Crater"],
 		QAchievementId = 4939,
 	},
-	[241] = {
+	[80] = {
 		Scale = 4.6166665039063,
 		X = 276.25,
 		Y = -1698.333203125,
 		Overlay = "moonglade",
 		Name = L["Moonglade"],
 	},
-	[261] = {
+	[81] = {
 		Scale = 8.1166665039063,
 		X = -596.66665039063,
 		Y = 1174.5833007813,
@@ -425,7 +425,7 @@ Map.MapWorldInfo = {
 		Name = L["Silithus"],
 		QAchievementIdA = 4934,
 	},
-	[281] = {
+	[83] = {
 		Scale = 12.299999755859,
 		X = 198.33332519531,
 		Y = -1758.75,
@@ -433,7 +433,7 @@ Map.MapWorldInfo = {
 		Name = L["Winterspring"],
 		QAchievementId = 4940,
 	},
-	[301] = {
+	[84] = {
 		Scale = 3.474999917984,
 		X = -344.58332519531,
 		Y = 1599.1666015625,
@@ -442,7 +442,7 @@ Map.MapWorldInfo = {
 		City = true,
 		MMOutside = true,
 	},
-	[321] = {
+	[85] = {
 		Scale = 3.47875,
 		X = 701.27080078125,
 		Y = -497.33334960938,
@@ -451,7 +451,7 @@ Map.MapWorldInfo = {
 		City = true,
 		MMOutside = true,
 	},
-	[341] = {
+	[87] = {
 		Scale = 1.5812501220703,
 		X = 142.71827392578,
 		Y = 913.8482421875,
@@ -459,7 +459,7 @@ Map.MapWorldInfo = {
 		Name = L["Ironforge"],
 		City = true,
 	},
-	[362] = {
+	[88] = {
 		Scale = 2.0874998779297,
 		X = -103.33332519531,
 		Y = 169.99998779297,
@@ -468,7 +468,7 @@ Map.MapWorldInfo = {
 		City = true,
 		MMOutside = true,
 	},
-	[381] = {
+	[89] = {
 		Scale = 3.0791667480469,
 		X = -637.5,
 		Y = -2092.9166015625,
@@ -477,7 +477,7 @@ Map.MapWorldInfo = {
 		City = true,
 		MMOutside = true,
 	},
-	[382] = {
+	[90] = {
 		Scale = 1.9187500610352,
 		X = -174.63852539063,
 		Y = -375.5890625,
@@ -485,28 +485,28 @@ Map.MapWorldInfo = {
 		Name = L["Undercity"],
 		City = true,
 	},
-	[401] = {
+	[91] = {
 		Name = L["Alterac Valley"],
 		Scale = 8.4749997558594,
 		X = 16000,
 		Y = 2000,
 		Short = "AV",
 	},
-	[443] = {
+	[92] = {
 		Name = L["Warsong Gulch"],
 		Scale = 2.2916666259766,
 		X = -16000,
 		Y = 1000,
 		Short = "WG",
 	},
-	[461] = {
+	[93] = {
 		Name = L["Arathi Basin"],
 		Scale = 3.5124998474121,
 		X = -16000,
 		Y = 0,
 		Short = "AB",
 	},
-	[462] = {
+	[94] = {
 		Scale = 9.85,
 		X = 897.5,
 		Y = -2208.333203125,
@@ -514,9 +514,9 @@ Map.MapWorldInfo = {
 		Name = L["Eversong Woods"],
 		XOff = Map.BloodelfXO,
 		YOff = Map.BloodelfYO,
-		MId = 462,
+		MId = 94,
 	},
-	[463] = {
+	[95] = {
 		Scale = 6.6,
 		X = 1056.6666015625,
 		Y = -1653.333203125,
@@ -524,10 +524,10 @@ Map.MapWorldInfo = {
 		Name = L["Ghostlands"],
 		XOff = Map.BloodelfXO,
 		YOff = Map.BloodelfYO,
-		MId = 462,
+		MId = 94,
 		QAchievementIdH = 4908,
 	},
-	[464] = {
+	[97] = {
 		Scale = 8.141666015625,
 		X = 2100,
 		Y = 558.75,
@@ -535,9 +535,9 @@ Map.MapWorldInfo = {
 		Name = L["Azuremyst Isle"],
 		XOff = Map.DraeneiXO,
 		YOff = Map.DraeneiYO,
-		MId = 464,
+		MId = 97,
 	},
-	[465] = {
+	[100] = {
 		Scale = 10.329166015625,
 		X = -1107.9166015625,
 		Y = -296.25,
@@ -546,12 +546,12 @@ Map.MapWorldInfo = {
 		QAchievementId = 1189,
 		QAchievementIdH = 1271,
 	},
-	[466] = {
+	[101] = {
 		Scale = 34.92815625,
 		X = -2599.2078125,
 		Y = -1164.271875,
 	},
-	[467] = {
+	[102] = {
 		Scale = 10.054166992188,
 		X = -1895,
 		Y = -387.08332519531,
@@ -559,7 +559,7 @@ Map.MapWorldInfo = {
 		Name = L["Zangarmarsh"],
 		QAchievementId = 1190,
 	},
-	[471] = {
+	[103] = {
 		Scale = 2.113541015625,
 		X = 2213.2734375,
 		Y = 721.93666992188,
@@ -568,9 +568,9 @@ Map.MapWorldInfo = {
 		XOff = Map.DraeneiXO,
 		YOff = Map.DraeneiYO,
 		City = true,
-		MId = 464,
+		MId = 97,
 	},
-	[473] = {
+	[104] = {
 		Scale = 11,
 		X = -845,
 		Y = 389.58332519531,
@@ -578,7 +578,7 @@ Map.MapWorldInfo = {
 		Name = L["Shadowmoon Valley"],
 		QAchievementId = 1195,
 	},
-	[475] = {
+	[105] = {
 		Scale = 10.849999511719,
 		X = -1769.1666015625,
 		Y = -881.6666015625,
@@ -586,7 +586,7 @@ Map.MapWorldInfo = {
 		Name = L["Blade's Edge Mountains"],
 		QAchievementId = 1193,
 	},
-	[476] = {
+	[106] = {
 		Scale = 6.524998046875,
 		X = 2015,
 		Y = 151.66666259766,
@@ -594,10 +594,10 @@ Map.MapWorldInfo = {
 		Name = L["Bloodmyst Isle"],
 		XOff = Map.DraeneiXO,
 		YOff = Map.DraeneiYO,
-		MId = 464,
+		MId = 97,
 		QAchievementIdA = 4926,
 	},
-	[477] = {
+	[107] = {
 		Scale = 11.05,
 		X = -2059.1666015625,
 		Y = -8.333332824707,
@@ -606,7 +606,7 @@ Map.MapWorldInfo = {
 		QAchievementId = 1192,
 		QAchievementIdH = 1273,
 	},
-	[478] = {
+	[108] = {
 		Scale = 10.799999511719,
 		X = -1416.6666015625,
 		Y = 199.99998779297,
@@ -615,7 +615,7 @@ Map.MapWorldInfo = {
 		QAchievementId = 1191,
 		QAchievementIdH = 1272,
 	},
-	[479] = {
+	[109] = {
 		Scale = 11.149999343872,
 		X = -1096.6666015625,
 		Y = -1091.25,
@@ -623,7 +623,7 @@ Map.MapWorldInfo = {
 		Name = L["Netherstorm"],
 		QAchievementId = 1194,
 	},
-	[480] = {
+	[110] = {
 		Scale = 2.4229169921875,
 		X = 1280.15,
 		Y = -2030.741796875,
@@ -632,9 +632,9 @@ Map.MapWorldInfo = {
 		XOff = Map.BloodelfXO,
 		YOff = Map.BloodelfYO,
 		City = true,
-		MId = 462,
+		MId = 94,
 	},
-	[481] = {
+	[111] = {
 		Scale = 2.6125,
 		X = -1227.0517578125,
 		Y = 294.79089355469,
@@ -642,19 +642,19 @@ Map.MapWorldInfo = {
 		Name = L["Shattrath City"],
 		MMOutside = true,
 	},
-	[482] = {
+	[112] = {
 		Name = L["Eye of the Storm"],
 		Scale = 4.5416663818359,
 		X = -16000,
 		Y = 3000,
 		Short = "EOS",
 	},
-	[485] = {
+	[113] = {
 		Scale = 35.502796875,
 		X = -1843.43046875,
 		Y = -2118.675,
 	},
-	[486] = {
+	[114] = {
 		Scale = 11.529166015625,
 		X = -1714.1666015625,
 		Y = -979.58330078125,
@@ -663,7 +663,7 @@ Map.MapWorldInfo = {
 		QAchievementId = 33,
 		QAchievementIdH = 1358,
 	},
-	[488] = {
+	[115] = {
 		Scale = 11.216666259766,
 		X = -725.41665039063,
 		Y = -1115,
@@ -672,7 +672,7 @@ Map.MapWorldInfo = {
 		QAchievementId = 35,
 		QAchievementIdH = 1359,
 	},
-	[490] = {
+	[116] = {
 		Scale = 10.499999755859,
 		X = 222.08332519531,
 		Y = -1103.3333007813,
@@ -681,7 +681,7 @@ Map.MapWorldInfo = {
 		QAchievementId = 37,
 		QAchievementIdH = 1357,
 	},
-	[491] = {
+	[117] = {
 		Scale = 12.091665771484,
 		X = 279.58332519531,
 		Y = -623.33330078125,
@@ -690,7 +690,7 @@ Map.MapWorldInfo = {
 		QAchievementId = 34,
 		QAchievementIdH = 1356,
 	},
-	[492] = {
+	[118] = {
 		Scale = 12.541666625977,
 		X = -1088.75,
 		Y = -1885.4166015625,
@@ -698,7 +698,7 @@ Map.MapWorldInfo = {
 		Name = L["Icecrown"],
 		QAchievementId = 40,
 	},
-	[493] = {
+	[119] = {
 		Scale = 8.7125,
 		X = -1385.8333007813,
 		Y = -1457.4999023437,
@@ -706,7 +706,7 @@ Map.MapWorldInfo = {
 		Name = L["Sholazar Basin"],
 		QAchievementId = 39,
 	},
-	[495] = {
+	[120] = {
 		Scale = 14.224999267578,
 		X = -368.33332519531,
 		Y = -2039.583203125,
@@ -714,7 +714,7 @@ Map.MapWorldInfo = {
 		Name = L["The Storm Peaks"],
 		QAchievementId = 38,
 	},
-	[496] = {
+	[121] = {
 		Scale = 9.9875,
 		X = 120,
 		Y = -1533.7499023437,
@@ -722,7 +722,7 @@ Map.MapWorldInfo = {
 		Name = L["Zul'Drak"],	-- [11]
 		QAchievementId = 36,
 	},
-	[499] = {
+	[122] = {
 		Scale = 6.654166015625,
 		X = 1060.4166015625,
 		Y = -2713.7498046875,
@@ -730,9 +730,9 @@ Map.MapWorldInfo = {
 		Name = L["Isle of Quel'Danas"],
 		XOff = Map.BloodelfXO,
 		YOff = Map.BloodelfYO,
-		MId = 462,
+		MId = 94,
 	},
-	[501] = {
+	[123] = {
 		Scale = 5.9499997558594,
 		X = -865.83330078125,
 		Y = -1143.3333007813,
@@ -740,7 +740,7 @@ Map.MapWorldInfo = {
 		Name = L["Wintergrasp"],
 		Explored = true,
 	},
-	[502] = {
+	[124] = {
 		Scale = 6.325,
 		X = 809.58330078125,
 		Y = -617.5,
@@ -750,7 +750,7 @@ Map.MapWorldInfo = {
 		YOff = -33,
 		City = true,
 	},
-	[504] = {
+	[125] = {
 		Name = L["Dalaran"],
 		Scale = 1.6589 / 1.3,
 		X = -200.95,
@@ -762,31 +762,28 @@ Map.MapWorldInfo = {
 		ScaleAdjust = 1.3,
 		--MapLevel = 1,
 	},
-	[510] = {
+	[127] = {
 		Scale = 5.4458332519531,
 		X = -288.75,
 		Y = -1300.4166015625,
 		Overlay = "crystalsongforest",
 		Name = L["Crystalsong Forest"],
 	},
-	[512] = {
+	[128] = {
 		Name = L["Strand of the Ancients"],
 		Scale = 3.4874998779297,
 		X = -14500,
 		Y = 0,
 		Short = "SoA",
 	},
-	[539] = {
-		BaseMap = 545,
-	},
-	[540] = {
+	[169] = {
 		Name = L["Isle of Conquest"],
 		Scale = 5.3,
 		X = -14500,
 		Y = 1000,
 		Short = "IC",
 	},
-	[541] = {
+	[170] = {
 		Scale = 7.3541662597656,
 		X = -559.58330078125,
 		Y = -2156.25,
@@ -794,7 +791,7 @@ Map.MapWorldInfo = {
 		Name = L["Hrothgar's Landing"],
 		Explored = true,
 	},
-	[544] = {
+	[174] = {
 		Scale = 9.029166015625,
 		X = -876.6666015625,
 		Y = -576.25,
@@ -803,14 +800,14 @@ Map.MapWorldInfo = {
 		XOff = 470,
 		YOff = 980,
 	},
-	[545] = {
+	[179] = {
 		Scale = 6.2916665039063,
 		X = -687.91665039063,
 		Y = 106.66666259766,
 		Overlay = "gilneas",
 		Name = L["Gilneas"],
 	},
-	[605] = {
+	[194] = {
 		Scale = 2.7041663818359,
 		X = -425.83330078125,
 		Y = 1546.2499023437,
@@ -818,9 +815,9 @@ Map.MapWorldInfo = {
 		Name = L["Kezan"],
 		XOff = 946,
 		YOff = -832,
-		MId = 605,
+		MId = 194,
 	},
-	[606] = {
+	[198] = {
 		Scale = 8.4916667480469,
 		X = 185.83332519531,
 		Y = -1239.1666015625,
@@ -828,7 +825,7 @@ Map.MapWorldInfo = {
 		Name = L["Mount Hyjal"],
 		QAchievementId = 4870,
 	},
-	[607] = {
+	[199] = {
 		Scale = 14.825,
 		X = -271.25,
 		Y = -40.833331298828,
@@ -837,7 +834,7 @@ Map.MapWorldInfo = {
 		QAchievementId = 4937,
 		QAchievementIdH = 4981,
 	},
-	[610] = {
+	[201] = {
 		Scale = 5.604166015625,
 		X = -1014.1666015625,
 		Y = 803.74995117188,
@@ -846,21 +843,21 @@ Map.MapWorldInfo = {
 		QAchievementId = 4869,
 		QAchievementIdH = 4982,
 	},
-	[611] = {
+	[202] = {
 		Scale = 1.7791665039063,
 		X = -386.66665039063,
 		Y = 261.25,
 		Overlay = "gilneascity",
 		Name = L["Gilneas City"],
 	},
-	[613] = {
+	[203] = {
 		Scale = 13.891665527344,
 		X = -1750.833203125,
 		Y = 744.16665039063,
 		Overlay = "vashjir",
 		Name = L["Vashj'ir"],
 	},
-	[614] = {
+	[204] = {
 		Scale = 8.15,
 		X = -1646.6666015625,
 		Y = 981.25,
@@ -869,7 +866,7 @@ Map.MapWorldInfo = {
 		QAchievementId = 4869,
 		QAchievementIdH = 4982,
 	},
-	[615] = {
+	[205] = {
 		Scale = 9.6999992675781,
 		X = -1336.2499023437,
 		Y = 951.25,
@@ -878,14 +875,14 @@ Map.MapWorldInfo = {
 		QAchievementId = 4869,
 		QAchievementIdH = 4982,
 	},
-	[626] = {
+	[206] = {
 		Name = L["Twin Peaks"],
 		Scale = 2.4291665039062,
 		X = -14500,
 		Y = 3000,
 		Short = "TP",
 	},
-	[640] = {
+	[207] = {
 		Scale = 10.199999755859,
 		X = -610.41665039063,
 		Y = -559.16665039063,
@@ -894,9 +891,9 @@ Map.MapWorldInfo = {
 		XOff = 1580,
 		YOff = 700,
 		QAchievementId = 4871,
-		MId = 640,
+		MId = 207,
 	},
-	[673] = {
+	[210] = {
 		Scale = 7.8916662597656,
 		X = -421.66665039063,
 		Y = 2503.333203125,
@@ -904,22 +901,7 @@ Map.MapWorldInfo = {
 		Name = L["The Cape of Stranglethorn"],
 		QAchievementId = 4905,
 	},
-	[678] = {
-		BaseMap = 545,
-	},
-	[679] = {
-		BaseMap = 545,
-	},
-	[681] = {
-		BaseMap = 544,
-	},
-	[682] = {
-		BaseMap = 544,
-	},
-	[683] = {
-		BaseMap = 606,
-	},
-	[684] = {
+	[217] = {
 		Scale = 6.2916665039063,
 		X = -687.91665039063,
 		Y = 106.66666259766,
@@ -927,7 +909,7 @@ Map.MapWorldInfo = {
 		Name = L["Ruins of Gilneas"],
 		Explored = true,
 	},
-	[685] = {
+	[218] = {
 		Scale = 1.7791665039063,
 		X = -386.66665039063,
 		Y = 261.25,
@@ -936,14 +918,14 @@ Map.MapWorldInfo = {
 		City = true,
 		StartZone = true,
 	},
-	[689] = {
+	[224] = {
 		Scale = 13.104166015625,
 		X = -595.41665039063,
 		Y = 2192.9166015625,
 		Overlay = "stranglethornvale",
 		Name = L["Stranglethorn Vale"],
 	},
-	[700] = {
+	[241] = {
 		Scale = 10.541666015625,
 		X = 487.5,
 		Y = 431.25,
@@ -952,7 +934,7 @@ Map.MapWorldInfo = {
 		QAchievementId = 4873,
 		QAchievementIdH = 5501,
 	},
-	[708] = {
+	[244] = {
 		Scale = 4.0291665849686,
 		X = -402.08332519531,
 		Y = 112.08332519531,
@@ -960,10 +942,10 @@ Map.MapWorldInfo = {
 		Name = L["Tol Barad"],
 		XOff = -600,
 		YOff = 320,
-		MId = 708,
+		MId = 244,
 		Explored = true,
 	},
-	[709] = {
+	[245] = {
 		Scale = 3.675,
 		X = -482.5,
 		Y = -75.416662597656,
@@ -971,10 +953,10 @@ Map.MapWorldInfo = {
 		Name = L["Tol Barad Peninsula"],
 		XOff = -600,
 		YOff = 320,
-		MId = 708,
+		MId = 244,
 		Explored = true,
 	},
-	[720] = {
+	[249] = {
 		Scale = 12.387499511719,
 		X = -488.33330078125,
 		Y = 1605.8333007813,
@@ -982,14 +964,14 @@ Map.MapWorldInfo = {
 		Name = L["Uldum"],
 		QAchievementId = 4872,
 	},
-	[736] = {
+	[275] = {
 		Name = L["The Battle for Gilneas"],
 		Scale = 2.6041665649414,
 		X = -14500,
 		Y = 2000,
 		Short = "TBG",
 	},
-	[737] = {
+	[276] = {
 		Scale = 3.1,
 		X = -311.25,
 		Y = -274.16665039063,
@@ -1000,49 +982,38 @@ Map.MapWorldInfo = {
 		City = true,
 		Explored = true,
 	},
-	[748] = {
-		BaseMap = 720,
-	},
-	[751] = {
-		Scale = 26,
-		X = -311.25,
-		Y = -274.16665039063,
-	},
-	[770] = {
-	  BaseMap = 770,
-	},
-	[772] = {
+	[327] = {
 		Scale = 8.0999996643066,
 		X = -778.33330078125,
 		Y = 1606.6666015625,
 		Overlay = "ahnqirajthefallenkingdom",
 		Name = L["Ahn'Qiraj: The Fallen Kingdom"],
 	},
-	[795] = {
+	[338] = {
 		Scale = 2.3791666259766,
 		X = -186.66666259766,
 		Y = -340.41665039063,
 		Overlay = "moltenfront",
 		Name = L["Molten Front"],
-		MId = 795,
+		MId = 338,
 		UseAId = true,
 		Explored = true,
 	},
-	[806] = {
+	[371] = {
 		Scale = 13.966666015625,
 		X = -290.4166015625,
 		Y = -730.4166015625,
 		Overlay = "thejadeforest",
 		Name=L["The Jade Forest"],
 	},
-	[807] = {
+	[376] = {
 		Scale = 7.850001953125,
 		X = -535.8333984375,
 		Y = -219.1666015625,
 		Overlay = "valleyofthefourwinds",
 		Name=L["Valley of the Four Winds"],
 	},
-	[808] = {
+	[378] = {
 		Scale = 5.341666015625,
 		X = -995.833203125,
 		Y = -357.0833984375,
@@ -1051,35 +1022,35 @@ Map.MapWorldInfo = {
 		StartZone = true,
 		XOff = 500,
 		YOff = -1500,
-		MId = 808,
+		MId = 378,
 		MMOutside = true,
 	},
-	[809] = {
+	[379] = {
 		Scale = 12.516666015625,
 		X = -967.9166015625,
 		Y = -1123.75,
 		Overlay = "kunlaisummit",
 		Name=L["Kun-Lai Summit"],
 	},
-	[810] = {
+	[388] = {
 		Scale = 11.487498046875,
 		X = -1415.833203125,
 		Y = -911.6666015625,
 		Overlay = "townlongwastes",
 		Name=L["Townlong Steppes"],
 	},
-	[811] = {
+	[390] = {
 		Scale = 5.06666796875,
 		X = -496.25,
 		Y = -389.5833984375,
 		Overlay = "valeofeternalblossoms",
 		Name=L["Vale of Eternal Blossoms"],
 	},
-	[813] = {
-		BaseMap = 482,
+	[397] = {
+		BaseMap = 112,
 		Short = "EOS",
 	},
-	[823] = {
+	[407] = {
 		Scale = 3.716666015625,
 		X = -953.7499023437,
 		Y = 664.58330078125,
@@ -1087,30 +1058,30 @@ Map.MapWorldInfo = {
 		Name = L["Darkmoon Island"],
 		Explored = true,
 		MMOutside = true,
-		MId=823,
+		MId=407,
 	},
-	[856] = {
+	[417] = {
 		Name = L["Temple of Kotmogu"],
 		Scale = 1.679166015625,
 		X = -14500,
 		Y = 4000,
 		Short = "TK",
 	},
-	[857] = {
+	[418] = {
 		Scale = 9.375001953125,
 		X = -589.5833984375,
 		Y = 22.083204650879,
 		Overlay = "krasarang",
 		Name=L["Krasarang Wilds"],
 	},
-	[858] = {
+	[422] = {
 		Name=L["Dread Wastes"],
 		Scale = 10.704166015625,
 		X = -1227.9166015625,
 		Y = -283.3333984375,
 		Overlay = "dreadwastes",
 	},
-	[860] = {
+	[423] = {
 		Name = L["Silvershard Mines"],
 		Scale = 4.499998046875,
 		X = -14500,
@@ -1118,12 +1089,12 @@ Map.MapWorldInfo = {
 		Short = "SSM",
 		MapBaseName = "STVDiamondMineBG1_",
 	},
-	[862] = {
+	[424] = {
 		Scale = 31.030600585937,
 		X = -1750.5720703125,
 		Y = -1335.83203125,
 	},
-	[864] = {
+	[425] = {
 		Scale = 1.9375,
 		X = -37.5,
 		Y = 1714.16640625,
@@ -1131,7 +1102,7 @@ Map.MapWorldInfo = {
 		Name = L["Northshire"],
 		StartZone = true,
 	},
-	[866] = {
+	[427] = {
 		Scale = 1.929166015625,
 		X = -195.8333984375,
 		Y = 1192.5,
@@ -1139,14 +1110,14 @@ Map.MapWorldInfo = {
 		Name = L["Coldridge Valley"],
 		StartZone = true,
 	},
-	[873] = {
+	[433] = {
 		Scale = 3.5875,
 		X = -162.5,
 		Y = -337.9166015625,
 		Overlay = "thehiddenpass",
 		Name=L["The Veiled Stair"],
 	},
-	[888] = {
+	[460] = {
 		Scale = 2.900001953125,
 		X = -298.3333984375,
 		Y = -2206.6666015625,
@@ -1154,7 +1125,7 @@ Map.MapWorldInfo = {
 		Name = L["Shadowglen"],
 		StartZone = true,
 	},
-	[889] = {
+	[461] = {
 		Scale = 2.7,
 		X = 728.333203125,
 		Y = 0,
@@ -1162,7 +1133,7 @@ Map.MapWorldInfo = {
 		Name = L["Valley of Trials"],
 		StartZone = true,
 	},
-	[890] = {
+	[462] = {
 		Scale = 3.5333359375,
 		X = -46.666796875,
 		Y = 515.416796875,
@@ -1170,7 +1141,7 @@ Map.MapWorldInfo = {
 		Name = L["Camp Narache"],
 		StartZone = true,
 	},
-	[891] = {
+	[463] = {
 		Scale = 3.6125,
 		X = 898.333203125,
 		Y = 105,
@@ -1178,7 +1149,7 @@ Map.MapWorldInfo = {
 		Name = L["Echo Isles"],
 		StartZone = true,
 	},
-	[892] = {
+	[465] = {
 		Scale = 2.17916796875,
 		X = -429.5833984375,
 		Y = -454.1666015625,
@@ -1186,7 +1157,7 @@ Map.MapWorldInfo = {
 		Name = L["Deathknell"],
 		StartZone = true,
 	},
-	[893] = {
+	[467] = {
 		Scale = 3.2,
 		X = 1076.666796875,
 		Y = -2166.6666015625,
@@ -1194,10 +1165,10 @@ Map.MapWorldInfo = {
 		Name = L["Sunstrider Isle"],
 		XOff = Map.BloodelfXO,
 		YOff = Map.BloodelfYO,
-		MId = 462,
+		MId = 94,
 		StartZone = true,
 	},
-	[894] = {
+	[468] = {
 		Scale = 3.6375,
 		X = 2562.91640625,
 		Y = 720.833203125,
@@ -1205,10 +1176,10 @@ Map.MapWorldInfo = {
 		Name = L["Ammen Vale"],
 		XOff = Map.DraeneiXO,
 		YOff = Map.DraeneiYO,
-		MId = 464,
+		MId = 97,
 		StartZone = true,
 	},
-	[895] = {
+	[469] = {
 		Scale = 3.7,
 		X = -241.25,
 		Y = 945.416796875,
@@ -1216,24 +1187,7 @@ Map.MapWorldInfo = {
 		Name = L["New Tinkertown"],
 		StartZone = true,
 	},
-	[903] = {
-		Name = L["Shrine of Two Moons"],
-		Scale = 0.5,
-		X = -217.8,
-		Y = 1573.5,
-		Alpha=2,
-		ScaleAdjust=0.87584,
-		City = true,
-	},
-	[905] = {
-		Name = L["Shrine of Seven Stars"],
-		Scale = 0.55,
-		X = -82,
-		Y = 1751,
-		ScaleAdjust=0.9469,
-		City = true,
-	},
-	[928] = {
+	[504] = {
 		Scale = 8.27083203125,
 		X = -1530.833203125,
 		Y = -1629.583203125,
@@ -1241,7 +1195,7 @@ Map.MapWorldInfo = {
 		Name = L["Isle of Thunder"],
 		Explored = true,
 	},
-	[929] = {
+	[507] = {
 		Scale = 3.575001953125,
 		X = -400.8333984375,
 		Y = -1339.583203125,
@@ -1249,7 +1203,7 @@ Map.MapWorldInfo = {
 		Name = L["Isle of Giants"],
 		Explored = true,
 	},
-	[935] = {
+	[519] = {
 		Name = L["Deepwind Gorge"],
 		Scale = 2.16666796875,
 		X = -13000,
@@ -1257,49 +1211,49 @@ Map.MapWorldInfo = {
 		MapBaseName = "GoldRush",
 		Short = "DG",
 	},
-	[941] = {
+	[525] = {
 		Scale = 12.229159912109,
 		X = -1501.25,
 		Y = -1655,
 		Overlay = "frostfireridge",
 	},
-	[945] = {
+	[534] = {
 		Scale = 10.499999755859,
 		X = -341.66599121094,
 		Y = -1186.666015625,
 		Overlay = "TanaanJungle",
 	},
-	[946] = {
+	[535] = {
 		Scale = 11.924992156982,
 		X = -1166.666015625,
 		Y = -885.833984375,
 		Overlay = "talador",
 	},
-	[947] = {
+	[539] = {
 		Scale = 13.4,
 		X = -453.75,
 		Y = -532.083984375,
 		Overlay = "shadowmoonvalleydr",
 	},
-	[948] = {
+	[542] = {
 		Scale = 12.120840087891,
 		X = -936.25,
 		Y = -276.66599121094,
 		Overlay = "spiresofarak",
 	},
-	[949] = {
+	[543] = {
 		Scale = 16.3541796875,
 		X = -1013.333984375,
 		Y = -1917.916015625,
 		Overlay = "gorgrond",
 	},
-	[950] = {
+	[550] = {
 		Scale = 11.35,
 		X = -1861.666015625,
 		Y = -984.583984375,
 		Overlay = "nagranddraenor",
 	},
-	[951] = {
+	[554] = {
 		Scale = 4.8,
 		X = 816.666796875,
 		Y = -46.666796875,
@@ -1307,18 +1261,18 @@ Map.MapWorldInfo = {
 		Name = L["Timeless Isle"],
 		Explored = true,
 	},
-	[962] = {
+	[572] = {
 		Scale = 45.471564453125,
 		X = -2448.46875,
 		Y = -2238.6,
 	},
-	[970] = {
+	[588] = {
 		Scale = 4.8166599121094,
 		X = 210.83400878906,
 		Y = -968.333984375,
 		Overlay = "tanaanjungleintro",
 	},
-	[971] = {
+	[579] = {
 		Scale = 1.36666796875,
 		X = -109.166796875,
 		Y = -418.3333984375,
@@ -1329,16 +1283,10 @@ Map.MapWorldInfo = {
 		MapBaseName = "garrisonsmvalliance_tier",
 		Overlay = "garrisonsmvalliance_tier1",
 	},
-	[973] = {
-		BaseMap = 971,
+	[582] = {
+		BaseMap = 579,
 	},
-	[974] = {
-		BaseMap = 971,
-	},
-	[975] = {
-		BaseMap = 971,
-	},
-	[976] = {
+	[585] = {
 		Scale = 1.404166015625,
 		X = -977.083203125,
 		Y = -1162.9166015625,
@@ -1349,34 +1297,22 @@ Map.MapWorldInfo = {
 		MapBaseName = "garrisonffhorde_tier",
 		Overlay = "garrisonffhorde_tier1",
 	},
-	[978] = {
+	[588] = {
 		Scale = 6.2458203125,
 		X = 534.583984375,
 		Y = -1115.416015625,
 		Explored = true,
 		Overlay = "ashran",
 	},
-	[980] = {
-		BaseMap = 976
-	},
-	[981] = {
-		BaseMap = 976
+	[590] = {
+		BaseMap = 585
 	},	
-	[982] = {
-		BaseMap = 976
-	},	
-	[990] = {
-		BaseMap = 976,
-	},
-	[991] = {
-		BaseMap = 971,
-	},	
-	[1007] = {
+	[619] = {
 		Scale = 37.67636,
 		X = -2620.02,
 		Y = -1452.426,		
 	},	
-	[1009] = {
+	[622] = {
 		Scale = 1.375,
 		X = 725,
 		Y = -781.6666015625,
@@ -1384,7 +1320,7 @@ Map.MapWorldInfo = {
 		City = true,
 		Overlay = "ashranalliancefactionhub",
 	},
-	[1010] = {
+	[623] = {
 		Name = L["Tarren Mills vs Southshore"],
 		Scale = 4.337498046875,
 		X = -13000,
@@ -1392,7 +1328,7 @@ Map.MapWorldInfo = {
 		MapBaseName = "HillsbradFoothillsBG",
 		Short = "TvS",
 	},
-	[1011] = {
+	[624] = {
 		Scale = 1.6,
 		X = 717.916796875,
 		Y = -1108.333203125,
@@ -1400,7 +1336,7 @@ Map.MapWorldInfo = {
 		City = true,
 		Overlay = "ashranhordefactionhub",
 	},
-	[1014] = {
+	[625] = {
 		Scale = 1.8,
 		X = -983,
 		Y = 112,
@@ -1409,42 +1345,42 @@ Map.MapWorldInfo = {
 		Alpha = .85,
 		MapLevel = 1,		
 	},
-	[1015] = {
+	[630] = {
 		 Scale = 13.179166,
 		 X = -1966.25,
 		 Y = -361.25,
 		 Overlay = "azsuna",
 		 Name = L["Azsuna"],
 	},
-	[1017] = {
+	[634] = {
 		 Scale = 11.60416,
 		 X = -1006.666,
 		 Y = -1035.416,
 		 Overlay = "stormheim",
 		 Name = L["Stormheim"],
 	},
-	[1018] = {
+	[641] = {
 		 Scale = 11.020834,
 		 X = -1921.25,
 		 Y = -992.9166,
 		 Overlay = "valsharah",
 		 Name = L["Val'Sharah"]
 	},
-	[1021] = {
+	[646] = {
 		 Scale = 7.7,
 		 X = -983.334,
 		 Y = 0.833204,
 		 Overlay = "brokenshore",
 		 Name = L["Broken Shore"],
 	},
-	[1024] = {
+	[650] = {
 		 Scale = 14.141666,
 		 X = -1537.9166,
 		 Y = -1392.5,
 		 Overlay = "highmountain",
 		 Name = L["Highmountain"],
 	},
-	[1028] = {
+	[672] = {
 		 Scale = 7.487501968,
 		 X = -3105.8334,
 		 Y = -514.5834,
@@ -1452,14 +1388,14 @@ Map.MapWorldInfo = {
 		Name = L["Mardum, The Shattered Abyss"],
 		Explored = true,
 	},
-	[1033] = {
+	[680] = {
 		 Scale = 11.10416,
 		 X = -1331.666,
 		 Y = -689.166,
 		 Overlay = "suramar",
 		 Name = L["Suramar"],
 	},
-	[1080] = {
+	[750] = {
 		Scale = 1.8625,
 		X = -960,
 		Y = -879.5832,
@@ -1467,41 +1403,46 @@ Map.MapWorldInfo = {
 		City = true,		
 		Overlay = "thundertotem",
 	},
-	[1135] = {
+	[830] = {
 		Scale = 7.429172,
 		X = -754.584,
 		Y = -530.834,
 		Name = L["Krokuun"],
 		Overlay = "argussurface",
-		MId = 1135,
+		MId = 830,
 		XOff = -100,
 		YOff = 100,
 	},
-	[1170] = {
+	[882] = {
 		 Scale = 6.5166,
 		 X = -2309.16,
 		 Y = -1324.584,
 		 Name = L["Mac'Aree"],
 		 Overlay = "argusmacaree",		 
-		 MId = 1170,
+		 MId = 882,
 		 XOff = 1400,
 		 YOff = 500,
 	},
-	[1171] = {
+	[885] = {
 		 Scale = 6.80006,
 		 X = -2255.84,
 		 Y = 357.916,
 		 Name = L["Antoran Wastes"],
 		 Overlay = "arguscore",
-		 MId = 1171,
+		 MId = 885,
 		 XOff = 800,
 		 YOff = -900,
 	},
-	[1184] = {
+	[905] = {
 		 Scale = 13.53196,
 		 X = -1457.47,
 		 Y = -852.756,
 	},
+	[948] = {
+		Scale = 26,
+		X = -311.25,
+		Y = -274.16665039063,
+	},	
 	[9005] = {		-- Blade's Edge Arena
 		Name = L["Blade's Edge Arena"],
 		1,
@@ -8532,119 +8473,119 @@ Map.MiniMapBlks = {
 		Map.OLMapBlks,
 		1221,
 		12, 21,
-		Map.MapWorldInfo[466].X + Map.MapInfo[3].X + 465.4, Map.MapWorldInfo[466].Y + Map.MapInfo[3].Y + -9.7,
+		Map.MapWorldInfo[101].X + Map.MapInfo[3].X + 465.4, Map.MapWorldInfo[101].Y + Map.MapInfo[3].Y + -9.7,
 		"World\\Minimaps\\Expansion01"
 	},
 	[4] = {
 		Map.NRMapBlks,
 		1109,
 		11, 09,
-		Map.MapWorldInfo[485].X + Map.MapInfo[4].X + -397.1, Map.MapWorldInfo[485].Y + Map.MapInfo[4].Y + -334.1,
+		Map.MapWorldInfo[113].X + Map.MapInfo[4].X + -397.1, Map.MapWorldInfo[113].Y + Map.MapInfo[4].Y + -334.1,
 		"World\\Minimaps\\Northrend"
 	},
 	[5] = {
 		Map.LIMapBlks,
 		2324,
 		23, 24,
-		Map.MapWorldInfo[751].X + Map.MapInfo[5].X + -178.84, Map.MapWorldInfo[751].Y + Map.MapInfo[5].Y + 401.76665039063,
+		Map.MapWorldInfo[948].X + Map.MapInfo[5].X + -178.84, Map.MapWorldInfo[948].Y + Map.MapInfo[5].Y + 401.76665039063,
 		"World\\Minimaps\\LostIsles"
 	},
 	[6] = {
 		Map.PandariaMapBlks,
 		1816,
 		18, 16,
-		Map.MapWorldInfo[862].X + Map.MapInfo[6].X + 256.3, Map.MapWorldInfo[862].Y + Map.MapInfo[6].Y + -371.0,
+		Map.MapWorldInfo[424].X + Map.MapInfo[6].X + 256.3, Map.MapWorldInfo[424].Y + Map.MapInfo[6].Y + -371.0,
 		"World\\Minimaps\\HawaiiMainLand"
 	},
 	[7] = {
 		Map.DraenorMapBlks,
 		1220,
 		12, 20,
-		Map.MapWorldInfo[962].X + Map.MapInfo[7].X + 314.8, Map.MapWorldInfo[962].Y + Map.MapInfo[7].Y + 958.6,
+		Map.MapWorldInfo[572].X + Map.MapInfo[7].X + 314.8, Map.MapWorldInfo[572].Y + Map.MapInfo[7].Y + 958.6,
 		"World\\Minimaps\\Draenor"
 	},
 	[8] = {
 		Map.BrokenIslesMapBlks,
 		1117,
 		11, 17,
-		Map.MapWorldInfo[1007].X + Map.MapInfo[8].X + 380, Map.MapWorldInfo[1007].Y + Map.MapInfo[8].Y - 147.8,
+		Map.MapWorldInfo[619].X + Map.MapInfo[8].X + 380, Map.MapWorldInfo[619].Y + Map.MapInfo[8].Y - 147.8,
 		"World\\Minimaps\\Troll Raid"
 	},
-	[464] = {
+	[92] = {
+		Map.BloodelfMapBlks,
+		4111,
+		41, 11,
+		Map.MapWorldInfo[14].X + Map.MapInfo[2].X + 4091.405261625, Map.MapWorldInfo[14].Y + Map.MapInfo[2].Y + 511.140381,
+		"World\\Minimaps\\Expansion01"
+	},	
+	[97] = {
 		Map.DraeneiMapBlks,
 		5033,
 		50, 33,
 		Map.MapWorldInfo[13].X + Map.MapInfo[1].X + 1833.076104875, Map.MapWorldInfo[13].Y + Map.MapInfo[1].Y + 656.598490125,
 		"World\\Minimaps\\Expansion01"
 	},
-	[462] = {
-		Map.BloodelfMapBlks,
-		4111,
-		41, 11,
-		Map.MapWorldInfo[14].X + Map.MapInfo[2].X + 4091.405261625, Map.MapWorldInfo[14].Y + Map.MapInfo[2].Y + 511.140381,
-		"World\\Minimaps\\Expansion01"
-	},
-	[708] = {
+	[244] = {
 		Map.TolBaradMapBlks,
 		2731,
 		27, 31,
 		Map.MapWorldInfo[14].X + Map.MapInfo[2].X + 2500.940740625, Map.MapWorldInfo[14].Y + Map.MapInfo[2].Y + 2448.61535,
 		"World\\Minimaps\\TolBarad"
 	},
-	[795] = {
-		Map.MoltenFrontMapBlks,
-		2725,		-- 2725 to 3531
-		27, 25,
-		Map.MapWorldInfo[795].X + Map.MapInfo[1].X + 3152.92266259766, Map.MapWorldInfo[795].Y + Map.MapInfo[1].Y + -2105.97034960937,
-		"World\\Minimaps\\FirelandsDailies"
-	},
-	[640] = {		-- 2625 to 3534
-		Map.DeepholmMapBlks,
-		2625,
-		26, 25,
-		Map.MapWorldInfo[751].X + Map.MapInfo[5].X + 1251.16, Map.MapWorldInfo[751].Y + Map.MapInfo[5].Y + 228.97665039063,
-		"World\\Minimaps\\Deephome"
-	},
-	[605] = {
+	[194] = {
 		Map.KezanMapBlks,
 		2324,
 		23, 24,
-		Map.MapWorldInfo[751].X + Map.MapInfo[5].X + 297.05, Map.MapWorldInfo[751].Y + Map.MapInfo[5].Y + -1411.53334960937,
+		Map.MapWorldInfo[948].X + Map.MapInfo[5].X + 297.05, Map.MapWorldInfo[948].Y + Map.MapInfo[5].Y + -1411.53334960937,
 		"World\\Minimaps\\LostIsles"
+	},	
+	[207] = {		-- 2625 to 3534
+		Map.DeepholmMapBlks,
+		2625,
+		26, 25,
+		Map.MapWorldInfo[948].X + Map.MapInfo[5].X + 1251.16, Map.MapWorldInfo[948].Y + Map.MapInfo[5].Y + 228.97665039063,
+		"World\\Minimaps\\Deephome"
+	},	
+	[338] = {
+		Map.MoltenFrontMapBlks,
+		2725,		-- 2725 to 3531
+		27, 25,
+		Map.MapWorldInfo[338].X + Map.MapInfo[1].X + 3152.92266259766, Map.MapWorldInfo[338].Y + Map.MapInfo[1].Y + -2105.97034960937,
+		"World\\Minimaps\\FirelandsDailies"
 	},
-	[808] = {
+	[378] = {
 		Map.TheWanderingIsleMapBlks,
 		 2328,
 		 23,28,
-		 Map.MapWorldInfo[808].X + Map.MapWorldInfo[808].XOff + Map.MapInfo[6].X  + 35.7, Map.MapWorldInfo[808].Y + Map.MapWorldInfo[808].YOff + Map.MapInfo[6].Y-69.55,
+		 Map.MapWorldInfo[378].X + Map.MapWorldInfo[378].XOff + Map.MapInfo[6].X  + 35.7, Map.MapWorldInfo[378].Y + Map.MapWorldInfo[378].YOff + Map.MapInfo[6].Y-69.55,
 		 "World\\Minimaps\\NewRaceStartZone"
 	},
-	[823] = {
+	[407] = {
 		Map.DarkMoonFaireBlks,
 		1636,
 		16, 36,
-		Map.MapWorldInfo[823].X + Map.MapInfo[5].X + -253,Map.MapWorldInfo[823].Y + Map.MapInfo[5].Y + -238,
+		Map.MapWorldInfo[407].X + Map.MapInfo[5].X + -253,Map.MapWorldInfo[407].Y + Map.MapInfo[5].Y + -238,
 		"World\\Minimaps\\DarkmoonFaire"
 	},	
-	[1135] = {
+	[830] = {
 		Map.Argus1MapBlks,
 		2627,
 		26, 27,
-		Map.MapWorldInfo[1135].X + Map.MapWorldInfo[1135].XOff + Map.MapInfo[9].X + 114.1, Map.MapWorldInfo[1135].Y + Map.MapWorldInfo[1135].YOff + Map.MapInfo[9].Y + -2.6,
+		Map.MapWorldInfo[830].X + Map.MapWorldInfo[830].XOff + Map.MapInfo[9].X + 114.1, Map.MapWorldInfo[830].Y + Map.MapWorldInfo[830].YOff + Map.MapInfo[9].Y + -2.6,
 		"World\\Minimaps\\Argus 1"
 	},
-	[1170] = {
+	[882] = {
 		Map.Argus3MapBlks,
 		1119,
 		11, 19,
-		Map.MapWorldInfo[1170].X + Map.MapWorldInfo[1170].XOff + Map.MapInfo[9].X + 69.1, Map.MapWorldInfo[1170].Y + Map.MapWorldInfo[1170].YOff + Map.MapInfo[9].Y + -62.6,
+		Map.MapWorldInfo[882].X + Map.MapWorldInfo[882].XOff + Map.MapInfo[9].X + 69.1, Map.MapWorldInfo[882].Y + Map.MapWorldInfo[882].YOff + Map.MapInfo[9].Y + -62.6,
 		"World\\Minimaps\\Argus 1"
 	},
-	[1171] = {
+	[885] = {
 		Map.Argus2MapBlks,
 		1135,
 		11, 35,
-		Map.MapWorldInfo[1171].X + Map.MapWorldInfo[1171].XOff + Map.MapInfo[9].X + 15.7, Map.MapWorldInfo[1171].Y + Map.MapWorldInfo[1171].YOff + Map.MapInfo[9].Y + -37.6,
+		Map.MapWorldInfo[885].X + Map.MapWorldInfo[885].XOff + Map.MapInfo[9].X + 15.7, Map.MapWorldInfo[885].Y + Map.MapWorldInfo[885].YOff + Map.MapInfo[9].Y + -37.6,
 		"World\\Minimaps\\Argus 1"
 	},	
 }
