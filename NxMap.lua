@@ -4307,8 +4307,7 @@ function Nx.Map:Update (elapsed)
 		end
 		--self.Scale = self.RealScale
 	end
-	local plZX, plZY = Nx.Map.GetPlayerMapPosition ("player")
-
+	local plZX, plZY = Nx.Map.GetPlayerMapPosition ("player")	
 	if (Nx.Map:IsInstanceMap(Nx.Map.RMapId) or Nx.Map:IsBattleGroundMap(Nx.Map.RMapId)) and self.CurOpts.NXInstanceMaps then		
 		Nx.Map.MoveWorldMap()
 		Nx.Map:GetMap(1).PlyrFrm:Hide()
@@ -5345,8 +5344,9 @@ function Nx.Map:UpdateGroup (plX, plY)
 		local name, unitRealm = UnitName (unit)
 
 		local mapId = self.MapId
-
+		
 		local pX, pY = Nx.Map.GetPlayerMapPosition (unit)
+		
 		if pX <= 0 and pY <= 0 then
 
 			local info = palsInfo[name]
@@ -11255,17 +11255,15 @@ function Nx.Map:HideNewPlrFrame()
 end
 
 function Nx.Map.GetPlayerMapPosition (unit)
-	mID = C_Map.GetBestMapForUnit(unit)
-	
+	mID = C_Map.GetBestMapForUnit(unit)	
+	local x,y
 	if(mID) then
-		local x, y = C_Map.GetPlayerMapPosition (mID, unit)
+		x,y = C_Map.GetPlayerMapPosition (mID, unit):GetXY()
 	end
-		
-	if x == nil or y == nil then
-		x = 0
-		y = 0
-	end
-	
+
+	if x == nil or y == nil then		
+		return 0, 0
+	end	
 	return x, y
 end
 
