@@ -11255,9 +11255,12 @@ function Nx.Map:HideNewPlrFrame()
 end
 
 function Nx.Map.GetPlayerMapPosition (unit)
-	mID = C_Map.GetBestMapForUnit(unit)	
+	mID = C_Map.GetBestMapForUnit(unit)		
 	local x,y
 	if(mID) then
+		if mID ~= Nx.Map.RMapId then		
+			return 0,0
+		end
 		x,y = C_Map.GetPlayerMapPosition (mID, unit):GetXY()
 	end
 
