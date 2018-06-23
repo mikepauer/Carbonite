@@ -430,7 +430,7 @@ Nx.Zones = {
     [929] = L["Greater Invasion Point: Matron Folnuna"] .. "|110|110|3|5|885|50|50|0",
     [930] = L["Greater Invasion Point: Inquisitor Meto"] .. "|110|110|3|5|885|50|50|0",
     [931] = L["Greater Invasion Point: Sotanathor"] .. "|110|110|3|5|885|50|50|0",
-    [932] = L["Greater Invasion Point: Occularus"] .. "|110|110|3|5|885|50|50|0",
+    [932] = L["Greater Invasion Point: Occularus"] .. "|110|110|3|5|885|50|50|0"
 }
 
 
