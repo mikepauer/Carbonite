@@ -4307,7 +4307,7 @@ function Nx.Map:Update (elapsed)
 		end
 		--self.Scale = self.RealScale
 	end
-	local plZX, plZY = Nx.Map.GetPlayerMapPosition ("player")	
+	local plZX, plZY = Nx.Map.GetPlayerMapPosition ("player")		
 	if (Nx.Map:IsInstanceMap(Nx.Map.RMapId) or Nx.Map:IsBattleGroundMap(Nx.Map.RMapId)) and self.CurOpts.NXInstanceMaps then		
 		Nx.Map.MoveWorldMap()
 		Nx.Map:GetMap(1).PlyrFrm:Hide()
@@ -5067,36 +5067,14 @@ function Nx.Map:GetInstanceMapTextures(mapId)
 	local areaId = mapId
 	if areaId then
 		WorldMapFrame:SetMapID(areaId)
-		local mapName = GetMapInfo();
-		local levels, first = Nx.Map:GetNumDungeonMapLevels()
-		local useTerrainMap = DungeonUsesTerrainMap()
-		if (areaId == 824) then
-			levels = 7
-			first = 1
-		end
-		if (areaId == 937) then
-			levels = 2
-			first = 0
-		end		
-		if (areaId == 687) then
-			levels = 1
-			first = 1
-		end
+		local mapName = C_Map.GetMapInfo(mapId).name
+--		local levels, first = Nx.Map:GetNumDungeonMapLevels()
+--		local useTerrainMap = DungeonUsesTerrainMap()
 		Nx.Map.InstanceInfo[mapId] = {}		
-		if not first then 
-			first = 1
-		end
-		for i=first,max(first,first+levels-1) do
-			SetDungeonMapLevel(i)
-			local level = useTerrainMap and i-1 or i
-			local fileName = mapName.."\\"..mapName;
-			if ( level > 0 ) then
-				fileName = fileName..level.."_";
-			end
-			Nx.Map.InstanceInfo[mapId][(i-first)*3+1] = 0
-			Nx.Map.InstanceInfo[mapId][(i-first)*3+2] = -100*(i-first)
-			Nx.Map.InstanceInfo[mapId][(i-first)*3+3] = fileName
-		end
+		local fileName = mapName.."\\"..mapName;
+		Nx.Map.InstanceInfo[mapId][4] = 0
+		Nx.Map.InstanceInfo[mapId][5] = -100
+		Nx.Map.InstanceInfo[mapId][6] = fileName
 	end
 end
 
@@ -9158,7 +9136,7 @@ function Nx.Map:SetToCurrentZone()
 end
 
 function Nx.Map:GetCurrentMapAreaID()
-	local mapID = WorldMapFrame:GetMapID() or MapUtil.GetDisplayableMapForPlayer()
+	local mapID = MapUtil.GetDisplayableMapForPlayer()
 	return mapID
 end
 
@@ -10993,10 +10971,18 @@ function Nx.Map.RestoreWorldMap()
 	if not Nx.Map.WMDF then
 		return
 	end
-	local numOfDetailTiles = GetNumberOfDetailTiles();
-	for i=1, numOfDetailTiles do
-		Nx.Map.WMDT[i]:SetTexture(nil);	
+	
+	local layers = C_Map.GetMapArtLayers(Nx.Map.RMapId)
+	local layerInfo = layers[1]
+	local rows, cols = math.ceil(layerInfo.layerHeight / layerInfo.tileHeight), math.ceil(layerInfo.layerWidth / layerInfo.tileWidth)
+	
+	for i=1, cols do
+	  for j=1, rows do
+		local index = (j - 1) * cols + i
+		Nx.Map.WMDT[index]:SetTexture(nil)	
+	  end
 	end
+	
 	Nx.Map.WMDF:Hide()
 	local index = 1
 	local bossButton = _G["NXEJMapButton"..index]	
@@ -11016,16 +11002,24 @@ function Nx.Map.MoveWorldMap()
 	Nx.Map:SetCurrentMap (Nx.Map.NInstMapId)
 	
 	local mapInfo = C_Map.GetMapInfo(curId)
-	if not mapInfo.mapName then
+	if not mapInfo.name then
 		return
-	end
+	end	
+	
+	local layers = C_Map.GetMapArtLayers(curId)
+	local layerInfo = layers[1]
+	local rows, cols = math.ceil(layerInfo.layerHeight / layerInfo.tileHeight), math.ceil(layerInfo.layerWidth / layerInfo.tileWidth)
+	
 	if not Nx.Map.WMDF then
 		Nx.Map.WMDF = CreateFrame("Frame", "WMDF")		
 		Nx.Map.WMDF:SetFrameStrata("BACKGROUND")
 		Nx.Map.WMDT = {}
 		Nx.Map.EJMB = {}
-		for i = 1,12 do
-			Nx.Map.WMDT[i] = Nx.Map.WMDF:CreateTexture("WMDT" .. i)						
+		for i = 1,cols do
+		   for j = 1, rows do
+		     local index = (j - 1) * cols + i 			 
+			 Nx.Map.WMDT[index] = Nx.Map.WMDF:CreateTexture("WMDT" .. index)
+		   end
 		end		
 		Nx.Map.WMDT[1]:SetPoint("TOPLEFT")
 		Nx.Map.WMDT[2]:SetPoint("TOPLEFT","WMDT1","TOPRIGHT")
@@ -11046,34 +11040,12 @@ function Nx.Map.MoveWorldMap()
 	Nx.Map.WMDF:SetHeight(Nx.Map:GetMap(1).MapH)
 	Nx.Map.WMDF:Show()
 	
-	local dungeonLevel = Nx.Map:GetCurrentMapDungeonLevel()
-	if (DungeonUsesTerrainMap()) then
-		dungeonLevel = dungeonLevel - 1
-	end
-
-	local mapID, isContinent = Nx.Map:GetCurrentMapAreaID()
-
-	local fileName
-
-	local path
-	if (not isMicroDungeon) then
-		path = "Interface\\WorldMap\\"..mapName.."\\"
-		fileName = mapName
-	else
-		path = "Interface\\WorldMap\\MicroDungeon\\"..mapName.."\\"..microDungeonMapName.."\\"
-		fileName = microDungeonMapName
-	end
-
-	if ( dungeonLevel > 0 ) then
-		fileName = fileName..dungeonLevel.."_"
-	end
-
-	local numOfDetailTiles = GetNumberOfDetailTiles()
-	for i=1, numOfDetailTiles do
-		local texName = path..fileName..i	
+	local textures = C_Map.GetMapArtLayerTextures(curId,1)
+	
+	for i=1, 12 do
 		Nx.Map.WMDT[i]:SetWidth(Nx.Map.WMDF:GetWidth() / 3.9)		
 		Nx.Map.WMDT[i]:SetHeight(Nx.Map.WMDF:GetHeight() / 2.6)
-		Nx.Map.WMDT[i]:SetTexture(texName)
+		Nx.Map.WMDT[i]:SetTexture(textures[i])
 	end	
 	Nx.Map.WMDF:SetAllPoints()
 	NXWorldMapUnitPositionFrame:SetParent("WMDF")
@@ -11081,7 +11053,7 @@ function Nx.Map.MoveWorldMap()
 	NXWorldMapUnitPositionFrame:SetFrameLevel(40)
 	Nx.Map:NXWorldMapUnitPositionFrame_UpdatePlayerPins()
 	
-	local numEncounters = 0;
+--[[	local numEncounters = 0;
 	if Nx.db.char.Map.ShowRaidBoss then
 		local width = Nx.Map.WMDF:GetWidth();
 		local height = Nx.Map.WMDF:GetHeight();
@@ -11125,7 +11097,7 @@ function Nx.Map.MoveWorldMap()
 		bossButton:Hide();
 		index = index + 1;
 		bossButton = _G["NXEJMapButton"..index];
-	end	
+	end	]]--
 end
 
 function Nx.Map:UpdatePlayerPositions() -- Copy of the local defined player arrow function out of blizzards map code
