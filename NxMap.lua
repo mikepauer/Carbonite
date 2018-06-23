@@ -4437,7 +4437,7 @@ function Nx.Map:Update (elapsed)
 
 		self.PlyrLastDir = self.PlyrDir
 
-		if not self.Scrolling and not self.MouseIsOver and not WorldMapFrame:IsVisible() then
+		if not self.Scrolling and not self.MouseIsOver and not WorldMapFrame:IsVisible() then			
 			if self.CurOpts.NXPlyrFollow then
 				local scOn = self.LOpts.NXAutoScaleOn		--self.GOpts["MapFollowChangeScale"]
 				if plZX ~= 0 or plZY ~= 0 then
@@ -4445,15 +4445,15 @@ function Nx.Map:Update (elapsed)
 						self:Move (plX, plY, nil, 30)
 					end
 				end
-
-				if scOn then
-
+				if scOn then					
 					local midX
 					local midY
 					local dtx
 					local dty
-
-					local cX, cY = C_DeathInfo.GetCorpseMapPosition(C_Map.GetBestMapForUnit("player"))
+					local cX, cY
+					if C_Map.GetBestMapForUnit("player") then
+					  cX, cY = C_DeathInfo.GetCorpseMapPosition(C_Map.GetBestMapForUnit("player"))
+					end
 					if cX == nil or cY == nil then
 						cX = 0
 						cY = 0
@@ -4912,8 +4912,10 @@ function Nx.Map:Update (elapsed)
 	end
 
 	self.TrackETA = false
-
-	local cX, cY = C_DeathInfo.GetCorpseMapPosition(C_Map.GetBestMapForUnit("player"))
+	local cX, cY
+	if C_Map.GetBestMapForUnit("player") then
+	  cX, cY = C_DeathInfo.GetCorpseMapPosition(C_Map.GetBestMapForUnit("player"))
+	end
 	if cX == nil or cY == nil then
 		cX = 0
 		cY = 0
@@ -11261,7 +11263,11 @@ function Nx.Map.GetPlayerMapPosition (unit)
 		if mID ~= Nx.Map.RMapId then		
 			return 0,0
 		end
-		x,y = C_Map.GetPlayerMapPosition (mID, unit):GetXY()
+		if C_Map.GetPlayerMapPosition (mID, unit) then
+		  x,y = C_Map.GetPlayerMapPosition (mID, unit):GetXY()
+		else
+		  return 0,0
+		end
 	end
 
 	if x == nil or y == nil then		
