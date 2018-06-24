@@ -4089,7 +4089,7 @@ function Nx.Map:UpdateWorld()
 	end
 	if winfo.MapLevel then
 		if Nx.Map:GetCurrentMapDungeonLevel() ~= winfo.MapLevel then	-- Wrong level?
-			SetDungeonMapLevel (winfo.MapLevel)
+			--SetDungeonMapLevel (winfo.MapLevel)
 		end
 	end
 
@@ -5948,7 +5948,7 @@ function Nx.Map:CheckWorldHotspots (wx, wy)
 				self:SetCurrentMap (self.InstMapId)
 			end
 
-			SetDungeonMapLevel (lvl)
+			--SetDungeonMapLevel (lvl)
 
 			self.InstLevelSet = -1
 
@@ -9090,7 +9090,7 @@ function Nx.Map:SetCurrentMap (mapId)
 
 					if not self.MapWorldInfo[mapId].City and (not cont or not zone or mapId == self:GetRealBaseMapId() or mapId == self:GetRealMapId()) then						
 						Nx.Map:SetToCurrentZone()		-- This fixes the Scarlet Enclave map selection, so we get player position						
-						SetDungeonMapLevel (1)
+						--SetDungeonMapLevel (1)
 					else
 --						SetMapZoom (cont, i)
 						WorldMapFrame:SetMapID(mapId)						
@@ -9111,7 +9111,7 @@ function Nx.Map:SetCurrentMap (mapId)
 					if caid ~= aid then
 --						Nx.prt ("SetCurrentMap dif %s", caid)
 						WorldMapFrame:SetMapID (aid)						
-						SetDungeonMapLevel (1)
+						--SetDungeonMapLevel (1)
 					end
 				end
 			else
