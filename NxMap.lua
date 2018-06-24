@@ -4079,7 +4079,7 @@ function Nx.Map:UpdateWorld()
 	self.NeedWorldUpdate = false
 	if not Nx.Map.MouseOver then			
 		--Nx.Map:UnregisterEvent ("WORLD_MAP_UPDATE")
-		Nx.Map:SetToCurrentZone()	
+		--Nx.Map:SetToCurrentZone()	
 		--Nx.Map:RegisterEvent ("WORLD_MAP_UPDATE", "OnEvent")	
 	end
 	local mapId = self:GetCurrentMapId()
@@ -4104,8 +4104,8 @@ function Nx.Map:UpdateWorld()
 	self.LastDungeonLevel = Nx.Map:GetCurrentMapDungeonLevel()
 
 	self.LastDungeonLevel = Nx.Map:GetCurrentMapDungeonLevel()
-	local mapInfo = C_Map.GetMapInfo(C_Map.GetBestMapForUnit("player"))
-	local mapFileName = mapInfo.name
+	local mapInfo = C_Map.GetMapInfo(mapId)
+	local mapFileName = winfo.Overlay or mapInfo.name
 	if not mapFileName then
 		if Nx.Map:GetCurrentMapContinent() == WORLDMAP_COSMIC_ID then
 			mapFileName = "Cosmic"
@@ -9136,7 +9136,7 @@ function Nx.Map:SetToCurrentZone()
 end
 
 function Nx.Map:GetCurrentMapAreaID()
-	local mapID = MapUtil.GetDisplayableMapForPlayer()
+	local mapID = WorldMapFrame:GetMapID() or MapUtil.GetDisplayableMapForPlayer()
 	return mapID
 end
 
