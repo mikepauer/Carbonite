@@ -4079,7 +4079,7 @@ function Nx.Map:UpdateWorld()
 	self.NeedWorldUpdate = false
 	if not Nx.Map.MouseOver then			
 		--Nx.Map:UnregisterEvent ("WORLD_MAP_UPDATE")
-		--Nx.Map:SetToCurrentZone()	
+		Nx.Map:SetToCurrentZone()	
 		--Nx.Map:RegisterEvent ("WORLD_MAP_UPDATE", "OnEvent")	
 	end
 	local mapId = self:GetCurrentMapId()
@@ -4165,9 +4165,9 @@ function Nx.Map:Update (elapsed)
 
 	self:MouseEnable (self.Win:IsSizeMax())
 
-	if self.NeedWorldUpdate then		
+	--if self.NeedWorldUpdate then		
 		self:UpdateWorld()
-	end
+	--end
 
 	self.MapW = self.Frm:GetWidth() - self.PadX * 2
 	self.MapH = self.Frm:GetHeight() - self.TitleH
