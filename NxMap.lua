@@ -6488,6 +6488,15 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 	local unExAl = self.LOpts.NXUnexploredAlpha
 	local zscale = self:GetWorldZoneScale (mapId) / 10
 
+	local exploredWHXY = {}
+	local explored = C_MapExplorationInfo.GetExploredMapTextures(mapId)
+	if explored then
+		for i, ex in ipairs(explored) do
+			local key = ex.offsetX..","..ex.offsetY..","..ex.textureWidth..","..ex.textureHeight;
+			exploredWHXY[key] = true
+		end
+	end	
+	
 	for txName, whxyStr in pairs (overlays) do		
 		local lev = 0
 		local brt = bright
@@ -6499,12 +6508,15 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 			txName, txW, txH, oX, oY = GetMapOverlayInfo(1)
 		end
 
-
 		txW = tonumber (txW)
 		txH = tonumber (txH)
 		oX = tonumber (oX)
 		oY = tonumber (oY)
-
+		
+		if exploredWHXY[whxyStr] then
+			oX = oX - 10000
+		end
+		
 		if unex then		-- Dimming unexplored?
 			if oX < 0 then
 				oX = oX + 10000	-- Fix explored x
