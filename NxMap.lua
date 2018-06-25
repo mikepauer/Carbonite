@@ -6508,14 +6508,15 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 			txName, txW, txH, oX, oY = GetMapOverlayInfo(1)
 		end
 
+		local whxyKey = oX..","..oY..","..txW..","..txH
+		if exploredWHXY[whxyKey] then
+			oX = oX - 10000
+		end
+		
 		txW = tonumber (txW)
 		txH = tonumber (txH)
 		oX = tonumber (oX)
 		oY = tonumber (oY)
-		
-		if exploredWHXY[whxyStr] then
-			oX = oX - 10000
-		end
 		
 		if unex then		-- Dimming unexplored?
 			if oX < 0 then
