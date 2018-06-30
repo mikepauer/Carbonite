@@ -3135,7 +3135,7 @@ function Nx.Map:HijackBlizzBountyMap()
 	bountyBoard.FindBestMapForSelectedBounty = function() end
 	bountyBoard:SetParent(map.Frm)
 	bountyBoard:SetFrameLevel(140)
-	bountyBoard:SetMapAreaID(1007)
+	bountyBoard:SetMapAreaID(619)
 	local bountyBoardLocation = bountyBoard:GetDisplayLocation()
 	if bountyBoardLocation then
 		WorldMapFrame_SetOverlayLocation(bountyBoard, bountyBoardLocation);
@@ -3864,7 +3864,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 		local speed = map.PlyrSpeed
 
-		local sa = Nx.Map.MapWorldInfo[map.MapId].ScaleAdjust
+--		local sa = Nx.Map.MapWorldInfo[map.MapId].ScaleAdjust
 		if sa then
 			speed = speed * sa
 		end
@@ -4336,7 +4336,7 @@ function Nx.Map:Update (elapsed)
 
 		local x, y = self:GetWorldPos (Nx.Map.UpdateMapID, 0, 0)		
 		local lvl = max (Nx.Map:GetCurrentMapDungeonLevel(), 1)		-- 0 if no level		
-		if Nx.Map:GetCurrentMapAreaID() == 937 then
+		if Nx.Map:GetCurrentMapAreaID() == 520 then
 			if Nx.Map:GetCurrentMapDungeonLevel() == 0 then
 				lvl = 1
 			else
@@ -4452,7 +4452,7 @@ function Nx.Map:Update (elapsed)
 					local dty
 					local cX, cY
 					if C_Map.GetBestMapForUnit("player") then
-					  cX, cY = C_DeathInfo.GetCorpseMapPosition(C_Map.GetBestMapForUnit("player"))
+						cX, cY = C_DeathInfo.GetCorpseMapPosition(C_Map.GetBestMapForUnit("player"))
 					end
 					if cX == nil or cY == nil then
 						cX = 0
@@ -5340,7 +5340,7 @@ function Nx.Map:UpdateGroup (plX, plY)
 			pX = pX * 100
 			pY = pY * 100
 			local lvl = max (Nx.Map:GetCurrentMapDungeonLevel(), 1)
-			if Nx.Map:GetCurrentMapAreaID() == 937 then
+			if Nx.Map:GetCurrentMapAreaID() == 520 then
 				if Nx.Map:GetCurrentMapDungeonLevel() == 0 then
 					lvl = 1
 				else
@@ -7917,7 +7917,7 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 			end
 		end
 	end
-	if Nx.Map:GetCurrentMapAreaID() == 321 and Nx.Map.DungeonLevel == 0 then
+	if Nx.Map:GetCurrentMapAreaID() == 85 and Nx.Map.DungeonLevel == 0 then
 		Nx.Map.DungeonLevel = 1
 	end
 end
@@ -8723,18 +8723,18 @@ function Nx.Map:InitTables()
 	--V403
 
 	Nx.Map.MapZones = {
-		 [0] = {12,13,101,113,948,424,572,619,758,0,-1},
-		 [1] = {1,7,10,57,62,63,64,65,66,69,70,71,76,77,78,80,81,83,85,88,89,97,103,106,198,199,249,327,338,460,461,462,463,468},
-		 [2] = {14,15,17,18,21,22,23,25,26,27,32,36,37,42,47,48,49,50,51,52,56,84,87,90,94,95,110,122,124,179,201,202,203,204,205,210,217,218,224,241,244,245,425,427,465,467,469},
-		 [3] = {100,102,104,105,107,108,109,111},
-		 [4] = {114,115,116,117,118,119,120,121,123,125,127,170},
-		 [5] = {174,194,207,276,407},
-		 [6] = {371,376,378,379,388,390,418,422,433,504,507,554},
-		 [7] = {525,539,535,534,542,543,550,577,579,585,588,622,624},
-		 [8] = {625,630,634,641,646,650,672,680,750},
-		 [9] = {830,882,885},
-		 [90] = {91,92,93,112,128,169,206,275,397,417,423,519,623},		 
-		 [100] = {},
+		[0] = {12,13,101,113,948,424,572,619,758,0,-1},
+		[1] = {1,7,10,57,62,63,64,65,66,69,70,71,76,77,78,80,81,83,85,88,89,97,103,106,198,199,249,327,338,460,461,462,463,468},
+		[2] = {14,15,17,18,21,22,23,25,26,27,32,36,37,42,47,48,49,50,51,52,56,84,87,90,94,95,110,122,124,179,201,202,203,204,205,210,217,218,224,241,244,245,425,427,465,467,469},
+		[3] = {100,102,104,105,107,108,109,111},
+		[4] = {114,115,116,117,118,119,120,121,123,125,127,170},
+		[5] = {174,194,207,276,407},
+		[6] = {371,376,378,379,388,390,418,422,433,504,507,554},
+		[7] = {525,539,535,534,542,543,550,577,579,585,588,622,624},
+		[8] = {625,630,634,641,646,650,672,680,750},
+		[9] = {830,882,885},
+		[90] = {91,92,93,112,128,169,206,275,397,417,423,519,623},		 
+		[100] = {},
 	}
 
 	for mi, mapName in pairs (Nx.Map.MapZones[2]) do
@@ -11224,7 +11224,7 @@ function Nx.Map:ConvToUMapId(mapID)
 	return tonumber(retMapID)
 end
 
-function Nx.Map:GetMapNameByID (mapId)
+function Nx.Map:GetMapNameByID(mapId)
 	local mapInfo = C_Map.GetMapInfo(mapId)
 	return mapInfo and mapInfo.name or nil
 end
@@ -11243,15 +11243,15 @@ end
 
 function Nx.Map.GetPlayerMapPosition (unit)
 	mID = C_Map.GetBestMapForUnit(unit)		
-	local x,y
+	local x, y
 	if(mID) then
 		if mID ~= Nx.Map.RMapId then		
 			return 0,0
 		end
 		if C_Map.GetPlayerMapPosition (mID, unit) then
-		  x,y = C_Map.GetPlayerMapPosition (mID, unit):GetXY()
+		  x, y = C_Map.GetPlayerMapPosition (mID, unit):GetXY()
 		else
-		  return 0,0
+		  return 0, 0
 		end
 	end
 
