@@ -2663,7 +2663,7 @@ function Nx.Map:Menu_OnScaleRestore()
 		Nx.Map:GetMap(1).RealScale = s
 		Nx.Map:GetMap(1).StepTime = 10
 	else
-		Nx.prt ("Scale not set")
+--		Nx.prt ("Scale not set")
 	end
 end
 
@@ -3864,7 +3864,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 		local speed = map.PlyrSpeed
 
-		local sa = Nx.Map.MapWorldInfo[map.MapId].ScaleAdjust
+		local sa = Nx.Map.MapWorldInfo[map.MapId] and Nx.Map.MapWorldInfo[map.MapId].ScaleAdjust or 1
 		if sa then
 			speed = speed * sa
 		end
@@ -9392,6 +9392,9 @@ end
 function Nx.Map:IsInstanceMap (mapId)
 	if (Nx.Map:GetCurrentMapAreaID(true) == 20) then return false end
 	local winfo = Nx.Map:GetMap(1).MapWorldInfo
+	if not winfo[mapId] then
+		Nx.Map:GetZoneInfo (mapId)
+	end
 	if not winfo[mapId] then
 		return false
 	end

@@ -1345,6 +1345,9 @@ Map.MapWorldInfo = {
 		Alpha = .85,
 		MapLevel = 1,		
 	},
+	[627] = {
+		BaseMap = 625
+	},
 	[630] = {
 		 Scale = 13.179166,
 		 X = -1966.25,
@@ -8673,6 +8676,30 @@ function Nx.Map:GetMiniBlkName (miniT, x, y)
 			return format ("%s\\map%02d_%02d", miniT[7], x + miniT[3], y + miniT[4])
 		end
 
+	end
+end
+
+function Nx.Map:GetZoneInfo (mapid)
+	local vec, vec2 = CreateVector2D(0,0), CreateVector2D(0.5,0.5)
+	local winfo = Nx.Map:GetMap(1).MapWorldInfo
+	if not winfo or (winfo[mapid] and winfo[mapid].Scale) then		
+		return
+	end
+	local _,topLeft = C_Map.GetWorldPosFromMapPos(mapid,vec)
+	local _,bottomRight = C_Map.GetWorldPosFromMapPos(mapid,vec2)
+	if topLeft and bottomRight then
+		local top, left = topLeft:GetXY()
+        local bottom, right = bottomRight:GetXY()
+		bottom = top + (bottom - top) * 2
+		right = left + (right - left) * 2
+		winfo[mapid] = {}
+		winfo[mapid].X = ((left * -1) / 5)
+		winfo[mapid].Y = ((top * -1) / 5)
+		winfo[mapid].Scale = ((right * -1) + left) / 500
+	end	
+	local mapinfo = C_Map.GetMapInfo(mapid)
+	if mapinfo and (mapinfo.mapType == 5 or mapinfo.mapType == 4) then				
+		winfo[mapid].Instance = true
 	end
 end
 
