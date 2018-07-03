@@ -3141,7 +3141,7 @@ function Nx.Map:HijackBlizzBountyMap()
 	bountyBoard.FindBestMapForSelectedBounty = function() end
 	bountyBoard:SetParent(map.Frm)
 	bountyBoard:SetFrameLevel(140)
-	bountyBoard:SetMapAreaID(1007)
+	bountyBoard:SetMapAreaID(619)
 	local bountyBoardLocation = bountyBoard:GetDisplayLocation()
 	if bountyBoardLocation then
 		WorldMapFrame_SetOverlayLocation(bountyBoard, bountyBoardLocation);
@@ -4342,7 +4342,7 @@ function Nx.Map:Update (elapsed)
 
 		local x, y = self:GetWorldPos (Nx.Map.UpdateMapID, 0, 0)		
 		local lvl = max (Nx.Map:GetCurrentMapDungeonLevel(), 1)		-- 0 if no level		
-		if Nx.Map:GetCurrentMapAreaID() == 937 then
+		if Nx.Map:GetCurrentMapAreaID() == 520 then
 			if Nx.Map:GetCurrentMapDungeonLevel() == 0 then
 				lvl = 1
 			else
@@ -4458,7 +4458,7 @@ function Nx.Map:Update (elapsed)
 					local dty
 					local cX, cY
 					if C_Map.GetBestMapForUnit("player") then
-					  cX, cY = C_DeathInfo.GetCorpseMapPosition(C_Map.GetBestMapForUnit("player"))
+						cX, cY = C_DeathInfo.GetCorpseMapPosition(C_Map.GetBestMapForUnit("player"))
 					end
 					if cX == nil or cY == nil then
 						cX = 0
@@ -5346,7 +5346,7 @@ function Nx.Map:UpdateGroup (plX, plY)
 			pX = pX * 100
 			pY = pY * 100
 			local lvl = max (Nx.Map:GetCurrentMapDungeonLevel(), 1)
-			if Nx.Map:GetCurrentMapAreaID() == 937 then
+			if Nx.Map:GetCurrentMapAreaID() == 520 then
 				if Nx.Map:GetCurrentMapDungeonLevel() == 0 then
 					lvl = 1
 				else
@@ -7937,7 +7937,7 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 			end
 		end
 	end
-	if Nx.Map:GetCurrentMapAreaID() == 321 and Nx.Map.DungeonLevel == 0 then
+	if Nx.Map:GetCurrentMapAreaID() == 85 and Nx.Map.DungeonLevel == 0 then
 		Nx.Map.DungeonLevel = 1
 	end
 end
@@ -11050,10 +11050,10 @@ function Nx.Map.MoveWorldMap()
 		Nx.Map.WMDT = {}
 		Nx.Map.EJMB = {}
 		for i = 1,cols do
-		   for j = 1, rows do
-		     local index = (j - 1) * cols + i 			 
-			 Nx.Map.WMDT[index] = Nx.Map.WMDF:CreateTexture("WMDT" .. index)
-		   end
+			for j = 1, rows do
+		    	local index = (j - 1) * cols + i 			 
+				Nx.Map.WMDT[index] = Nx.Map.WMDF:CreateTexture("WMDT" .. index)
+			end
 		end		
 		Nx.Map.WMDT[1]:SetPoint("TOPLEFT")
 		Nx.Map.WMDT[2]:SetPoint("TOPLEFT","WMDT1","TOPRIGHT")
@@ -11251,7 +11251,7 @@ function Nx.Map:GetMapNameByID (mapId)
 end
 
 function Nx.Map:GetCurrentMapDungeonLevel()
-  return 0
+	return 0
 end
 
 function Nx.Map:GetCurrentMapContinent()
@@ -11264,15 +11264,15 @@ end
 
 function Nx.Map.GetPlayerMapPosition (unit)
 	mID = C_Map.GetBestMapForUnit(unit)		
-	local x,y
+	local x, y
 	if(mID) then
 		if mID ~= Nx.Map.RMapId then		
 			return 0,0
 		end
 		if C_Map.GetPlayerMapPosition (mID, unit) then
-		  x,y = C_Map.GetPlayerMapPosition (mID, unit):GetXY()
+			x, y = C_Map.GetPlayerMapPosition (mID, unit):GetXY()
 		else
-		  return 0,0
+			return 0,0
 		end
 	end
 
