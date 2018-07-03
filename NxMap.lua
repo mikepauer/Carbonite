@@ -1635,6 +1635,8 @@ function Nx.Map:InitFrames()
 		{ 1,1,1,1, 1,1,1,1, 1,1,1,1 },
 		{ 1,1,1,1, 1,1,1,1, 1,1,1,1 },		
 		{ 1,1,1,1, 1,1,1,1, 1,1,1,1 },
+		{ 1,1,1,1, 1,1,1,1, 1,1,1,1 },
+		{ 1,1,1,1, 1,1,1,1, 1,1,1,1 },
 	}
 
 	self.ContFrms = {}
@@ -1647,8 +1649,12 @@ function Nx.Map:InitFrames()
 		local texi = 1
 
 --		Nx.prtD ("Map Update ".. mapFileName)
-
-		for i = 1, 12 do
+		local tileX = self.MapInfo[n].TileX or 4
+		local tileY = self.MapInfo[n].TileY or 3
+		
+		local numtiles = tileX * tileY
+		
+		for i = 1, numtiles do
 
 			if Nx.ContBlks[n][i] ~= 0 then
 
@@ -5916,8 +5922,11 @@ function Nx.Map:MoveContinents()
 
 		for contN = 1, Nx.Map.ContCnt do
 			frms = self.ContFrms[contN]
-
-			for i = 1, 12 do
+			local numtiles = 12
+			if self.MapInfo[contN].TileX and self.MapInfo[contN].TileY then
+				numtiles = self.MapInfo[contN].TileX * self.MapInfo[contN].TileY
+			end
+			for i = 1, numtiles do
 				frm = frms[i]
 				if frm then
 					frm:Hide()
@@ -6166,20 +6175,28 @@ function Nx.Map:MoveZoneTiles (cont, zone, frms, alpha, level)
 	-- Nx.prt ("MapZ %f, %f", zx, zy)
 
 	local scale = self.ScaleDraw
-
+	local tilex, tiley
+	if zone == 0 then
+		tilex = self.MapInfo[cont].TileX or 4
+		tiley = self.MapInfo[cont].TileY or 3
+	else
+		tilex = self.MapWorldInfo[zone].TileX or 4
+		tiley = self.MapWorldInfo[zone].TileY or 3
+	end
 	local clipW = self.MapW
 	local clipH = self.MapH
 	local x = (zx - self.MapPosXDraw) * scale + clipW / 2
 	local y = (zy - self.MapPosYDraw) * scale + clipH / 2
 	local bx = 0
 	local by = 0
-	local bw = zw * 1024 / 1002 / 4 * scale
-	local bh = zh * 768 / 668 / 3 * scale
+	local bw = zw * 1024 / 1002 / tilex * scale
+	local bh = zh * 768 / 668 / tiley * scale
 	local w, h
 	local texX1, texX2
 	local texY1, texY2
-
-	for i = 1, 12 do
+	local numtiles = tilex * tiley
+	
+	for i = 1, numtiles do
 
 		local frm = frms[i]
 		if frm then
@@ -6224,6 +6241,9 @@ function Nx.Map:MoveZoneTiles (cont, zone, frms, alpha, level)
 				frm:Hide()
 			else
 				frm:SetPoint ("TOPLEFT", vx1, -vy1 - self.TitleH)
+				if cont == 10 then
+					Nx.prt (vx1 .. " " .. -vy1)
+				end
 				frm:SetWidth (w)
 				frm:SetHeight (h)
 				frm:SetFrameLevel (level)
@@ -8723,7 +8743,7 @@ function Nx.Map:InitTables()
 	--V403
 
 	Nx.Map.MapZones = {
-		 [0] = {12,13,101,113,948,424,572,619,758,0,-1},
+		 [0] = {12,13,101,113,948,424,572,619,758,875,876,0,-1},
 		 [1] = {1,7,10,57,62,63,64,65,66,69,70,71,76,77,78,80,81,83,85,88,89,97,103,106,198,199,249,327,338,460,461,462,463,468},
 		 [2] = {14,15,17,18,21,22,23,25,26,27,32,36,37,42,47,48,49,50,51,52,56,84,87,90,94,95,110,122,124,179,201,202,203,204,205,210,217,218,224,241,244,245,425,427,465,467,469},
 		 [3] = {100,102,104,105,107,108,109,111},
@@ -8733,6 +8753,8 @@ function Nx.Map:InitTables()
 		 [7] = {525,539,535,534,542,543,550,577,579,585,588,622,624},
 		 [8] = {625,630,634,641,646,650,672,680,750},
 		 [9] = {830,882,885},
+		 [10] = {862,863,864},
+		 [11] = {895,896,942},
 		 [90] = {91,92,93,112,128,169,206,275,397,417,423,519,623},		 
 		 [100] = {},
 	}
@@ -8749,12 +8771,8 @@ function Nx.Map:InitTables()
 	self.ZoneOverlays["lakewintergrasp"]["lakewintergrasp"] = "0,0,1024,768"
 
 	-- Support maps with multiple level
-    local _,_,_,buildversion = GetBuildInfo()
-		if buildversion < 70300 then
-			self.ContCnt = 8
-		else
-			self.ContCnt = 9
-	end
+	self.ContCnt = 11
+
 --	continentNums = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 90 }
 	for n = 1, 1999 do
 		local winfo = worldInfo[mapId]

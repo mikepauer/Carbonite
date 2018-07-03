@@ -402,12 +402,17 @@ Nx.Zones = {
     [858] = L["Assault on Broken Shore"] .. "|110|110|3|5|646|50|50|0",
     [860] = L["The Ruby Sanctum"] .. "|80|83|3|5|115|0|0|0",
     [861] = L["Felwing Ledge"] .. "|100|110|3|5|646|0|0|0",
+	[862] = L["Zuldazar"] .. "|110|120|2|10||",
+	[863] = L["Nazmir"] .. "|110|120|2|10||",
+	[864] = L["Vol'Dun"] .. "|110|120|2|10||",
     [865] = L["Stormheim Invasion"] .. "|100|110|3|5|634|50|50|0",
     [867] = L["Azsuna Invasion"] .. "|100|110|3|5|630|50|50|0",
     [868] = L["Val'sharah Invasion"] .. "|100|110|3|5|641|50|50|0",
     [869] = L["Highmountain Invasion"] .. "|100|110|3|5|650|50|50|0",
     [871] = L["The Lost Glacier"] .. "|110|110|3|5|646|50|50|0",
-    [872] = L["Stormstout Brewery"] .. "|86|87|3|5|376|39.16|338.43|0",
+    [872] = L["Stormstout Brewery"] .. "|86|87|3|5|376|39.16|338.43|0",	
+	[875] = L["Zandalar"] .. "|110|120|2|10||",
+	[876] = L["Kul Tiras"] .. "|110|120|2|11||",
     [877] = L["Fields of the Eternal Hunt"] .. "|100|110|3|5|634|68.3|66.2|0",
     [878] = L["The Fel Hammer"] .. "|100|110|3|5|646|0|0|0",
     [881] = L["The Eye of Eternity"] .. "|80|83|3|5|114|27.5|26.03|0",
@@ -416,6 +421,8 @@ Nx.Zones = {
     [888] = L["Hall of Communion"] .. "|110|110|3|5|119|50|50|0",
     [889] = L["The Arcatraz"] .. "|110|110|3|5|109|74.37|57.75|5",
     [891] = L["The Vindicaar"] .. "|100|110|3|5|97|10|10|0",
+	[895] = L["Tiragarde Sound"] .. "|110|120|2|11||",
+	[896] = L["Drustvar"] .. "|110|120|2|11||",
     [897] = L["The Deaths of Chromie"] .. "|110|110|3|5|115|59.8|53.7|0",
     [903] = L["The Seat of the Triumvirate"] .. "|110|110|3|5|882|50|50|5",
     [909] = L["Antorus, The Burning Throne"] .. "|110|110|3|5|885|54.50|62.15|1025",
@@ -430,7 +437,9 @@ Nx.Zones = {
     [929] = L["Greater Invasion Point: Matron Folnuna"] .. "|110|110|3|5|885|50|50|0",
     [930] = L["Greater Invasion Point: Inquisitor Meto"] .. "|110|110|3|5|885|50|50|0",
     [931] = L["Greater Invasion Point: Sotanathor"] .. "|110|110|3|5|885|50|50|0",
-    [932] = L["Greater Invasion Point: Occularus"] .. "|110|110|3|5|885|50|50|0"
+    [932] = L["Greater Invasion Point: Occularus"] .. "|110|110|3|5|885|50|50|0",
+	[942] = L["Stormsong Valley"] .. "|110|120|2|11||",
+	
 }
 
 
