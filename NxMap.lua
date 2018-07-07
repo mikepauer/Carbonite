@@ -6241,9 +6241,6 @@ function Nx.Map:MoveZoneTiles (cont, zone, frms, alpha, level)
 				frm:Hide()
 			else
 				frm:SetPoint ("TOPLEFT", vx1, -vy1 - self.TitleH)
-				if cont == 10 then
-					Nx.prt (vx1 .. " " .. -vy1)
-				end
 				frm:SetWidth (w)
 				frm:SetHeight (h)
 				frm:SetFrameLevel (level)
@@ -6257,7 +6254,7 @@ function Nx.Map:MoveZoneTiles (cont, zone, frms, alpha, level)
 
 		bx = bx + 1
 
-		if bx >= 4 then
+		if bx >= tilex then
 			bx = 0
 			by = by + 1
 		end
