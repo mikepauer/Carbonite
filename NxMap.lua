@@ -6507,7 +6507,7 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 
 	local exploredWHXY = {}
 	local explored = C_MapExplorationInfo.GetExploredMapTextures(mapId)
-	if explored then
+	if explored and unex then
 		for i, ex in ipairs(explored) do
 			local key = ex.offsetX..","..ex.offsetY..","..ex.textureWidth..","..ex.textureHeight;
 			exploredWHXY[key] = true
