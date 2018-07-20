@@ -6514,12 +6514,25 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 		end
 	end	
 	
+	local layerIndex = WorldMapFrame:GetCanvasContainer():GetCurrentLayerIndex();
+	local layers = C_Map.GetMapArtLayers(mapId);
+	local layerInfo = layers[layerIndex];
+	local TILE_SIZE_WIDTH = layerInfo.tileWidth;
+	local TILE_SIZE_HEIGHT = layerInfo.tileHeight;
+	--Nx.prt ("%s TW TH: %s %s", mapId, TILE_SIZE_WIDTH, TILE_SIZE_HEIGHT)
+	
 	for txName, whxyStr in pairs (overlays) do		
 		local lev = 0
 		local brt = bright
 		oName = txName
 		txName = path .. txName
 
+		local arTx
+		if string.find(oName, ",") then
+			arTx = {Nx.Split (",", oName)}
+			zscale = self:GetWorldZoneScale (mapId) / 38
+		end
+		
 		local oX, oY, txW, txH, mode = Nx.Split (",", whxyStr)
 		if (oName == "dynamic") then
 			txName, txW, txH, oX, oY = GetMapOverlayInfo(1)
@@ -6548,19 +6561,19 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 --			Nx.prt ("%d %f %f", i, oX, oY)
 --		end
 
-		bW = ceil (txW / 256)
-		bH = ceil (txH / 256)
+		bW = ceil (txW / TILE_SIZE_WIDTH)
+		bH = ceil (txH / TILE_SIZE_HEIGHT)
 		txIndex = 1
 
 		for bY = 0, bH - 1 do
 
 			if bY < bH - 1 then
-				txPixelH = 256
-				txFileH = 256
+				txPixelH = TILE_SIZE_HEIGHT
+				txFileH = TILE_SIZE_HEIGHT
 			else
-				txPixelH = mod (txH, 256)
+				txPixelH = mod (txH, TILE_SIZE_HEIGHT)
 				if txPixelH == 0 then
-					txPixelH = 256
+					txPixelH = TILE_SIZE_HEIGHT
 				end
 				txFileH = 16
 				while txFileH < txPixelH do
@@ -6571,12 +6584,12 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 			for bX = 0, bW - 1 do
 
 				if bX < bW - 1 then
-					txPixelW = 256
-					txFileW = 256
+					txPixelW = TILE_SIZE_WIDTH
+					txFileW = TILE_SIZE_WIDTH
 				else
-					txPixelW = mod (txW, 256)
+					txPixelW = mod (txW, TILE_SIZE_WIDTH)
 					if txPixelW == 0 then
-						txPixelW = 256
+						txPixelW = TILE_SIZE_WIDTH
 					end
 					txFileW = 16
 					while txFileW < txPixelW do
@@ -6586,7 +6599,7 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 
 				local f = self:GetIconNI (lev)
 
-				local wx, wy = self:GetWorldPos (mapId, (oX + bX * 256) / 1002 * 100, (oY + bY * 256) / 668 * 100)
+				local wx, wy = self:GetWorldPos (mapId, (oX + bX * TILE_SIZE_WIDTH) / layerInfo.layerWidth * 100, (oY + bY * TILE_SIZE_HEIGHT) / layerInfo.layerHeight * 100)
 
 				if self:ClipFrameTL (f, wx, wy, txFileW * zscale, txFileH * zscale) then
 
@@ -6596,11 +6609,15 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 						alpha = .2
 					end
 --]]
-					f.texture:SetTexture (mode and txName or txName .. txIndex)
+					if arTx then
+						f.texture:SetTexture (arTx[txIndex])
+					else 
+						f.texture:SetTexture (mode and txName or txName .. txIndex)
+					end
 					f.texture:SetVertexColor (brt, brt, brt, alpha)					
---					if IsControlKeyDown() then
---						Nx.prt ("Overlay %s, %s, %s %s", txName, txIndex, oX, oY)
---					end
+					if IsControlKeyDown() then
+						Nx.prt ("Overlay %s, %s, %s %s", txName, txIndex, oX, oY)
+					end
 
 --[[ -- Map cap
 					if bright < 1 then
