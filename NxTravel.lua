@@ -75,7 +75,7 @@ function Nx.Travel:Add (typ)
 						node.LocName = locName		-- Localize it
 						node.MapId = mapId
 						node.WX = wx
-						node.WY = wy						
+						node.WY = wy
 						tinsert (tdata, node)
 					end
 				end

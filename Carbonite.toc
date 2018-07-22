@@ -1,6 +1,6 @@
-## Interface: 70300
-## Title: Carbonite Maps 7.3.0
-## Version: 7.3.0
+## Interface: 80100
+## Title: Carbonite Maps 8.0.0
+## Version: 8.0.0
 ## Author: No one
 ## Notes: Released Under GPL
 ## DefaultState: Enabled

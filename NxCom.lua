@@ -1357,7 +1357,7 @@ function Nx.Com:OnUpdate (elapsed)
 		if x ~= 0 or y ~= 0 then
 			self.PlyrMapId = map:GetCurrentMapId()
 			self.PlyrX = x
-			self.PlyrY = y + max (GetCurrentMapDungeonLevel(), 1) - 1		-- 0 to 1 + dlvl
+			self.PlyrY = y + max (map:GetCurrentMapDungeonLevel(), 1) - 1		-- 0 to 1 + dlvl
 		else
 			if map.InstanceId then
 				self.PlyrMapId = map.InstanceId

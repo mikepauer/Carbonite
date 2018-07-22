@@ -1444,7 +1444,7 @@ function Nx.Map.Guide:UpdateMapIcons()
 			end
 			local wx, wy = Map:GetWorldPos (mapId1, x1, y1)
 			local icon = map:AddIconPt ("!G", wx, wy, level1, nil, tx)
-			map:SetIconTip (icon, format ("%s\n%s %.1f %.1f", name1, GetMapNameByID(mapId1), x1, y1))
+			map:SetIconTip (icon, format ("%s\n%s %.1f %.1f", name1, map:GetMapNameByID(mapId1), x1, y1))
 		else
 			for cont = cont1, cont2 do
 				self:UpdateMapGeneralIcons (cont, showType, hideFac, tx, folder.Name, "!G")
@@ -1483,7 +1483,7 @@ function Nx.Map.Guide:UpdateMapGeneralIcons (cont, showType, hideFac, tx, name, 
 							Nx.prt ("Guide icon err %s %d", locName, zone)
 						end
 					elseif not showMapId or mapId == showMapId then
-						local mapName = GetMapNameByID(mapId)
+						local mapName = map:GetMapNameByID(mapId)
 						local wx, wy = map:GetWorldPos (mapId, x, y)
 						local icon = map:AddIconPt (iconType, wx, wy, level, nil, tx)
 						local str = format ("%s\n%s\n%s %.1f %.1f", name, locName:gsub("\239\188\140.*$",""), mapName, x, y)
@@ -1515,10 +1515,10 @@ function Nx.Map.Guide:UpdateMapGeneralIcons (cont, showType, hideFac, tx, name, 
 									else
 										icon = map:AddIconPt (iconType, wx, wy, level, nil, tx)
 									end
-									if not GetMapNameByID(mapId) then
+									if not map:GetMapNameByID(mapId) then
 										Nx.prt("Guide Icon Err: " .. mapId)
 									end
-									local str = format ("%s\n%s %.1f %.1f", name, GetMapNameByID(mapId), x, y)
+									local str = format ("%s\n%s %.1f %.1f", name, map:GetMapNameByID(mapId), x, y)
 									map:SetIconTip (icon, str)
 								end
 							end
@@ -1654,7 +1654,7 @@ function Nx.Map.Guide:UpdateTravelIcons (hideFac)
 			local wx, wy = Map:GetWorldPos (mapId1, x1, y1)
 			if mapId1 == 321 then level1 = (level1 or 0) + 1 end -- Fixing Orgimmar icons
 			local icon = map:AddIconPt ("!POI", wx, wy, level1, nil, "Interface\\Icons\\" .. (folder.Tx or "INV_Misc_Note_02"))
-			map:SetIconTip (icon, format ("%s\n%s %.1f %.1f", name1, GetMapNameByID(mapId1), x1, y1))
+			map:SetIconTip (icon, format ("%s\n%s %.1f %.1f", name1, map:GetMapNameByID(mapId1), x1, y1))
 		end
 	end
 	local winfo = Map.MapWorldInfo[mapId]
