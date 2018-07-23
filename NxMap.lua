@@ -6471,6 +6471,7 @@ end
 -- Update the overlays
 
 function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
+	if(mapId == 0) then mapId = Nx.Map:GetCurrentMapAreaID(); end
 	if (mapId == nil or mapId == -1) then
 		return
 	end
