@@ -6355,7 +6355,7 @@ function Nx.Map:GetExploredOverlayNum()
 
 --	local overlayNum = GetNumMapOverlays()		-- Cartographer makes this return 0
 
-	local overlays = C_MapExplorationInfo.GetExploredMapTextures(C_Map.GetBestMapForUnit('player'))
+	local overlays = C_MapExplorationInfo.GetExploredMapTextures(C_Map.GetBestMapForUnit('player') or 0)
 	return overlays and #overlays or 0
 end
 
@@ -11270,7 +11270,7 @@ function Nx.Map:GetCurrentMapDungeonLevel()
 end
 
 function Nx.Map:GetCurrentMapContinent()
-	return select(1, C_Map.GetWorldPosFromMapPos(C_Map.GetBestMapForUnit("player"), C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player"), "player")))
+	return select(1, C_Map.GetWorldPosFromMapPos(C_Map.GetBestMapForUnit("player") or 0, C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player") or 0, "player") or {x=0,y=0}))
 end
 
 function Nx.Map:HideNewPlrFrame()
