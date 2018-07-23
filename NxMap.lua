@@ -6338,7 +6338,6 @@ function Nx.Map:UpdateZones()
 --			Nx.prt ("city %s", self.Level)
 			self:UpdateMiniFrames()
 			self:MoveCurZoneTiles()
-
 		else
 			self:MoveCurZoneTiles()
 			self:UpdateOverlay (mapId, 1)
