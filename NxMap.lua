@@ -11249,16 +11249,6 @@ function Nx.Map.NXWorldMapUnitPositionFrame_UpdatePeriodic(timeNow)
 	end
 end
 
-function Nx.Map:ConvToMapId(mapID)
-	local retMapID = Nx.Map.DUiMapIDs[mapID] and select(2, strsplit(",", Nx.Map.DUiMapIDs[mapID])) or mapID
-	return tonumber(retMapID)
-end
-
-function Nx.Map:ConvToUMapId(mapID)
-	local retMapID = Nx.Map.DMapIDs[mapID] and select(1, strsplit(",", Nx.Map.DMapIDs[mapID])) or mapID
-	return tonumber(retMapID)
-end
-
 function Nx.Map:GetMapNameByID (mapId)
 	local mapInfo = C_Map.GetMapInfo(mapId)
 	return mapInfo and mapInfo.name or nil
