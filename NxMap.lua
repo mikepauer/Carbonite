@@ -5073,7 +5073,7 @@ function Nx.Map:GetInstanceMapTextures(mapId)
 	local areaId = mapId
 	if areaId then
 		WorldMapFrame:SetMapID(areaId)
-		local mapName = C_Map.GetMapInfo(mapId).name
+		local mapName = C_Map.GetMapInfo(mapId).name:gsub('%W','')
 --		local levels, first = Nx.Map:GetNumDungeonMapLevels()
 --		local useTerrainMap = DungeonUsesTerrainMap()
 		Nx.Map.InstanceInfo[mapId] = {}		
@@ -6535,7 +6535,7 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 		
 		local oX, oY, txW, txH, mode = Nx.Split (",", whxyStr)
 		if (oName == "dynamic") then
-			txName, txW, txH, oX, oY = GetMapOverlayInfo(1)
+			return --txName, txW, txH, oX, oY = GetMapOverlayInfo(1)
 		end
 
 		local whxyKey = oX..","..oY..","..txW..","..txH
@@ -8589,13 +8589,15 @@ function Nx.Map:UpdateInstanceMap()
 		local wx = winfo.X
 		local wy = winfo.Y
 
-		for n = 1, #info, 3 do
+		local n = 4;
+		if info then
+		--for n = 1, #info, 3 do
 
 			local sc = 668 / 256
 			local f = self:GetIconNI()
 
 			if self:ClipFrameTL (f, wx, wy + (n - 1) * 668 / 768, sc, sc) then
-				local tex = info[n + 2]
+				local tex = string.gsub(info[n + 2], " ", "")
 				tex = "Interface\\Addons\\Atlas\\Images\\Maps\\" .. tex
 				f.texture:SetTexture (tex)
 			end
@@ -8610,12 +8612,17 @@ function Nx.Map:UpdateInstanceMap()
 
 		local is_n = nil
 		
-		for n = 1, #info, 3 do
-
+		local n = 4;
+		
+		local layerIndex = WorldMapFrame:GetCanvasContainer():GetCurrentLayerIndex();
+		local textures = C_Map.GetMapArtLayerTextures(mapId, layerIndex)
+		
+		if info then
+		--for n = 1, #info, 3 do
 			local imgI = 1
 
 			local offx = 0		-- info[n] * .04 * 1002 / 1024
-			local offy = info[n + 1] * .03 * 668 / 768
+			local offy = 0		-- info[n + 1] * .03 * 668 / 768
 
 			for by = 0, 2 do
 
@@ -8624,15 +8631,14 @@ function Nx.Map:UpdateInstanceMap()
 					local sc = 1
 					local f = self:GetIconNI(10)
 
---					Nx.prt ("Inst %s, %s %s %s %s", mapId, wx, wy, bx, by)
+					--Nx.prt ("Inst %s, %s %s %s %s", mapId, wx, wy, bx, by)
 
 					if self:ClipFrameTL (f, wx + bx - offx, wy + by - offy, sc, sc) then
 					    if not is_n then is_n = n end
-						local tex = info[n + 2]
+						local tex = string.gsub(info[n + 2], " ", "")
 						tex = "Interface\\WorldMap\\" .. tex .. imgI
-						f.texture:SetTexture (tex)
+						f.texture:SetTexture (textures[imgI])
 					end
-
 					imgI = imgI + 1
 				end
 			end

@@ -945,7 +945,7 @@ Map.MapWorldInfo = {
 		Scale = 10.541666015625,
 		X = 487.5,
 		Y = 431.25,
-		Overlay = "twilighthighlands",
+		Overlay = "twilighthighlands_terrain1",
 		Name = L["Twilight Highlands"],
 		QAchievementId = 4873,
 		QAchievementIdH = 5501,
@@ -3028,7 +3028,7 @@ Map.ZoneOverlays = {
 	},
 	["isleofthethunderking"] = {
 		["isleofthethunderking"] = "0,0,1024,768",	-- Manual
-		["dynamic"] = "0,0,0,0",
+		--["dynamic"] = "0,0,0,0",
 	},
 
 	-- Draenor
