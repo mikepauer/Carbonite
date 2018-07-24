@@ -1251,9 +1251,9 @@ function Nx.Com:MonitorZone (mapId, enable)
 				if mode >= 0 then
 					local zs = self.ZStatus[mapId]
 					if zs and zs.ChanName then
-						Nx.prt (" %s", GetMapNameByID(mapId))
+						Nx.prt (" %s", Nx.Map:GetMapNameByID(mapId))
 					else
-						Nx.prt (" %s (pending)", GetMapNameByID(mapId))
+						Nx.prt (" %s (pending)", Nx.Map:GetMapNameByID(mapId))
 					end
 				end
 			end
@@ -1707,7 +1707,7 @@ function Nx.Com:UpdatePlyrIcons (info, map, iconName)
 
 				local mapName = "?"
 				if mapId then
-					mapName = GetMapNameByID(mapId)
+					mapName = Nx.Map:GetMapNameByID(mapId)
 				end
 				local tStr = pl.TStr or ""
 				local qStr = pl.QStr or ""
