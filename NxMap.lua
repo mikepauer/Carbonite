@@ -4638,7 +4638,7 @@ function Nx.Map:Update (elapsed)
 
 	for n = 1, GetNumBattlefieldVehicles() do
 
-		local x, y, unitName, possessed, typ, orientation, player = GetBattlefieldVehicleInfo (n)
+		local x, y, unitName, possessed, typ, orientation, player = GetBattlefieldVehicleInfo (n, Nx.Map:GetCurrentMapId())
 		if x and x > 0 and not player then
 
 --			Nx.prtCtrl ("#%s %s %.2f %.2f %.3f %s %s %s", n, unitName or "nil", x or -1, y or -1, orientation or -1, typ or "no type", possessed and "poss" or "-poss", player and "plyr" or "-plyr")
@@ -10900,7 +10900,7 @@ function Nx.Map:UnpackLocPtRelative (str, loc)
 
 	for n = 1, GetNumBattlefieldVehicles() do
 
-		local x, y, unitName, possessed, typ, dir, player = GetBattlefieldVehicleInfo (n)
+		local x, y, unitName, possessed, typ, dir, player = GetBattlefieldVehicleInfo (n, Nx.Map:GetCurrentMapId())
 		if x and not player then
 
 			if typ == Nx.AirshipType then
@@ -11008,7 +11008,7 @@ function Nx.Map:VehicleDumpPos()
 
 	for n = 1, GetNumBattlefieldVehicles() do
 
-		local x, y, unitName, possessed, typ, dir, player = GetBattlefieldVehicleInfo (n)
+		local x, y, unitName, possessed, typ, dir, player = GetBattlefieldVehicleInfo (n, Nx.Map:GetCurrentMapId())
 		if x and not player then
 
 			local xo = self.PlyrRZX - x * 100
