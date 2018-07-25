@@ -3084,16 +3084,23 @@ WorldMapFrame:HookScript("OnKeyDown", function(self, key)
 	end
 end)
 
-WorldMapFrame:HookScript("OnShow", function ()
-	if Nx.Map.BlizzToggling or IsAltKeyDown() or not Nx.db.profile.Map.MaxOverride then
-		if WorldMapFrame:IsShown() then
-			Nx.Map:RestoreBlizzBountyMap()	
-			local map = Nx.Map:GetMap (1)
-			map:DetachWorldMap()
+Nx.Map.WMFOnShow = true
+WorldMapFrame:HookScript("OnShow", function()
+	if Nx.Map.WMFOnShow then
+		local orgin = IsAltKeyDown()
+		if not Nx.db.profile.Map.MaxOverride then
+			orgin = not orgin
 		end
-	else
-		HideUIPanel (WorldMapFrame) 
-		Nx.Map:ToggleSize()	
+		if Nx.Map.BlizzToggling or orgin then
+			if WorldMapFrame:IsShown() then
+				Nx.Map:RestoreBlizzBountyMap()	
+				local map = Nx.Map:GetMap (1)
+				map:DetachWorldMap()
+			end
+		else
+			HideUIPanel (WorldMapFrame) 
+			Nx.Map:ToggleSize()	
+		end
 	end
 end)
 
