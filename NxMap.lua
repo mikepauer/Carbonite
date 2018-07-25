@@ -11033,7 +11033,7 @@ function Nx.Map.RestoreWorldMap()
 		return
 	end
 	
-	local layers = C_Map.GetMapArtLayers(Nx.Map.RMapId)
+	--[[local layers = C_Map.GetMapArtLayers(Nx.Map.RMapId)
 	local layerInfo = layers[1]
 	local rows, cols = math.ceil(layerInfo.layerHeight / layerInfo.tileHeight), math.ceil(layerInfo.layerWidth / layerInfo.tileWidth)
 	
@@ -11042,7 +11042,11 @@ function Nx.Map.RestoreWorldMap()
 		local index = (j - 1) * cols + i
 		Nx.Map.WMDT[index]:SetTexture(nil)	
 	  end
-	end
+	end]]--
+	
+	foreach(Nx.Map.WMDT, function (k, v)
+		Nx.Map.WMDT[k]:SetTexture(nil)	
+	end)
 	
 	Nx.Map.WMDF:Hide()
 	local index = 1
