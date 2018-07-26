@@ -4641,7 +4641,7 @@ function Nx.Map:Update (elapsed)
 
 	-- Battlefield Vehicles
 
-	local vtex = _G["VEHICLE_TEXTURES"]
+	local vtex = _G["VECHICLE_DRAW_INFO"]
 
 	for n = 1, GetNumBattlefieldVehicles() do
 
@@ -4663,7 +4663,7 @@ function Nx.Map:Update (elapsed)
 					end
 				end
 				if self:ClipFrameZ (f2, x * 100, y * 100, vtex[typ]["width"] * sc, vtex[typ]["height"] * sc, orientation / PI * -180) then
-					f2.texture:SetTexture (WorldMap_GetVehicleTexture (typ, possessed))
+					f2.texture:SetTexture (VehicleUtil.GetVehicleTexture (typ, possessed))
 				end
 
 --				Nx.prtCtrl ("%s %s %s %s", unitName, x, y, orientation)
