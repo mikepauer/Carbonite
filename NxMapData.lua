@@ -10417,14 +10417,14 @@ Map.MiniMapBlks = {
 		Map.KalMapBlks,
 		1908,
 		19, 8,
-		 Map.MapWorldInfo[13].X + Map.MapInfo[1].X + 2025.753921875, Map.MapWorldInfo[13].Y + Map.MapInfo[1].Y + -0.476021875,
+		 Map.MapWorldInfo[13].X + Map.MapInfo[1].X + 2025.753921875 + 222, Map.MapWorldInfo[13].Y + Map.MapInfo[1].Y + -0.476021875 - 324,
 		"World\\Minimaps\\Kalimdor"
 	},
 	[2] = {
 		Map.EkMapBlks,
 		2420,
 		24, 20,
-		Map.MapWorldInfo[14].X + Map.MapInfo[2].X + 2780.985220625, Map.MapWorldInfo[14].Y + Map.MapInfo[2].Y + 954.557004,
+		Map.MapWorldInfo[14].X + Map.MapInfo[2].X -1080, Map.MapWorldInfo[14].Y + Map.MapInfo[2].Y - 1308,
 		"World\\Minimaps\\Azeroth"
 	},
 	[3] = {
