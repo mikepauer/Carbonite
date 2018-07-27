@@ -4156,7 +4156,7 @@ function Nx.Map:UpdateWorld()
 	
 	for i = 1, 12 do
 		self.TileFrms[i].texture:SetTexture (texPath..texName..i)	
-Nx.prt (" File %s", texPath..texName..i)		
+		--Nx.prt (" File %s", texPath..texName..i)		
 	end
 end
 
