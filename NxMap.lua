@@ -4100,6 +4100,9 @@ function Nx.Map:UpdateWorld()
 	if not winfo then
 		winfo = {}
 	end
+	if self.MapWorldInfo[mapId].BaseMap then
+	  winfo = self.MapWorldInfo[self.MapWorldInfo[mapId].BaseMap]
+	end
 	if winfo.MapLevel then
 		if Nx.Map:GetCurrentMapDungeonLevel() ~= winfo.MapLevel then	-- Wrong level?
 			--SetDungeonMapLevel (winfo.MapLevel)
@@ -4131,11 +4134,6 @@ function Nx.Map:UpdateWorld()
 
 	self:UpdateOverlayUnexplored()
 
-	if self.Debug then
-		Nx.prt ("%d Map UpdateWorld %d", self.Tick, self:GetCurrentMapId())
-		Nx.prt (" File %s", mapFileName)
-	end
-
 	Nx.UEvents:UpdateMap (true)
 	local dungeonLevel = Nx.Map:GetCurrentMapDungeonLevel();
 	--[[if (DungeonUsesTerrainMap()) then
@@ -4150,8 +4148,15 @@ function Nx.Map:UpdateWorld()
 		end
 		texName = winfo.MapBaseName .. level
 	end
+	
+	if self.Debug then
+		Nx.prt ("%d Map UpdateWorld %d", self.Tick, self:GetCurrentMapId())
+		Nx.prt (" File %s", texPath..texName..mapId)
+	end
+	
 	for i = 1, 12 do
-		self.TileFrms[i].texture:SetTexture (texPath..texName..i)		
+		self.TileFrms[i].texture:SetTexture (texPath..texName..i)	
+Nx.prt (" File %s", texPath..texName..i)		
 	end
 end
 

@@ -1363,7 +1363,9 @@ Map.MapWorldInfo = {
 		MapLevel = 1,		
 	},
 	[627] = {
-		BaseMap = 625
+		BaseMap = 625,
+		City = true,
+		MapLevel = 1,
 	},
 	[630] = {
 		 Scale = 13.179166,
