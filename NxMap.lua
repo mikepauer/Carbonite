@@ -4097,11 +4097,11 @@ function Nx.Map:UpdateWorld()
 	end
 	local mapId = self:GetCurrentMapId()
 	local winfo = self.MapWorldInfo[mapId]
+	if winfo and self.MapWorldInfo[mapId].BaseMap then
+	  winfo = self.MapWorldInfo[self.MapWorldInfo[mapId].BaseMap]
+	end
 	if not winfo then
 		winfo = {}
-	end
-	if self.MapWorldInfo[mapId].BaseMap then
-	  winfo = self.MapWorldInfo[self.MapWorldInfo[mapId].BaseMap]
 	end
 	if winfo.MapLevel then
 		if Nx.Map:GetCurrentMapDungeonLevel() ~= winfo.MapLevel then	-- Wrong level?
