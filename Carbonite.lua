@@ -145,14 +145,6 @@ Nx.Whatsnew.Maps = {
 Nx.Whatsnew.WhichCat = 1
 Nx.Whatsnew.HasWhatsNew = nil
 
-if _G.TomTom then
-	Nx.RealTom = true
-	SLASH_CBWAY1 = '/cbway'
-	SlashCmdList["CBWAY"] = function (msg, editbox)
-		Nx:TTWayCmd(msg)
-	end	
-end
-
 function Nx.EmulateTomTom()
 	if _G.TomTom and Nx.RealTom then
 		return
@@ -176,9 +168,6 @@ function Nx.EmulateTomTom()
 		Nx:TTWayCmd(msg)
 	end
 end
-
-
-Nx.EmulateTomTom()
 
 local defaults = {
 	char = {
@@ -835,6 +824,16 @@ end
 
 function Nx:UNIT_NAME_UPDATE (event, arg1, ...)
 	Nx.PlayerFnd = true
+	
+	if _G.TomTom then
+		Nx.RealTom = true
+		SLASH_CBWAY1 = '/cbway'
+		SlashCmdList["CBWAY"] = function (msg, editbox)
+			Nx:TTWayCmd(msg)
+		end	
+	end
+
+	Nx.EmulateTomTom()
 end
 
 function Nx:LocaleInit()
