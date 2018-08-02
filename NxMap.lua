@@ -4684,16 +4684,42 @@ function Nx.Map:Update (elapsed)
 		oldLev = oldLev - 4
 		self.Level = self.Level + 16
 	end
-	local type, name, description, txIndex, pX, pY
+	
+	local type, name, description, txIndex, pX, pY, atlasIcon
 	local txX1, txX2, txY1, txY2
-	local poiNum = 0 --GetNumMapLandmarks()
+	
+	--local poiNum = 0 --GetNumMapLandmarks()
 	if not IsAltKeyDown() then
-		for i = 1, poiNum do
+		--for i = 1, poiNum do
+		local tPOIs = C_TaxiMap.GetTaxiNodesForMap(rid)
+		local pPOIs = C_PetInfo.GetPetTamersForMap(rid)
+		local dPOIs = C_ResearchInfo.GetDigSitesForMap(rid)
+		
+		local zPOIs = Nx.ArrayConcat(tPOIs, pPOIs, dPOIs)
+		
+		for i, zPOI in ipairs(zPOIs) do
+			-- type, name, desc, txIndex, pX, pY = C_WorldMap.GetMapLandmarkInfo (n)
+			local type = zPOI._type
+			local name = zPOI.name
+			local txIndex = zPOI.textureIndex
+			local pX = zPOI.position.x
+			local pY = zPOI.position.y
+			local atlasIcon = zPOI.atlasName
+			local desc = zPOI.description
+			local faction = zPOI.faction
+			
+			local skip = false
+			
+			local _, splitname = strsplit(",", name)
+			if type == 1 and not Nx.strpos(Nx.Map:GetMapNameByID(rid), strtrim(splitname and splitname or name)) then
+				skip = true
+			end
+			
 			-- type, name, desc, txIndex, pX, pY = C_WorldMap.GetMapLandmarkInfo (i)
-			local type, name, desc, txIndex, pX, pY, mapLinkID, inBattleMap, graveyardID, areaID, poiID, isObjectIcon, atlasIcon = C_WorldMap.GetMapLandmarkInfo(i);
-			Nx.prtCtrl ("LandMs %s, %s, %s, %s, %s, %s, %s, %s", i, poiID, txIndex or '-', name, type, isObjectIcon, atlasIcon, WorldMap_IsSpecialPOI(poiID))
-			if atlasIcon or (pX and txIndex ~= 0) then		-- WotLK has 0 index POIs for named locations
-				if type ~= 4 or (type == 4 and Nx.db.char.Map.ShowArchBlobs) then
+			-- local type, name, desc, txIndex, pX, pY, mapLinkID, inBattleMap, graveyardID, areaID, poiID, isObjectIcon, atlasIcon = C_WorldMap.GetMapLandmarkInfo(i);
+			-- Nx.prtCtrl ("LandMs %s, %s, %s, %s, %s, %s, %s, %s", i, poiID, txIndex or '-', name, type, isObjectIcon, atlasIcon, WorldMap_IsSpecialPOI(poiID))
+			if (atlasIcon or (pX and txIndex ~= 0)) and not skip then		-- WotLK has 0 index POIs for named locations
+				if (type ~= 4 or (type == 4 and Nx.db.char.Map.ShowArchBlobs)) and (faction == nil or faction == 0 or Nx.PlFactionNum == faction) then
 					local tip = name
 					if desc then
 						tip = format ("%s\n%s", name, desc)
@@ -5148,6 +5174,8 @@ function Nx.Map:ScanContinents()
 	local hideT = {}
 	hideT[0] = true	-- WotLK has 0 index POIs for named locations
 	hideT[6] = not Nx.db.profile.Map.ShowCCity
+	hideT[46] = not Nx.db.profile.Map.ShowCCity
+	hideT[48] = not Nx.db.profile.Map.ShowCCity
 	hideT[41] = not Nx.db.profile.Map.ShowCExtra
 	hideT[5] = not Nx.db.profile.Map.ShowCTown
 
@@ -5159,15 +5187,17 @@ function Nx.Map:ScanContinents()
 		--SetMapZoom (cont)
 		local mapId = Nx.Map.MapZones[0][cont]
 
-		local type, name, description, txIndex, pX, pY
+		local name, description, txIndex, pX, pY
 		local txX1, txX2, txY1, txY2
-		local poiNum = 0 --GetNumMapLandmarks()
-
---		Nx.prt ("poiNum %d", poiNum)
-
-		for n = 1, poiNum do
+		
+		local areaPOIs = C_AreaPoiInfo.GetAreaPOIForMap(mapId);
+		for i, areaPoiID in ipairs(areaPOIs) do
 			-- type, name, desc, txIndex, pX, pY = C_WorldMap.GetMapLandmarkInfo (n)
-			local type, name, desc, txIndex, pX, pY = C_WorldMap.GetMapLandmarkInfo(n);
+			local cPOI = C_AreaPoiInfo.GetAreaPOIInfo(mapId, areaPoiID)
+			name = cPOI.name
+			txIndex = cPOI.textureIndex
+			pX = cPOI.position.x
+			pY = cPOI.position.y
 				
 			if pX and name and not hideT[txIndex] then
 
@@ -5176,6 +5206,9 @@ function Nx.Map:ScanContinents()
 				poi.Name = name
 				poi.Desc = desc
 				poi.TxIndex = txIndex
+				if cPOI.atlasName then 
+					poi.atlasIcon = cPOI.atlasName
+				end
 
 				local x, y = self:GetWorldPos (mapId, pX * 100, pY * 100)
 				poi.WX = x
@@ -11281,7 +11314,19 @@ function Nx.Map:GetCurrentMapDungeonLevel()
 end
 
 function Nx.Map:GetCurrentMapContinent()
-	return select(1, C_Map.GetWorldPosFromMapPos(C_Map.GetBestMapForUnit("player") or 0, C_Map.GetPlayerMapPosition(C_Map.GetBestMapForUnit("player") or 0, "player") or {x=0,y=0}))
+	return select(1, C_Map.GetWorldPosFromMapPos(C_Map.GetBestMapForUnit("player") or 0, {x=0, y=0})) or 0
+	--[[local mapID = C_Map.GetBestMapForUnit("player")
+    if(mapID) then
+        local info = C_Map.GetMapInfo(mapID)
+        if(info) then
+            while(info['mapType'] and info['mapType'] > 2) do
+                info = C_Map.GetMapInfo(info['parentMapID'])
+            end
+            if(info['mapType'] == 2) then
+                return info['mapID']
+            end
+        end
+    end]]--
 end
 
 function Nx.Map:HideNewPlrFrame()

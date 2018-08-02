@@ -65,6 +65,24 @@ function Nx.prtStack (str)
 end
 
 ---------------------------------------------------------------------------------------
+
+function Nx.ArrayConcat(...) 
+		local t = {}
+		for n = 1,select("#",...) do
+			local arg = select(n,...)
+			if type(arg)=="table" then
+				for _,v in ipairs(arg) do
+					v._type = n
+					t[#t+1] = v
+				end
+			else
+				t[#t+1] = arg
+			end
+		end
+		return t
+	end
+
+---------------------------------------------------------------------------------------
 -- Chat printing
 ---------------------------------------------------------------------------------------
 
