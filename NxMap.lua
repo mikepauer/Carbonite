@@ -4331,7 +4331,7 @@ function Nx.Map:Update (elapsed)
 		Nx.Map:GetMap(1).PlyrFrm:Hide()
 	else
 		Nx.Map.RestoreWorldMap()
-		--Nx.Map:GetMap(1).PlyrFrm:Show()
+		Nx.Map:GetMap(1).PlyrFrm:Show()
 	end
 	if (Nx.Map.RMapId ~= Nx.Map.UpdateMapID) then
 		plZX = 0
