@@ -8839,16 +8839,16 @@ function Nx.Map:InitTables()
 	self.ContCnt = 11
 
 --	continentNums = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 90 }
-	for n = 1, 1999 do
-		local winfo = worldInfo[mapId]
-		if not winfo then
-			break
-		end
+	for k, v in pairs (worldInfo) do
+		local winfo = worldInfo[k]
 		if Nx.PlFactionNum == 0 and winfo.QAchievementIdA then
 			winfo.QAchievementId = winfo.QAchievementIdA				-- Copy Ally Id to generic Id
 		end
 		if Nx.PlFactionNum == 1 and winfo.QAchievementIdH then
 			winfo.QAchievementId = winfo.QAchievementIdH				-- Copy Horde Id to generic Id
+		end
+		if winfo.BaseMap then
+			Nx.Map.MapWorldInfo[k] = Nx.Map.MapWorldInfo[winfo.BaseMap]
 		end
 	end
 	for k, v in pairs (Nx.Zones) do

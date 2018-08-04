@@ -1508,7 +1508,7 @@ function Nx.Map.Guide:UpdateMapGeneralIcons (cont, showType, hideFac, tx, name, 
 										Nx.prt(showType)
 									end
 									local wx, wy = map:GetWorldPos(mapId, x, y)
-									if mapId == 504 then level = (level or 0) + 1 end -- Fixing Dalaran icons
+									if mapId == 625 or mapId == 627 then level = nil end -- Fixing Dalaran icons
 									local icon
 									if showType == "Lightforged Beacon" then
 										icon = map:AddIconPt (iconType, wx, wy, level, nil, "atlas:FlightMaster_Argus-TaxiNode_Neutral")
@@ -1546,6 +1546,10 @@ function Nx.Map.Guide:UpdateZonePOIIcons()
 		local map = Map:GetMap (1)
 	end
 	local mapId = map.MapId
+	-- Legion Dalaran Fix
+	if mapId == 627 then
+		mapId = 625
+	end
 	local atScale = map.LOpts.NXPOIAtScale
 	local alphaRange = atScale * .25
 	local s = atScale - alphaRange
@@ -1582,7 +1586,7 @@ function Nx.Map.Guide:UpdateZonePOIIcons()
 				self:UpdateMapGeneralIcons (cont, showType, hideFac, tx, showType, "!POI", mapId)
 			end
 		end
-		self:UpdateInstanceIcons (cont)
+		--self:UpdateInstanceIcons (cont)
 		self:UpdateTravelIcons (hideFac)
 		self:UpdateCustomIcons()
 	end
