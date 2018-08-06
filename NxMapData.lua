@@ -1299,6 +1299,12 @@ Map.MapWorldInfo = {
 		MapBaseName = "garrisonsmvalliance_tier",
 		Overlay = "garrisonsmvalliance_tier1",
 	},
+	[580] = {
+		BaseMap = 579,
+	},
+	[581] = {
+		BaseMap = 579,
+	},
 	[582] = {
 		BaseMap = 579,
 	},
@@ -1312,6 +1318,12 @@ Map.MapWorldInfo = {
 		Explored = true,
 		MapBaseName = "garrisonffhorde_tier",
 		Overlay = "garrisonffhorde_tier1",
+	},
+	[586] = {
+		BaseMap = 585
+	},
+	[587] = {
+		BaseMap = 585
 	},
 	[588] = {
 		Scale = 6.2458203125,

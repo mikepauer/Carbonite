@@ -4146,6 +4146,7 @@ function Nx.Map:UpdateWorld()
 		if not level then
 			level = "1"
 		end
+		texPath = "Interface\\WorldMap\\" .. winfo.MapBaseName .. level.."\\"
 		texName = winfo.MapBaseName .. level
 	end
 	
@@ -11305,6 +11306,9 @@ function Nx.Map.NXWorldMapUnitPositionFrame_UpdatePeriodic(timeNow)
 end
 
 function Nx.Map:GetMapNameByID (mapId)
+	if not mapId then
+		mapId = Nx.Map:GetCurrentMapAreaID()
+	end
 	local mapInfo = C_Map.GetMapInfo(mapId)
 	return mapInfo and mapInfo.name or nil
 end
