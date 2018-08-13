@@ -3517,11 +3517,9 @@ function Nx.NXMiniMapBut:NXOnClick (button, down)
 		if IsShiftKeyDown() then
 			Nx.db.profile.MiniMap.ButWinMinimize = not Nx.db.profile.MiniMap.ButWinMinimize
 			Nx.Map.Dock:UpdateOptions()
-
-		elseif IsAltKeyDown() then
+		elseif IsAltKeyDown() and Nx.Quest then
 			local w = Nx.Quest.Watch.Win
 			w:Show (not w:IsShown())
-
 		else
 			Nx.Map:ToggleSize (0)
 		end
