@@ -74,6 +74,7 @@ Nx.Zones = {
     [83] = L["Winterspring"] .. "|20|60|2|1||",
     [84] = L["Stormwind City"] .. "|0|0|0|2||",
     [85] = L["Orgrimmar"] .. "|0|0|1|1||",
+	[86] = L["Orgrimmar"] .. "|0|0|1|1||",
     [87] = L["Ironforge"] .. "|0|0|0|2||",
     [88] = L["Thunder Bluff"] .. "|0|0|1|1||",
     [89] = L["Darnassus"] .. "|0|0|0|1||",
@@ -455,7 +456,8 @@ Nx.Zones = {
     [931] = L["Greater Invasion Point: Sotanathor"] .. "|110|110|3|5|885|50|50|0",
     [932] = L["Greater Invasion Point: Occularus"] .. "|110|110|3|5|885|50|50|0",
 	[942] = L["Stormsong Valley"] .. "|110|120|2|11||",
-	
+	[1161] = L["Bolarus"] .. "|110|120|2|11||",
+	[1165] = L["Dazar'alor"] .. "|110|120|2|10||",
 }
 
 

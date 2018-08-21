@@ -1613,7 +1613,7 @@ function Nx.Map:InitFrames()
 
 	local tf
 
-	for i = 1, 12 do
+	for i = 1, 150 do
 
 		tf = CreateFrame ("Frame", nil, f)
 		m.TileFrms[i] = tf
@@ -4155,7 +4155,11 @@ function Nx.Map:UpdateWorld()
 		Nx.prt (" File %s", texPath..texName..mapId)
 	end
 	
-	for i = 1, 12 do
+	local tileX = winfo.TileX or 4
+	local tileY = winfo.TileY or 3
+	local numtiles = tileX * tileY
+	
+	for i = 1, numtiles do
 		self.TileFrms[i].texture:SetTexture (texPath..texName..i)	
 		Nx.prtD (" File %s", texPath..texName..i)		
 	end
@@ -6189,7 +6193,7 @@ function Nx.Map:MoveCurZoneTiles (clear)
 
 		frms = self.TileFrms
 
-		for i = 1, 12 do
+		for i = 1, 150 do
 			frm = frms[i]
 			if frm then
 				frm:Hide()
@@ -6211,14 +6215,14 @@ function Nx.Map:HideExtraZoneTiles()
 end
 
 --------
--- Update map zone tiles (4x3 blocks)
+-- Update map zone tiles (4 x 3 or custom TileX x TileY blocks)
 
 function Nx.Map:MoveZoneTiles (cont, zone, frms, alpha, level)
 	local zname, zx, zy, zw, zh = self:GetWorldZoneInfo (cont, zone)
 	if not zx then
 		return
 	end
-	-- Nx.prt ("MapZ %f, %f", zx, zy)
+	-- Nx.prt ("MapZ %f, %f", zx, zy, zone)
 
 	local scale = self.ScaleDraw
 	local tilex, tiley
@@ -6229,6 +6233,12 @@ function Nx.Map:MoveZoneTiles (cont, zone, frms, alpha, level)
 		tilex = self.MapWorldInfo[zone].TileX or 4
 		tiley = self.MapWorldInfo[zone].TileY or 3
 	end
+	
+	if self.MapWorldInfo[zone].ZXOff and self.MapWorldInfo[zone].ZYOff then
+		zx = zx - self.MapWorldInfo[zone].ZXOff
+		zy = zy - self.MapWorldInfo[zone].ZYOff
+	end
+	
 	local clipW = self.MapW
 	local clipH = self.MapH
 	local x = (zx - self.MapPosXDraw) * scale + clipW / 2
@@ -6237,16 +6247,25 @@ function Nx.Map:MoveZoneTiles (cont, zone, frms, alpha, level)
 	local by = 0
 	local bw = zw * 1024 / 1002 / tilex * scale
 	local bh = zh * 768 / 668 / tiley * scale
+	
+	if zone > 0 then	
+		local layerIndex = WorldMapFrame:GetCanvasContainer():GetCurrentLayerIndex();
+		local layers = C_Map.GetMapArtLayers(zone);
+		local layerInfo = layers[layerIndex];
+		local TILE_SIZE_WIDTH = layerInfo.tileWidth;
+		local TILE_SIZE_HEIGHT = layerInfo.tileHeight;
+	end
+	
 	local w, h
 	local texX1, texX2
 	local texY1, texY2
 	local numtiles = tilex * tiley
 	
 	for i = 1, numtiles do
-
+		
 		local frm = frms[i]
 		if frm then
-
+			--Nx.prt ("MapZ %f", i)
 			texX1 = 0
 			texX2 = 1
 			texY1 = 0
@@ -6292,7 +6311,7 @@ function Nx.Map:MoveZoneTiles (cont, zone, frms, alpha, level)
 				frm:SetFrameLevel (level)
 
 				frm.texture:SetTexCoord (texX1, texX2, texY1, texY2)
-				frm.texture:SetVertexColor (1, 1, 1, self.BackgndAlpha)
+				--frm.texture:SetVertexColor (1, 1, 1, self.BackgndAlpha)
 
 				frm:Show()
 			end
@@ -8810,7 +8829,7 @@ function Nx.Map:InitTables()
 
 	Nx.Map.MapZones = {
 		 [0] = {12,13,101,113,948,424,572,619,905,875,876,0,-1},
-		 [1] = {1,7,10,57,62,63,64,65,66,69,70,71,76,77,78,80,81,83,85,88,89,97,103,106,198,199,249,327,338,460,461,462,463,468},
+		 [1] = {1,7,10,57,62,63,64,65,66,69,70,71,76,77,78,80,81,83,85,86,88,89,97,103,106,198,199,249,327,338,460,461,462,463,468},
 		 [2] = {14,15,17,18,21,22,23,25,26,27,32,36,37,42,47,48,49,50,51,52,56,84,87,90,94,95,110,122,124,179,201,202,203,204,205,210,217,218,224,241,244,245,425,427,465,467,469},
 		 [3] = {100,102,104,105,107,108,109,111},
 		 [4] = {114,115,116,117,118,119,120,121,123,125,127,170},
@@ -8819,8 +8838,8 @@ function Nx.Map:InitTables()
 		 [7] = {525,539,535,534,542,543,550,577,579,585,588,622,624},
 		 [8] = {625,630,634,641,646,650,672,680,750},
 		 [9] = {830,882,885},
-		 [10] = {862,863,864},
-		 [11] = {895,896,942},
+		 [10] = {862,863,864,1165},
+		 [11] = {895,896,942,1161},
 		 [90] = {91,92,93,112,128,169,206,275,397,417,423,519,623},		 
 		 [100] = {},
 	}
