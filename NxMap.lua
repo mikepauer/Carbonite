@@ -1013,6 +1013,36 @@ function Nx.Map:Create (index)
 
 		local item = dbmenu:AddItem (0, L["Scale"], func, m)
 		item:SetSlider (0, 4, 6)
+		
+		local item = dbmenu:AddItem (0, L["ZWOff"], function (self, item)
+			self.DebugMZWOff = item:GetSlider()
+		end, m)
+		item:SetSlider (0, -400, 400)
+		
+		local item = dbmenu:AddItem (0, L["ZHOff"], function (self, item)
+			self.DebugMZHOff = item:GetSlider()
+		end, m)
+		item:SetSlider (0, -400, 400)
+		
+		local item = dbmenu:AddItem (0, L["XOff"], function (self, item)
+			self.DebugMXOff = item:GetSlider()
+		end, m)
+		item:SetSlider (0, -400, 400)
+		
+		local item = dbmenu:AddItem (0, L["YOff"], function (self, item)
+			self.DebugMYOff = item:GetSlider()
+		end, m)
+		item:SetSlider (0, -400, 400)
+		
+		local item = dbmenu:AddItem (0, L["PXOff"], function (self, item)
+			self.DebugPXOff = item:GetSlider()
+		end, m)
+		item:SetSlider (0, -400, 400)
+		
+		local item = dbmenu:AddItem (0, L["PYOff"], function (self, item)
+			self.DebugPYOff = item:GetSlider()
+		end, m)
+		item:SetSlider (0, -400, 400)
 	end
 
 	-- Create player icon menu
@@ -6235,8 +6265,20 @@ function Nx.Map:MoveZoneTiles (cont, zone, frms, alpha, level)
 	end
 	
 	if self.MapWorldInfo[zone].ZXOff and self.MapWorldInfo[zone].ZYOff then
-		zx = zx - self.MapWorldInfo[zone].ZXOff
-		zy = zy - self.MapWorldInfo[zone].ZYOff
+		zx = zx + self.MapWorldInfo[zone].ZXOff
+		zy = zy + self.MapWorldInfo[zone].ZYOff
+	end
+	
+	if self.MapWorldInfo[zone].ZWOff and self.MapWorldInfo[zone].ZHOff then
+		zw = zw + self.MapWorldInfo[zone].ZWOff
+		zh = zh + self.MapWorldInfo[zone].ZHOff
+	end
+	
+	if zone == 1161 then 
+		--zw = zw + (self.DebugMZWOff or 0)
+		--zh = zh + (self.DebugMZHOff or 0)
+		zx = zx + (self.DebugMXOff or 0)
+		zy = zy + (self.DebugMYOff or 0)
 	end
 	
 	local clipW = self.MapW
@@ -9589,9 +9631,13 @@ function Nx.Map:GetWorldZoneInfo (cont, zone)
 	end
 	local x = info.X + winfo.X
 	local y = info.Y + winfo.Y
+	
+	if zone == 1161 then
+		--winfo.Scale = (self.DebugPXOff or 1)
+	end
 	local scale = winfo.Scale * 100
 
-	return name, x, y, scale, scale / 1.5		-- x, y, w, h
+	return name, x, y, scale, scale / ((zone == 1165 or zone == 1161) and 1.6875 or 1.5)		-- x, y, w, h
 end
 
 --------
