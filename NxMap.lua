@@ -4505,7 +4505,9 @@ function Nx.Map:Update (elapsed)
 					local dty
 					local cX, cY
 					if C_Map.GetBestMapForUnit("player") then
-						cX, cY = C_DeathInfo.GetCorpseMapPosition(C_Map.GetBestMapForUnit("player"))
+						local CorpseInfo = C_DeathInfo.GetCorpseMapPosition(C_Map.GetBestMapForUnit("player"))
+						cX = CorpseInfo.x
+						cY = CorpseInfo.y
 					end
 					if cX == nil or cY == nil then
 						cX = 0
@@ -4993,7 +4995,9 @@ function Nx.Map:Update (elapsed)
 	self.TrackETA = false
 	local cX, cY
 	if C_Map.GetBestMapForUnit("player") then
-	  cX, cY = C_DeathInfo.GetCorpseMapPosition(C_Map.GetBestMapForUnit("player"))
+	  local CorpseInfo = C_DeathInfo.GetCorpseMapPosition(C_Map.GetBestMapForUnit("player"))
+	  cX = CorpseInfo.x
+	  cY = CorpseInfo.y
 	end
 	if cX == nil or cY == nil then
 		cX = 0
@@ -5015,7 +5019,7 @@ function Nx.Map:Update (elapsed)
 			f.texture:SetTexture ("Interface\\Minimap\\POIIcons")
 			self:ClipFrameZ (f, cX * 100, cY * 100, 16, 16, 0)
 			-- Override clipping (FIX maybe?)
-			f.texture:SetTexCoord (.502, .5605, 0, .0605)	-- 16x16 grid (.0625 uv size)
+			f.texture:SetTexCoord (.56640625, .632812, .001953125, .03515625)	-- 16x16 grid (.0625 uv size)
 
 			self.Level = self.Level + 2
 		end
