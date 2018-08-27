@@ -10525,14 +10525,14 @@ Map.MiniMapBlks = {
 		Map.ZandalarMapBlks,
 		1616,
 		16, 16,
-		Map.MapWorldInfo[875].X + Map.MapInfo[10].X, Map.MapWorldInfo[875].Y + Map.MapInfo[10].Y,
+		Map.MapWorldInfo[875].X + Map.MapInfo[10].X + 38.80, Map.MapWorldInfo[875].Y + Map.MapInfo[10].Y - 801.10,
 		"World\\Minimaps\\zandalar"
 	},
 	[11] = {
 		Map.KultirasMapBlks,
 		1616,
 		16, 16,
-		Map.MapWorldInfo[876].X + Map.MapInfo[11].X, Map.MapWorldInfo[876].Y + Map.MapInfo[11].Y,
+		Map.MapWorldInfo[876].X + Map.MapInfo[11].X + 38.80 - 257.30, Map.MapWorldInfo[876].Y + Map.MapInfo[11].Y - 801.10 + 150.95,
 		"World\\Minimaps\\kultiras"
 	},	
 	[92] = {

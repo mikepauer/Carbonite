@@ -6801,6 +6801,9 @@ function Nx.Map:UpdateMiniFrames()
 --	local zname, zx, zy
 
 	local miniT, basex, basey = self:GetMiniInfo (mapId)
+--	basex = basex + (self.DebugPXOff or 0) + 38.80
+--	basey = basey + (self.DebugPYOff or 0) - 801.10
+	
 	if not miniT then
 		self:HideMiniFrames()
 		return
