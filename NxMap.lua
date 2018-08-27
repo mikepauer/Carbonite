@@ -4506,8 +4506,10 @@ function Nx.Map:Update (elapsed)
 					local cX, cY
 					if C_Map.GetBestMapForUnit("player") then
 						local CorpseInfo = C_DeathInfo.GetCorpseMapPosition(C_Map.GetBestMapForUnit("player"))
-						cX = CorpseInfo.x
-						cY = CorpseInfo.y
+						if CorpseInfo then
+							cX = CorpseInfo.x or 0
+							cY = CorpseInfo.y or 0
+						end
 					end
 					if cX == nil or cY == nil then
 						cX = 0
@@ -4996,8 +4998,10 @@ function Nx.Map:Update (elapsed)
 	local cX, cY
 	if C_Map.GetBestMapForUnit("player") then
 	  local CorpseInfo = C_DeathInfo.GetCorpseMapPosition(C_Map.GetBestMapForUnit("player"))
-	  cX = CorpseInfo.x
-	  cY = CorpseInfo.y
+	  if CorpseInfo then
+		  cX = CorpseInfo.x or 0
+		  cY = CorpseInfo.y or 0
+	  end
 	end
 	if cX == nil or cY == nil then
 		cX = 0
