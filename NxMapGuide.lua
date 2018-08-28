@@ -1586,7 +1586,7 @@ function Nx.Map.Guide:UpdateZonePOIIcons()
 				self:UpdateMapGeneralIcons (cont, showType, hideFac, tx, showType, "!POI", mapId)
 			end
 		end
-		--self:UpdateInstanceIcons (cont)
+		self:UpdateInstanceIcons (cont)
 		self:UpdateTravelIcons (hideFac)
 		self:UpdateCustomIcons()
 	end
