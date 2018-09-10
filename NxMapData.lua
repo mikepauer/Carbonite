@@ -10535,18 +10535,18 @@ Map.MiniMapBlks = {
 		Map.MapWorldInfo[876].X + Map.MapInfo[11].X + 38.80 - 257.30, Map.MapWorldInfo[876].Y + Map.MapInfo[11].Y - 801.10 + 150.95,
 		"World\\Minimaps\\kultiras"
 	},	
-	[92] = {
+	[94] = {
 		Map.BloodelfMapBlks,
 		4111,
 		41, 11,
-		Map.MapWorldInfo[14].X + Map.MapInfo[2].X + 4091.405261625, Map.MapWorldInfo[14].Y + Map.MapInfo[2].Y + 511.140381,
+		Map.MapWorldInfo[14].X + Map.MapInfo[2].X + 231.60, Map.MapWorldInfo[14].Y + Map.MapInfo[2].Y - 1751.40,
 		"World\\Minimaps\\Expansion01"
 	},	
 	[97] = {
 		Map.DraeneiMapBlks,
 		5033,
 		50, 33,
-		Map.MapWorldInfo[13].X + Map.MapInfo[1].X + 1833.076104875, Map.MapWorldInfo[13].Y + Map.MapInfo[1].Y + 656.598490125,
+		Map.MapWorldInfo[13].X + Map.MapInfo[1].X + 1833.076104875 + 221.20 , Map.MapWorldInfo[13].Y + Map.MapInfo[1].Y + 656.598490125 - 325.10,
 		"World\\Minimaps\\Expansion01"
 	},
 	[244] = {
