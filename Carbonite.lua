@@ -262,6 +262,14 @@ local defaults = {
 				[50] = true,
 				[51] = true,
 				[52] = true,
+				[53] = true,
+				[54] = true,
+				[55] = true,
+				[56] = true,
+				[57] = true,
+				[58] = true,
+				[59] = true,
+				[60] = true,
 			},
 			ShowHerbs = {
 				[1] = true,
@@ -341,6 +349,13 @@ local defaults = {
 				[75] = true,
 				[76] = true,	
 				[77] = true,
+				[78] = true,
+				[79] = true,
+				[80] = true,
+				[81] = true,
+				[82] = true,
+				[83] = true,
+				[84] = true,
 			},
 			ShowTimber = {
 				[1] = true,
@@ -2860,6 +2875,14 @@ Nx.GatherInfo = {
 		{ 700,	"inv_herbalism_70_foxflower",L["Foxflower"]},
 		{ 700,	"inv_herbalism_70_starlightrosepetals",L["Starlight Rose"]},
 		{ 700,  "inv_misc_herb_astralglory",L["Astral Glory"]},
+		-- BfA
+		{ 700,  "inv_misc_herb_akundasbite",L["Akunda's Bite"]},
+		{ 700,  "inv_misc_herb_anchorweed",L["Anchor Weed"]},
+		{ 700,  "inv_misc_herb_riverbud",L["Riverbud"]},
+		{ 700,  "inv_misc_herb_seastalk",L["Sea Stalks"]},
+		{ 700,  "inv_misc_herb_pollen",L["Siren's Sting"]},
+		{ 700,  "inv_misc_herb_starmoss",L["Star Moss"]},
+		{ 700,  "inv_misc_herb_winterskiss",L["Winter's Kiss"]},
 	},
 	["M"] = {	-- Mine node
 		{ 325,	"inv_ore_adamantium",L["Adamantite Deposit"]},
@@ -2914,6 +2937,15 @@ Nx.GatherInfo = {
 		{ 700,  "inv_misc_starmetal",L["Empyrium Deposit"]},
 		{ 700,  "inv_misc_starmetal",L["Rich Empyrium Deposit"]},
 		{ 700,  "inv_misc_starmetal",L["Empyrium Seam"]},
+		-- BfA
+		{ 800,  "inv_ore_monalite",L["Monelite Deposit"]},
+		{ 800,  "inv_ore_monalite",L["Rich Monelite Deposit"]},
+		{ 800,  "inv_ore_monalite",L["Monelite Seam"]},
+		{ 800,  "inv_ore_platinum",L["Platinum Deposit"]},
+		{ 800,  "inv_ore_platinum",L["Rich Platinum Deposit"]},
+		{ 800,  "inv_ore_stormsilver",L["Storm Silver Deposit"]},
+		{ 800,  "inv_ore_stormsilver",L["Rich Storm Silver Deposit"]},
+		{ 800,  "inv_ore_stormsilver",L["Storm Silver Seam"]},
 		
 	}
 }
@@ -3177,6 +3209,15 @@ function Nx:GatherNodeToCarb (id)
 		[259] = 50, -- guessing at this logically, needs confirmation after 7.3 release, regular node
 		[260] = 51, -- rich deposit
 		[261] = 52, -- seam
+		-- BfA
+		[262] = 53,
+		[263] = 54,
+		[264] = 55,
+		[265] = 56,
+		[266] = 57,
+		[267] = 58,
+		[268] = 59,
+		[269] = 60,
 	-- Herbalism Nodes
 		[401] = 30,
 		[402] = 34,
@@ -3260,7 +3301,15 @@ function Nx:GatherNodeToCarb (id)
 		[479] = 74,
 		[480] = 75,
 		[481] = 76,
-		[482] = 77, -- guessing at this logically, needs confirmation after 7.3 release
+		[482] = 77,
+		-- BfA
+		[485] = 78,
+		[486] = 79,
+		[487] = 80,
+		[488] = 81,
+		[489] = 82,
+		[490] = 83,
+		[491] = 84,
 	}
 	return gatherIDs[id]
 end
