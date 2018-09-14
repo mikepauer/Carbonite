@@ -7361,7 +7361,7 @@ function Nx.Map:ClipFrameTL (frm, bx, by, w, h)
 	frm:SetWidth (w)
 	frm:SetHeight (h)
 
-	frm.texture:SetTexCoord (NX.Util_NanToZero(texX1), NX.Util_NanToZero(texX2), NX.Util_NanToZero(texY1), NX.Util_NanToZero(texY2))
+	frm.texture:SetTexCoord (Nx.Util_NanToZero(texX1), Nx.Util_NanToZero(texX2), Nx.Util_NanToZero(texY1), Nx.Util_NanToZero(texY2))
 
 	frm:Show()
 
