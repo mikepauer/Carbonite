@@ -741,6 +741,10 @@ function Nx.Util_GetTimeElapsedMinSecStr (seconds)
 	return format ("%d:%02d", seconds / 60 % 60, seconds % 60)
 end
 
+function NX.Util_NanToZero(var)
+	return var ~= var and 0 or var
+end
+
 ---------------------------------------------------------------------------------------
 -- Parse text and set for tooltip
 ---------------------------------------------------------------------------------------
