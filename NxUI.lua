@@ -741,8 +741,12 @@ function Nx.Util_GetTimeElapsedMinSecStr (seconds)
 	return format ("%d:%02d", seconds / 60 % 60, seconds % 60)
 end
 
-function NX.Util_NanToZero(var)
-	return var ~= var and 0 or var
+---------------------------------------------------------------------------------------
+-- Nan to Zero conversion
+---------------------------------------------------------------------------------------
+
+function Nx.Util_NanToZero (somevar)
+	return (somevar ~= somevar and 0 or somevar)
 end
 
 ---------------------------------------------------------------------------------------
