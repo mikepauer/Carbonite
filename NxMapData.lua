@@ -92,6 +92,10 @@ Map.MapInfo = {
 		Y = 3750,
 		TileX = 15,
 		TileY = 10,
+		ZXOff = 2.94,
+		ZYOff = 1.61,
+		ZWOff = -64.30,
+		ZHOff = -241.12,
 	},
 	[11] = {
 		Name = L["Kul Tiras"],
@@ -100,6 +104,10 @@ Map.MapInfo = {
 		Y = 4200,
 		TileX = 15,
 		TileY = 10,
+		ZXOff = 2.94 - 26.54,
+		ZYOff = 1.61 - 34.83,
+		ZWOff = -64.30 + 99.31,
+		ZHOff = -241.12 + 58.01,
 	},	
 	[90] = {
 		Name = "BG",

@@ -6267,27 +6267,37 @@ function Nx.Map:MoveZoneTiles (cont, zone, frms, alpha, level)
 	if zone == 0 then
 		tilex = self.MapInfo[cont].TileX or 4
 		tiley = self.MapInfo[cont].TileY or 3
+		
+		if self.MapInfo[cont].ZXOff and self.MapInfo[cont].ZYOff then
+			zx = zx + self.MapInfo[cont].ZXOff
+			zy = zy + self.MapInfo[cont].ZYOff
+		end
+		
+		if self.MapInfo[cont].ZWOff and self.MapInfo[cont].ZHOff then
+			zw = zw + self.MapInfo[cont].ZWOff
+			zh = zh + self.MapInfo[cont].ZHOff
+		end
 	else
 		tilex = self.MapWorldInfo[zone].TileX or 4
 		tiley = self.MapWorldInfo[zone].TileY or 3
+		
+		if self.MapWorldInfo[zone].ZXOff and self.MapWorldInfo[zone].ZYOff then
+			zx = zx + self.MapWorldInfo[zone].ZXOff
+			zy = zy + self.MapWorldInfo[zone].ZYOff
+		end
+		
+		if self.MapWorldInfo[zone].ZWOff and self.MapWorldInfo[zone].ZHOff then
+			zw = zw + self.MapWorldInfo[zone].ZWOff
+			zh = zh + self.MapWorldInfo[zone].ZHOff
+		end
 	end
 	
-	if self.MapWorldInfo[zone].ZXOff and self.MapWorldInfo[zone].ZYOff then
-		zx = zx + self.MapWorldInfo[zone].ZXOff
-		zy = zy + self.MapWorldInfo[zone].ZYOff
-	end
-	
-	if self.MapWorldInfo[zone].ZWOff and self.MapWorldInfo[zone].ZHOff then
-		zw = zw + self.MapWorldInfo[zone].ZWOff
-		zh = zh + self.MapWorldInfo[zone].ZHOff
-	end
-	
-	if zone == 1161 then 
-		--zw = zw + (self.DebugMZWOff or 0)
-		--zh = zh + (self.DebugMZHOff or 0)
+	--[[if cont == 11 then 
+		zw = zw + (self.DebugMZWOff or 0)
+		zh = zh + (self.DebugMZHOff or 0)
 		zx = zx + (self.DebugMXOff or 0)
 		zy = zy + (self.DebugMYOff or 0)
-	end
+	end]]--
 	
 	local clipW = self.MapW
 	local clipH = self.MapH
@@ -9620,7 +9630,8 @@ end
 -- Get world info for a continent and zone
 -- (cont #, zone #)
 
-function Nx.Map:GetWorldZoneInfo (cont, zone)	
+function Nx.Map:GetWorldZoneInfo (cont, zone)
+	local org_zone = zone
 	if not cont or not zone then
 		return "unknown", 0, 0, 1002, 668
 	end
@@ -9643,7 +9654,7 @@ function Nx.Map:GetWorldZoneInfo (cont, zone)
 	local x = info.X + winfo.X
 	local y = info.Y + winfo.Y
 	
-	if zone == 1161 then
+	if (cont == 10 and org_zone == 0) or (cont == 11 and org_zone == 0) then
 		--winfo.Scale = (self.DebugPXOff or 1)
 	end
 	local scale = winfo.Scale * 100
