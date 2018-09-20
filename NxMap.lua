@@ -4151,7 +4151,7 @@ function Nx.Map:UpdateWorld()
 
 	self.LastDungeonLevel = Nx.Map:GetCurrentMapDungeonLevel()
 	local mapInfo = C_Map.GetMapInfo(mapId)
-	local mapFileName = winfo.Overlay or mapInfo.name
+	local mapFileName = winfo.Overlay or (mapInfo.name and mapInfo.name:gsub(" ", "") or "")
 	if not mapFileName then
 		if Nx.Map:GetCurrentMapContinent() == WORLDMAP_COSMIC_ID then
 			mapFileName = "Cosmic"
@@ -4189,9 +4189,13 @@ function Nx.Map:UpdateWorld()
 	local tileY = winfo.TileY or 3
 	local numtiles = tileX * tileY
 	
-	for i = 1, numtiles do
-		self.TileFrms[i].texture:SetTexture (texPath..texName..i)	
-		Nx.prtD (" File %s", texPath..texName..i)		
+	local texturesIDs = C_Map.GetMapArtLayerTextures(mapId, 1)
+	
+	for i = 1, numtiles do	
+		--if not self.TileFrms[i].texture:SetTexture (texPath..texName..i) then
+			self.TileFrms[i].texture:SetTexture (texturesIDs[i])
+		--end
+		--Nx.prtVar("", self.TileFrms[i].texture)
 	end
 end
 
