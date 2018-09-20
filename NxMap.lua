@@ -4955,8 +4955,8 @@ function Nx.Map:Update (elapsed)
 		if fX ~= 0 or fY ~= 0 then
 
 			local f = self:GetIconNI()
-			f.texture:SetTexture ("Interface\\WorldStateFrame\\"..fToken)
-			self:ClipFrameZ (f, fX * 100, fY * 100, 36, 36, 0)
+			f.texture:SetTexture (fToken)
+			self:ClipFrameZ (f, (fX or 0) * 100, (fY or 0) * 100, 36, 36, 0)
 		end
 	end
 
