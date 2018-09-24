@@ -4120,7 +4120,7 @@ function Nx.Map:UpdateWorld()
 	end
 
 	self.NeedWorldUpdate = false
-	if not Nx.Map.MouseOver then			
+	if not Nx.Map.MouseOver and not Nx.Util_IsMouseOver(self.MMFrm) then			
 		--Nx.Map:UnregisterEvent ("WORLD_MAP_UPDATE")
 		Nx.Map:SetToCurrentZone()	
 		--Nx.Map:RegisterEvent ("WORLD_MAP_UPDATE", "OnEvent")	
@@ -6105,7 +6105,7 @@ function Nx.Map:CheckWorldHotspotsType (wx, wy, quad)
 
 			local curId = self:GetCurrentMapId()
 
-			if spot.MapId ~= curId then
+			if spot.MapId ~= curId and not WorldMapFrame:IsShown() then
 
 --				Nx.prt ("hotspot %s %s %s %s %s", spot.MapId, spot.WX1, spot.WX2, spot.WY1, spot.WY2)
 				self:SetCurrentMap (spot.MapId)			
@@ -11460,6 +11460,46 @@ function Nx.Map.GetPlayerMapPosition (unit)
 	return x, y
 end
 
+local zoneMapIDtoContinentMapID = {}
+function Nx.Map:GetContinentMapID(uiMapID)
+	-- First, check the cache, built during initialisation based on the zones returned by GetMapZonesAlt
+	local continentMapID = zoneMapIDtoContinentMapID[uiMapID]
+	if continentMapID then
+		-- Done
+		return continentMapID
+	end
+	
+	-- Not in cache, look for the continent, searching up through the map hierarchy.
+	-- Add the results to the cache to speed up future queries.
+	local mapInfo = C_Map.GetMapInfo(uiMapID)
+	if not mapInfo or mapInfo.mapType == 0 or mapInfo.mapType == 1 then
+		-- No data or Cosmic map or World map
+		zoneMapIDtoContinentMapID[uiMapID] = nil
+		return nil
+	end
+	
+	if mapInfo.mapType == 2 then
+		-- Map is a Continent map
+		zoneMapIDtoContinentMapID[uiMapID] = mapInfo.mapID
+		return mapInfo.mapID
+	end
+	
+	local parentMapInfo = C_Map.GetMapInfo(mapInfo.parentMapID)
+	if not parentMapInfo then
+		-- No parent -> no continent ID
+		zoneMapIDtoContinentMapID[uiMapID] = nil
+		return nil
+	else
+		if parentMapInfo.mapType == 2 then
+			-- Found the continent
+			zoneMapIDtoContinentMapID[uiMapID] = parentMapInfo.mapID
+			return parentMapInfo.mapID
+		else
+			-- Parent is not the Continent -> Search up one level
+			return Nx.Map:GetContinentMapID(parentMapInfo.mapID)
+		end
+	end
+end
 
 -------------------------------------------------------------------------------
 -- EOF
