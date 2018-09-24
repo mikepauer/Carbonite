@@ -23,6 +23,8 @@
 local NotInitializedWins = {}
 local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite")
 
+local HideFramesOnEsc = {}
+
 function Nx:UIInit()
 
 	local qc = {}
@@ -4347,7 +4349,7 @@ function Nx.Menu:Create (parentFrm, width)
 	local f = CreateFrame ("Frame", name, UIParent)
 	menu.MainFrm = f
 
-	tinsert (UISpecialFrames, name)
+	tinsert (HideFramesOnEsc, name)
 
 	f.NxMenu = menu
 
@@ -4368,6 +4370,12 @@ function Nx.Menu:Create (parentFrm, width)
 
 	return menu
 end
+
+hooksecurefunc("ToggleGameMenu", function()
+	for k, v in pairs (HideFramesOnEsc) do
+		_G[v]:Hide()
+	end
+end)
 
 function Nx.Menu:ResetSkins()
 
@@ -6592,7 +6600,7 @@ function Nx.DropDown:Init()
 
 	win:InitLayoutData (nil, 0, 0, 200, 200)
 
-	tinsert (UISpecialFrames, frm:GetName())
+	tinsert (HideFramesOnEsc, frm:GetName())
 
 	frm:SetClampedToScreen (true)
 	frm:SetToplevel (true)
