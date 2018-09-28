@@ -8291,15 +8291,15 @@ function Nx.Map:GetIconWQ (levelAdd)
 		f.HighlightTexture:SetTexture("Interface\\Minimap\\ObjectIconsAtlas");
 	end
 	
-	f:SetScript ("OnMouseDown", self.IconOnMouseDown)
-	f:SetScript ("OnMouseUp", self.IconOnMouseUp)
+	--[[f:SetScript ("OnMouseDown", self.IconOnMouseDown)
+	f:SetScript ("OnMouseUp", self.IconOnMouseUp)]]--
 	f:SetScript ("OnEnter", function (self) 
 		TaskPOI_OnEnter(self) 
 		WorldMapTooltip:SetFrameStrata("TOOLTIP");
 		WorldMapTooltip.ItemTooltip.Tooltip:SetClampedToScreen(false)
 	end)
 	f:SetScript ("OnLeave", TaskPOI_OnLeave)
-	f:SetScript ("OnHide", self.IconOnLeave)
+	--f:SetScript ("OnHide", self.IconOnLeave)]]--
 
 	f:SetFrameLevel (self.Level + (levelAdd or 0))
 	
