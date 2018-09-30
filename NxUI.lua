@@ -748,6 +748,8 @@ end
 ---------------------------------------------------------------------------------------
 
 function Nx.Util_NanToZero (somevar)
+	if value == math.huge or somevar == -math.huge then return 0 end
+	
 	return (somevar ~= somevar and 0 or somevar)
 end
 
