@@ -5481,7 +5481,7 @@ function Nx.Map:UpdateGroup (plX, plY)
 				h = 0
 			end
 			local m = UnitHealthMax (unit)
-			local per = min (h / m, 1)			-- Can overflow?
+			local per = min (Nx.Util_NanToZero(h / m), 1)			-- Can overflow?
 
 			if per > 0 then
 
@@ -5600,7 +5600,7 @@ function Nx.Map:UpdateGroup (plX, plY)
 						th = 0
 					end
 					local tm = max (UnitHealthMax (unitTarget), 1)
-					local per = min (th / tm, 1)
+					local per = min (Nx.Util_NanToZero(th / tm), 1)
 
 --					Nx.prt ("H %d", th)
 
@@ -6048,6 +6048,10 @@ end
 -- Check world zone hotspots
 
 function Nx.Map:CheckWorldHotspots (wx, wy)
+
+	if IsAltKeyDown() then
+		return
+	end
 
 	if self.InstMapId then
 		if wx >= self.InstMapWX1 and wx <= self.InstMapWX2 and wy >= self.InstMapWY1 and wy <= self.InstMapWY2 then
