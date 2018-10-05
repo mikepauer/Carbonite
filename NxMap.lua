@@ -1,4 +1,4 @@
-﻿---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- NxMap - Map code
 -- Copyright 2007-2012 Carbon Based Creations, LLC
 ---------------------------------------------------------------------------------------
@@ -5480,7 +5480,7 @@ function Nx.Map:UpdateGroup (plX, plY)
 			if UnitIsDeadOrGhost (unit) then
 				h = 0
 			end
-			local m = UnitHealthMax (unit)
+			local m = UnitHealthMax ("player")
 			local per = min (h / m, 1)			-- Can overflow?
 
 			if per > 0 then
@@ -5644,8 +5644,8 @@ function Nx.Map:UpdateGroup (plX, plY)
 					end
 				end
 --PAIDE!
-				local lvl = UnitLevel (unit)
-				local qStr = Nx.Com:GetPlyrQStr (name)
+				local lvl = UnitLevel ("player");
+				local qStr = Nx.Com:GetPlyrQStr ("name");
 
 				if raid then
 					local name, rank, grp = GetRaidRosterInfo (i)
