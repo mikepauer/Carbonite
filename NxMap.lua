@@ -4191,12 +4191,19 @@ function Nx.Map:UpdateWorld()
 	
 	local texturesIDs = C_Map.GetMapArtLayerTextures(mapId, 1)
 	
-	for i = 1, numtiles do
+	if not self.textureLoadFrame then
 		local f = CreateFrame('frame', 'TestIfTextureExists')
 		local tx = f:CreateTexture()
 		tx:SetPoint('TOPLEFT', WorldFrame)
 		f:SetAllPoints(tx)
 		f:SetAlpha(0)
+		self.textureLoadFrame = f
+		self.textureLoadTx = tx
+	end
+	local f = self.textureLoadFrame
+	local tx = self.textureLoadTx
+
+	for i = 1, numtiles do
 		f:SetScript('OnSizeChanged', function(self, width, height)
 			local size = format('%.0f%.0f', width, height)
 			if size == '11' then -- doesnt exists
