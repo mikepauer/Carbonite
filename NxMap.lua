@@ -4192,22 +4192,7 @@ function Nx.Map:UpdateWorld()
 	local texturesIDs = C_Map.GetMapArtLayerTextures(mapId, 1)
 	
 	for i = 1, numtiles do
-		local f = CreateFrame('frame', 'TestIfTextureExists')
-		local tx = f:CreateTexture()
-		tx:SetPoint('TOPLEFT', WorldFrame)
-		f:SetAllPoints(tx)
-		f:SetAlpha(0)
-		f:SetScript('OnSizeChanged', function(self, width, height)
-			local size = format('%.0f%.0f', width, height)
-			if size == '11' then -- doesnt exists
-				self.tileFrm.texture:SetTexture (texturesIDs[i])
-			else
-				self.tileFrm.texture:SetTexture (texPath..texName..i)
-			end
-		end)
-		f.tileFrm = self.TileFrms[i]
-		tx:SetTexture(texPath..texName..i)
-		tx:SetSize(0,0)
+		self.TileFrms[i].texture:SetTexture (texturesIDs[i])
 	end
 end
 
