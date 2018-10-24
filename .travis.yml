@@ -10,4 +10,4 @@ script: curl -s https://raw.githubusercontent.com/BigWigsMods/packager/master/re
  
 branches:
   only:
-  - \sRelease$
+  - ^(\d)(.)(\d)(.)([+-]?\d*\.\d+)(?![-+0-9\.])(\s+)Release$
