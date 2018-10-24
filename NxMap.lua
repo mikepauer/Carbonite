@@ -5328,6 +5328,15 @@ function Nx.Map:ScanContinents()
 	--ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")
 end
 
+function Nx.Map:GetAreaPOIs(mapId)
+	local areaPOIs = C_AreaPoiInfo.GetAreaPOIForMap(mapId);
+	for i, areaPoiID in ipairs(areaPOIs) do
+		local cPOI = C_AreaPoiInfo.GetAreaPOIInfo(mapId, areaPoiID)
+		areaPOIs[i] = cPOI
+	end
+	return areaPOIs
+end
+
 --------
 -- Draw the continents POI data
 
