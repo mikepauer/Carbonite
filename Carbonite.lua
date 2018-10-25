@@ -1492,7 +1492,12 @@ function Nx:ShowMessage (msg, func1Txt, func1, func2Txt, func2)
 	pop["OnAccept"] = func1
 	pop["button2"] = func2Txt
 	pop["OnCancel"] = func2
-
+	
+	pop["OnShow"] = function (self) 
+		self:SetFrameStrata("FULLSCREEN_DIALOG")
+		self:SetFrameLevel(100)
+	end
+	
 	StaticPopup_Show ("NxMsg")
 end
 
