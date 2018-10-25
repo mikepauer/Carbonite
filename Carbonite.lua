@@ -1493,9 +1493,9 @@ function Nx:ShowMessage (msg, func1Txt, func1, func2Txt, func2)
 	pop["button2"] = func2Txt
 	pop["OnCancel"] = func2
 	
-	pop["OnShow"] = function (self) 
-		self:SetFrameStrata("FULLSCREEN_DIALOG")
-		self:SetFrameLevel(100)
+	pop["OnShow"] = function (this) 
+		this:SetFrameStrata("FULLSCREEN_DIALOG")
+		this:SetFrameLevel(100)
 	end
 	
 	StaticPopup_Show ("NxMsg")
@@ -1547,6 +1547,9 @@ function Nx:ShowEditBox (msg, val, userData, funcAccept, funcCancel)
 	end
 
 	pop["OnShow"] = function (this)
+		this:SetFrameStrata("FULLSCREEN_DIALOG")
+		this:SetFrameLevel(100)
+		
 		ChatEdit_FocusActiveWindow()
 		local eb = _G[this:GetName().."EditBox"]
 		eb:SetFocus()
