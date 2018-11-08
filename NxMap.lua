@@ -5857,7 +5857,7 @@ function Nx.Map:CalcTracking()
 
 	local srcX = self.PlyrX
 	local srcY = self.PlyrY
-	local srcMapId = Nx.Map.UpdateMapID
+	local srcMapId = MapUtil.GetDisplayableMapForPlayer()
 
 	for n, tar in ipairs (self.Targets) do
 		Travel:MakePath (tr, srcMapId, srcX, srcY, tar.MapId, tar.TargetMX, tar.TargetMY, tar.TargetType)
