@@ -3128,6 +3128,15 @@ WorldMapFrame:HookScript("OnShow", function()
 				map:DetachWorldMap()
 			end
 		else
+			-- DugisGuide FIX
+			if DugisGuideViewer then  
+				local isGuideMode, isEssentialMode, isOffMode = DugisGuideViewer.GetPluginMode()	
+				if not isOffMode and GPSArrowIcon and not GPSArrowIcon:IsShown() then
+					HideUIPanel (WorldMapFrame) 
+					return
+				end
+			end
+		
 			HideUIPanel (WorldMapFrame) 
 			Nx.Map:ToggleSize()	
 		end
