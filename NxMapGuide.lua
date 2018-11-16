@@ -152,7 +152,7 @@ Nx.GuideInfo = {
 		},
 		{
 			T = L["Demon Hunter Trainer"],
-			Tx = "Class_Demonhunter",
+			Tx = "ClassIcon_DemonHunter",
 		},
 	},
 	{
@@ -1460,7 +1460,7 @@ function Nx.Map.Guide:UpdateMapGeneralIcons (cont, showType, hideFac, tx, name, 
 	local Map = Nx.Map
 	local map = self.Map
 	if not Nx.GuideData[showType] then
-		Nx.prt ("guide showType %s", showType)
+		Nx.prt ("No guide data for %s", showType)
 		return
 	end
 
