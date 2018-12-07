@@ -3128,6 +3128,15 @@ WorldMapFrame:HookScript("OnShow", function()
 				map:DetachWorldMap()
 			end
 		else
+			-- DugisGuide FIX
+			if DugisGuideViewer then  
+				local isGuideMode, isEssentialMode, isOffMode = DugisGuideViewer.GetPluginMode()	
+				if not isOffMode and GPSArrowIcon and not GPSArrowIcon:IsShown() then
+					HideUIPanel (WorldMapFrame) 
+					return
+				end
+			end
+		
 			HideUIPanel (WorldMapFrame) 
 			Nx.Map:ToggleSize()	
 		end
@@ -4120,7 +4129,7 @@ function Nx.Map:UpdateWorld()
 	end
 
 	self.NeedWorldUpdate = false
-	if not Nx.Map.MouseOver then			
+	if not Nx.Map.MouseOver and not Nx.Util_IsMouseOver(self.MMFrm) then			
 		--Nx.Map:UnregisterEvent ("WORLD_MAP_UPDATE")
 		Nx.Map:SetToCurrentZone()	
 		--Nx.Map:RegisterEvent ("WORLD_MAP_UPDATE", "OnEvent")	
@@ -4151,7 +4160,7 @@ function Nx.Map:UpdateWorld()
 
 	self.LastDungeonLevel = Nx.Map:GetCurrentMapDungeonLevel()
 	local mapInfo = C_Map.GetMapInfo(mapId)
-	local mapFileName = winfo.Overlay or mapInfo.name
+	local mapFileName = winfo.Overlay or (mapInfo.name and mapInfo.name:gsub(" ", "") or "")
 	if not mapFileName then
 		if Nx.Map:GetCurrentMapContinent() == WORLDMAP_COSMIC_ID then
 			mapFileName = "Cosmic"
@@ -4189,9 +4198,10 @@ function Nx.Map:UpdateWorld()
 	local tileY = winfo.TileY or 3
 	local numtiles = tileX * tileY
 	
+	local texturesIDs = C_Map.GetMapArtLayerTextures(mapId, 1)
+	
 	for i = 1, numtiles do
-		self.TileFrms[i].texture:SetTexture (texPath..texName..i)	
-		Nx.prtD (" File %s", texPath..texName..i)		
+		self.TileFrms[i].texture:SetTexture (texturesIDs[i])
 	end
 end
 
@@ -4955,8 +4965,8 @@ function Nx.Map:Update (elapsed)
 		if fX ~= 0 or fY ~= 0 then
 
 			local f = self:GetIconNI()
-			f.texture:SetTexture ("Interface\\WorldStateFrame\\"..fToken)
-			self:ClipFrameZ (f, fX * 100, fY * 100, 36, 36, 0)
+			f.texture:SetTexture (fToken)
+			self:ClipFrameZ (f, (fX or 0) * 100, (fY or 0) * 100, 36, 36, 0)
 		end
 	end
 
@@ -5327,6 +5337,15 @@ function Nx.Map:ScanContinents()
 	--ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")
 end
 
+function Nx.Map:GetAreaPOIs(mapId)
+	local areaPOIs = C_AreaPoiInfo.GetAreaPOIForMap(mapId);
+	for i, areaPoiID in ipairs(areaPOIs) do
+		local cPOI = C_AreaPoiInfo.GetAreaPOIInfo(mapId, areaPoiID)
+		areaPOIs[i] = cPOI
+	end
+	return areaPOIs
+end
+
 --------
 -- Draw the continents POI data
 
@@ -5465,7 +5484,7 @@ function Nx.Map:UpdateGroup (plX, plY)
 				h = 0
 			end
 			local m = UnitHealthMax (unit)
-			local per = min (h / m, 1)			-- Can overflow?
+			local per = min (Nx.Util_NanToZero(h / m), 1)			-- Can overflow?
 
 			if per > 0 then
 
@@ -5584,7 +5603,7 @@ function Nx.Map:UpdateGroup (plX, plY)
 						th = 0
 					end
 					local tm = max (UnitHealthMax (unitTarget), 1)
-					local per = min (th / tm, 1)
+					local per = min (Nx.Util_NanToZero(th / tm), 1)
 
 --					Nx.prt ("H %d", th)
 
@@ -5847,7 +5866,7 @@ function Nx.Map:CalcTracking()
 
 	local srcX = self.PlyrX
 	local srcY = self.PlyrY
-	local srcMapId = Nx.Map.UpdateMapID
+	local srcMapId = MapUtil.GetDisplayableMapForPlayer()
 
 	for n, tar in ipairs (self.Targets) do
 		Travel:MakePath (tr, srcMapId, srcX, srcY, tar.MapId, tar.TargetMX, tar.TargetMY, tar.TargetType)
@@ -6033,6 +6052,10 @@ end
 
 function Nx.Map:CheckWorldHotspots (wx, wy)
 
+	if IsAltKeyDown() then
+		return
+	end
+
 	if self.InstMapId then
 		if wx >= self.InstMapWX1 and wx <= self.InstMapWX2 and wy >= self.InstMapWY1 and wy <= self.InstMapWY2 then
 
@@ -6089,7 +6112,7 @@ function Nx.Map:CheckWorldHotspotsType (wx, wy, quad)
 
 			local curId = self:GetCurrentMapId()
 
-			if spot.MapId ~= curId then
+			if spot.MapId ~= curId and not WorldMapFrame:IsShown() then
 
 --				Nx.prt ("hotspot %s %s %s %s %s", spot.MapId, spot.WX1, spot.WX2, spot.WY1, spot.WY2)
 				self:SetCurrentMap (spot.MapId)			
@@ -6267,27 +6290,37 @@ function Nx.Map:MoveZoneTiles (cont, zone, frms, alpha, level)
 	if zone == 0 then
 		tilex = self.MapInfo[cont].TileX or 4
 		tiley = self.MapInfo[cont].TileY or 3
+		
+		if self.MapInfo[cont].ZXOff and self.MapInfo[cont].ZYOff then
+			zx = zx + self.MapInfo[cont].ZXOff
+			zy = zy + self.MapInfo[cont].ZYOff
+		end
+		
+		if self.MapInfo[cont].ZWOff and self.MapInfo[cont].ZHOff then
+			zw = zw + self.MapInfo[cont].ZWOff
+			zh = zh + self.MapInfo[cont].ZHOff
+		end
 	else
 		tilex = self.MapWorldInfo[zone].TileX or 4
 		tiley = self.MapWorldInfo[zone].TileY or 3
+		
+		if self.MapWorldInfo[zone].ZXOff and self.MapWorldInfo[zone].ZYOff then
+			zx = zx + self.MapWorldInfo[zone].ZXOff
+			zy = zy + self.MapWorldInfo[zone].ZYOff
+		end
+		
+		if self.MapWorldInfo[zone].ZWOff and self.MapWorldInfo[zone].ZHOff then
+			zw = zw + self.MapWorldInfo[zone].ZWOff
+			zh = zh + self.MapWorldInfo[zone].ZHOff
+		end
 	end
 	
-	if self.MapWorldInfo[zone].ZXOff and self.MapWorldInfo[zone].ZYOff then
-		zx = zx + self.MapWorldInfo[zone].ZXOff
-		zy = zy + self.MapWorldInfo[zone].ZYOff
-	end
-	
-	if self.MapWorldInfo[zone].ZWOff and self.MapWorldInfo[zone].ZHOff then
-		zw = zw + self.MapWorldInfo[zone].ZWOff
-		zh = zh + self.MapWorldInfo[zone].ZHOff
-	end
-	
-	if zone == 1161 then 
-		--zw = zw + (self.DebugMZWOff or 0)
-		--zh = zh + (self.DebugMZHOff or 0)
+	--[[if cont == 11 then 
+		zw = zw + (self.DebugMZWOff or 0)
+		zh = zh + (self.DebugMZHOff or 0)
 		zx = zx + (self.DebugMXOff or 0)
 		zy = zy + (self.DebugMYOff or 0)
-	end
+	end]]--
 	
 	local clipW = self.MapW
 	local clipH = self.MapH
@@ -8265,15 +8298,15 @@ function Nx.Map:GetIconWQ (levelAdd)
 		f.HighlightTexture:SetTexture("Interface\\Minimap\\ObjectIconsAtlas");
 	end
 	
-	f:SetScript ("OnMouseDown", self.IconOnMouseDown)
-	f:SetScript ("OnMouseUp", self.IconOnMouseUp)
+	--[[f:SetScript ("OnMouseDown", self.IconOnMouseDown)
+	f:SetScript ("OnMouseUp", self.IconOnMouseUp)]]--
 	f:SetScript ("OnEnter", function (self) 
 		TaskPOI_OnEnter(self) 
 		WorldMapTooltip:SetFrameStrata("TOOLTIP");
 		WorldMapTooltip.ItemTooltip.Tooltip:SetClampedToScreen(false)
 	end)
 	f:SetScript ("OnLeave", TaskPOI_OnLeave)
-	f:SetScript ("OnHide", self.IconOnLeave)
+	--f:SetScript ("OnHide", self.IconOnLeave)]]--
 
 	f:SetFrameLevel (self.Level + (levelAdd or 0))
 	
@@ -9620,7 +9653,8 @@ end
 -- Get world info for a continent and zone
 -- (cont #, zone #)
 
-function Nx.Map:GetWorldZoneInfo (cont, zone)	
+function Nx.Map:GetWorldZoneInfo (cont, zone)
+	local org_zone = zone
 	if not cont or not zone then
 		return "unknown", 0, 0, 1002, 668
 	end
@@ -9643,7 +9677,7 @@ function Nx.Map:GetWorldZoneInfo (cont, zone)
 	local x = info.X + winfo.X
 	local y = info.Y + winfo.Y
 	
-	if zone == 1161 then
+	if (cont == 10 and org_zone == 0) or (cont == 11 and org_zone == 0) then
 		--winfo.Scale = (self.DebugPXOff or 1)
 	end
 	local scale = winfo.Scale * 100
@@ -11433,6 +11467,46 @@ function Nx.Map.GetPlayerMapPosition (unit)
 	return x, y
 end
 
+local zoneMapIDtoContinentMapID = {}
+function Nx.Map:GetContinentMapID(uiMapID)
+	-- First, check the cache, built during initialisation based on the zones returned by GetMapZonesAlt
+	local continentMapID = zoneMapIDtoContinentMapID[uiMapID]
+	if continentMapID then
+		-- Done
+		return continentMapID
+	end
+	
+	-- Not in cache, look for the continent, searching up through the map hierarchy.
+	-- Add the results to the cache to speed up future queries.
+	local mapInfo = C_Map.GetMapInfo(uiMapID)
+	if not mapInfo or mapInfo.mapType == 0 or mapInfo.mapType == 1 then
+		-- No data or Cosmic map or World map
+		zoneMapIDtoContinentMapID[uiMapID] = nil
+		return nil
+	end
+	
+	if mapInfo.mapType == 2 then
+		-- Map is a Continent map
+		zoneMapIDtoContinentMapID[uiMapID] = mapInfo.mapID
+		return mapInfo.mapID
+	end
+	
+	local parentMapInfo = C_Map.GetMapInfo(mapInfo.parentMapID)
+	if not parentMapInfo then
+		-- No parent -> no continent ID
+		zoneMapIDtoContinentMapID[uiMapID] = nil
+		return nil
+	else
+		if parentMapInfo.mapType == 2 then
+			-- Found the continent
+			zoneMapIDtoContinentMapID[uiMapID] = parentMapInfo.mapID
+			return parentMapInfo.mapID
+		else
+			-- Parent is not the Continent -> Search up one level
+			return Nx.Map:GetContinentMapID(parentMapInfo.mapID)
+		end
+	end
+end
 
 -------------------------------------------------------------------------------
 -- EOF

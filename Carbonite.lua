@@ -987,7 +987,7 @@ function Nx:UnitDCapture()
 	local data, guid, id, typ = self:UnitDGet ("target")
 	if data and typ == 3 then
 
-		local mid = GetCurrentMapAreaID()
+		local mid = Nx.Map:GetCurrentMapAreaID()
 		local plZX, plZY = Nx.Map.GetPlayerMapPosition ("player")
 		if mid and (plZX > 0 or plZY > 0) then
 
@@ -1010,7 +1010,7 @@ function Nx:UnitDTip()
 	local data, guid, id, typ = self:UnitDGet ("mouseover")
 	if data and typ == 3 then
 
-		local midCur = GetCurrentMapAreaID()
+		local midCur = Nx.Map:GetCurrentMapAreaID()
 		local plZX, plZY = Nx.Map.GetPlayerMapPosition ("player")
 		if midCur and (plZX > 0 or plZY > 0) then
 
@@ -1092,9 +1092,8 @@ end
 
 function Nx:OnUnit_spellcast_sent (event, arg1, arg2, arg3, arg4)	
 	if arg1 == "player" then
-
 		local Nx = Nx
-		if arg2 == "Herb Gathering" then
+		if Nx:IsGathering(arg2) == "Herb Gathering" then
 			Nx.GatherTarget = Nx.TooltipLastText
 
 			if Nx.db.profile.Debug.DBGather then
@@ -1106,7 +1105,7 @@ function Nx:OnUnit_spellcast_sent (event, arg1, arg2, arg3, arg4)
 				Nx.GatherTarget = nil
 			end
 
-		elseif arg2 == L["Mining"] then
+		elseif Nx:IsGathering(arg2) == L["Mining"] then
 			Nx.GatherTarget = Nx.TooltipLastText
 
 			if Nx.db.profile.Debug.DBGather then
@@ -1121,7 +1120,7 @@ function Nx:OnUnit_spellcast_sent (event, arg1, arg2, arg3, arg4)
 			Nx.UEvents:AddOpen ("Art", arg4)
 		elseif arg2 == L["Extract Gas"] then
 			Nx.UEvents:AddOpen ("Gas", L["Extract Gas"])
-		elseif arg2 == L["Logging"] then
+		elseif Nx:IsGathering(arg2) == L["Logging"] then
 			Nx.GatherTarget = Nx.TooltipLastText
 			if Nx.GatherTarget then
 				Nx.UEvents:AddTimber(Nx.GatherTarget)
@@ -1493,7 +1492,12 @@ function Nx:ShowMessage (msg, func1Txt, func1, func2Txt, func2)
 	pop["OnAccept"] = func1
 	pop["button2"] = func2Txt
 	pop["OnCancel"] = func2
-
+	
+	pop["OnShow"] = function (this) 
+		this:SetFrameStrata("FULLSCREEN_DIALOG")
+		this:SetFrameLevel(100)
+	end
+	
 	StaticPopup_Show ("NxMsg")
 end
 
@@ -1543,6 +1547,9 @@ function Nx:ShowEditBox (msg, val, userData, funcAccept, funcCancel)
 	end
 
 	pop["OnShow"] = function (this)
+		this:SetFrameStrata("FULLSCREEN_DIALOG")
+		this:SetFrameLevel(100)
+		
 		ChatEdit_FocusActiveWindow()
 		local eb = _G[this:GetName().."EditBox"]
 		eb:SetFocus()
@@ -2533,7 +2540,7 @@ end
 function Nx.UEvents:AddHerb (name)
 
 	local mapId, x, y, level = self:GetPlyrPos()
-	mapId = GetCurrentMapAreaID()
+	mapId = Nx.Map:GetCurrentMapAreaID()
 	if Nx.db.profile.Guide.GatherEnabled then
 		local id = Nx:HerbNameToId (name)
 		if id then
@@ -2569,7 +2576,7 @@ end
 
 function Nx.UEvents:AddMine (name)	
 	local mapId, x, y, level = self:GetPlyrPos()
-	mapId = GetCurrentMapAreaID()
+	mapId = Nx.Map:GetCurrentMapAreaID()
 	if Nx.db.profile.Guide.GatherEnabled then
 		local id = Nx:MineNameToId (name)
 		if id then
@@ -2588,7 +2595,7 @@ function Nx.UEvents:AddOpen (typ, name)
 	local mapId = self:AddInfo (name)
 	if Nx.db.profile.Guide.GatherEnabled then
 		local mapId, x, y, level = self:GetPlyrPos()
-		mapId = GetCurrentMapAreaID()
+		mapId = Nx.Map:GetCurrentMapAreaID()
 		Nx:Gather ("Misc", typ, mapId, x, y, level)
 		self:UpdateAll()
 	end
@@ -2982,8 +2989,33 @@ function Nx:GetGather (typ, id)
 	end
 end
 
-function Nx:HerbNameToId (name)
+Nx.GatherCache = {}
+Nx.GatherCache.L = {}
+Nx.GatherCache.H = {}
+Nx.GatherCache.M = {}
+function Nx:IsGathering(nodename)
+	if #Nx.GatherCache.L == 0 then
+		for k, v in ipairs (Nx.GatherInfo["L"]) do
+			Nx.GatherCache.L[v[3]] = true
+		end
+	end
+	if #Nx.GatherCache.H == 0 then
 		for k, v in ipairs (Nx.GatherInfo["H"]) do
+			Nx.GatherCache.H[v[3]] = true
+		end
+	end
+	if #Nx.GatherCache.M == 0 then
+		for k, v in ipairs (Nx.GatherInfo["M"]) do
+			Nx.GatherCache.M[v[3]] = true
+		end
+	end
+	if Nx.GatherCache.L[nodename] then return L["Logging"] end
+	if Nx.GatherCache.H[nodename] then return "Herb Gathering" end
+	if Nx.GatherCache.M[nodename] then return L["Mining"] end
+end
+
+function Nx:HerbNameToId (name)
+	for k, v in ipairs (Nx.GatherInfo["H"]) do
 		if v[3] == name then
 			return k
 		end

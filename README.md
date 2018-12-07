@@ -1,4 +1,4 @@
-# Carbonite Maps [![Release](https://img.shields.io/badge/release-7.3.0b-brightgreen.svg)](https://github.com/mikepauer/Carbonite/releases) [![Total Downloads](http://zerosgaming.de/curse_api/carbonite-total.svg)](https://mods.curse.com/addons/wow/carbonite) [![Type](https://img.shields.io/badge/type-LUA-blue.svg)](https://www.lua.org/) #
+# Carbonite Maps [![Release](https://img.shields.io/badge/release-7.3.0b-brightgreen.svg)](https://github.com/mikepauer/Carbonite/releases) [![Total Downloads](https://dirk.hekko.pl/badge.php)](https://mods.curse.com/addons/wow/carbonite) [![Type](https://img.shields.io/badge/type-LUA-blue.svg)](https://www.lua.org/) #
 
 ## General Information ##
 

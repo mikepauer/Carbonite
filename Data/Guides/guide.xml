@@ -47,4 +47,5 @@
 	<Include file="VoidStorage.lua" />
 	<Include file="WarlockTrainer.lua" />
 	<Include file="WarriorTrainer.lua" />
+	<Include file="DemonHunterTrainer.lua" />
 </Ui>
