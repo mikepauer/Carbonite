@@ -6328,8 +6328,8 @@ function Nx.Map:MoveZoneTiles (cont, zone, frms, alpha, level)
 	local y = (zy - self.MapPosYDraw) * scale + clipH / 2
 	local bx = 0
 	local by = 0
-	local bw = zw * 1024 / 1002 / tilex * scale
-	local bh = zh * 768 / 668 / tiley * scale
+	local bw = zw * (tilex == 15 and 1 or 1024 / 1002) / tilex * scale
+	local bh = zh * (tiley == 10 and 1 or 768 / 668) / tiley * scale
 	
 	if zone > 0 then	
 		local layerIndex = WorldMapFrame:GetCanvasContainer():GetCurrentLayerIndex();
@@ -9682,7 +9682,7 @@ function Nx.Map:GetWorldZoneInfo (cont, zone)
 	end
 	local scale = winfo.Scale * 100
 
-	return name, x, y, scale, scale / ((zone == 1165 or zone == 1161) and 1.6875 or 1.5)		-- x, y, w, h
+	return name, x, y, scale, scale / 1.5		-- x, y, w, h
 end
 
 --------
