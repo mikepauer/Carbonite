@@ -118,6 +118,7 @@ Map.BloodelfYO = 516
 Map.DraeneiXO = -3500
 Map.DraeneiYO = -2010
 
+-- UIMapAssignment
 Map.MapWorldInfo = {
 
 	-- Dummy if we get a zero on startup
@@ -1606,6 +1607,7 @@ Map.MapWorldInfo = {
 Map.InstanceInfo = {		-- Blizzard instance maps (SetInstanceMap uses size of 3 for table entries)
 }
 
+-- UIMapXMapArt -> WorldMapOverlay -> WorldMapOverlayTitle
 Map.ZoneOverlays = {
 
 	-- Kalimdor
@@ -10727,6 +10729,84 @@ Map.MapLevels={
 	[504] = { [2] = 4014, },
 	[321] = { [2] = 1034, },
 }
+
+--[[ !!!!!!!!!!!!!!!! PLEASE DONT REMOVE THIS !!!!!!!!!!!!!!!!
+function Nx.Map:ConvertMapData()
+
+	local data = {}
+	Nx.DumpZoneOverlays = data
+
+	local areas = {}
+	Nx.DumpMapAreas = areas
+
+	local wma = { strsplit ("\n", self.WorldMapArea) }
+	local wmo = { strsplit ("\n", self.WorldMapOverlay) }
+
+	for n, s in ipairs (wma) do
+
+		local aid, map, _, aname, ay1, ay2, ax1, ax2 = strsplit (",", s)
+		aid = tonumber (aid)
+		map = tonumber (map)
+
+		aname = gsub (aname, '"', "")
+		aname = strlower (aname)
+		Nx.prt(aid)
+		local nxid = aid
+		if nxid and nxid > 0 then
+
+--			local name, minLvl, maxLvl, faction, cont = strsplit ("|", Nx.Zones[nxid])
+
+--			if faction ~= "3" then		-- Not instance
+
+				ay1 = tonumber (ay1)
+				ay2 = tonumber (ay2)
+				ax1 = tonumber (ax1)
+				ax2 = tonumber (ax2)
+
+				local scale = (-ay2 + ay1) / 500
+				Nx.prt(scale)
+				if scale > 0 then
+					local t = {}
+					areas[nxid] = t
+					t[1] = scale
+					t[2] = -ay1 / 5		-- X
+					t[3] = -ax1 / 5		-- Y
+					t[4] = aname
+					Nx.prt("%s %s %s %s",t[4],t[2],t[3],t[1])
+				end
+--			end
+		end
+
+--		if map == 0 or map == 1 then
+--		if map == 648 or map == 646 or map == 730 then		-- Maelstrom
+--		if map == 654 then					-- Gilneas
+--		if map == 571 or map == 609 then			-- Northrend, DK start
+		if map == 1064 or map == 870 then
+--			Nx.prt ("%s %s %s", aid, map, aname)
+
+			local area = {}
+
+			for n, os in ipairs (wmo) do
+
+				-- 84,41,736,0,0,0,"BanethilHollow",175,235,374,221,292,430,375,497,0x0,
+
+				local _, oaid, _, _, _, _, oname, w, h, x, y = strsplit (",", os)
+
+				oname = gsub (oname, '"', "")
+
+				if tonumber (oaid) == aid and #oname > 0 then
+					oname = strlower (oname)
+					area[oname] = format ("%s,%s,%s,%s", x, y, w, h)
+				end
+			end
+
+			if next (area) then				-- Not empty?
+				data[aname] = area
+			end
+		end
+	end
+end
+]]--
 
 -- Copied from HereBeDragons-Migrate all credit goes to HereBeDragons team
 local SetupMigrationData
