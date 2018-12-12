@@ -36,12 +36,16 @@ Map.MapInfo = {
 		FileName = "Kalimdor",
 		X = -2500,
 		Y = 200,
+		TileX = 15,
+		TileY = 10,
 	},
 	[2] = {
 		Name = L["Eastern Kingdoms"],
-		FileName = "Azeroth",
+		FileName = "EasternKingdoms",
 		X = 6284,
 		Y = -200,
+		TileX = 15,
+		TileY = 10,
 	},
 	[3] = {
 		Name = L["Outland"],
