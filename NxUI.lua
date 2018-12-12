@@ -54,8 +54,8 @@ end
 ---------------------------------------------------------------------------------------
 
 function Nx.strpos (haystack, needle, offset) 
-  local pattern = string.format("(%s)", needle)
-  local i       = string.find (haystack, pattern, (offset or 0))
+  --local pattern = string.format("(%s)", needle)
+  local i       = string.find (haystack, needle, (offset or 0), true)
   
   return (i ~= nil and i or false)
 end
