@@ -4256,7 +4256,7 @@ function Nx.Map:UpdateWorld()
 	local tileY = winfo.TileY or 3
 	local numtiles = tileX * tileY
 	
-	local texturesIDs = C_Map.GetMapArtLayerTextures(mapId, 1)
+	local texturesIDs = C_Map.GetMapArtLayerTextures(self.MapWorldInfo[mapId].RBaseMap and self.MapWorldInfo[mapId].RBaseMap or mapId, 1)
 	
 	for i = 1, numtiles do
 		self.TileFrms[i].texture:SetTexture (texturesIDs[i])
@@ -9013,6 +9013,8 @@ function Nx.Map:InitTables()
 		end
 		if winfo.BaseMap then
 			Nx.Map.MapWorldInfo[k] = Nx.Map.MapWorldInfo[winfo.BaseMap]
+			Nx.Map.MapWorldInfo[k].RBaseMap = k
+			Nx.Map.MapWorldInfo[k].OBaseMap = winfo.BaseMap
 		end
 	end
 	for k, v in pairs (Nx.Zones) do
