@@ -4256,7 +4256,12 @@ function Nx.Map:UpdateWorld()
 	local tileY = winfo.TileY or 3
 	local numtiles = tileX * tileY
 	
-	local texturesIDs = C_Map.GetMapArtLayerTextures(self.MapWorldInfo[mapId].RBaseMap and self.MapWorldInfo[mapId].RBaseMap or mapId, 1)
+	local GetMapArtLayerTexturesMapId = self.MapWorldInfo[mapId].RBaseMap and self.MapWorldInfo[mapId].RBaseMap or mapId
+	if GetMapArtLayerTexturesMapId == nil then
+		return
+	end
+	
+	local texturesIDs = C_Map.GetMapArtLayerTextures(GetMapArtLayerTexturesMapId, 1)
 	
 	for i = 1, numtiles do
 		self.TileFrms[i].texture:SetTexture (texturesIDs[i])
