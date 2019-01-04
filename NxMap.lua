@@ -8812,7 +8812,7 @@ function Nx.Map:UpdateInstanceMap()
 
 			if self:ClipFrameTL (f, wx, wy + (n - 1) * 668 / 768, sc, sc) then
 				local tex = string.gsub(info[n + 2], " ", "")
-				tex = "Interface\\Addons\\Atlas\\Images\\" .. tex
+				tex = "Interface\\AddOns\\Atlas\\Images\\" .. tex
 				f.texture:SetTexture (tex)
 			end
 		end
