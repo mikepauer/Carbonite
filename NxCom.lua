@@ -185,7 +185,7 @@ end
 function Nx.Com:OnEvent (event)
 	local self = Nx.Com
 
-	Nx.prt ("Com Event: %s", event)
+--	Nx.prt ("Com Event: %s", event)
 
 	if event == "PLAYER_LOGIN" then
 		local playername, realmname = UnitFullName("player")
@@ -676,7 +676,7 @@ end
 ---------------------------------------------------------------------------------------
 
 function Nx.Com:UpdateChannels()
-	ComUC = Nx:ScheduleTimer(self.UpdateChannelsTimer,0,self)
+	ComUC = Nx:ScheduleTimer(self.UpdateChannelsTimer,2,self)
 end
 
 function Nx.Com:UpdateChannelsTimer()
@@ -772,7 +772,7 @@ function Nx.Com:JoinChan (chanId)
 
 			local mapId = Nx.Map:GetRealMapId()
 			if Nx.Map:IsNormalMap (mapId) then
-				ComZ = Nx:ScheduleTimer(self.OnJoinChanZTimer,2,self)
+				ComZ = Nx:ScheduleTimer(self.OnJoinChanZTimer, 0,self)
 				timer = {}
 				timer.UMapId = mapId
 				timer.UTryCnt = 0
