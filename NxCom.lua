@@ -356,7 +356,7 @@ function Nx.Com:OnChatEvent (event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, ar
 
 	local self = Nx.Com
 
---	Nx.prt ("ComChatEvent: %s %s", event, arg9)
+	--Nx.prt ("ComChatEvent: %s %s %s", event, arg1, arg9)
 
 	if strsub (arg9, 1, 3) == self.Name then
 
@@ -370,7 +370,7 @@ function Nx.Com:OnChatEvent (event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, ar
 
 			local nameRoot = Nx.Split ("I", arg9)		-- Drop I and #
 
-			if arg1 == "YOU_JOINED" then
+			if arg1 == "YOU_JOINED" or arg1 == "YOU_CHANGED" then
 
 				local typ = strupper (strsub (arg9, 4, 4))
 
@@ -474,6 +474,9 @@ function Nx.Com:OnChat_msg_addon (args, distribution, target)
 
 		local name = target
 --		if 1 then
+		if not Nx.strpos(name, "-") then
+			name = name .. "-" .. GetRealmName()
+		end
 		if name ~= self.PlyrName then		-- Ignore myself
 --			self.List:AddInfo ("A:"..arg1, format ("(%s %s) %s", name, arg3, arg2))
 			local data = { Nx.Split ("\t", args) }
@@ -685,7 +688,6 @@ function Nx.Com:UpdateChannelsTimer()
 
 	if UnitIsAFK ("player") or not Nx.db.profile.Comm.Zone then		-- No current zone channel?
 		curMapId = nil
-
 	else
 		if Nx.Map:IsNormalMap (curMapId) then
 			local zs = self.ZStatus[curMapId] or {}
