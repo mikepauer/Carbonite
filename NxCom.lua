@@ -185,7 +185,7 @@ end
 function Nx.Com:OnEvent (event)
 	local self = Nx.Com
 
---	Nx.prt ("Com Event: %s", event)
+	Nx.prt ("Com Event: %s", event)
 
 	if event == "PLAYER_LOGIN" then
 		local playername, realmname = UnitFullName("player")
