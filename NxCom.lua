@@ -330,6 +330,9 @@ function Nx.Com:OnFriendguild_update()
 	for n = 1, GetNumFriends() do
 
 		local name, lvl, class, area, con, status = GetFriendInfo (n)
+		local _, realmname = UnitFullName("player")
+		name = name .. "-" .. realmname
+		
 		if con then
 
 			if not gNames[name] then
@@ -472,41 +475,42 @@ function Nx.Com:OnChat_msg_addon (args, distribution, target)
 
 --	Nx.prt ("ComChatAddonEvent: %s %s %s", args, distribution, target)
 
-		local name = target
---		if 1 then
-		if not Nx.strpos(name, "-") then
-			name = name .. "-" .. GetRealmName()
-		end
-		if name ~= self.PlyrName then		-- Ignore myself
---			self.List:AddInfo ("A:"..arg1, format ("(%s %s) %s", name, arg3, arg2))
-			local data = { Nx.Split ("\t", args) }
-			for k, msg in ipairs (data) do
-				local id = strbyte (msg)
-				if id == 83 then	-- S (status) Check 1st for performance
-					if self.PalNames[name] ~= nil then
-						if #msg >= 16 then
-							local pal = self.PalsInfo[name]
-							if not pal then
-								pal = {}
-								self.PalsInfo[name] = pal
-							end
-							self:ParsePlyrStatus (name, pal, msg)
+	local name = target
+	if not Nx.strpos(name, "-") then
+		local _, realmname = UnitFullName("player")
+		name = name .. "-" .. realmname
+	end
+
+	if name ~= self.PlyrName then		-- Ignore myself
+--		self.List:AddInfo ("A:"..arg1, format ("(%s %s) %s", name, arg3, arg2))
+		local data = { Nx.Split ("\t", args) }
+		for k, msg in ipairs (data) do
+			local id = strbyte (msg)
+			if id == 83 then	-- S (status) Check 1st for performance
+				if self.PalNames[name] ~= nil then
+					if #msg >= 16 then
+						local pal = self.PalsInfo[name]
+						if not pal then
+							pal = {}
+							self.PalsInfo[name] = pal
 						end
+						self:ParsePlyrStatus (name, pal, msg)
 					end
-				elseif id == 76 then	-- L (Level)
-					if Nx.db.profile.Comm.LvlUpShow then
-						local s = format ("%s " .. L["reached level"] .." %d!", name, strbyte (msg, 2) - 35)
-						Nx.prt (s)
-						Nx.UEvents:AddInfo (s)
-					end
-				elseif id == 81 then	-- Q (Quest)
-					if Nx.Quest then
-						Nx.Quest:OnMsgQuest (name, msg)
-					end
-				elseif id == 86 then	-- V (Version and registered name)
 				end
+			elseif id == 76 then	-- L (Level)
+				if Nx.db.profile.Comm.LvlUpShow then
+					local s = format ("%s " .. L["reached level"] .." %d!", name, strbyte (msg, 2) - 35)
+					Nx.prt (s)
+					Nx.UEvents:AddInfo (s)
+				end
+			elseif id == 81 then	-- Q (Quest)
+				if Nx.Quest then
+					Nx.Quest:OnMsgQuest (name, msg)
+				end
+			elseif id == 86 then	-- V (Version and registered name)
 			end
 		end
+	end
 end
 
 ---------------------------------------------------------------------------------------
@@ -1057,7 +1061,7 @@ function Nx.Com:Send (chanId, msg, plName)
 		if chanId == "g" then		-- Addon guild
 
 			if IsInGuild() then
-				Nx:SendCommMessage (self.Name, msg, "GUILD")
+				Nx:SendCommMessage (self.Name, msg, "GUILD", plName)
 			end
 
 		elseif chanId == "p" then	-- Addon party
@@ -1512,7 +1516,7 @@ function Nx.Com:OnUpdate (elapsed)
 				if self.PosSendNext == -1 then
 
 					if bit.band (self.SendPMask, 2) > 0 then
-						self:Send ("g", msg)
+						self:Send ("g", msg, self.PlyrName)
 					end
 
 				elseif self.PosSendNext == 0 then
