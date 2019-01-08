@@ -1109,7 +1109,9 @@ function Nx.Map:Create (index)
 	plf.texture = t
 	t:SetTexture ("Interface\\Minimap\\MinimapArrow")
 	t:SetAllPoints (plf)
-
+	t:SetSnapToPixelGrid(false)
+	t:SetTexelSnappingBias(0)
+	
 	plf:SetPoint ("CENTER", 0, (m.TitleH - 1) * -.5)
 	plf:Show()
 
@@ -4265,6 +4267,8 @@ function Nx.Map:UpdateWorld()
 	
 	for i = 1, numtiles do
 		self.TileFrms[i].texture:SetTexture (texturesIDs[i])
+		self.TileFrms[i].texture:SetSnapToPixelGrid(false)
+		self.TileFrms[i].texture:SetTexelSnappingBias(0)
 	end
 end
 
@@ -8132,6 +8136,8 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 								if icon.TX1 then
 									f.texture:SetTexCoord(icon.TX1, icon.TY1, icon.TX2, icon.TY2)
 								end
+								f.texture:SetSnapToPixelGrid(false)
+								f.texture:SetTexelSnappingBias(0)
 							end
 						end
 					end
