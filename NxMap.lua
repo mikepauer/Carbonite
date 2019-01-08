@@ -1761,6 +1761,9 @@ function Nx.Map:InitFrames()
 				else
 					t:SetTexture ("Interface\\WorldMap\\"..mapFileName.."\\"..mapFileName..i)
 				end
+				
+				t:SetSnapToPixelGrid(false)
+				t:SetTexelSnappingBias(0)
 			end
 		end
 	end
@@ -1777,6 +1780,9 @@ function Nx.Map:InitFrames()
 		local t = tf:CreateTexture()
 		tf.texture = t
 		t:SetAllPoints (tf)
+		
+		t:SetSnapToPixelGrid(false)
+		t:SetTexelSnappingBias(0)
 	end
 
 	self:InitHotspots()
@@ -7211,7 +7217,10 @@ function Nx.Map:ClipFrameW (frm, bx, by, w, h, dir)
 --		Nx.prt (" T1 "..t1x.." "..t1y)
 --		Nx.prt (" T2 "..t2x.." "..t2y)
 	end
-
+	
+	frm.texture:SetSnapToPixelGrid(false)
+	frm.texture:SetTexelSnappingBias(0)
+	
 	frm:Show()
 
 	return true
@@ -7295,7 +7304,10 @@ function Nx.Map:ClipFrameWChop (frm, bx, by, w, h)
 	frm:SetHeight (h)
 
 	frm.texture:SetTexCoord (texX1 * .9 + .05, texX2 * .9 + .05, texY1 * .9 + .05, texY2 * .9 + .05)
-
+	
+	frm.texture:SetSnapToPixelGrid(false)
+	frm.texture:SetTexelSnappingBias(0)
+	
 	frm:Show()
 
 	return true
@@ -7462,7 +7474,10 @@ function Nx.Map:ClipFrameTL (frm, bx, by, w, h)
 	frm:SetHeight (h)
 
 	frm.texture:SetTexCoord (Nx.Util_NanToZero(texX1), Nx.Util_NanToZero(texX2), Nx.Util_NanToZero(texY1), Nx.Util_NanToZero(texY2))
-
+	
+	frm.texture:SetSnapToPixelGrid(false)
+	frm.texture:SetTexelSnappingBias(0)
+	
 	frm:Show()
 
 	return true
@@ -7551,6 +7566,10 @@ function Nx.Map:ClipFrameMF (frm, bx, by, w, h, dir)
 		end
 	end
 	frm:SetFrameLevel(50)
+	
+	frm.texture:SetSnapToPixelGrid(false)
+	frm.texture:SetTexelSnappingBias(0)
+	
 	frm:Show()
 
 	return true, x, y
@@ -8311,7 +8330,9 @@ function Nx.Map:GetIconWQ (levelAdd)
 		local t = f:CreateTexture()
 		f.texture = t
 		t:SetAllPoints (f)
-
+		f.texture:SetSnapToPixelGrid(false)
+		f.texture:SetTexelSnappingBias(0)
+		
 		f:SetFlattensRenderLayers(true);
 		
 		--[[f:RegisterForClicks("LeftButtonUp", "RightButtonUp");
@@ -8326,25 +8347,35 @@ function Nx.Map:GetIconWQ (levelAdd)
 		f.Glow:SetPoint("CENTER");
 		f.Glow:SetTexture("Interface/WorldMap/UI-QuestPoi-IconGlow.tga");
 		f.Glow:SetBlendMode("ADD");
-
+		f.Glow:SetSnapToPixelGrid(false)
+		f.Glow:SetTexelSnappingBias(0)
+		
 		f.SelectedGlow = f:CreateTexture(f:GetName().."SelectedGlow", "OVERLAY", 2);
 		f.SelectedGlow:SetBlendMode("ADD");
-
+		f.SelectedGlow:SetSnapToPixelGrid(false)
+		f.SelectedGlow:SetTexelSnappingBias(0)
+		
 		f.CriteriaMatchGlow = f:CreateTexture(f:GetName().."CriteriaMatchGlow", "BACKGROUND", -1);
 		f.CriteriaMatchGlow:SetAlpha(.6);
 		f.CriteriaMatchGlow:SetBlendMode("ADD");
-
+		f.CriteriaMatchGlow:SetSnapToPixelGrid(false)
+		f.CriteriaMatchGlow:SetTexelSnappingBias(0)
+		
 		f.SpellTargetGlow = f:CreateTexture(f:GetName().."SpellTargetGlow", "OVERLAY", 1);
 		f.SpellTargetGlow:SetAtlas("worldquest-questmarker-abilityhighlight", true);
 		f.SpellTargetGlow:SetAlpha(.6);
 		f.SpellTargetGlow:SetBlendMode("ADD");
 		f.SpellTargetGlow:SetPoint("CENTER", 0, 0);
-
+		f.SpellTargetGlow:SetSnapToPixelGrid(false)
+		f.SpellTargetGlow:SetTexelSnappingBias(0)
+		
 		f.Underlay = f:CreateTexture(f:GetName().."Underlay", "BACKGROUND");
 		f.Underlay:SetWidth(34);
 		f.Underlay:SetHeight(34);
 		f.Underlay:SetPoint("CENTER", 0, -1);
-
+		f.Underlay:SetSnapToPixelGrid(false)
+		f.Underlay:SetTexelSnappingBias(0)
+		
 		f.TimeLowFrame = CreateFrame("Frame", nil, f);
 		f.TimeLowFrame:SetSize(22, 22);
 		f.TimeLowFrame:SetPoint("CENTER", -10, -10);
@@ -8365,7 +8396,12 @@ function Nx.Map:GetIconWQ (levelAdd)
 	f.Texture:SetTexture("Interface\\Minimap\\ObjectIconsAtlas");
 	if f.HighlightTexture then
 		f.HighlightTexture:SetTexture("Interface\\Minimap\\ObjectIconsAtlas");
+		f.HighlightTexture:SetSnapToPixelGrid(false)
+		f.HighlightTexture:SetTexelSnappingBias(0)
 	end
+	
+	f.Texture:SetSnapToPixelGrid(false)
+	f.Texture:SetTexelSnappingBias(0)
 	
 	--[[f:SetScript ("OnMouseDown", self.IconOnMouseDown)
 	f:SetScript ("OnMouseUp", self.IconOnMouseUp)]]--
@@ -10496,6 +10532,8 @@ function Nx.Map.Dock:MinimapOwnInit()
 			for k, v in ipairs (reg) do
 
 				if v:IsObjectType ("Texture") then
+					v:SetSnapToPixelGrid(false)
+					v:SetTexelSnappingBias(0)
 					local tname = v:GetTexture()
 					if tname and texnames[tname] then
 --					if tname and strfind (tname, "CT") then
