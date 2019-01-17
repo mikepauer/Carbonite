@@ -718,6 +718,7 @@ function Nx.slashCommand (txt)
 
 	elseif cmd == "d" then
 		Nx.DebugOn = not Nx.DebugOn
+		Nx.prt("Carbonite Debug: %s", Nx.DebugOn and "On" or "Off")
 
 	elseif cmd == "dock" then
 		Nx.db.profile.Debug.DebugDock = not Nx.db.profile.Debug.DebugDock
