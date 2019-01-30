@@ -432,6 +432,58 @@ function Nx.Com:OnChat_msg_channel (event, arg1, arg2, arg3, arg4, arg5, arg6, a
 
 	local self = Nx.Com
 
+	if event == "--CHAT_MSG_SYSTEM" then
+		local message = arg1
+	
+		local ONLINE = ERR_FRIEND_ONLINE_SS:gsub("%%s", "(.-)"):gsub("[%[%]]", "%%%1")
+		local OFFLINE = ERR_FRIEND_OFFLINE_S:gsub("%%s", "(.-)")
+		
+		local action = ""
+		local _, name = strmatch(message, ONLINE)
+		
+		if name then
+			action = "ONLINE"
+		else
+			name = strmatch(message, OFFLINE)
+			if name then
+				action = "OFFLINE"
+			end
+		end
+		
+		if name then
+			if action == "ONLINE" then
+				if Nx.IsFriend(name) then
+					Nx.prt("ONLINE %s", name)
+				end
+			elseif action == "OFFLINE" then
+				if Nx.IsFriend(name) then
+					Nx.prt("OFFLINE %s", name)
+				end
+			end
+		end
+		--[[ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", function(frame, event, message)
+		   local action = "OFFLINE"
+		   local _, name = strmatch(message, ONLINE)
+		   if name then
+			   action = "ONLINE"
+		   else
+			   name = strmatch(message, OFFLINE)
+		   end
+		   if not name then
+			   return
+		   end
+		   if action == "ONLINE" then
+			   if Nx.IsFriend(name) then
+					  self.news = true
+			   end
+		   elseif action == "OFFLINE" then
+			   if Nx.IsFriend(name) then
+					  self.news = true
+			   end
+		   end
+		end)]]--
+	end
+	
 	if strsub (arg9, 1, 3) == self.Name then
 
 		local name = arg2

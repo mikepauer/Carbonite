@@ -85,6 +85,17 @@ function Nx.ArrayConcat(...)
 end
 
 ---------------------------------------------------------------------------------------
+
+function Nx.IsFriend(name)
+	for i = 1, C_FriendList.GetNumFriends() do
+		local finfo = C_FriendList.GetFriendInfoByIndex (i)
+		if finfo.name == name then
+		   return true
+		end
+   end
+end
+
+---------------------------------------------------------------------------------------
 -- Chat printing
 ---------------------------------------------------------------------------------------
 
