@@ -222,7 +222,7 @@ function Nx.Com:OnEvent (event)
 			self:UpdateChannels()
 		end
 
-	elseif event == "PLAYER_LEAVINGWORLD" then
+	elseif event == "PLAYER_LEAVING_WORLD" then
 
 		self:LeaveChan ("A")
 		self:LeaveChan ("Z")
