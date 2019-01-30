@@ -331,7 +331,7 @@ function Nx.Com:OnFriendguild_update()
 
 		local name, lvl, class, area, con, status = BNGetFriendInfo (n)
 		local _, realmname = UnitFullName("player")
-		name = name .. "-" .. realmname
+		name = name .. (realmname and "-" .. realmname or "")
 		
 		if con then
 
