@@ -327,9 +327,9 @@ function Nx.Com:OnFriendguild_update()
 	self.Friends = {}
 	local i = 1
 
-	for n = 1, GetNumFriends() do
+	for n = 1, BNGetNumFriends() do
 
-		local name, lvl, class, area, con, status = GetFriendInfo (n)
+		local name, lvl, class, area, con, status = BNGetFriendInfo (n)
 		local _, realmname = UnitFullName("player")
 		name = name .. "-" .. realmname
 		
