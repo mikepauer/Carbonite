@@ -328,15 +328,14 @@ function Nx.Com:OnFriendguild_update()
 	local i = 1
 
 	for n = 1, C_FriendList.GetNumFriends() do
-
 		local finfo = C_FriendList.GetFriendInfoByIndex (n)
 		local name = finfo.name
 		local con = finfo.connected
-		local _, realmname = UnitFullName("player")
-		name = name .. (realmname and "-" .. realmname or "")
-		
+		if not Nx.strpos(name, "-") then
+			local _, realmname = UnitFullName("player")
+			name = name .. "-" .. (realmname and "-" .. realmname or "")
+		end
 		if con then
-
 			if not gNames[name] then
 
 --				Nx.prt ("Add friend %s", name)
@@ -532,7 +531,7 @@ function Nx.Com:OnChat_msg_addon (args, distribution, target)
 	local name = target
 	if not Nx.strpos(name, "-") then
 		local _, realmname = UnitFullName("player")
-		name = name .. "-" .. realmname
+		name = name .. "-" .. (realmname and "-" .. realmname or "")
 	end
 
 	if name ~= self.PlyrName then		-- Ignore myself
