@@ -4264,7 +4264,7 @@ function Nx.Map:UpdateWorld()
 	local tileY = winfo.TileY or 3
 	local numtiles = tileX * tileY
 	
-	local GetMapArtLayerTexturesMapId = self.MapWorldInfo[mapId].RBaseMap and self.MapWorldInfo[mapId].RBaseMap or mapId
+	local GetMapArtLayerTexturesMapId = ((self.MapWorldInfo[mapId] and self.MapWorldInfo[mapId].RBaseMap) and self.MapWorldInfo[mapId].RBaseMap or mapId)
 	if GetMapArtLayerTexturesMapId == nil then
 		return
 	end
