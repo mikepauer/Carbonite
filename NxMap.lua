@@ -11594,9 +11594,9 @@ function Nx.Map.GetPlayerMapPosition (unit)
 	local mID = C_Map.GetBestMapForUnit(unit)		
 	local x, y
 	if(mID) then
-		--[[if mID ~= Nx.Map.RMapId then		
+		if Nx.Map.MouseOver and mID ~= Nx.Map.RMapId then		
 			return 0,0
-		end]]--
+		end
 		if C_Map.GetPlayerMapPosition (mID, unit) then
 			x, y = C_Map.GetPlayerMapPosition (mID, unit):GetXY()
 		else
