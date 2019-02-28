@@ -226,6 +226,28 @@ function Nx.Map:Init()
 	end
 end
 
+function Nx.Map:SetMapByID(zone)
+	if Nx.Map.MouseOver then
+		if Nx.Map.MouseIsOverMap then
+			zone = Nx.Map.MouseIsOverMap
+			Nx.Map.RMapId = zone
+		else
+			Nx.Map.RMapId = zone
+			return
+		end
+	else
+		Nx.Map.RMapId = zone
+	end
+	if not Nx.CurrentSetZone or Nx.CurrentSetZone ~= zone then
+		if zone then
+			Nx.CurrentSetZone = zone
+			if not WorldMapFrame:IsShown() then 
+				WorldMapFrame:SetMapID(zone) 
+			end
+		end
+	end
+end
+
 --------
 -- Open and init
 
@@ -3182,12 +3204,16 @@ end)
 
 Nx.Map.WMFOnShow = true
 WorldMapFrame:HookScript("OnShow", function()
+	_G["Minimap"]:Show()
 	if Nx.Map.WMFOnShow then
 		local orgin = IsAltKeyDown()
 		if not Nx.db.profile.Map.MaxOverride then
 			orgin = not orgin
 		end
 		if Nx.Map.BlizzToggling or orgin then
+			if Nx.db.profile.MiniMap.Own then 
+				_G["Minimap"]:Hide()
+			end
 			if WorldMapFrame:IsShown() then
 				Nx.Map:RestoreBlizzBountyMap()	
 				local map = Nx.Map:GetMap (1)
@@ -4044,7 +4070,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 			local rid = map.RMapId
 
-			if rid ~= 9000 and not WorldMapFrame:IsShown() then
+			if rid ~= 9000 then
 
 				local mapId = map:GetCurrentMapId()
 				if map:IsInstanceMap (rid) then
@@ -4434,7 +4460,7 @@ function Nx.Map:Update (elapsed)
 				self:SwitchOptions (rid, true)
 			end
 			if not Nx.Menu:IsAnyOpened() then
-				WorldMapFrame:SetMapID(rid)						
+				Nx.Map:SetMapByID(rid)						
 				Nx.Map.RMapId = rid				
 				Nx.Map.DungeonLevel = Nx.Map:GetCurrentMapDungeonLevel()
 				self:SwitchOptions (rid)
@@ -5236,7 +5262,7 @@ end
 function Nx.Map:GetInstanceMapTextures(mapId)
 	local areaId = mapId
 	if areaId then
-		WorldMapFrame:SetMapID(areaId)
+		Nx.Map:SetMapByID(areaId)
 		local mapName = C_Map.GetMapInfo(mapId).name:gsub('%W','')
 --		local levels, first = Nx.Map:GetNumDungeonMapLevels()
 --		local useTerrainMap = DungeonUsesTerrainMap()
@@ -6185,7 +6211,7 @@ function Nx.Map:CheckWorldHotspotsType (wx, wy, quad)
 
 			local curId = self:GetCurrentMapId()
 
-			if spot.MapId ~= curId and not WorldMapFrame:IsShown() then
+			if spot.MapId ~= curId then
 
 --				Nx.prt ("hotspot %s %s %s %s %s", spot.MapId, spot.WX1, spot.WX2, spot.WY1, spot.WY2)
 				self:SetCurrentMap (spot.MapId)			
@@ -9402,7 +9428,7 @@ function Nx.Map:SetCurrentMap (mapId)
 						--SetDungeonMapLevel (1)
 					else
 --						SetMapZoom (cont, i)
-						WorldMapFrame:SetMapID(mapId)						
+						Nx.Map:SetMapByID(mapId)						
 					end
 
 					return
@@ -9419,7 +9445,7 @@ function Nx.Map:SetCurrentMap (mapId)
 					local caid = Nx.Map:GetCurrentMapAreaID()
 					if caid ~= aid then
 --						Nx.prt ("SetCurrentMap dif %s", caid)
-						WorldMapFrame:SetMapID (aid)						
+						Nx.Map:SetMapByID (aid)						
 						--SetDungeonMapLevel (1)
 					end
 				end
@@ -9441,7 +9467,7 @@ end
 -- Set the map to current zone
 
 function Nx.Map:SetToCurrentZone()
-	WorldMapFrame:SetMapID(MapUtil.GetDisplayableMapForPlayer())
+	Nx.Map:SetMapByID(MapUtil.GetDisplayableMapForPlayer())
 end
 
 function Nx.Map:GetCurrentMapAreaID()
