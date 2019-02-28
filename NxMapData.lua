@@ -1489,9 +1489,9 @@ Map.MapWorldInfo = {
 		Scale = 27.33296
 	},
 	[876] = {
-		X = -1487.5,
-		Y = -1056.006,
-		Scale = 25.43506
+		X = -1504.16,
+		Y = -1095,
+		Scale = 26.212498
 	},	
 	[882] = {
 		 Scale = 6.5166,
@@ -10534,7 +10534,7 @@ Map.MiniMapBlks = {
 		Map.KultirasMapBlks,
 		1616,
 		16, 16,
-		Map.MapWorldInfo[876].X + Map.MapInfo[11].X + 38.80 - 257.30, Map.MapWorldInfo[876].Y + Map.MapInfo[11].Y - 801.10 + 150.95,
+		Map.MapWorldInfo[876].X + Map.MapInfo[11].X + 38.80 - 257.30 + 16.51, Map.MapWorldInfo[876].Y + Map.MapInfo[11].Y - 801.10 + 150.95 + 39.22,
 		"World\\Minimaps\\kultiras"
 	},	
 	[94] = {
