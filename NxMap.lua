@@ -227,6 +227,11 @@ function Nx.Map:Init()
 end
 
 function Nx.Map:SetMapByID(zone)
+	--[[if Nx.Map:GetMap(1).MapWorldInfo and (Nx.Map:IsInstanceMap(zone) or Nx.Map:IsBattleGroundMap(zone)) then
+		Nx.CurrentSetZone = nil
+		WorldMapFrame:SetMapID(zone) 	
+		return
+	end
 	if Nx.Map.MouseOver then
 		if Nx.Map.MouseIsOverMap then
 			zone = Nx.Map.MouseIsOverMap
@@ -245,6 +250,9 @@ function Nx.Map:SetMapByID(zone)
 				WorldMapFrame:SetMapID(zone) 
 			end
 		end
+	end]]--
+	if not WorldMapFrame:IsShown() then 
+		WorldMapFrame:SetMapID(zone) 
 	end
 end
 
