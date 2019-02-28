@@ -9479,7 +9479,7 @@ function Nx.Map:SetToCurrentZone()
 end
 
 function Nx.Map:GetCurrentMapAreaID()
-	local mapID = MapUtil.GetDisplayableMapForPlayer()
+	local mapID = Nx.Map.MouseOver and WorldMapFrame:GetMapID() or MapUtil.GetDisplayableMapForPlayer()
 	return mapID
 end
 
