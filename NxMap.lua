@@ -3212,16 +3212,16 @@ end)
 
 Nx.Map.WMFOnShow = true
 WorldMapFrame:HookScript("OnShow", function()
-	_G["Minimap"]:Show()
+	--_G["Minimap"]:Show()
 	if Nx.Map.WMFOnShow then
 		local orgin = IsAltKeyDown()
 		if not Nx.db.profile.Map.MaxOverride then
 			orgin = not orgin
 		end
 		if Nx.Map.BlizzToggling or orgin then
-			if Nx.db.profile.MiniMap.Own then 
+			--[[if Nx.db.profile.MiniMap.Own then 
 				_G["Minimap"]:Hide()
-			end
+			end]]--
 			if WorldMapFrame:IsShown() then
 				Nx.Map:RestoreBlizzBountyMap()	
 				local map = Nx.Map:GetMap (1)
