@@ -4320,7 +4320,7 @@ function Nx.Map:Update (elapsed)
 		return
 	end
 	if WorldMapFrame:IsVisible() then
-		return
+		--return
 	end
 	local Nx = Nx
 	local Map = Nx.Map
@@ -4599,7 +4599,7 @@ function Nx.Map:Update (elapsed)
 
 		self.PlyrLastDir = self.PlyrDir
 
-		if not self.Scrolling and not self.MouseIsOver and not WorldMapFrame:IsVisible() then			
+		if not self.Scrolling and not self.MouseIsOver then			
 			if self.CurOpts.NXPlyrFollow then
 				local scOn = self.LOpts.NXAutoScaleOn		--self.GOpts["MapFollowChangeScale"]
 				if plZX ~= 0 or plZY ~= 0 then
@@ -9471,7 +9471,7 @@ function Nx.Map:SetToCurrentZone()
 end
 
 function Nx.Map:GetCurrentMapAreaID()
-	local mapID = WorldMapFrame:GetMapID() or MapUtil.GetDisplayableMapForPlayer()
+	local mapID = MapUtil.GetDisplayableMapForPlayer()
 	return mapID
 end
 
@@ -11586,9 +11586,9 @@ function Nx.Map.GetPlayerMapPosition (unit)
 	local mID = C_Map.GetBestMapForUnit(unit)		
 	local x, y
 	if(mID) then
-		if mID ~= Nx.Map.RMapId then		
+		--[[if mID ~= Nx.Map.RMapId then		
 			return 0,0
-		end
+		end]]--
 		if C_Map.GetPlayerMapPosition (mID, unit) then
 			x, y = C_Map.GetPlayerMapPosition (mID, unit):GetXY()
 		else
