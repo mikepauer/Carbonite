@@ -34,9 +34,9 @@
 -- end
 -- @class file
 -- @name AceBucket-3.0.lua
--- @release $Id: AceBucket-3.0.lua 1184 2018-07-21 14:13:14Z nevcairiel $
+-- @release $Id: AceBucket-3.0.lua 1185 2018-07-21 14:15:16Z nevcairiel $
 
-local MAJOR, MINOR = "AceBucket-3.0", 3
+local MAJOR, MINOR = "AceBucket-3.0", 4
 local AceBucket, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 
 if not AceBucket then return end -- No Upgrade needed
@@ -81,7 +81,7 @@ local function FireBucket(bucket)
 	local received = bucket.received
 	
 	-- we dont want to fire empty buckets
-	if next(received) then
+	if next(received) ~= nil then
 		local callback = bucket.callback
 		if type(callback) == "string" then
 			safecall(bucket.object[callback], bucket.object, received)
