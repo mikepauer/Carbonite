@@ -8384,6 +8384,10 @@ function Nx.Map:GetIconWQ (levelAdd)
 		f.Glow:SetSnapToPixelGrid(false)
 		f.Glow:SetTexelSnappingBias(0)
 		
+		f.CriteriaMatchRing = f:CreateTexture(f:GetName().."CriteriaMatchRing", "BACKGROUND", nil, 2);
+		f.CriteriaMatchRing:SetAtlas("worldquest-emissary-ring", true)
+		f.CriteriaMatchRing:SetPoint("CENTER", 0, 0)
+		
 		f.SelectedGlow = f:CreateTexture(f:GetName().."SelectedGlow", "OVERLAY", 2);
 		f.SelectedGlow:SetBlendMode("ADD");
 		f.SelectedGlow:SetSnapToPixelGrid(false)
