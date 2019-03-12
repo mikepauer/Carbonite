@@ -1460,7 +1460,7 @@ function Nx.Map:AttachWorldMap()
 
 		self:SetWorldMapIcons (.001)
 
-		local tipf = _G["WorldMapTooltip"]
+		local tipf = _G["GameTooltip"]
 		if tipf then
 			tipf:SetParent (self.Frm)			
 		end
@@ -1508,7 +1508,7 @@ function Nx.Map:DetachWorldMap()
 
 		self:SetWorldMapIcons (1)
 
-		local tipf = _G["WorldMapTooltip"]
+		local tipf = _G["GameTooltip"]
 		if tipf then
 			tipf:SetParent (self.WorldMapFrmParent)
 			tipf:SetFrameStrata ("TOOLTIP")
@@ -1545,7 +1545,7 @@ function Nx.Map:UpdateWorldMap()
 			f:Hide()
 		else
 
-			local tipf = _G["WorldMapTooltip"]
+			local tipf = _G["GameTooltip"]
 			if tipf then
 				tipf:SetFrameStrata ("TOOLTIP")
 			end
@@ -8445,8 +8445,8 @@ function Nx.Map:GetIconWQ (levelAdd)
 	f:SetScript ("OnMouseUp", self.IconOnMouseUp)]]--
 	f:SetScript ("OnEnter", function (self) 
 		TaskPOI_OnEnter(self) 
-		WorldMapTooltip:SetFrameStrata("TOOLTIP");
-		WorldMapTooltip.ItemTooltip.Tooltip:SetClampedToScreen(false)
+		GameTooltip:SetFrameStrata("TOOLTIP");
+		GameTooltip.ItemTooltip.Tooltip:SetClampedToScreen(false)
 	end)
 	f:SetScript ("OnLeave", TaskPOI_OnLeave)
 	--f:SetScript ("OnHide", self.IconOnLeave)]]--
