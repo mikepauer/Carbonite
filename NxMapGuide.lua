@@ -356,6 +356,14 @@ Nx.GuideInfo = {
 			Name = "@A",
 			Inst = 9
 		},
+		{
+			Name = "@ZA",
+			Inst = 10
+		},
+		{
+			Name = "@KU",
+			Inst = 11
+		},
 	},
 	{
 		Name = L["Zone"],
@@ -1596,7 +1604,7 @@ function Nx.Map.Guide:UpdateInstanceIcons (cont)
 	local Map = Nx.Map
 	local map = self.Map
 	local folder = self:FindFolder (L["Instances"])
-
+print(cont)
 	local inst = folder[cont]
 	if not inst then
 		return
