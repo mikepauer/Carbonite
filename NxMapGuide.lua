@@ -1604,7 +1604,7 @@ function Nx.Map.Guide:UpdateInstanceIcons (cont)
 	local Map = Nx.Map
 	local map = self.Map
 	local folder = self:FindFolder (L["Instances"])
-print(cont)
+
 	local inst = folder[cont]
 	if not inst then
 		return
