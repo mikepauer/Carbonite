@@ -1,4 +1,4 @@
-## Interface: 80100
+## Interface: 80200
 ## Title: Carbonite Maps @project-version@
 ## Version: @project-version@
 ## Author: No one

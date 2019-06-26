@@ -251,7 +251,7 @@ function Nx.Map:SetMapByID(zone)
 			end
 		end
 	end]]--
-	if not WorldMapFrame:IsShown() then 
+	if not WorldMapFrame:IsShown() and WorldMapFrame.ScrollContainer.zoomLevels then 
 		WorldMapFrame:SetMapID(zone) 
 	end
 end
@@ -1756,6 +1756,18 @@ function Nx.Map:InitFrames()
 			1,1,1,1,
 			1,1,1,1,
 			1,1,1,1
+		},
+		{
+			0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,
+			0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,
+			0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,
+			0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,
+			0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,
+			0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,
+			0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,
+			0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,
+			0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,
+			0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,
 		},
 	}
 
@@ -6102,6 +6114,10 @@ function Nx.Map:MoveContinents()
 
 		for contN = 1, Nx.Map.ContCnt do
 			local lvl = contN <= 2 and self.Level or self.Level + 1
+			if contN == 12 then 
+				lvl = 6 
+				self.Level = self.Level + 6
+			end
 			self:MoveZoneTiles (contN, 0, self.ContFrms[contN], self.WorldAlpha, lvl)
 		end
 
@@ -6439,7 +6455,7 @@ function Nx.Map:MoveZoneTiles (cont, zone, frms, alpha, level)
 	local bh = zh * (tiley == 10 and 1 or 768 / 668) / tiley * scale
 	
 	if zone > 0 then	
-		local layerIndex = WorldMapFrame:GetCanvasContainer():GetCurrentLayerIndex();
+		local layerIndex = 1;--WorldMapFrame:GetCanvasContainer():GetCurrentLayerIndex();
 		local layers = C_Map.GetMapArtLayers(zone);
 		local layerInfo = layers[layerIndex];
 		local TILE_SIZE_WIDTH = layerInfo.tileWidth;
@@ -6979,9 +6995,10 @@ function Nx.Map:UpdateMiniFrames()
 		for x = miniX, miniX + self.MiniBlks - 1 do
 
 			f = self.MiniFrms[frmNum]
-			local txname = Map:GetMiniBlkName (miniT, x, y)
-
-			if txname then
+			local txname = miniT[1][tonumber(format("%02d%02d", (x + miniT[3]), (y + miniT[4])))] --Map:GetMiniBlkName (miniT, x, y)
+			--Nx.prtD(mapId.." "..miniT[7].." "..x.." "..y.." "..(tonumber(format("%02d%02d", (x + miniT[3]), (y + miniT[4])))).." "..(txname and txname or "nil"));
+			
+			if txname and txname ~= "" then
 
 				if self:ClipFrameTL (f, wx, wy, size, size) then
 
@@ -6989,7 +7006,8 @@ function Nx.Map:UpdateMiniFrames()
 					f.texture:SetVertexColor (1, 1, 1, al)
 --					txname = "Textures\\Minimap\\"..txname
 					f.texture:SetTexture (txname)
-
+					
+					Nx.prtD("%s %s, %s", x, y, txname)
 --[[
 --					Nx.prtCtrl ("%s %s, %s", x, y, txname)
 
@@ -9068,7 +9086,8 @@ function Nx.Map:InitTables()
 		 [8] = {625,630,634,641,646,650,672,680,750},
 		 [9] = {830,882,885},
 		 [10] = {862,863,864,1165},
-		 [11] = {895,896,942,1161},
+		 [11] = {895,896,942,1161,1462},
+		 [12] = {1355},
 		 [90] = {91,92,93,112,128,169,206,275,397,417,423,519,623},		 
 		 [100] = {},
 	}
@@ -9085,7 +9104,7 @@ function Nx.Map:InitTables()
 	self.ZoneOverlays["lakewintergrasp"]["lakewintergrasp"] = "0,0,1024,768"
 
 	-- Support maps with multiple level
-	self.ContCnt = 11
+	self.ContCnt = 12
 
 --	continentNums = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 90 }
 	for k, v in pairs (worldInfo) do
@@ -10555,7 +10574,7 @@ function Nx.Map.Dock:MinimapOwnInit()
 		if not f:IsObjectType ("Model") then
 --		if f:IsShown() and not f:IsObjectType ("Model") then
 
-			local pt, relTo = f:GetPoint()
+			--[[local pt, relTo = f:GetPoint()
 			if relTo == mm then
 
 				local parent = f:GetParent()
@@ -10564,7 +10583,7 @@ function Nx.Map.Dock:MinimapOwnInit()
 
 					found[f] = 1
 				end
-			end
+			end]]--
 
 			local reg = { f:GetRegions() }
 			for k, v in ipairs (reg) do

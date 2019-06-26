@@ -784,6 +784,10 @@ end
 --------
 --
 function Nx:SetupEverything()
+
+	ShowUIPanel(WorldMapFrame);
+	HideUIPanel(WorldMapFrame);
+
 	if not Nx.FirstTry then
 		return
 	end
@@ -818,6 +822,7 @@ function Nx:SetupEverything()
 	Nx.Map:Init()
 
 	Nx:GatherInit()		-- Needs map init. May need to do before map open
+
 	Nx.Map:Open()
 	Nx.Travel:Init()
 
