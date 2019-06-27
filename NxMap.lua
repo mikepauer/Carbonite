@@ -3215,12 +3215,12 @@ end
 	end
 end)]]--
 
-WorldMapFrame:HookScript("OnKeyDown", function(self, key) 
+--[[WorldMapFrame:HookScript("OnKeyDown", function(self, key) 
 	local binding = GetBindingFromClick(key)
 	if binding == "TOGGLEGAMEMENU" then
 		Nx.Map:ToggleSize()
 	end
-end)
+end)]]--
 
 Nx.Map.WMFOnShow = true
 WorldMapFrame:HookScript("OnShow", function()
