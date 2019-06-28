@@ -6995,8 +6995,8 @@ function Nx.Map:UpdateMiniFrames()
 		for x = miniX, miniX + self.MiniBlks - 1 do
 
 			f = self.MiniFrms[frmNum]
+			--Nx.prt(mapId.." | "..miniT[3] .." "..miniT[4] .." "..miniT[7].." | "..x.." "..y.." | "..(tonumber(format("%02d%02d", (x + miniT[3]), (y + miniT[4])))).." | "..(txname and txname or "nil"));
 			local txname = miniT[1][tonumber(format("%02d%02d", (x + miniT[3]), (y + miniT[4])))] --Map:GetMiniBlkName (miniT, x, y)
-			--Nx.prtD(mapId.." "..miniT[7].." "..x.." "..y.." "..(tonumber(format("%02d%02d", (x + miniT[3]), (y + miniT[4])))).." "..(txname and txname or "nil"));
 			
 			if txname and txname ~= "" then
 
