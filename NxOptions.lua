@@ -4471,6 +4471,17 @@ Nx.OptsDataSounds = {
 	"Sound\\Creature\\UndeadMaleWarriorNPC\\UndeadMaleWarriorNPCGreeting01.ogg",
 }
 
+Nx.OptsDataSoundsIDs = {
+	"Interface\\AddOns\\Carbonite\\Snd\\QuestComplete.ogg", -- Interface so no conversion needed
+	558132,
+	542775,
+	540654,
+	540042,
+	540512,
+	561484,
+	563198,
+}
+
 -------------------------------------------------------------------------------
 
 --------
