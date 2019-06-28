@@ -10573,17 +10573,18 @@ function Nx.Map.Dock:MinimapOwnInit()
 
 		if not f:IsObjectType ("Model") then
 --		if f:IsShown() and not f:IsObjectType ("Model") then
+			
+			if pcall(f.GetPoint, f) then
+				local pt, relTo = f:GetPoint()
+				if relTo == mm then
 
-			--[[local pt, relTo = f:GetPoint()
-			if relTo == mm then
-
-				local parent = f:GetParent()
-				if parent ~= mm and parent ~= mapf then
---					Nx.prtFrame ("Dock Scan", f)
-
-					found[f] = 1
+					local parent = f:GetParent()
+					if parent ~= mm and parent ~= mapf then
+	--					Nx.prtFrame ("Dock Scan", f)
+						found[f] = 1
+					end
 				end
-			end]]--
+			end
 
 			local reg = { f:GetRegions() }
 			for k, v in ipairs (reg) do
