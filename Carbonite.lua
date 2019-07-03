@@ -785,9 +785,6 @@ end
 --
 function Nx:SetupEverything()
 
-	ShowUIPanel(WorldMapFrame);
-	HideUIPanel(WorldMapFrame);
-
 	if not Nx.FirstTry then
 		return
 	end
@@ -835,6 +832,10 @@ function Nx:SetupEverything()
 	if Nx.Font.AddonLoaded then
 		Nx.Font:AddonLoaded()
 	end
+	
+	ShowUIPanel(WorldMapFrame);
+	HideUIPanel(WorldMapFrame);
+	
 	Nx.Initialized = true
 	Nx:OnPlayer_login("PLAYER_LOGIN")
 end
