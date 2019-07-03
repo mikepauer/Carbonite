@@ -833,8 +833,10 @@ function Nx:SetupEverything()
 		Nx.Font:AddonLoaded()
 	end
 	
-	ShowUIPanel(WorldMapFrame);
-	HideUIPanel(WorldMapFrame);
+	ShowUIPanel(WorldMapFrame)
+	HideUIPanel(WorldMapFrame)
+	
+	if Nx.db.profile.Map.MaxOverride then Nx.Map:ToggleSize() end
 	
 	Nx.Initialized = true
 	Nx:OnPlayer_login("PLAYER_LOGIN")
