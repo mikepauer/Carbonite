@@ -10273,12 +10273,12 @@ end
 --------
 -- Used for id = TomTom:AddWaypoint (x, y, desc, persistent, minimap, world, silent)
 -- self is bad if called by TomTom
-
-function Nx:TTAddWaypoint (zx, zy, name)
+-- TomTom:AddWaypoint parameters chaged to emulate current TomTom version: v80200-1.0.5
+function Nx:TTAddWaypoint (mid, zx, zy, opt)
 
 	local map = Nx.Map:GetMap (1)
-	local mid = map:GetCurrentMapId()
-	local tar = map:SetTargetXY (mid, zx, zy, name, true)
+
+	local tar = map:SetTargetXY (mid, zx*100, zy*100, opt.title, true)
 
 	map:ChangeTargetOrder (-1, 1)
 
