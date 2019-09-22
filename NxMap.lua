@@ -9328,8 +9328,10 @@ function Nx.Map:InitTables()
 
 				local flags, conTime, name1, z1, x1, y1, name2, z2, x2, y2 = Nx.Split ("|",str)
 
-				local mapId1 = z1
-				local mapId2 = z2
+				local mapId1 = tonumber(z1)
+				local mapId2 = tonumber(z2)
+				conTime = tonumber(conTime)
+				flags = tonumber(flags)
 
 				if not (mapId1 and mapId2) then
 --					Nx.prt ("zone conn err %s to %s", z1 - 35, z2 - 35)
