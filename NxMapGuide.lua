@@ -1676,7 +1676,7 @@ function Nx.Map.Guide:UpdateTravelIcons (hideFac)
 				for n, con in ipairs (zcon) do
 					local wx, wy = con.StartX, con.StartY
 					local icon = map:AddIconPt ("!POI", wx, wy, 0, nil, "Interface\\Icons\\Spell_Nature_FarSight")
-					map:SetIconTip (icon, L["Connection to"] .. " " .. Nx.MapIdToName[con.EndMapId])
+					map:SetIconTip (icon, L["Connection to"] .. " " .. map:GetMapNameByID(con.EndMapId))
 					local wx, wy = con.EndX, con.EndY
 					local icon = map:AddIconPt ("!POI", wx, wy, 0, nil, "Interface\\Icons\\Spell_Nature_FarSight")
 				end
