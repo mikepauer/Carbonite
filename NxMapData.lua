@@ -1594,6 +1594,20 @@ Map.MapWorldInfo = {
 		Name = L["Mechagon Island"],
 		Overlay = "mechagonisland"		
 	},
+	[1527] = {
+		Scale = 12.387499511719,
+		X = -488.33330078125,
+		Y = 1605.8333007813,
+		Overlay = "uldum",
+		Name = L["Uldum"],
+	},
+	[1530] = {
+		Scale = 5.06666796875,
+		X = -496.25,
+		Y = -389.5833984375,
+		Overlay = "valeofeternalblossoms",
+		Name=L["Vale of Eternal Blossoms"],
+	},
 	[9005] = {		-- Blade's Edge Arena
 		Name = L["Blade's Edge Arena"],
 		1,
@@ -3476,7 +3490,29 @@ Map.ZoneOverlays = {
 		["3022384,3022395,3022405,3022406,3022407,3022408,3022409,3022410,3022411,3022385,3022386,3022387,3022388,3022389,3022390,3022391,3022392,3022393,3022394,3022396,3022397,3022398,3022399,3022400,3022401,3022402,3022403,3022404"] = "1315,40,1723,945",
 		["3022412,3022423,3022430,3022431,3022432,3022433,3022434,3022435,3022436,3022413,3022414,3022415,3022416,3022417,3022418,3022419,3022420,3022421,3022422,3022424,3022425,3022426,3022427,3022428,3022429"] = "2791,121,1049,1055",
 		["3022437,3022448,3022459,3022467,3022468,3022469,3022470,3022471,3022472,3022438,3022439,3022440,3022441,3022442,3022443,3022444,3022445,3022446,3022447,3022449,3022450,3022451,3022452,3022453,3022454,3022455,3022456,3022457,3022458,3022460,3022461,3022462,3022463,3022464,3022465,3022466"] = "46,978,1424,1511",
-	}
+	},
+	[1342] = {
+		["3155826,3155827,3155828,3155829,3155830,3155831"] = "0,0,438,658",
+		["3155832,3155833,3155834,3155835,3155836,3155837,3155838,3155839,3155840"] = "11,0,604,636",
+		["3155841,3155842,3155843,3155844,3155845,3155846,3155847,3155848,3155849"] = "315,31,613,558",
+	},
+	["threatvaleofeternalblossoms"] =
+	{
+		["threatvaleofeternalblossoms1"] = "0,0,256,256,1",
+		["threatvaleofeternalblossoms2"] = "256,0,256,256,1",
+		["threatvaleofeternalblossoms3"] = "512,0,256,256,1",
+		["threatvaleofeternalblossoms4"] = "768,0,256,256,1",
+		
+		["threatvaleofeternalblossoms5"] = "0,256,256,256,1",
+		["threatvaleofeternalblossoms6"] = "256,256,256,256,1",
+		["threatvaleofeternalblossoms7"] = "512,256,256,256,1",
+		["threatvaleofeternalblossoms8"] = "768,256,256,256,1",
+		
+		["threatvaleofeternalblossoms9"] = "0,512,256,256,1",
+		["threatvaleofeternalblossoms10"] = "256,512,256,256,1",
+		["threatvaleofeternalblossoms11"] = "512,512,256,256,1",
+		["threatvaleofeternalblossoms12"] = "768,512,256,256,1",
+	},
 }
 
 --------
@@ -10782,11 +10818,14 @@ function Nx.Map:GetZoneInfo (mapid)
 		winfo[mapid].X = ((left * -1) / 5)
 		winfo[mapid].Y = ((top * -1) / 5)
 		winfo[mapid].Scale = ((right * -1) + left) / 500
+		winfo[mapid].MapArt = C_Map.GetMapArtID(mapid)
 	end	
 	local mapinfo = C_Map.GetMapInfo(mapid)
 	if mapinfo and (mapinfo.mapType == 5 or mapinfo.mapType == 4) then				
 		winfo[mapid].Instance = true
 	end
+	
+	return winfo
 end
 
 Map.MapLevels={
