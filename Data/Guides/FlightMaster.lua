@@ -524,7 +524,6 @@ local FLIGHT_DATA = {
 	["2,896,19.14,43.31"]=L["Anyport, Drustvar"],
 	["2,896,25.74,16.56"]=L["Whitegrove Chapel, Drustvar"],
 	["1,896,69.38,57.29"]=L["Fletcher's Hollow, Drustvar"],
-	["1,896,61.7,36.56"]=L["Fallhaven, Drustvar"],
 	["1,942,30.75,66.57"]=L["Millstone Hamlet, Stormsong Valley"],
 	["1,942,34.28,47.23"]=L["Fort Daelin, Stormsong Valley"],
 	["1,942,42.77,57.54"]=L["Deadwash, Stormsong Valley"],
