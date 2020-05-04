@@ -35,6 +35,8 @@ Nx.GuideAbr = {
 	["D"] = L["Draenor"],
 	["B"] = L["Broken Isles"],
 	["A"] = L["Argus"],
+	["ZA"] = L["Zandalar"],
+	["KU"] = L["Kul Tiras"],
 }
 Nx.GuideInfo = {
 	Name = L["All"],
@@ -1185,7 +1187,7 @@ function Nx.Map.Guide:UpdateList (list, pathI, listSide)
 				if add then
 					local name = folder.Name
 					if strbyte (name) == 64 then
-						name = Nx.GuideAbr[strsub (name, 2)]
+						name = Nx.GuideAbr[strsub (name, 2)]						
 					end
 					local show = true
 					local column4
