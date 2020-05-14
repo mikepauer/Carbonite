@@ -1603,7 +1603,7 @@ Map.MapWorldInfo = {
 		City = true,
 		MMOutside = true,
 	},
-+	[1469] = {
++	[1470] = {
 		Scale = 3.474999917984,
 		X = -344.58332519531,
 		Y = 1599.1666015625,
