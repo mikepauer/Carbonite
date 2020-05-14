@@ -1594,6 +1594,24 @@ Map.MapWorldInfo = {
 		Name = L["Mechagon Island"],
 		Overlay = "mechagonisland"		
 	},
++	[1469] = {
+		Scale = 3.47875,
+		X = 701.27080078125,
+		Y = -497.33334960938,
+		Overlay = "orgrimmar",
+		Name = L["Orgrimmar"],
+		City = true,
+		MMOutside = true,
+	},
++	[1469] = {
+		Scale = 3.474999917984,
+		X = -344.58332519531,
+		Y = 1599.1666015625,
+		Overlay = "stormwindcity",
+		Name = L["Stormwind City"],
+		City = true,
+		MMOutside = true,
+	},
 	[1527] = {
 		Scale = 12.387499511719,
 		X = -488.33330078125,
