@@ -1594,7 +1594,7 @@ Map.MapWorldInfo = {
 		Name = L["Mechagon Island"],
 		Overlay = "mechagonisland"		
 	},
-+	[1469] = {
+	[1469] = {
 		Scale = 3.47875,
 		X = 701.27080078125,
 		Y = -497.33334960938,
@@ -1603,7 +1603,7 @@ Map.MapWorldInfo = {
 		City = true,
 		MMOutside = true,
 	},
-+	[1470] = {
+	[1470] = {
 		Scale = 3.474999917984,
 		X = -344.58332519531,
 		Y = 1599.1666015625,
