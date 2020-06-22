@@ -1580,6 +1580,13 @@ Map.MapWorldInfo = {
 		Alpha = .85,
 		MapLevel = 1,		
 	},
+	[1169] = {
+		Scale = 1.2458203125,
+		X = 483.583984375,
+		Y = -60.416015625,
+		Name = L["Tol Dagor"],
+		Overlay = "toldagor"
+	},
 	[1355] = {
 		Scale = 8.529166,
 		X = -319.5834,
