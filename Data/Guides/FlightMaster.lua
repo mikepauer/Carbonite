@@ -538,7 +538,7 @@ local FLIGHT_DATA = {
 	["0,942,75.88,64.14"]=L["Ironmaul Overlook, Stormsong Valley"],
 	["0,942,77.9,24.07"]=L["Shrine of the Storm, Stormsong Valley"],
 	["0,942,54.27,49.35"]=L["Diretusk Hollow, Stormsong Valley"],
-	["0,942,60.84,27.12"]=L["Windfall Cavern, Stormsong Valley"],
+	["2,942,60.84,27.12"]=L["Windfall Cavern, Stormsong Valley"],
 	["0,942,38.84,66.64"]=L["Stonetusk Watch, Stormsong Valley"],
 
 
