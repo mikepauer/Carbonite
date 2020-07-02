@@ -514,7 +514,7 @@ function Nx.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX, dst
 									node1.NoSplit = true
 								end
 
-								local name = format (L["Connection: %s to %s"], GetMapNameByID(con.StartMapId), GetMapNameByID(con.EndMapId))
+								local name = format (L["Connection: %s to %s"], Nx.Map:GetMapNameByID(con.StartMapId), Nx.Map:GetMapNameByID(con.EndMapId))
 
 								local node = {}
 								node.NoSplit = true
@@ -811,7 +811,7 @@ function Nx.Travel:FindConnection (srcMapId, srcX, srcY, dstMapId, dstX, dstY, s
 						local dist1 = ((con.StartX - srcX) ^ 2 + (con.StartY - srcY) ^ 2) ^ .5
 						local dist2 = ((con.EndX - dstX) ^ 2 + (con.EndY - dstY) ^ 2) ^ .5
 
-						local penalty = winfo[mapId].Connections[dstMapId] and 1 or 2
+						local penalty = (winfo[mapId].Connections and winfo[mapId].Connections[dstMapId]) and 1 or 2
 
 						local d = dist1 + con.Dist + dist2 * penalty		-- Penalty for no direct connection
 

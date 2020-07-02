@@ -2205,6 +2205,7 @@ end
 --------
 -- Init minimap node glow. Also called by options
 
+CreateFrame("FRAME","NXMinimapBlinkerFrame")
 function Nx.Map:MinimapNodeGlowInit (reset)
 
 	local mm = self.MMFrm
@@ -2225,14 +2226,16 @@ function Nx.Map:MinimapNodeGlowInit (reset)
 
 			-- Force blip textures to stay in mem, so minimap does not show corruption when switching
 
-			local t = mm:CreateTexture (nil, "BACKGROUND")
+			local t = NXMinimapBlinkerFrame:CreateTexture (nil, "OVERLAY")
 			t:SetAllPoints()
 			t:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\MMOIcons")
-			t:Hide()
-			local t = mm:CreateTexture (nil, "BACKGROUND")
+			t:SetNonBlocking(true)
+			--t:Hide()
+			local t = NXMinimapBlinkerFrame:CreateTexture (nil, "OVERLAY")
 			t:SetAllPoints()
 			t:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\MMOIconsG")
-			t:Hide()
+			t:SetNonBlocking(true)
+			--t:Hide()
 		end
 		GlowLetter = ""
 		MapNodeGlow = Nx:ScheduleRepeatingTimer(self.OnMinimapNodeGlowTimer, Nx.db.profile.MiniMap.NodeGD * 2, self)
@@ -2252,15 +2255,15 @@ end
 
 function Nx.Map:MinimapNodeGlowSet (letter)
 
-	local count = GetNumTrackingTypes()
-	for n = 1, count do
-		local name, texture, active, category = GetTrackingInfo (n)
+	--local count = GetNumTrackingTypes()
+	--for n = 1, count do
+	--	local name, texture, active, category = GetTrackingInfo (n)
 
-		if active and category == "spell" then
+	--	if active and category == "spell" then
 				self.MMFrm:SetBlipTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\MMOIcons" .. letter)
-			break
-		end
-	end
+			--break
+	--	end
+	--end
 end
 
 --------
