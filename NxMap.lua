@@ -1,4 +1,4 @@
-﻿---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- NxMap - Map code
 -- Copyright 2007-2012 Carbon Based Creations, LLC
 ---------------------------------------------------------------------------------------
@@ -10313,9 +10313,9 @@ end
 --------
 --	Used for id = TomTom:SetCustomWaypoint (c, z, x, y, callback, minimap, world, silent)
 
-function Nx:TTSetCustomWaypoint (cont, zone, zx, zy, callbackT)
-
-	return Nx:TTAddZWaypoint (cont, zone, zx, zy, "", false, nil, nil, callbackT)
+function Nx:TTSetCustomWaypoint (cont, zx, zy, opt)
+	-- Modified for Routes compatibility
+	return Nx:TTSetCustomMFWaypoint(cont, nil, zx, zy, opt)
 end
 
 --------
