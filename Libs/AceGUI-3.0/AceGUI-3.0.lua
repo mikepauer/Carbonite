@@ -24,8 +24,8 @@
 -- f:AddChild(btn)
 -- @class file
 -- @name AceGUI-3.0
--- @release $Id: AceGUI-3.0.lua 1202 2019-05-15 23:11:22Z nevcairiel $
-local ACEGUI_MAJOR, ACEGUI_MINOR = "AceGUI-3.0", 36
+-- @release $Id: AceGUI-3.0.lua 1231 2020-04-14 22:20:36Z nevcairiel $
+local ACEGUI_MAJOR, ACEGUI_MINOR = "AceGUI-3.0", 41
 local AceGUI, oldminor = LibStub:NewLibrary(ACEGUI_MAJOR, ACEGUI_MINOR)
 
 if not AceGUI then return end -- No upgrade needed
@@ -51,6 +51,7 @@ AceGUI.LayoutRegistry = AceGUI.LayoutRegistry or {}
 AceGUI.WidgetBase = AceGUI.WidgetBase or {}
 AceGUI.WidgetContainerBase = AceGUI.WidgetContainerBase or {}
 AceGUI.WidgetVersions = AceGUI.WidgetVersions or {}
+AceGUI.tooltip = AceGUI.tooltip or CreateFrame("GameTooltip", "AceGUITooltip", UIParent, "GameTooltipTemplate")
 
 -- local upvalues
 local WidgetRegistry = AceGUI.WidgetRegistry
@@ -175,7 +176,10 @@ end
 -- If this widget is a Container-Widget, all of its Child-Widgets will be releases as well.
 -- @param widget The widget to release
 function AceGUI:Release(widget)
+	if widget.isQueuedForRelease then return end
+	widget.isQueuedForRelease = true
 	safecall(widget.PauseLayout, widget)
+	widget.frame:Hide()
 	widget:Fire("OnRelease")
 	safecall(widget.ReleaseChildren, widget)
 
@@ -204,7 +208,24 @@ function AceGUI:Release(widget)
 		widget.content.width = nil
 		widget.content.height = nil
 	end
+	widget.isQueuedForRelease = nil
 	delWidget(widget, widget.type)
+end
+
+--- Check if a widget is currently in the process of being released
+-- This function check if this widget, or any of its parents (in which case it'll be released shortly as well)
+-- are currently being released. This allows addon to handle any callbacks accordingly.
+-- @param widget The widget to check
+function AceGUI:IsReleasing(widget)
+	if widget.isQueuedForRelease then
+		return true
+	end
+
+	if widget.parent and widget.parent.AceGUIWidgetVersion then
+		return AceGUI:IsReleasing(widget.parent)
+	end
+
+	return false
 end
 
 -----------
@@ -331,6 +352,10 @@ do
 
 	WidgetBase.Release = function(self)
 		AceGUI:Release(self)
+	end
+
+	WidgetBase.IsReleasing = function(self)
+		return AceGUI:IsReleasing(self)
 	end
 
 	WidgetBase.SetPoint = function(self, ...)
@@ -638,6 +663,7 @@ AceGUI:RegisterLayout("Fill",
 		if children[1] then
 			children[1]:SetWidth(content:GetWidth() or 0)
 			children[1]:SetHeight(content:GetHeight() or 0)
+			children[1].frame:ClearAllPoints()
 			children[1].frame:SetAllPoints(content)
 			children[1].frame:Show()
 			safecall(content.obj.LayoutFinished, content.obj, nil, children[1].frame:GetHeight())

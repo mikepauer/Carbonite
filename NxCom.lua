@@ -212,7 +212,7 @@ function Nx.Com:OnEvent (event)
 		if IsInGuild() then
 			GuildRoster()
 		end
-		ShowFriends()
+		C_FriendList.ShowFriends()
 		Nx.Com.Initialized = true
 	elseif event == "ZONE_CHANGED_NEW_AREA" then
 
@@ -1567,7 +1567,7 @@ function Nx.Com:OnUpdate (elapsed)
 
 		if msg then
 
-			ShowFriends()		-- force Friend List Update
+			C_FriendList.ShowFriends()		-- force Friend List Update
 
 			self.PosSendNext = self.PosSendNext + 1
 

@@ -1,4 +1,4 @@
----------------------------------------------------------------------------------------
+﻿---------------------------------------------------------------------------------------
 -- NxMap - Map code
 -- Copyright 2007-2012 Carbon Based Creations, LLC
 ---------------------------------------------------------------------------------------
@@ -2498,7 +2498,7 @@ function Nx.Map:MinimapUpdateEnd()
 			or self.MMFScale < .02 
 			or Nx.Map.NInstMapId ~= nil -- Instance
 			or info.City and not info.MMOutside -- Cites
-			or C_Garrison.IsPlayerInGarrison(LE_GARRISON_TYPE_7_0) -- Order Halls 
+			or C_Garrison.IsPlayerInGarrison(Enum.GarrisonType.Type_7_0) -- Order Halls 
 		then
 			mm:SetPoint ("TOPLEFT", 1, 0)
 			mm:SetScale (.02)
@@ -10313,9 +10313,9 @@ end
 --------
 --	Used for id = TomTom:SetCustomWaypoint (c, z, x, y, callback, minimap, world, silent)
 
-function Nx:TTSetCustomWaypoint (cont, zx, zy, opt)
-	-- Modified for Routes compatibility
-	return Nx:TTSetCustomMFWaypoint(cont, nil, zx, zy, opt)
+function Nx:TTSetCustomWaypoint (cont, zone, zx, zy, callbackT)
+
+	return Nx:TTAddZWaypoint (cont, zone, zx, zy, "", false, nil, nil, callbackT)
 end
 
 --------

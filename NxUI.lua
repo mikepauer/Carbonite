@@ -1606,7 +1606,7 @@ function Nx.Window:Create (name, minResizeW, minResizeH, secure, titleLines, bor
 	-- Create window frame
 
 --	local f = CreateFrame ("Frame", name, UIParent, "SecureStateHeaderTemplate")
-	local f = CreateFrame ("Frame", name, UIParent)
+	local f = CreateFrame ("Frame", name, UIParent, "BackdropTemplate")
 	win.Frm = f
 	f.NxWin = win
 
@@ -4359,7 +4359,7 @@ function Nx.Menu:Create (parentFrm, width)
 	self.NameNum = self.NameNum + 1
 	local name = format ("NxMenu%d", self.NameNum)
 
-	local f = CreateFrame ("Frame", name, UIParent)
+	local f = CreateFrame ("Frame", name, UIParent, "BackdropTemplate")
 	menu.MainFrm = f
 
 	tinsert (HideFramesOnEsc, name)
@@ -7663,7 +7663,7 @@ function Nx.Graph:Create (width, height, parentFrm)
 
 	g:Clear()
 
-	local sf = CreateFrame ("Slider", nil, f, "NxSliderFrame")
+	local sf = CreateFrame ("Slider", nil, f, "NxSliderFrame", "BackdropTemplate")
 	g.SliderFrm = sf
 	sf.NxGraph = g
 
