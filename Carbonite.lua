@@ -952,8 +952,8 @@ function Nx:OnPlayer_login (event, ...)
 	Nx.Com:OnEvent (event)
 	Nx.InitWins()
 
-	Nx.BlizzChatFrame_DisplayTimePlayed = ChatFrame_DisplayTimePlayed		-- Save func
-	ChatFrame_DisplayTimePlayed = function() end
+--	Nx.BlizzChatFrame_DisplayTimePlayed = ChatFrame_DisplayTimePlayed		-- Save func
+--	ChatFrame_DisplayTimePlayed = function() end
 
 --	RequestTimePlayed()		-- Blizz does not do anymore on login???
 	Nx.RequestTime = true;
