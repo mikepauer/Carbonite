@@ -1594,6 +1594,16 @@ Map.MapWorldInfo = {
 		Name = L["Nazjatar"],
 		Overlay = "nazjatar",
 	},
+	
+	[1409] = {
+		Scale = 2,
+		X = 4300,
+		Y = -3000,
+		Name = L["Exile's Reach"],
+		Overlay = "npe",
+		Explored = true,
+	},
+	
 	[1462] = {
 		Scale = 4.675,
 		X = -1324.166,
@@ -2757,6 +2767,10 @@ Map.ZoneOverlays = {
 	},
 	["dalaran"] = {
 		["dalaran1_"] = "0,0,1024,768",		-- FIX!!
+	},
+	
+	["npe"] = {
+		["npe"] = "0,0,1024,768",		-- FIX!!
 	},
 
 	["boreantundra"] = {
