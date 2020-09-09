@@ -6449,12 +6449,12 @@ function Nx.Map:MoveZoneTiles (cont, zone, frms, alpha, level)
 		end
 	end
 	
-	--[[if cont == 11 then 
-		zw = zw + (self.DebugMZWOff or 0)
-		zh = zh + (self.DebugMZHOff or 0)
-		zx = zx + (self.DebugMXOff or 0)
-		zy = zy + (self.DebugMYOff or 0)
-	end]]--
+	--if Nx.db.profile.Debug.DebugMap and zone == 1409 then 
+	--	zw = zw + (self.DebugMZWOff or 0)
+	--	zh = zh + (self.DebugMZHOff or 0)
+	--	zx = zx + (self.DebugMXOff or 0)
+	--	zy = zy + (self.DebugMYOff or 0)
+	--end
 	
 	local clipW = self.MapW
 	local clipH = self.MapH
@@ -6968,8 +6968,8 @@ function Nx.Map:UpdateMiniFrames()
 --	local zname, zx, zy
 
 	local miniT, basex, basey = self:GetMiniInfo (mapId)
---	basex = basex + (self.DebugPXOff or 0)
---	basey = basey + (self.DebugPYOff or 0)
+	--basex = basex + (self.DebugMXOff or 0)
+	--basey = basey + (self.DebugMYOff or 0)
 	
 	if not miniT then
 		self:HideMiniFrames()
@@ -6984,7 +6984,7 @@ function Nx.Map:UpdateMiniFrames()
 
 	local scale = 256 * 0.416767770014
 	local size = scale
-
+	
 --	size = size - 4
 
 	local miniX = floor ((self.MapPosXDraw - basex) / scale - self.MiniBlks / 2 + .5)
