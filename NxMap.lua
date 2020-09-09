@@ -134,6 +134,14 @@ NXMapOptsMapsDefault = 	{
 	},
 }
 
+function GetBattlefieldVehicleInfo(n, uiMapID)
+	local v = C_PvP.GetBattlefieldVehicleInfo(n, uiMapID)	
+	if not v then
+		return
+	end
+	return v.x, v.y, v.name, v.isOccupied, v.atlas, v.facing, v.isPlayer, v.isAlive, v.shouldDrawBelowPlayerBlips
+end
+
 --------
 -- Init map stuff
 
