@@ -11801,13 +11801,13 @@ Map.NPEBlks = {
 }
 
 Map.MiniMapBlks = {
-	--[1] = {
-	--	Map.KalMapBlks,
-	--	1908,
-	--	19, 8,
-	--	 Map.MapWorldInfo[13].X + Map.MapInfo[1].X + 2025.753921875 + 222, Map.MapWorldInfo[13].Y + Map.MapInfo[1].Y + -0.476021875 - 324,
-	--	"World\\Minimaps\\Kalimdor"
-	--},
+	[1] = {
+		Map.KalMapBlks,
+		1908,
+		19, 8,
+		 Map.MapWorldInfo[13].X + Map.MapInfo[1].X + 2025.753921875 + 222, Map.MapWorldInfo[13].Y + Map.MapInfo[1].Y + -0.476021875 - 324,
+		"World\\Minimaps\\Kalimdor"
+	},
 	[2] = {
 		Map.EkMapBlks,
 		2420,
