@@ -1448,6 +1448,7 @@ function Nx.Com:OnUpdate (elapsed)
 			h = 0
 		end
 		local hm = UnitHealthMax ("player")
+		hm = hm == 0 and 1 or hm
 		local hper = h / hm * 20
 		if hper > 0 then
 			hper = max (hper, 1)
