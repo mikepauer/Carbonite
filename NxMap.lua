@@ -139,7 +139,7 @@ function GetBattlefieldVehicleInfo(n, uiMapID)
 	if not v then
 		return
 	end
-	return v.x, v.y, v.name, v.isOccupied, v.atlas, v.facing, v.isPlayer, v.isAlive, v.shouldDrawBelowPlayerBlips
+	return v.x, v.y, v.name, v.isOccupied, v.atlas, v.facing, v.isPlayer, v.isAlive, v.shouldDrawBelowPlayerBlips, v
 end
 
 --------
@@ -4829,8 +4829,8 @@ function Nx.Map:Update (elapsed)
 
 	for n = 1, GetNumBattlefieldVehicles() do
 
-		local x, y, unitName, possessed, typ, orientation, player = GetBattlefieldVehicleInfo (n, Nx.Map:GetCurrentMapId())
-		local vehicleInfo = C_PvP.GetBattlefieldVehicleInfo (n, Nx.Map:GetCurrentMapId())
+		local x, y, unitName, possessed, typ, orientation, player, isAlive, shouldDrawBelowPlayerBlips, vehicleInfo = GetBattlefieldVehicleInfo (n, Nx.Map:GetCurrentMapId())
+
 		if x and x > 0 and not player then
 
 --			Nx.prtCtrl ("#%s %s %.2f %.2f %.3f %s %s %s", n, unitName or "nil", x or -1, y or -1, orientation or -1, typ or "no type", possessed and "poss" or "-poss", player and "plyr" or "-plyr")
