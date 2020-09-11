@@ -4825,29 +4825,30 @@ function Nx.Map:Update (elapsed)
 
 	-- Battlefield Vehicles
 
-	local vtex = _G["VECHICLE_DRAW_INFO"]
+	--local vtex = _G["VECHICLE_DRAW_INFO"]
 
 	for n = 1, GetNumBattlefieldVehicles() do
 
 		local x, y, unitName, possessed, typ, orientation, player = GetBattlefieldVehicleInfo (n, Nx.Map:GetCurrentMapId())
+		local vehicleInfo = C_PvP.GetBattlefieldVehicleInfo (n, Nx.Map:GetCurrentMapId())
 		if x and x > 0 and not player then
 
 --			Nx.prtCtrl ("#%s %s %.2f %.2f %.3f %s %s %s", n, unitName or "nil", x or -1, y or -1, orientation or -1, typ or "no type", possessed and "poss" or "-poss", player and "plyr" or "-plyr")
 
-			if vtex[typ] then
+			if vehicleInfo.atlas then
 				local f2 = self:GetIconNI (1)
 				local sc = self.ScaleDraw * 0.8
 				if self.InstanceId then
 					sc = .5		-- Airships
 				end
-				if typ == "Drive" or typ == "Fly" then
+				if typ == "Vehicle-Ground-Unoccupied" or typ == "Vehicle-Ground-Occupied" or typ == "Vehicle-Air-Unoccupied" or typ == "Vehicle-Air-Occupied" then
 					sc = 1
 					if self.InstanceId then
 						sc = .7
 					end
 				end
-				if self:ClipFrameZ (f2, x * 100, y * 100, vtex[typ]["width"] * sc, vtex[typ]["height"] * sc, orientation / PI * -180) then
-					f2.texture:SetTexture (VehicleUtil.GetVehicleTexture (typ, possessed))
+				if self:ClipFrameZ (f2, x * 100, y * 100, vehicleInfo.textureWidth * sc, vehicleInfo.textureHeight * sc, orientation / PI * -180) then
+					f2.texture:SetTexture ("Interface\\Minimap\\" .. vehicleInfo.atlas)
 				end
 
 --				Nx.prtCtrl ("%s %s %s %s", unitName, x, y, orientation)

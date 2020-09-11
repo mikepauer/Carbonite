@@ -792,7 +792,7 @@ function Nx:SetupEverything()
 	local fact = UnitFactionGroup ("player")
 	Nx.PlFactionNum = strsub (fact, 1, 1) == "A" and 0 or 1
 
-	Nx.AirshipType = Nx.PlFactionNum == 0 and "Airship Alliance" or "Airship Horde"
+	Nx.AirshipType = Nx.PlFactionNum == 0 and "Vehicle-Air-Alliance" or "Vehicle-Air-Horde"
 
 	Nx:InitGlobal()
 
