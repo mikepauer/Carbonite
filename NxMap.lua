@@ -259,6 +259,11 @@ function Nx.Map:SetMapByID(zone)
 			end
 		end
 	end]]--
+	
+	if not C_Map.GetMapInfo(zone) then
+		return
+	end
+	
 	if not WorldMapFrame:IsShown() and WorldMapFrame.ScrollContainer.zoomLevels then 
 		WorldMapFrame:SetMapID(zone) 
 	end
@@ -4304,7 +4309,7 @@ function Nx.Map:UpdateWorld()
 	if dungeonLevel>0 then texName = texName..dungeonLevel.."_" end
 	if winfo.MapBaseName and not winfo.Garrison then texName = winfo.MapBaseName end
 	if winfo.Garrison and not isMicro then
-		local level, mapname, x, y = C_Garrison.GetGarrisonInfo(Enum.GarrisonType.Type_6_0)
+		local level, mapname, x, y = C_Garrison.GetGarrisonInfo(LE_GARRISON_TYPE_6_0)
 		if not level then
 			level = "1"
 		end
