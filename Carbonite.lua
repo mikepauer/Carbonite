@@ -145,6 +145,15 @@ Nx.Whatsnew.Maps = {
 Nx.Whatsnew.WhichCat = 1
 Nx.Whatsnew.HasWhatsNew = nil
 
+function GetCurrencyInfo(_type)
+	local v = C_CurrencyInfo.GetCurrencyInfo(_type)
+	if not v then
+		return
+	end
+	
+	return v.name, v.quantity, v.iconFileID, v.quantityEarnedThisWeek, v.maxWeeklyQuantity, v.maxQuantity, v.discovered, v.quality, v
+end
+
 function Nx.EmulateTomTom()
 	if _G.TomTom and Nx.RealTom then
 		return
