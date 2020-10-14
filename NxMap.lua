@@ -1,4 +1,4 @@
----------------------------------------------------------------------------------------
+﻿---------------------------------------------------------------------------------------
 -- NxMap - Map code
 -- Copyright 2007-2012 Carbon Based Creations, LLC
 ---------------------------------------------------------------------------------------
@@ -134,6 +134,14 @@ NXMapOptsMapsDefault = 	{
 	},
 }
 
+function GetBattlefieldVehicleInfo(n, uiMapID)
+	local v = C_PvP.GetBattlefieldVehicleInfo(n, uiMapID)	
+	if not v then
+		return
+	end
+	return v.x, v.y, v.name, v.isOccupied, v.atlas, v.facing, v.isPlayer, v.isAlive, v.shouldDrawBelowPlayerBlips, v
+end
+
 --------
 -- Init map stuff
 
@@ -251,6 +259,11 @@ function Nx.Map:SetMapByID(zone)
 			end
 		end
 	end]]--
+	
+	if not C_Map.GetMapInfo(zone) then
+		return
+	end
+	
 	if not WorldMapFrame:IsShown() and WorldMapFrame.ScrollContainer.zoomLevels then 
 		WorldMapFrame:SetMapID(zone) 
 	end
@@ -2498,7 +2511,7 @@ function Nx.Map:MinimapUpdateEnd()
 			or self.MMFScale < .02 
 			or Nx.Map.NInstMapId ~= nil -- Instance
 			or info.City and not info.MMOutside -- Cites
-			or C_Garrison.IsPlayerInGarrison(LE_GARRISON_TYPE_7_0) -- Order Halls 
+			or C_Garrison.IsPlayerInGarrison(Enum.GarrisonType.Type_7_0) -- Order Halls 
 		then
 			mm:SetPoint ("TOPLEFT", 1, 0)
 			mm:SetScale (.02)
@@ -4817,29 +4830,30 @@ function Nx.Map:Update (elapsed)
 
 	-- Battlefield Vehicles
 
-	local vtex = _G["VECHICLE_DRAW_INFO"]
+	--local vtex = _G["VECHICLE_DRAW_INFO"]
 
 	for n = 1, GetNumBattlefieldVehicles() do
 
-		local x, y, unitName, possessed, typ, orientation, player = GetBattlefieldVehicleInfo (n, Nx.Map:GetCurrentMapId())
+		local x, y, unitName, possessed, typ, orientation, player, isAlive, shouldDrawBelowPlayerBlips, vehicleInfo = GetBattlefieldVehicleInfo (n, Nx.Map:GetCurrentMapId())
+
 		if x and x > 0 and not player then
 
 --			Nx.prtCtrl ("#%s %s %.2f %.2f %.3f %s %s %s", n, unitName or "nil", x or -1, y or -1, orientation or -1, typ or "no type", possessed and "poss" or "-poss", player and "plyr" or "-plyr")
 
-			if vtex[typ] then
+			if vehicleInfo.atlas then
 				local f2 = self:GetIconNI (1)
 				local sc = self.ScaleDraw * 0.8
 				if self.InstanceId then
 					sc = .5		-- Airships
 				end
-				if typ == "Drive" or typ == "Fly" then
+				if typ == "Vehicle-Ground-Unoccupied" or typ == "Vehicle-Ground-Occupied" or typ == "Vehicle-Air-Unoccupied" or typ == "Vehicle-Air-Occupied" then
 					sc = 1
 					if self.InstanceId then
 						sc = .7
 					end
 				end
-				if self:ClipFrameZ (f2, x * 100, y * 100, vtex[typ]["width"] * sc, vtex[typ]["height"] * sc, orientation / PI * -180) then
-					f2.texture:SetTexture (VehicleUtil.GetVehicleTexture (typ, possessed))
+				if self:ClipFrameZ (f2, x * 100, y * 100, vehicleInfo.textureWidth * sc, vehicleInfo.textureHeight * sc, orientation / PI * -180) then
+					f2.texture:SetTexture ("Interface\\Minimap\\" .. vehicleInfo.atlas)
 				end
 
 --				Nx.prtCtrl ("%s %s %s %s", unitName, x, y, orientation)
@@ -6441,12 +6455,12 @@ function Nx.Map:MoveZoneTiles (cont, zone, frms, alpha, level)
 		end
 	end
 	
-	--[[if cont == 11 then 
-		zw = zw + (self.DebugMZWOff or 0)
-		zh = zh + (self.DebugMZHOff or 0)
-		zx = zx + (self.DebugMXOff or 0)
-		zy = zy + (self.DebugMYOff or 0)
-	end]]--
+	--if Nx.db.profile.Debug.DebugMap and zone == 1409 then 
+	--	zw = zw + (self.DebugMZWOff or 0)
+	--	zh = zh + (self.DebugMZHOff or 0)
+	--	zx = zx + (self.DebugMXOff or 0)
+	--	zy = zy + (self.DebugMYOff or 0)
+	--end
 	
 	local clipW = self.MapW
 	local clipH = self.MapH
@@ -6960,8 +6974,8 @@ function Nx.Map:UpdateMiniFrames()
 --	local zname, zx, zy
 
 	local miniT, basex, basey = self:GetMiniInfo (mapId)
---	basex = basex + (self.DebugPXOff or 0)
---	basey = basey + (self.DebugPYOff or 0)
+	--basex = basex + (self.DebugMXOff or 0)
+	--basey = basey + (self.DebugMYOff or 0)
 	
 	if not miniT then
 		self:HideMiniFrames()
@@ -6976,7 +6990,7 @@ function Nx.Map:UpdateMiniFrames()
 
 	local scale = 256 * 0.416767770014
 	local size = scale
-
+	
 --	size = size - 4
 
 	local miniX = floor ((self.MapPosXDraw - basex) / scale - self.MiniBlks / 2 + .5)
@@ -9078,7 +9092,7 @@ function Nx.Map:InitTables()
 	--V403
 
 	Nx.Map.MapZones = {
-		 [0] = {12,13,101,113,948,424,572,619,905,875,876,0,-1},
+		 [0] = {12,13,101,113,948,424,572,619,905,875,876,1409,0,-1},
 		 [1] = {1,7,10,57,62,63,64,65,66,69,70,71,76,77,78,80,81,83,85,86,88,89,97,103,106,198,199,249,327,338,460,461,462,463,468,1469,1527},
 		 [2] = {14,15,17,18,21,22,23,25,26,27,32,36,37,42,47,48,49,50,51,52,56,84,87,90,94,95,110,122,124,179,201,202,203,204,205,210,217,218,224,241,244,245,425,427,465,467,469,1470},
 		 [3] = {100,102,104,105,107,108,109,111},
@@ -10313,9 +10327,9 @@ end
 --------
 --	Used for id = TomTom:SetCustomWaypoint (c, z, x, y, callback, minimap, world, silent)
 
-function Nx:TTSetCustomWaypoint (cont, zx, zy, opt)
-	-- Modified for Routes compatibility
-	return Nx:TTSetCustomMFWaypoint(cont, nil, zx, zy, opt)
+function Nx:TTSetCustomWaypoint (cont, zone, zx, zy, callbackT)
+
+	return Nx:TTAddZWaypoint (cont, zone, zx, zy, "", false, nil, nil, callbackT)
 end
 
 --------

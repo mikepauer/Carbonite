@@ -534,6 +534,8 @@ Nx.Zones = {
 	[1470] = L["Vision of Stormwind"] .. "|0|0|3|2||",
 	[1527] = L["Uldum"] .. "|80|90|2|1||",
 	[1530] = L["Vale of Eternal Blossoms2"] .. "|80|90|2|6||",
+	
+	[1409] = L["Exile's Reach"] .. "|0|0|2|0||",
 }
 
 

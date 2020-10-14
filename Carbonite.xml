@@ -22,7 +22,7 @@
 <UnitPositionFrame name="NXWorldMapUnitPositionFrame" frameLevel="1500" inherits="UnitPositionFrameTemplate">
 </UnitPositionFrame>
 
-<Slider name="NxSliderFrame" orientation="HORIZONTAL" virtual="true">
+<Slider name="NxSliderFrame" orientation="HORIZONTAL" virtual="true" inherits="BackdropTemplate">
 	<Backdrop bgFile="Interface\Buttons\UI-SliderBar-Background" edgeFile="Interface\Buttons\UI-SliderBar-Border" tile="true">
 		<EdgeSize>
 			<AbsValue val="8" />

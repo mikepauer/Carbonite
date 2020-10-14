@@ -1496,7 +1496,7 @@ function Nx.Map.Guide:UpdateMapGeneralIcons (cont, showType, hideFac, tx, name, 
 						local mapName = map:GetMapNameByID(mapId)
 						local wx, wy = map:GetWorldPos (mapId, x, y)
 						local icon = map:AddIconPt (iconType, wx, wy, level, nil, tx)
-						local str = format ("%s\n%s\n%s %.1f %.1f", name, locName:gsub("\239\188\140.*$",""), mapName, x, y)
+						local str = format ("%s\n%s\n%s %.1f %.1f", name, locName:gsub("\239\188\140.*$",""), mapName or "? (".. mapId ..")", x, y)
 						map:SetIconTip (icon, str)
 					end
 				end
@@ -1528,7 +1528,7 @@ function Nx.Map.Guide:UpdateMapGeneralIcons (cont, showType, hideFac, tx, name, 
 									if not map:GetMapNameByID(mapId) then
 										Nx.prt("Guide Icon Err: " .. mapId)
 									end
-									local str = format ("%s\n%s %.1f %.1f", name, map:GetMapNameByID(mapId), x, y)
+									local str = format ("%s\n%s %.1f %.1f", name, map:GetMapNameByID(mapId) or "? (".. mapId ..")", x, y)
 									map:SetIconTip (icon, str)
 								end
 							end
