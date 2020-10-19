@@ -868,7 +868,7 @@ function Nx:SetupEverything()
 			
 			if ZGV.CarbUpdateGotoTimer then ZGV.CarbUpdateGotoTimer:Cancel() end
 			
-			ZGV.CarbUpdateGotoTimer = C_Timer.After(.5, function() 
+			ZGV.CarbUpdateGotoTimer = C_Timer.After(1, function() 
 			
 				local way_type = data.type or nil
 				

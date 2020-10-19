@@ -2183,6 +2183,7 @@ function Nx.Map:MinimapButtonShowUpdate (justNameplate)
 		"GameTimeFrame", "ButShowCalendar",
 		"TimeManagerClockButton", "ButShowClock",
 		"MiniMapWorldMapButton", "ButShowWorldMap",
+		"MinimapZoneTextButton"
 	}
 
 	for n = 1, #t, 2 do
