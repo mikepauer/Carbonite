@@ -369,6 +369,21 @@ local function mapConfig ()
 								Nx.db.profile.Map.MaxRestoreHide = not Nx.db.profile.Map.MaxRestoreHide
 							end,
 						},
+						
+						mZGVUpdateGoto = {
+							order = 7,
+							type = "toggle",
+							width = "full",
+							name = L["Use GoTo waypoints with Zygor Guides"] .. "\n",
+							desc = L["When enabled Carbonite will follow Zygor Guides steps and set Goto waypoints on the map."],
+							get = function()
+								return Nx.db.profile.Map.ZGVUpdateGoto
+							end,
+							set = function()
+								Nx.db.profile.Map.ZGVUpdateGoto = not Nx.db.profile.Map.ZGVUpdateGoto
+							end,
+						},
+						
 						spacer1 = {
 							order = 8,
 							type = "description",

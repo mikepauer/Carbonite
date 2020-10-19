@@ -437,6 +437,7 @@ local defaults = {
 			MaxMouseIgnore = false,
 			MaxOverride = true,
 			MaxRestoreHide = false,
+			ZGVUpdateGoto = true,
 			MouseIgnore = false,
 			PlyrArrowSize = 32,
 			RestoreScaleAfterTrack = true,
@@ -852,23 +853,47 @@ function Nx:SetupEverything()
 	
 	-- Adding support for Zygor Waypoint system
 	if ZGV and ZGV.Pointer then
+		
+		ZGV.CarbUpdateGoto = false
+		
+		hooksecurefunc(ZGV, "FocusStep", function ()
+			ZGV.CarbUpdateGoto = true
+		end)
+		
+		hooksecurefunc(ZGV.GoalProto, "OnClick", function ()
+			ZGV.CarbUpdateGoto = true
+		end)
+		
 		hooksecurefunc(ZGV.Pointer, "SetWaypoint", function (e, m, x, y, data, arrow)
-			local map = Nx.Map:GetMap (1)
-			if not m then
-				if WorldMapFrame:IsShown() then m=WorldMapFrame:GetMapID() else m=C_Map.GetBestMapForUnit("player") end
-			end
 			
-			x = x or 0;	
-			y = y or 0;
+			if ZGV.CarbUpdateGotoTimer then ZGV.CarbUpdateGotoTimer:Cancel() end
 			
-			local wx, wy = map:GetWorldPos (m, x*100, y*100)
-			local title = (ZGV.CurrentStep.current_waypoint_goal_num and ZGV.CurrentStep.goals) and ZGV.CurrentStep.goals[ZGV.CurrentStep.current_waypoint_goal_num]:GetText() or ""
+			ZGV.CarbUpdateGotoTimer = C_Timer.After(.5, function() 
 			
-			if ZygorGuidesViewerFrame:IsVisible() then 
-				map:SetTarget ("Goto", wx, wy, wx, wy, nil, nil, title or "Zygor Waypoint (check step in Zygor Guide Viewer)", nil, m)
-			end
+				local way_type = data.type or nil
+				
+				if Nx.db.profile.Map.ZGVUpdateGoto and ZGV.CarbUpdateGoto and ZygorGuidesViewerFrame:IsVisible() and way_type == "route" and ZGV.Pointer.waypoints then 			
+					
+					local map = Nx.Map:GetMap (1)				
+					
+					for k, way in ipairs(ZGV.Pointer.waypoints) do
+						if way.arrowtitle then
+							local x = way.x or 0;	
+							local y = way.y or 0;
+							
+							local wx, wy = map:GetWorldPos (m, x*100, y*100)
+							local wx, wy = map:GetWorldPos (m, x*100, y*100)
+
+							if k == #ZGV.Pointer.waypoints then
+								map:SetTarget ("Goto", wx, wy, wx, wy, nil, nil, way.arrowtitle, nil, way.m)
+							end
+						end
+					end
+					
+					ZGV.CarbUpdateGoto = false
+				end
 			
-			return waypoint
+			end)
 		end)
 	end
 end
