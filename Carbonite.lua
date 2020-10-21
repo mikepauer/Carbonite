@@ -791,6 +791,10 @@ function Nx:NXOnLoad (frm)
 	Nx.CalendarDate = 0		-- For safety if Map update happens early
 end
 
+-- /rl for Reload
+SLASH_RL1 = "/rl"
+function SlashCmdList.RL(text)  ReloadUI()  end
+
 --------
 --
 function Nx:SetupEverything()
