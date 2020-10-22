@@ -4286,7 +4286,9 @@ function Nx.Map:UpdateWorld()
 	self.CurWorldUpdateMapId = mapId
 	self.CurWorldUpdateOverlayNum = i
 	self.LastDungeonLevel = Nx.Map:GetCurrentMapDungeonLevel()
-
+	
+	local _isMicro = self:IsMicroDungeon(mapId);
+	
 	self.LastDungeonLevel = Nx.Map:GetCurrentMapDungeonLevel()
 	local mapInfo = C_Map.GetMapInfo(mapId)
 	local mapFileName = winfo.Overlay or (mapInfo.name and mapInfo.name:gsub(" ", "") or "")
@@ -4328,6 +4330,7 @@ function Nx.Map:UpdateWorld()
 	local numtiles = tileX * tileY
 	
 	local GetMapArtLayerTexturesMapId = ((self.MapWorldInfo[mapId] and self.MapWorldInfo[mapId].RBaseMap) and self.MapWorldInfo[mapId].RBaseMap or mapId)
+	if winfo.Garrison then GetMapArtLayerTexturesMapId = mapId end
 	if GetMapArtLayerTexturesMapId == nil then
 		return
 	end
@@ -6375,6 +6378,9 @@ end
 
 function Nx.Map:MoveCurZoneTiles (clear)
 
+	if not Nx.ZonePlrFrm then Nx.ZonePlrFrm = CreateFrame("Frame", "ZonePlrFrm", self.Frm) end
+	local f = Nx.ZonePlrFrm
+
 	local mapId = self.MapId
 	local wzone = self:GetWorldZone (mapId)
 	if not wzone then
@@ -6402,6 +6408,45 @@ function Nx.Map:MoveCurZoneTiles (clear)
 			end
 		end
 	end
+	
+	--[[if C_Garrison.IsPlayerInGarrison(Enum.GarrisonType.Type_6_0) then
+		
+		if not clear and
+			(not wzone or wzone.City or (wzone.StartZone and Nx.Map.RMapId == mapId) or
+			self:IsBattleGroundMap (Nx.Map.RMapId)) or self:IsMicroDungeon(Nx.Map.RMapId) then
+
+			f:SetFrameStrata("DIALOG")
+
+			f.texture = f:CreateTexture()
+			f.texture:SetAllPoints (f)
+			f.texture:SetColorTexture (1, 0, 0, 0)
+
+			f:SetPoint("TOPLEFT", 0, 0)
+			
+			NXWorldMapUnitPositionFrame:SetParent("ZonePlrFrm")
+			NXWorldMapUnitPositionFrame:SetAllPoints()
+			NXWorldMapUnitPositionFrame:SetFrameLevel(40)
+			
+			self:ClipZoneFrm(self.Cont, self.Zone, f, 1)
+			
+			f:SetWidth(1002)
+			f:SetHeight(668)
+			
+			f:Show()
+			
+		else		
+			f:Hide()
+		end
+		
+		local ZonePlrFrmInstancePlayerSize = Nx.db.profile.Map.InstancePlayerSize
+		
+		Nx.db.profile.Map.InstancePlayerSize = 64
+		Nx.Map:NXWorldMapUnitPositionFrame_UpdatePlayerPins()
+		Nx.db.profile.Map.InstancePlayerSize = ZonePlrFrmInstancePlayerSize
+	
+	end]]--
+	
+	self.Frm:SetClipsChildren(true)
 end
 
 --------
@@ -7828,7 +7873,7 @@ end
 -- Clip full zone frame to map
 
 function Nx.Map:ClipZoneFrm (cont, zone, frm, alpha)
-
+	
 	local zname, zx, zy, zw, zh
 	zname, zx, zy, zw, zh = self:GetWorldZoneInfo (cont, zone)
 	if not zx then
@@ -8974,7 +9019,7 @@ function Nx.Map:UpdateInstanceMap()
 			end
 		end
 		
-		if not ((Nx.Map:IsInstanceMap(Nx.Map.RMapId) or Nx.Map:IsBattleGroundMap(Nx.Map.RMapId)) and self.CurOpts.NXInstanceMaps) then		
+		if not ((Nx.Map:IsInstanceMap(Nx.Map.RMapId) or Nx.Map:IsBattleGroundMap(Nx.Map.RMapId)) and self.CurOpts.NXInstanceMaps) and not C_Garrison.IsPlayerInGarrison(Enum.GarrisonType.Type_7_0) then		
 			
 			Nx.Map.MouseOver = false
 			Nx.Map:GetMap(1).PlyrFrm:Hide()
@@ -8992,24 +9037,44 @@ function Nx.Map:UpdateInstanceMap()
 				-- RED BG FOR TESTING
 				--f.texture = f:CreateTexture()
 				--f.texture:SetAllPoints (f)
-				--f.texture:SetColorTexture (1, 0, 0, 0.2)
+				--f.texture:SetColorTexture (1, 0, 0, 0.5)
 			end
 			
-			c:SetParent(f)
-			c:SetSize(100,100)
-			f:SetScrollChild(c)
+			if C_Garrison.IsPlayerInGarrison(Enum.GarrisonType.Type_6_0) then
 			
-			--Nx.prt("%s", info[is_n + 1])
-			local w = 4 * (1002 / 1024)  -- (info[is_n + 1] * .04 * 1002 / 1024) * -1
-			local h = 3 * (668 / 768) -- (info[is_n + 1] * .03 * 668 / 768) * -1
-			local dungeonLevel = Nx.Map:GetCurrentMapDungeonLevel() > 0 and Nx.Map:GetCurrentMapDungeonLevel() -1 or 0
+				c:SetParent(f)
+				c:SetAllPoints();
+				c:SetScale(3 * (50 / Nx.db.profile.Map.InstancePlayerSize) * (1 / self.ScaleDraw))
+				
+				f:SetScrollChild(c)
+				
+				self:ClipZoneFrm(self.Cont, self.Zone, f, 1)
+				--print(self.Cont.." "..self.Zone)
+				f:SetWidth(1002)
+				f:SetHeight(668)
+				
+				f:Show()
+				
+			else 
 			
-			local x1, y1, x2, y2 = self:ClipFrameINST (f, wx, wy + (h * dungeonLevel), w, h, true)
-			
-			--Nx.prt("%s, %s, %s, %s", x1, y1, x2, y2)
-			
-			c:SetPoint("TOPLEFT", x1 * -1, y1) -- -10, 10
-			c:SetPoint("BOTTOMRIGHT", x2 * -1, y2) -- 10, -10
+				c:SetParent(f)
+				c:SetSize(100,100)
+				c:SetScale(0.5)
+				f:SetScrollChild(c)
+				
+				--Nx.prt("%s", info[is_n + 1])
+				local w = 4 * (1002 / 1024)  -- (info[is_n + 1] * .04 * 1002 / 1024) * -1
+				local h = 3 * (668 / 768) -- (info[is_n + 1] * .03 * 668 / 768) * -1
+				local dungeonLevel = Nx.Map:GetCurrentMapDungeonLevel() > 0 and Nx.Map:GetCurrentMapDungeonLevel() -1 or 0
+				
+				local x1, y1, x2, y2 = self:ClipFrameINST (f, wx, wy + (h * dungeonLevel), w, h, true)
+				
+				--Nx.prt("%s, %s, %s, %s", x1, y1, x2, y2)
+				
+				c:SetPoint("TOPLEFT", x1 * -1, y1) -- -10, 10
+				c:SetPoint("BOTTOMRIGHT", x2 * -1, y2) -- 10, -10
+
+			end
 			
 			Nx.Map:NXWorldMapUnitPositionFrame_UpdatePlayerPins()
 		else 
@@ -9100,7 +9165,7 @@ function Nx.Map:InitTables()
 		 [4] = {114,115,116,117,118,119,120,121,123,125,127,170},
 		 [5] = {174,194,207,276,407},
 		 [6] = {371,376,378,379,388,390,418,422,433,504,507,554,1530},
-		 [7] = {525,539,535,534,542,543,550,577,579,585,588,622,624},
+		 [7] = {525,539,535,534,542,543,550,577,582,588,590,622,624},
 		 [8] = {625,630,634,641,646,650,672,680,750},
 		 [9] = {830,882,885},
 		 [10] = {862,863,864,1165},
@@ -9792,8 +9857,8 @@ function Nx.Map:IsBattleGroundMap (mapId)
 end
 
 function Nx.Map:IsMicroDungeon(mapId)
-	local mapType = C_Map.GetMapInfo(mapId)
-	if mapType == 5 then return true end
+	local mapInfo = C_Map.GetMapInfo(mapId)
+	if mapInfo.mapType == 5 then return true end
 	return false
 end
 
@@ -9839,6 +9904,8 @@ end
 
 function Nx.Map:GetWorldZoneInfo (cont, zone)
 	local org_zone = zone
+	cont = tonumber(cont)
+	zone = tonumber(zone)
 	if not cont or not zone then
 		return "unknown", 0, 0, 1002, 668
 	end

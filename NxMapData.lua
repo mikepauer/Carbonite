@@ -1316,41 +1316,34 @@ Map.MapWorldInfo = {
 		Overlay = "tanaanjungleintro",
 	},
 	[579] = {
+		BaseMap = 582,
+	},
+	[580] = {
+		BaseMap = 582,
+	},
+	[581] = {
+		BaseMap = 582,
+	},
+	[582] = {
 		Scale = 1.36666796875,
 		X = -109.166796875,
 		Y = -418.3333984375,
 		Garrison = true,
+		Instance = true,
 		City = true,
 		MMOutside = true,
 		Explored = true,
 		MapBaseName = "garrisonsmvalliance_tier",
 		Overlay = "garrisonsmvalliance_tier1",
 	},
-	[580] = {
-		BaseMap = 579,
-	},
-	[581] = {
-		BaseMap = 579,
-	},
-	[582] = {
-		BaseMap = 579,
-	},
 	[585] = {
-		Scale = 1.404166015625,
-		X = -977.083203125,
-		Y = -1162.9166015625,
-		Garrison = true,
-		City = true,
-		MMOutside = true,
-		Explored = true,
-		MapBaseName = "garrisonffhorde_tier",
-		Overlay = "garrisonffhorde_tier1",
+		BaseMap = 590
 	},
 	[586] = {
-		BaseMap = 585
+		BaseMap = 590
 	},
 	[587] = {
-		BaseMap = 585
+		BaseMap = 590
 	},
 	[588] = {
 		Scale = 6.2458203125,
@@ -1360,7 +1353,16 @@ Map.MapWorldInfo = {
 		Overlay = "ashran",
 	},
 	[590] = {
-		BaseMap = 585
+		Scale = 1.404166015625,
+		X = -977.083203125,
+		Y = -1162.9166015625,
+		Garrison = true,
+		Instance = true,
+		City = true,
+		MMOutside = true,
+		Explored = true,
+		MapBaseName = "garrisonffhorde_tier",
+		Overlay = "garrisonffhorde_tier1",
 	},	
 	[619] = {
 		Scale = 37.67636,
