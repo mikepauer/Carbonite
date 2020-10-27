@@ -332,7 +332,7 @@ function Nx.Com:OnFriendguild_update()
 		local name = finfo.name
 		local con = finfo.connected
 		if not Nx.strpos(name, "-") then
-			local realmname = GetRealmName()
+			local playername, realmname = UnitFullName("player")
 			name = name .. "-" .. (realmname and "-" .. realmname or "")
 		end
 		if con then
@@ -530,7 +530,7 @@ function Nx.Com:OnChat_msg_addon (args, distribution, target)
 
 	local name = target
 	if not Nx.strpos(name, "-") then
-		local realmname = GetRealmName()
+		local playername, realmname = UnitFullName("player")
 		name = name .. (realmname and "-" .. realmname or "")
 	end
 
