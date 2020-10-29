@@ -10357,14 +10357,9 @@ end
 ----------------
 -- External functions (for TomTom and Cartographer emulation)
 
---------
--- Used for id = TomTom:AddWaypoint (x, y, desc, persistent, minimap, world, silent)
--- self is bad if called by TomTom
--- TomTom:AddWaypoint parameters chaged to emulate current TomTom version: v80200-1.0.5
+-- TomTom:AddWaypoint parameters chaged to emulate current TomTom version: Version: v90001-1.1.5
 function Nx:TTAddWaypoint (mid, zx, zy, opt)
-
 	local map = Nx.Map:GetMap (1)
-
 	local tar = map:SetTargetXY (mid, zx*100, zy*100, opt.title, true)
 
 	map:ChangeTargetOrder (-1, 1)
@@ -10377,38 +10372,17 @@ function Nx:TTWayCmd(msg,editbox)
 	map:SetTargetAtStr (msg, true)
 end
 
---------
--- Used for id = TomTom:AddZWaypoint (c, z, x, y, desc, persistent, minimap, world, callbacks, silent, crazy)
 
-function Nx:TTAddZWaypoint (cont, zone, zx, zy, name, _persist, _minimap, _world, callbackT)
+-- TomTom:SetCustomWaypoint parameters chaged to emulate current TomTom version: Version: v90001-1.1.5
+function Nx:TTSetCustomWaypoint (mid, zx, zy, opt)
+	return Nx:TTSetTarget (mid, zx*100, zy*100, opt.title, opt.callbacks)
+end
 
-	local map = Nx.Map:GetMap (1)
-	local mid = map:GetCurrentMapId()
-
-	if cont and zone then
-		mid = map:CZ2MapId (cont, zone)
+-- TomTom:SetClosestWaypoint - practically not needed - but for error-free run
+function Nx:TTSetClosestWaypoint(verbose)
+	if verbose then
+		Nx.prt ("TomTom:SetClosestWaypoint not implemented.")
 	end
-
-	return Nx:TTSetTarget (mid, zx, zy, name, callbackT)
-end
-
---------
---	Used for id = TomTom:SetCustomWaypoint (c, z, x, y, callback, minimap, world, silent)
-
-function Nx:TTSetCustomWaypoint (cont, zone, zx, zy, callbackT)
-
-	return Nx:TTAddZWaypoint (cont, zone, zx, zy, "", false, nil, nil, callbackT)
-end
-
---------
---	Used for id = TomTom:SetCustomMFWaypoint (m, f, x, y, opts)
-
-function Nx:TTSetCustomMFWaypoint (aid, _floor, zx, zy, opts)
-
-	zx = zx * 100
-	zy = zy * 100
-
-	return Nx:TTSetTarget (aid, zx, zy, opts["title"], opts["callbacks"])
 end
 
 
