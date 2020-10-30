@@ -1990,7 +1990,7 @@ function Nx.Map:MinimapOwnInit()
 		Nx.Map:MinimapButtonShowUpdate()
 		return
 	end
-	mm:SetMaskTexture ("textures\\MinimapMask")
+	mm:SetMaskTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\MinimapMask")
 	self:MinimapNodeGlowInit()
 	Nx.Map:MinimapButtonShowUpdate (true)
 
@@ -2607,7 +2607,7 @@ end
 
 function Nx.Map:MinimapUpdateMask (optName)
 
-	local name = Nx.db.profile.MiniMap[optName] and "Interface\\Buttons\\White8x8" or "textures\\MinimapMask"
+	local name = Nx.db.profile.MiniMap[optName] and "Interface\\Buttons\\White8x8" or "Interface\\AddOns\\Carbonite\\Gfx\\Map\\MinimapMask"
 
 --	if IsControlKeyDown() then
 --		self.MMMaskName = nil
