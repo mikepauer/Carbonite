@@ -6934,45 +6934,48 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 				local f = self:GetIconNI (lev)
 
 				local wx, wy = self:GetWorldPos (mapId, (oX + bX * TILE_SIZE_WIDTH) / layerInfo.layerWidth * 100, (oY + bY * TILE_SIZE_HEIGHT) / layerInfo.layerHeight * 100)
-
-				if self:ClipFrameTL (f, wx, wy, txFileW * zscale, txFileH * zscale) then
-
-					f.texture:SetColorTexture (1, 0, 0, 0) -- fix for background green overlays
---[[
-					if IsAltKeyDown() then		-- DEBUG!
-						alpha = .2
+				
+				if string.find(oName, "_") and bX == 0 and bY == 0 then
+				
+					local nName, nW, nH = Nx.Split (",", oName)
+					nW = tonumber(nW)
+					nH = tonumber(nH)
+					if self:ClipFrameTL (f, wx, wy, nW * zscale, nH * zscale) then
+						f.texture:SetColorTexture (1, 0, 0, 0)
+						f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\Conv\\"..nName)
+						f.texture:SetVertexColor (brt, brt, brt, alpha)
 					end
---]]
-					if arTx then
-						if string.find(oName, "_") and bX == 0 and bY == 0 then
-							local f2 = self:GetIconNI (lev)	
-							local nName, nW, nH = Nx.Split (",", oName)
-							nW = tonumber(nW)
-							nH = tonumber(nH)
-							if self:ClipFrameTL (f2, wx, wy, nW * zscale, nH * zscale) then
-								f2.texture:SetColorTexture (1, 0, 0, 0)
-								f2.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\Conv\\"..nName)
-								f2.texture:SetVertexColor (brt, brt, brt, alpha)
-							end
-						else
-							--f.texture:SetTexture (arTx[txIndex])
+					
+				else
+				
+					if self:ClipFrameTL (f, wx, wy, txFileW * zscale, txFileH * zscale) then
+
+						f.texture:SetColorTexture (1, 0, 0, 0) -- fix for background green overlays
+	--[[
+						if IsAltKeyDown() then		-- DEBUG!
+							alpha = .2
 						end
-					else 
-						f.texture:SetTexture (mode and txName or txName .. txIndex)
-					end
-					f.texture:SetVertexColor (brt, brt, brt, alpha)					
---					if IsControlKeyDown() then
---						Nx.prt ("Overlay %s, %s, %s %s", txName, txIndex, oX, oY)
---					end
+	--]]
+						if arTx then
+							--f.texture:SetTexture (arTx[txIndex])
+						else 
+							f.texture:SetTexture (mode and txName or txName .. txIndex)
+						end
+						f.texture:SetVertexColor (brt, brt, brt, alpha)					
+	--					if IsControlKeyDown() then
+	--						Nx.prt ("Overlay %s, %s, %s %s", txName, txIndex, oX, oY)
+	--					end
 
---[[ -- Map cap
-					if bright < 1 then
-						f.texture:SetVertexColor (1, 1, 1, 1)
---						SetDesaturation (f.texture, 1)
+	--[[ -- Map cap
+						if bright < 1 then
+							f.texture:SetVertexColor (1, 1, 1, 1)
+	--						SetDesaturation (f.texture, 1)
+						end
+	--]]
 					end
---]]
+				
 				end
-
+				
 				txIndex = txIndex + 1
 			end
 		end
