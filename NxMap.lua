@@ -6946,13 +6946,16 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 					if arTx then
 						if string.find(oName, "_") and bX == 0 and bY == 0 then
 							local f2 = self:GetIconNI (lev)	
-							if self:ClipFrameTL (f2, wx, wy, 2048 * zscale, 2048 * zscale) then
+							local nName, nW, nH = Nx.Split (",", oName)
+							nW = tonumber(nW)
+							nH = tonumber(nH)
+							if self:ClipFrameTL (f2, wx, wy, nW * zscale, nH * zscale) then
 								f2.texture:SetColorTexture (1, 0, 0, 0)
-								f2.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\Conv\\"..string.gsub(oName, ",", ""))
+								f2.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\Conv\\"..nName)
 								f2.texture:SetVertexColor (brt, brt, brt, alpha)
 							end
 						else
-							f.texture:SetTexture (arTx[txIndex])
+							--f.texture:SetTexture (arTx[txIndex])
 						end
 					else 
 						f.texture:SetTexture (mode and txName or txName .. txIndex)
