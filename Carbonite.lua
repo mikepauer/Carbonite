@@ -148,11 +148,11 @@ Nx.Whatsnew.HasWhatsNew = nil
 function GetCurrencyInfo(_type)
 
 	if _type == 390 then
-		_type = Constant.Currency.Conquest
+		_type = CONQUEST_CURRENCY
 	end
 	
 	if _type == 392 then
-		_type = Constant.Currency.Honor
+		_type = HONOR_CURRENCY
 	end
 	
 	local v = C_CurrencyInfo.GetCurrencyInfo(_type)
