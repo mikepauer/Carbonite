@@ -116,7 +116,15 @@ Map.MapInfo = {
 		ZYOff = 3000 + -157.43,
 		ZWOff = -153.59,
 		ZHOff = -98,10
-	},	
+	},
+	[13] = {
+		Name = L["The Shadowlands"],
+		FileName = "theshadowlands",
+		X = -7500,
+		Y = -400,
+		TileX = 15,
+		TileY = 10,
+	},
 	[90] = {
 		Name = "BG",
 		X = 2000,
@@ -1596,7 +1604,51 @@ Map.MapWorldInfo = {
 		Name = L["Nazjatar"],
 		Overlay = "nazjatar",
 	},
+	
+	-- The Shadowlands
+	
+	[1550] = {
+		Scale = 48.3125,
+		X = -2513.75,
+		Y = -1266.25,
+	},
 
+	[1525] = {
+		Scale = 11.254166,
+		X = -1883.3332,
+		Y = 68.75,
+		Name = L["Revendreth"],
+		Overlay = "revendreth",
+	},
+	[1533] = {
+		Scale = 13.3375,
+		X = 284.1668,
+		Y = 172.5,
+		Name = L["Bastion"],
+		Overlay = "bastion",
+	},
+	[1536] = {
+		Scale = 12.6,
+		X = -125.4168,
+		Y = -963.3332,
+		Name = L["Maldraxxus"],
+		Overlay = "maldraxxus",
+	},
+	[1543] = {
+		Scale = 8.279166,
+		X = -1733.3332,
+		Y = -1146.6666,
+		Name = L["The Maw"],
+		Overlay = "themaw",
+	},
+	[1565] = {
+		Scale = 14.27916,
+		X = -863.75,
+		Y = 871.666,
+		Name = L["Ardenweald"],
+		Overlay = "ardenweald",
+	},
+	
 	-- 1726 NPE SHIP
 	
 	[1409] = {
@@ -3536,11 +3588,13 @@ Map.ZoneOverlays = {
 },
 	
 ["revendreth"] = {
+        ["_destroyed,1024,1024"] = "1527,300,685,688",
         ["_archivam,1024,1024"] = "2290,474,1019,737",
         ["_caretakermanor,1024,1024"] = "2597,1316,718,847",
         ["_castlenathria,1024,2048"] = "1647,484,885,1060",
         ["_darkhaven,1024,2048"] = "1987,1377,711,1183",
         ["_darkwalltower,1024,2048"] = "1306,555,586,1091",
+        ["_dominancekeep,2048,1024"] = "485,0,1192,963",
         ["_dreadhaven,2048,1024"] = "869,1682,1087,878",
         ["_hallsofatonement,2048,1024"] = "1974,919,1339,746",
         ["_intact,1024,1024"] = "1527,300,685,688",
@@ -3580,11 +3634,13 @@ Map.ZoneOverlays = {
         ["_forgottenwounds,1024,1024"] = "1815,517,694,666",
         ["_glutharnsdecay,1024,1024"] = "2028,894,719,802",
         ["_houseofconstructs,1024,2048"] = "631,46,951,1071",
+        ["_houseofeyes,1024,1024"] = "1692,0,932,919",
         ["_houseofrituals,2048,2048"] = "2232,13,1363,1137",
         ["_houseofthechosen,2048,2048"] = "330,1351,1508,1209",
         ["_houseoftheplagues,2048,2048"] = "1582,1424,1925,1136",
         ["_rottingmound,2048,1024"] = "2438,785,1194,998",
         ["_seatoftheprimus,1024,1024"] = "1551,1342,757,985",
+        ["_sepulcher,1024,2048"] = "1202,0,858,1178",
         ["_spearhead,1024,1024"] = "1171,836,673,788",
         ["_stitchyard,2048,2048"] = "261,65,1231,1391",
         ["_theaterofpain,1024,1024"] = "1566,862,730,730",
@@ -3592,14 +3648,21 @@ Map.ZoneOverlays = {
 ["themaw"] = {
         ["_altardamnation,1024,2048"] = "262,1423,954,1076",
         ["_beastwarrens,1024,1024"] = "1442,1262,1009,835",
+        ["_calcis,2048,2048"] = "0,342,1232,1236",
         ["_cocyrus,2048,1024"] = "1100,696,1186,821",
         ["_crucibledamned,2048,1024"] = "49,918,1053,934",
+        ["_desmotaeron,2048,2048"] = "1797,0,1488,1946",
+        ["_gorgoa,2048,1024"] = "1171,0,1504,929",
         ["_marrow,1024,1024"] = "1404,1831,928,729",
         ["_perditionhold,1024,2048"] = "808,1201,928,1359",
+        ["_planesoftorment,2048,1024"] = "183,0,1395,932",
         ["_ravener,2048,1024"] = "1856,1572,1408,988",
         ["_zovaalscauldron,2048,1024"] = "772,598,1078,824",
         ["_crucibledamned,2048,1024"] = "49,918,1053,934",
+        ["_calcis,2048,2048"] = "0,342,1232,1236",
         ["_cocyrus,2048,1024"] = "1100,696,1186,821",
+        ["_gorgoa,2048,1024"] = "1171,0,1504,929",
+        ["_planesoftorment,2048,1024"] = "183,0,1395,932",
         ["_zovaalscauldron,2048,1024"] = "772,598,1078,824",
 },
 ["ardenweald"] = {
