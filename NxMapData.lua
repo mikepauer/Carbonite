@@ -1651,6 +1651,17 @@ Map.MapWorldInfo = {
 		Name = L["Ardenweald"],
 		Overlay = "ardenweald",
 	},
+	[1670] = {
+		Scale = 1.635,
+		X = -341.75,
+		Y = 312,
+		Name = L["Oribos"],
+		Overlay = "oribos_main",
+		MapBaseName = "oribos_arbiter",
+		City = true,
+		Alpha = .85,
+		MapLevel = 1,
+	},
 	
 	-- 1726 NPE SHIP
 	
