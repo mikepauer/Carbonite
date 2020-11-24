@@ -1641,6 +1641,9 @@ Map.MapWorldInfo = {
 		Name = L["The Maw"],
 		Overlay = "themaw",
 	},
+	[1648] = {
+		BaseMap = 1543
+	},
 	[1565] = {
 		Scale = 14.27916,
 		X = -863.75,
