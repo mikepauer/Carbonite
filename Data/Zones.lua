@@ -541,7 +541,10 @@ Nx.Zones = {
 	[1543] = L["The Maw"] .. "|110|120|2|13||",
 	[1648] = L["The Maw"] .. "|110|120|2|13||",
 	[1565] = L["Ardenweald"] .. "|110|120|2|13||",
-	[1670] = L["Oribos"] .. "|110|120|2|13||",
+	[1670] = L["Oribos - Ring of Fates"] .. "|110|120|2|13||",
+	[1671] = L["Oribos - Ring of Transference"] .. "|110|120|2|13||",
+	[1672] = L["Oribos - The Broker's Den"] .. "|110|120|2|13||",
+	[1673] = L["Oribos - The Crucible"] .. "|110|120|2|13||",
 	
 	[1409] = L["Exile's Reach"] .. "|0|0|2|0||",
 }
