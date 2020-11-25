@@ -12246,11 +12246,13 @@ function Nx.Map:GetMiniBlkName (miniT, x, y)
 	end
 end
 
-function Nx.Map:GetZoneInfo (mapid)
+function Nx.Map:GetZoneInfo (mapid, force)
 	local vec, vec2 = CreateVector2D(0,0), CreateVector2D(0.5,0.5)
 	local winfo = Nx.Map:GetMap(1).MapWorldInfo
-	if not winfo or (winfo[mapid] and winfo[mapid].Scale) then	
-		return
+	if not winfo or (winfo[mapid] and winfo[mapid].Scale) then
+		if not force then	
+			return
+		end
 	end
 	local _,topLeft = C_Map.GetWorldPosFromMapPos(mapid,vec)
 	local _,bottomRight = C_Map.GetWorldPosFromMapPos(mapid,vec2)
@@ -12266,9 +12268,21 @@ function Nx.Map:GetZoneInfo (mapid)
 		winfo[mapid].MapArt = C_Map.GetMapArtID(mapid)
 		
 		local mapinfo = C_Map.GetMapInfo(mapid)
-		if mapinfo and (mapinfo.mapType == 5 or mapinfo.mapType == 4) then				
-			winfo[mapid].Instance = true
+		if mapinfo then	
+			if mapinfo.name then
+				winfo[mapid].Name = L[mapinfo.name]
+				
+				Nx.Zones[mapid] = L[mapinfo.name] .. "|110|120|3|5|100|0|0|0"
+				Nx.Map:InitTables()
+			end
+			if mapinfo.parentMapID then
+				winfo[mapid].parentMapID = mapinfo.parentMapID
+			end
+			if mapinfo.mapType == 5 or mapinfo.mapType == 4 then
+				winfo[mapid].Instance = true
+			end
 		end
+		
 	end	
 	
 	return winfo[mapid]
