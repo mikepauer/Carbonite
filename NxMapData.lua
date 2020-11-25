@@ -12264,13 +12264,14 @@ function Nx.Map:GetZoneInfo (mapid)
 		winfo[mapid].Y = ((top * -1) / 5)
 		winfo[mapid].Scale = ((right * -1) + left) / 500
 		winfo[mapid].MapArt = C_Map.GetMapArtID(mapid)
+		
+		local mapinfo = C_Map.GetMapInfo(mapid)
+		if mapinfo and (mapinfo.mapType == 5 or mapinfo.mapType == 4) then				
+			winfo[mapid].Instance = true
+		end
 	end	
-	local mapinfo = C_Map.GetMapInfo(mapid)
-	if mapinfo and (mapinfo.mapType == 5 or mapinfo.mapType == 4) then				
-		winfo[mapid].Instance = true
-	end
 	
-	return winfo
+	return winfo[mapid]
 end
 
 Map.MapLevels={
