@@ -6028,7 +6028,18 @@ end
 -- Draw a tracking cursor and lines
 
 function Nx.Map:DrawTracking (srcX, srcY, dstX, dstY, tex, mode, name)
+	
+	function shortendistance(n)
+		if n >= 10^6 then
+			return string.format("%.2fm", n / 10^6)
+		elseif n >= 10^3 then
+			return string.format("%.2fk", n / 10^3)
+		else
+			return tostring(n)
+		end
+	end
 
+	
 	local x = dstX - srcX
 	local y = dstY - srcY
 
@@ -6044,7 +6055,7 @@ function Nx.Map:DrawTracking (srcX, srcY, dstX, dstY, tex, mode, name)
 
 		local s = name or self.TrackName
 
-		f.NxTip = format ("%s\n%d " .. L["yds"], s, dist * 4.575)
+		f.NxTip = format ("%s\n%s " .. L["yds"], s, shortendistance(dist * 4.575))
 
 		f.texture:SetTexture (tex or "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconWayTarget")
 	end
@@ -9011,6 +9022,10 @@ function Nx.Map:UpdateInstanceMap()
 		
 		local layerIndex = WorldMapFrame:GetCanvasContainer():GetCurrentLayerIndex();
 		local textures = C_Map.GetMapArtLayerTextures(mapId, layerIndex)
+		local layers = C_Map.GetMapArtLayers(mapId)
+
+		local lx = ceil(layers[layerIndex].layerWidth / layers[layerIndex].tileHeight)
+		local ly = ceil(layers[layerIndex].layerHeight / layers[layerIndex].tileHeight)
 		
 		if info then
 		--for n = 1, #info, 3 do
@@ -9019,9 +9034,9 @@ function Nx.Map:UpdateInstanceMap()
 			local offx = 0		-- info[n] * .04 * 1002 / 1024
 			local offy = 0		-- info[n + 1] * .03 * 668 / 768
 
-			for by = 0, 2 do
+			for by = 0, (ly - 1) do
 
-				for bx = 0, 3 do
+				for bx = 0, (lx - 1) do
 
 					local sc = 1
 					local f = self:GetIconNI(10)
@@ -9083,8 +9098,8 @@ function Nx.Map:UpdateInstanceMap()
 				f:SetScrollChild(c)
 				
 				--Nx.prt("%s", info[is_n + 1])
-				local w = 4 * (1002 / 1024)  -- (info[is_n + 1] * .04 * 1002 / 1024) * -1
-				local h = 3 * (668 / 768) -- (info[is_n + 1] * .03 * 668 / 768) * -1
+				local w = lx * (1002 / 1024)  -- (info[is_n + 1] * .04 * 1002 / 1024) * -1
+				local h = ly * (668 / 768) -- (info[is_n + 1] * .03 * 668 / 768) * -1
 				local dungeonLevel = Nx.Map:GetCurrentMapDungeonLevel() > 0 and Nx.Map:GetCurrentMapDungeonLevel() -1 or 0
 				
 				local x1, y1, x2, y2 = self:ClipFrameINST (f, wx, wy + (h * dungeonLevel), w, h, true)
