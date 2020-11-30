@@ -4560,8 +4560,11 @@ function Nx.Map:Update (elapsed)
 			self.InstLevelSet = -1
 		end
 
-		self.PlyrX = x + plZX * 1002 / 25600
-		self.PlyrY = y + plZY * 668 / 25600 + (lvl - 1) * 668 / 256
+		local layerIndex = WorldMapFrame:GetCanvasContainer():GetCurrentLayerIndex();
+		local layers = C_Map.GetMapArtLayers(mapId)
+
+		self.PlyrX = x + plZX * layers[layerIndex].layerWidth / 25600
+		self.PlyrY = y + plZY * layers[layerIndex].layerHeight / 25600 + (lvl - 1) * layers[layerIndex].layerHeight / 256
 --		self.InstanceLevel = GetCurrentMapDungeonLevel()
 
 		self.PlyrSpeed = 0
@@ -7746,15 +7749,15 @@ function Nx.Map:ClipFrameINST (frm, bx, by, w, h, ret)
 	local vx2 = x + bw
 
 	if vx1 < 0 then
-		vx1 = 0
-		texX1 = (vx1 - x) / bw
-		sx1 = vx1 - x
+		--vx1 = 0
+		--texX1 = (vx1 - x) / bw
+		--sx1 = vx1 - x
 	end
 
 	if vx2 > clipW then
-		vx2 = clipW
-		texX2 = (vx2 - x) / bw
-		sx2 = vx2 - (x + bw)
+		--vx2 = clipW
+		--texX2 = (vx2 - x) / bw
+		--sx2 = vx2 - (x + bw)
 	end
 
 	w = vx2 - vx1
@@ -7783,15 +7786,15 @@ function Nx.Map:ClipFrameINST (frm, bx, by, w, h, ret)
 	local vy2 = y + bh
 
 	if vy1 < 0 then
-		vy1 = 0
-		texY1 = (vy1 - y) / bh
-		sy1 = vy1 - y
+		--vy1 = 0
+		--texY1 = (vy1 - y) / bh
+		--sy1 = vy1 - y
 	end
 
 	if vy2 > clipH then
-		vy2 = clipH
-		texY2 = (vy2 - y) / bh
-		sy2 = vy2 - (y + bh)
+		--vy2 = clipH
+		--texY2 = (vy2 - y) / bh
+		--sy2 = vy2 - (y + bh)
 	end
 
 	h = vy2 - vy1
@@ -9095,19 +9098,21 @@ function Nx.Map:UpdateInstanceMap()
 				c:SetParent(f)
 				c:SetSize(100,100)
 				c:SetScale(0.5)
+
 				f:SetScrollChild(c)
 				
 				--Nx.prt("%s", info[is_n + 1])
-				local w = lx * (1002 / 1024)  -- (info[is_n + 1] * .04 * 1002 / 1024) * -1
-				local h = ly * (668 / 768) -- (info[is_n + 1] * .03 * 668 / 768) * -1
+				local w = lx == 15 and lx or lx * (1002 / 1024)  -- (info[is_n + 1] * .04 * 1002 / 1024) * -1
+				local h = ly == 10 and ly or ly * (668 / 768) -- (info[is_n + 1] * .03 * 668 / 768) * -1
 				local dungeonLevel = Nx.Map:GetCurrentMapDungeonLevel() > 0 and Nx.Map:GetCurrentMapDungeonLevel() -1 or 0
 				
 				local x1, y1, x2, y2 = self:ClipFrameINST (f, wx, wy + (h * dungeonLevel), w, h, true)
 				
 				--Nx.prt("%s, %s, %s, %s", x1, y1, x2, y2)
 				
-				c:SetPoint("TOPLEFT", x1 * -1, y1) -- -10, 10
-				c:SetPoint("BOTTOMRIGHT", x2 * -1, y2) -- 10, -10
+				c:SetAllPoints()
+				--c:SetPoint("TOPLEFT", 0, 0) -- -10, 10
+				--c:SetPoint("BOTTOMRIGHT", x2 * -1, y2) -- 10, -10
 
 			end
 			
