@@ -6055,7 +6055,7 @@ function Nx.Map:DrawTracking (srcX, srcY, dstX, dstY, tex, mode, name)
 
 		local s = name or self.TrackName
 
-		f.NxTip = format ("%s\n%s " .. L["yds"], s, shortendistance(dist * 4.575))
+		f.NxTip = format ("%s\n%s " .. L["yds"], s, shortendistance(ceil(dist * 4.575)))
 
 		f.texture:SetTexture (tex or "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconWayTarget")
 	end
