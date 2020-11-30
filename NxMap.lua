@@ -4138,7 +4138,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 			end
 		end
 	end
-
+	
 	-- Check quest window
 	if Nx.Quest then
 		if map.Guide.Win.Frm:IsVisible() or Nx.Quest.List.Win and Nx.Quest.List.Win.Frm:IsVisible() then
@@ -8980,8 +8980,10 @@ function Nx.Map:UpdateInstanceMap()
 	
 	local curId = Nx.Map:GetCurrentMapId()
 
+	local mapChange
 	if not Nx.Map.NInstMapId or Nx.Map.NInstMapId ~= curId then
 		Nx.Map.NInstMapId = curId
+		mapChange = true
 	end
 	Nx.Map:SetCurrentMap (Nx.Map.NInstMapId)
 	
@@ -9122,6 +9124,10 @@ function Nx.Map:UpdateInstanceMap()
 		end
 		
 		self.Level = self.Level + 1
+	end
+	
+	if mapChange then
+		Nx.Map:CurrentCenterMap(Nx.Map.NInstMapId)
 	end
 end
 

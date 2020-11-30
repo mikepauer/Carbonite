@@ -12249,6 +12249,7 @@ end
 function Nx.Map:GetZoneInfo (mapid, force)
 	local vec, vec2 = CreateVector2D(0,0), CreateVector2D(0.5,0.5)
 	local winfo = Nx.Map:GetMap(1).MapWorldInfo
+	
 	if not winfo or (winfo[mapid] and winfo[mapid].Scale) then
 		if not force then	
 			return
@@ -12282,10 +12283,6 @@ function Nx.Map:GetZoneInfo (mapid, force)
 			if mapinfo.mapType == 5 or mapinfo.mapType == 4 then
 				winfo[mapid].Instance = true
 			end
-		end
-		
-		if not mapinfo.name then
-			winfo[mapid] = false
 		end
 		
 		if winfo[mapid].X == math.huge or winfo[mapid].X == -math.huge then
