@@ -12268,7 +12268,7 @@ function Nx.Map:GetZoneInfo (mapid, force)
 		winfo[mapid].MapArt = C_Map.GetMapArtID(mapid)
 		
 		local mapinfo = C_Map.GetMapInfo(mapid)
-		if mapinfo then	
+		if mapinfo and mapinfo.name then	
 			if mapinfo.name then
 				winfo[mapid].Name = L[mapinfo.name]
 				
@@ -12283,6 +12283,18 @@ function Nx.Map:GetZoneInfo (mapid, force)
 				winfo[mapid].Instance = true
 			end
 		end
+		
+		if not mapinfo.name then
+			winfo[mapid] = false
+		end
+		
+		if winfo[mapid].X == math.huge or winfo[mapid].X == -math.huge then
+			winfo[mapid] = false
+		end
+		
+		if winfo[mapid].Y == math.huge or winfo[mapid].Y == -math.huge then
+			winfo[mapid] = false
+		end 
 		
 	end	
 	
