@@ -2978,11 +2978,11 @@ Nx.GatherInfo = {
 		{ 700,  "inv_misc_herb_winterskiss",L["Winter's Kiss"]},
 		-- Shadowlands
 		{ 700,  "inv_misc_herb_bloodcup",L["Widowbloom"]},
-		{ 700,  "inv_ misc_herb_deathblossom",L["Death Blossom"]},
+		{ 700,  "inv_misc_herb_deathblossom",L["Death Blossom"]},
 		{ 700,  "inv_misc_herb_risingglory",L["Rising Glory"]},
-		{ 700,  "inv_ misc_herb_marrowroot",L["Marrowroot"]},
-		{ 700,  "inv_ misc_herb_ardenweald",L["Vigil's Torch"]},
-		{ 700,  "inv_ misc_herb_nightshade",L["Nightshade"]},
+		{ 700,  "inv_misc_herb_marrowroot",L["Marrowroot"]},
+		{ 700,  "inv_misc_herb_ardenweald",L["Vigil's Torch"]},
+		{ 700,  "inv_misc_herb_nightshade",L["Nightshade"]},
 	},
 	["M"] = {	-- Mine node
 		{ 325,	"inv_ore_adamantium",L["Adamantite Deposit"]},
