@@ -372,6 +372,12 @@ local defaults = {
 				[82] = true,
 				[83] = true,
 				[84] = true,
+				[85] = true,
+				[86] = true,
+				[87] = true,
+				[88] = true,
+				[89] = true,
+				[90] = true,
 			},
 			ShowTimber = {
 				[1] = true,
@@ -2970,6 +2976,13 @@ Nx.GatherInfo = {
 		{ 700,  "inv_misc_herb_pollen",L["Siren's Sting"]},
 		{ 700,  "inv_misc_herb_starmoss",L["Star Moss"]},
 		{ 700,  "inv_misc_herb_winterskiss",L["Winter's Kiss"]},
+		-- Shadowlands
+		{ 700,  "inv_misc_herb_bloodcup",L["Widowbloom"]},
+		{ 700,  "inv_ misc_herb_deathblossom",L["Death Blossom"]},
+		{ 700,  "inv_misc_herb_risingglory",L["Rising Glory"]},
+		{ 700,  "inv_ misc_herb_marrowroot",L["Marrowroot"]},
+		{ 700,  "inv_ misc_herb_ardenweald",L["Vigil's Torch"]},
+		{ 700,  "inv_ misc_herb_nightshade",L["Nightshade"]},
 	},
 	["M"] = {	-- Mine node
 		{ 325,	"inv_ore_adamantium",L["Adamantite Deposit"]},
@@ -3033,7 +3046,13 @@ Nx.GatherInfo = {
 		{ 800,  "inv_ore_stormsilver",L["Storm Silver Deposit"]},
 		{ 800,  "inv_ore_stormsilver",L["Rich Storm Silver Deposit"]},
 		{ 800,  "inv_ore_stormsilver",L["Storm Silver Seam"]},
-		
+		--shadowlands
+		{ 1,  "inv_ore_lastrite",L["Laestrite Deposit"]},
+		{ 1,  "inv_ore_elethium",L["Elethium Deposit"]},
+		{ 1,  "inv_ore_solenium",L["Solenium Deposit"]},
+		{ 1,  "inv_ore_oxxein",L["Oxxein Deposit"]},
+		{ 1,  "inv_ore_phaedrite",L["Phaedrum Deposit"]},
+		{ 1,  "inv_ore_sinvyr",L["Sinvyr Deposit"]},
 	}
 }
 
