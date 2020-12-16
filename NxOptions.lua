@@ -3056,6 +3056,84 @@ local function guidegatherConfig ()
 							set = function()
 								Nx.db.profile.Guide.ShowHerbs[84] = not Nx.db.profile.Guide.ShowHerbs[84]
 							end,
+							 },
+						widowbloom= {
+              order = 87,
+              type = "toggle",
+              width = "full",
+              name = L["Widowbloom"],
+              desc = L["Display"] .. " " .. L["Widowbloom"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[85]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[85] = not Nx.db.profile.Guide.ShowHerbs[85]
+              end,
+              },
+            deathblossom = {
+              order = 88,
+              type = "toggle",
+              width = "full",
+              name = L["Death Blossom"],
+              desc = L["Display"] .. " " .. L["Death Blossom"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[86]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[86] = not Nx.db.profile.Guide.ShowHerbs[86]
+                end,
+                 },
+            risingglory = {
+              order = 89,
+              type = "toggle",
+              width = "full",
+              name = L["Rising Glory"],
+              desc = L["Display"] .. " " .. L["Rising Glory"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[87]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[87] = not Nx.db.profile.Guide.ShowHerbs[87]
+                end,
+                },
+            marrowroot = {
+              order = 90,
+              type = "toggle",
+              width = "full",
+              name = L["Marrowroot"],
+              desc = L["Display"] .. " " .. L["Marrowroot"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[88]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[88] = not Nx.db.profile.Guide.ShowHerbs[88]
+                end,
+                  },
+            vigilstorch = {
+              order = 91,
+              type = "toggle",
+              width = "full",
+              name = L["Vigil's Torch"],
+              desc = L["Display"] .. " " .. L["Vigil's Torch"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[89]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[89] = not Nx.db.profile.Guide.ShowHerbs[89]
+                end,
+                },
+            nightshade = {
+              order = 92,
+              type = "toggle",
+              width = "full",
+              name = L["Nightshade"],
+              desc = L["Display"] .. " " .. L["Nightshade"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[90]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[90] = not Nx.db.profile.Guide.ShowHerbs[90]
+                end,
 						},
 					},
 				},
@@ -3865,6 +3943,162 @@ local function guidegatherConfig ()
 							set = function()
 								Nx.db.profile.Guide.ShowMines[60] = not Nx.db.profile.Guide.ShowMines[60]
 							end,
+							},
+            laestrite = {
+              order = 63,
+              type = "toggle",
+              width = "full",
+              name = L["Laestrite Ore"],
+              desc = L["Display"] .. " " .. L["Laestrite Ore"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[61]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[61] = not Nx.db.profile.Guide.ShowMines[61]
+              end,
+              },
+              laestriterich = {
+              order = 64,
+              type = "toggle",
+              width = "full",
+              name = L["Rich Laestrite Ore"],
+              desc = L["Display"] .. " " .. L["Rich Laestrite Ore"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[62]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[62] = not Nx.db.profile.Guide.ShowMines[62]
+              end,
+              },
+            elethium = {
+              order = 65,
+              type = "toggle",
+              width = "full",
+              name = L["Elethium Ore"],
+              desc = L["Display"] .. " " .. L["Elethium Ore"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[63]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[63] = not Nx.db.profile.Guide.ShowMines[63]
+              end,
+              },
+              elethiumrich = {
+              order = 66,
+              type = "toggle",
+              width = "full",
+              name = L["Rich Elethium Ore"],
+              desc = L["Display"] .. " " .. L["Rich Elethium Ore"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[64]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[64] = not Nx.db.profile.Guide.ShowMines[64]
+              end,
+              },
+            solenium = {
+              order = 67,
+              type = "toggle",
+              width = "full",
+              name = L["Solenium Ore"],
+              desc = L["Display"] .. " " .. L["Solenium Ore"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[65]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[65] = not Nx.db.profile.Guide.ShowMines[65]
+              end,
+               },
+               soleniumrich = {
+              order = 68,
+              type = "toggle",
+              width = "full",
+              name = L["Rich Solenium Ore"],
+              desc = L["Display"] .. " " .. L["Rich Solenium Ore"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[66]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[66] = not Nx.db.profile.Guide.ShowMines[66]
+              end,
+               },
+            oxxein = {
+              order = 69,
+              type = "toggle",
+              width = "full",
+              name = L["Oxxein Ore"],
+              desc = L["Display"] .. " " .. L["Oxxein Ore"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[67]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[67] = not Nx.db.profile.Guide.ShowMines[67]
+              end,
+                 },
+                 oxxeinrich = {
+              order = 70,
+              type = "toggle",
+              width = "full",
+              name = L["Rich Oxxein Ore"],
+              desc = L["Display"] .. " " .. L["Rich Oxxein Ore"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[68]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[68] = not Nx.db.profile.Guide.ShowMines[68]
+              end,
+                 },
+            phaedrite = {
+              order = 71,
+              type = "toggle",
+              width = "full",
+              name = L["Phaedrum Ore"],
+              desc = L["Display"] .. " " .. L["Phaedrum Ore"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[69]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[69] = not Nx.db.profile.Guide.ShowMines[69]
+              end,
+               },
+               phaedriterich = {
+              order = 72,
+              type = "toggle",
+              width = "full",
+              name = L["Rich Phaedrum Ore"],
+              desc = L["Display"] .. " " .. L["Rich Phaedrum Ore"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[70]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[70] = not Nx.db.profile.Guide.ShowMines[70]
+              end,
+               },
+            sinvyr = {
+              order = 73,
+              type = "toggle",
+              width = "full",
+              name = L["Sinvyr Ore"],
+              desc = L["Display"] .. " " .. L["Sinvyr Ore"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[71]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[71] = not Nx.db.profile.Guide.ShowMines[71]
+              end,
+               },
+            sinvyrrich = {
+              order = 74,
+              type = "toggle",
+              width = "full",
+              name = L["Rich Sinvyr Ore"],
+              desc = L["Display"] .. " " .. L["Rich Sinvyr Ore"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[72]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[72] = not Nx.db.profile.Guide.ShowMines[72]
+              end,
 						},
 					},
 				},
