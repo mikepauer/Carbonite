@@ -191,6 +191,16 @@ end
 
 function Nx.HUD:Update (map)
 
+	function shortendistance(n)
+		if n >= 10^6 then
+			return string.format("%.2fm", n / 10^6)
+		elseif n >= 10^3 then
+			return string.format("%.2fk", n / 10^3)
+		else
+			return tostring(n)
+		end
+	end
+
 --	if IsControlKeyDown() then
 --		Nx.prtFrame ("HUD", self.Frm)
 --		Nx.prtVar ("Trk", map.TrackDir)
@@ -234,7 +244,7 @@ function Nx.HUD:Update (map)
 --PAIDE!
 
 		local col = dirDist < 5 and "|cffa0a0ff" or ""
-		local str = format ("%s%d " .. L["yds"], col, dist)
+		local str = format ("%s%d " .. L["yds"], col, shortendistance(ceil(dist)))
 
 		if Nx.db.profile.Track.ShowDir then
 			local fmt = dirDist < 1 and " %.1f deg" or " %d deg"
