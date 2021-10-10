@@ -4386,7 +4386,8 @@ function Nx.Map:Update (elapsed)
 
 	local doSetCurZone
 	local mapChange
-
+	
+	Nx.Map.mapChange = false
 	if self.MapId ~= mapId then
 
 		Nx.prtD ("%d Map change %d to %d", self.Tick, self.MapId, mapId)
@@ -4400,7 +4401,8 @@ function Nx.Map:Update (elapsed)
 
 		self.MapId = mapId
 		mapChange = true
-
+		Nx.Map.mapChange = mapChange
+		
 		Nx.Com.PlyrChange = GetTime()
 	end
 
@@ -6976,7 +6978,7 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 						end
 	--]]
 						if arTx then
-							--f.texture:SetTexture (arTx[txIndex])
+							if not string.find(oName, "_") then f.texture:SetTexture (arTx[txIndex]) end
 						else 
 							f.texture:SetTexture (mode and txName or txName .. txIndex)
 						end
