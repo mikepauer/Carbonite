@@ -554,6 +554,8 @@ Nx.Zones = {
 	[1707] = L["Elysian Hold - Archon's Rise"] .. "|100|110|3|5|1533|65.6|18|0",
 	[1708] = L["Elysian Hold - Sanctum of Binding"] .. "|100|110|3|5|1533|65.6|18|0",
 	
+	[1970] = L["Zereth Mortis"] .. "|110|120|2|14||",
+	
 	[1409] = L["Exile's Reach"] .. "|0|0|2|0||",
 }
 
