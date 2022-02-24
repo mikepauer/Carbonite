@@ -125,14 +125,6 @@ Map.MapInfo = {
 		TileX = 15,
 		TileY = 10,
 	},
-	[14] = {
-		Name = L["Zereth Mortis"],
-		FileName = "zerethmortis",
-		X = -7500,
-		Y = 400,
-		TileX = 15,
-		TileY = 10,
-	},
 	[90] = {
 		Name = "BG",
 		X = 2000,
@@ -1661,8 +1653,8 @@ Map.MapWorldInfo = {
 	},
 	[1970] = {
 		Scale = 6.37916,
-		X = -562.916,
-		Y = -355.834,
+		X = 1250,
+		Y = 1050,
 		Name = L["Zereth Mortis"],
 		Overlay = "zerethmortis",
 	},
@@ -13341,7 +13333,7 @@ Map.MiniMapBlks = {
 	--	Map.ShadowlandsBlks,
 	--	2627,
 	--	26, 27,
-	--	Map.MapWorldInfo[1550].X + Map.MapInfo[13].X - 106.85, Map.MapWorldInfo[1550].Y + Map.MapInfo[13].Y - 295.44,
+	--	Map.MapWorldInfo[1970].X + Map.MapInfo[13].X - 106.85, Map.MapWorldInfo[1970].Y + Map.MapInfo[13].Y - 295.44,
 	--	"World\\Minimaps\\2511"
 	--},	
 	[94] = {
