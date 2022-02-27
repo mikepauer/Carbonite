@@ -1652,9 +1652,9 @@ Map.MapWorldInfo = {
 		Overlay = "korthia",
 	},
 	[1970] = {
-		Scale = 10.37916,
-		X = 1120,
-		Y = 955,
+		Scale = 9.879168,
+		X = 1170,
+		Y = 1000,
 		Name = L["Zereth Mortis"],
 		Overlay = "zerethmortis",
 		MId = 1970,
@@ -13521,7 +13521,7 @@ Map.MiniMapBlks = {
 		Map.ZerethMortisBlks,
 		2936,
 		29, 36,
-		Map.MapWorldInfo[1970].X + Map.MapInfo[13].X + 193.3, Map.MapWorldInfo[1970].Y + Map.MapInfo[13].Y + 27,
+		Map.MapWorldInfo[1970].X + Map.MapInfo[13].X + 169.5, Map.MapWorldInfo[1970].Y + Map.MapInfo[13].Y + 12,
 		"World\\Minimaps\\2374"
 	},
 }
