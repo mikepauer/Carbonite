@@ -1,4 +1,4 @@
-﻿---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- NxMap - Map code
 -- Copyright 2007-2012 Carbon Based Creations, LLC
 ---------------------------------------------------------------------------------------
@@ -6956,7 +6956,9 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 
 				local wx, wy = self:GetWorldPos (mapId, (oX + bX * TILE_SIZE_WIDTH) / layerInfo.layerWidth * 100, (oY + bY * TILE_SIZE_HEIGHT) / layerInfo.layerHeight * 100)
 				
-				if string.find(oName, "_") and bX == 0 and bY == 0 then
+				local foundUnderscore = string.find(oName, "_")
+				
+				if foundUnderscore == 1 and bX == 0 and bY == 0 then
 				
 					local nName, nW, nH = Nx.Split (",", oName)
 					nW = tonumber(nW)
@@ -9219,7 +9221,7 @@ function Nx.Map:InitTables()
 		 [10] = {862,863,864,1165},
 		 [11] = {895,896,942,1161,1169,1462},
 		 [12] = {1355},
-		 [13] = {1525,1533,1536,1543,1565,1648,1670,1671,1672,1673,1961,1701,1702,1703},
+		 [13] = {1525,1533,1536,1543,1565,1648,1670,1671,1672,1673,1961,1701,1702,1703,1970},
 		 [90] = {91,92,93,112,128,169,206,275,397,417,423,519,623},		 
 		 [100] = {},
 	}
