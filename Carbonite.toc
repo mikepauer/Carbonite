@@ -1,4 +1,4 @@
-## Interface: 90100
+## Interface: 90200
 ## Title: Carbonite Maps @project-version@
 ## Version: @project-version@
 ## Author: No one
