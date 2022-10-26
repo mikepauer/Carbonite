@@ -1612,7 +1612,7 @@ function Nx.Window:Create (name, minResizeW, minResizeH, secure, titleLines, bor
 
 --	f:SetAttribute ("showstates", "1")
 
-	f:SetMinResize (minResizeW or 100, minResizeH or 40)
+	f:SetResizeBounds (minResizeW or 100, minResizeH or 40)
 
 	f:SetWidth (10)
 	f:SetHeight (win.TitleH + 50)
@@ -3456,7 +3456,7 @@ function Nx.Button:Init()
 	f:Hide()
 
 	local t = f:CreateTexture()
-	t:SetColorTexture (Nx.Util_str2rgba ("0.06|0.06|0.250|1"))
+	t:SetColorTexture (Nx.Util_str2rgb ("0.06|0.06|0.250"))
 	t:SetAllPoints (f)
 	t:SetBlendMode ("ADD")
 	f.texture = t
@@ -4034,9 +4034,9 @@ function Nx.Button:Update()
 		of:SetHeight (f:GetHeight() + 2)
 
 		if self.Pressed then
-			of.texture:SetColorTexture (Nx.Util_str2rgba (".188|.188|.5|1"))
+			of.texture:SetColorTexture (Nx.Util_str2rgb (".188|.188|.5"))
 		else
-			of.texture:SetColorTexture (Nx.Util_str2rgba ("0.06|0.06|.250|1"))
+			of.texture:SetColorTexture (Nx.Util_str2rgb ("0.06|0.06|.250"))
 		end
 
 --		local lev = f:GetFrameLevel()
@@ -4407,10 +4407,10 @@ function Nx.Menu:SetSkin()
 	f:SetBackdrop (bk)
 
 	local col = Nx.Skin:GetBGCol()
-	f:SetBackdropColor (col[1], col[2], col[3], col[4])
+	f:SetBackdropColor (col[1], col[2], col[3])
 
 	local col = Nx.Skin:GetBorderCol()
-	f:SetBackdropBorderColor (col[1], col[2], col[3], col[4])
+	f:SetBackdropBorderColor (col[1], col[2], col[3])
 end
 
 function Nx.Menu:OnUpdate (elapsed)
