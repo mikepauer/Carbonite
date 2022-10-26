@@ -5068,7 +5068,7 @@ function Nx.Map:Update (elapsed)
 							f.texture:SetAtlas(atlasIcon)
 						else
 							f.texture:SetTexture ("Interface\\Minimap\\POIIcons")
-							txX1, txX2, txY1, txY2 = GetPOITextureCoords (txIndex)
+							txX1, txX2, txY1, txY2 = C_Minimap.GetPOITextureCoords (txIndex)
 							f.texture:SetTexCoord (txX1 + .003, txX2 - .003, txY1 + .003, txY2 - .003)
 							f.texture:SetVertexColor (1, 1, 1, 1)
 						end
@@ -5512,7 +5512,7 @@ function Nx.Map:DrawContinentsPOIs()
 		return
 	end
 	
-	local getCoords = GetPOITextureCoords
+	local getCoords = C_Minimap.GetPOITextureCoords
 
 	for cont = 1, self.ContCnt do
 
