@@ -23,6 +23,7 @@
 </UnitPositionFrame>
 
 <Slider name="NxSliderFrame" orientation="HORIZONTAL" virtual="true" inherits="BackdropTemplate">
+<!--
 	<Backdrop bgFile="Interface\Buttons\UI-SliderBar-Background" edgeFile="Interface\Buttons\UI-SliderBar-Border" tile="true">
 		<EdgeSize>
 			<AbsValue val="8" />
@@ -34,6 +35,7 @@
 			<AbsInset left="3" right="3" top="6" bottom="6" />
 		</BackgroundInsets>
 	</Backdrop>
+-->
 	<ThumbTexture file="Interface\Buttons\UI-SliderBar-Button-Horizontal">
 		<Size>
 			<AbsDimension x="32" y="32" />

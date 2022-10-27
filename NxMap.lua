@@ -678,7 +678,7 @@ function Nx.Map:Create (index)
 	f:SetFrameStrata ("LOW")
 	f:SetWidth (m.W)
 	f:SetHeight (m.H)
-	f:SetMinResize (50, 50)
+	f:SetResizeBounds (50, 50)
 
 	local t = f:CreateTexture()
 	t:SetColorTexture (0, 0, 0, .2)
@@ -1321,7 +1321,7 @@ function Nx.Map:CreateLocationTip()
 --	f.NxInst = self
 	self.LocTipFrm = f
 
-	f:SetClampedToScreen()
+	f:SetClampedToScreen(true)
 
 --	f:ClearAllPoints()
 --	f:SetPoint ("BOTTOMLEFT", 0, 0)
@@ -5068,7 +5068,7 @@ function Nx.Map:Update (elapsed)
 							f.texture:SetAtlas(atlasIcon)
 						else
 							f.texture:SetTexture ("Interface\\Minimap\\POIIcons")
-							txX1, txX2, txY1, txY2 = GetPOITextureCoords (txIndex)
+							txX1, txX2, txY1, txY2 = C_Minimap.GetPOITextureCoords (txIndex)
 							f.texture:SetTexCoord (txX1 + .003, txX2 - .003, txY1 + .003, txY2 - .003)
 							f.texture:SetVertexColor (1, 1, 1, 1)
 						end
@@ -5512,7 +5512,7 @@ function Nx.Map:DrawContinentsPOIs()
 		return
 	end
 	
-	local getCoords = GetPOITextureCoords
+	local getCoords = C_Minimap.GetPOITextureCoords
 
 	for cont = 1, self.ContCnt do
 
