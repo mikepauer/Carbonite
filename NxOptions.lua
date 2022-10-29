@@ -4920,11 +4920,11 @@ end
 
 function Nx.Opts:NXCmdGryphonsUpdate()
 	if Nx.db.profile.General.GryphonsHide then
-		MainMenuBarArtFrame.LeftEndCap:Hide()
-		MainMenuBarArtFrame.RightEndCap:Hide()
+		MainMenuBar.EndCaps.LeftEndCap:Hide()
+		MainMenuBar.EndCaps.RightEndCap:Hide()
 	else
-		MainMenuBarArtFrame.LeftEndCap:Show()
-		MainMenuBarArtFrame.RightEndCap:Show()
+		MainMenuBar.EndCaps.LeftEndCap:Show()
+		MainMenuBar.EndCaps.RightEndCap:Show()
 	end
 end
 
