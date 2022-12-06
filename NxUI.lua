@@ -477,12 +477,12 @@ end
 
 function Nx.Util_str2rgba (colors)
 	local arr = { Nx.Split("|",colors) }
-	return arr[1], arr[2], arr[3], arr[4]
+	return tonumber(arr[1]), tonumber(arr[2]), tonumber(arr[3]), tonumber(arr[4])
 end
 
 function Nx.Util_str2rgb (colors)
 	local arr = { Nx.Split("|",colors) }
-	return arr[1], arr[2], arr[3]
+	return tonumber(arr[1]), tonumber(arr[2]), tonumber(arr[3])
 end
 
 ---------------------------------------------------------------------------------------

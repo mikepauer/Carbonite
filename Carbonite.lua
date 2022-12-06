@@ -25,7 +25,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite")
 Nx.WebSite = "wowinterface.com"
 NXTITLEFULL = L["Carbonite"]
 
-Nx.VERMAJOR			= 9.0
+Nx.VERMAJOR			= 10.0
 Nx.VERMINOR			= .0				-- Not 0 is a test version
 Nx.BUILD			= "6377da4"
 if Nx.BUILD:find("Format:%h", 1, true) then Nx.BUILD = string.sub("@project-revision@", 0, 7) end
@@ -3828,6 +3828,15 @@ function Nx.Split(d, p)
 	else
 		--local TempNum = 0
 		local Tossaway = {strsplit(d, p)}
+		if d == "||" then
+			local newTossaway = {}
+			for i = 1, #Tossaway do
+				if (i % 2) == 1 then
+					table.insert(newTossaway, Tossaway[i])
+				end
+			end
+			Tossaway = newTossaway
+		end
 		--[[while true do
 			local l=string.find(p,d,TempNum,true);
 			if l~=nil then
