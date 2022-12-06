@@ -8500,7 +8500,7 @@ function Nx.Map:GetIconWQ (levelAdd)
 
 		f.Texture = f:CreateTexture(f:GetName().."Texture", "BACKGROUND");
 
-		f.Glow = f:CreateTexture(f:GetName().."Glow", "BACKGROUND", -2);
+		f.Glow = f:CreateTexture(f:GetName().."Glow", "BACKGROUND");
 		f.Glow:SetSize(50, 50);
 		f.Glow:SetPoint("CENTER");
 		f.Glow:SetTexture("Interface/WorldMap/UI-QuestPoi-IconGlow.tga");
@@ -8508,22 +8508,22 @@ function Nx.Map:GetIconWQ (levelAdd)
 		f.Glow:SetSnapToPixelGrid(false)
 		f.Glow:SetTexelSnappingBias(0)
 		
-		f.CriteriaMatchRing = f:CreateTexture(f:GetName().."CriteriaMatchRing", "BACKGROUND", nil, 2);
+		f.CriteriaMatchRing = f:CreateTexture(f:GetName().."CriteriaMatchRing", "BACKGROUND", nil);
 		f.CriteriaMatchRing:SetAtlas("worldquest-emissary-ring", true)
 		f.CriteriaMatchRing:SetPoint("CENTER", 0, 0)
 		
-		f.SelectedGlow = f:CreateTexture(f:GetName().."SelectedGlow", "OVERLAY", 2);
+		f.SelectedGlow = f:CreateTexture(f:GetName().."SelectedGlow", "OVERLAY");
 		f.SelectedGlow:SetBlendMode("ADD");
 		f.SelectedGlow:SetSnapToPixelGrid(false)
 		f.SelectedGlow:SetTexelSnappingBias(0)
 		
-		f.CriteriaMatchGlow = f:CreateTexture(f:GetName().."CriteriaMatchGlow", "BACKGROUND", -1);
+		f.CriteriaMatchGlow = f:CreateTexture(f:GetName().."CriteriaMatchGlow", "BACKGROUND");
 		f.CriteriaMatchGlow:SetAlpha(.6);
 		f.CriteriaMatchGlow:SetBlendMode("ADD");
 		f.CriteriaMatchGlow:SetSnapToPixelGrid(false)
 		f.CriteriaMatchGlow:SetTexelSnappingBias(0)
 		
-		f.SpellTargetGlow = f:CreateTexture(f:GetName().."SpellTargetGlow", "OVERLAY", 1);
+		f.SpellTargetGlow = f:CreateTexture(f:GetName().."SpellTargetGlow", "OVERLAY");
 		f.SpellTargetGlow:SetAtlas("worldquest-questmarker-abilityhighlight", true);
 		f.SpellTargetGlow:SetAlpha(.6);
 		f.SpellTargetGlow:SetBlendMode("ADD");
