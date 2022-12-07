@@ -1302,7 +1302,7 @@ function Nx.Window:Menu_OnTrans (item)
 	svdata[self.MenuWin.LayoutMode.."T"] = trans < 1 and trans or nil
 
 	local f = self.MenuWin.Frm
-	f:SetAlpha (trans)
+	f:SetAlpha (tonumber(trans))
 end
 
 ---------------------------------------------------------------------------------------
@@ -5905,7 +5905,7 @@ function Nx.List:Update (showLast)
 					f:SetScale (scale)
 					f:SetWidth (29)
 					f:SetHeight (30)
-					f:SetAlpha (self.ItemFrameAlpha)
+					f:SetAlpha (tonumber(self.ItemFrameAlpha))
 
 					local id = tonumber (v1)					
 					f:SetID (id)
@@ -7274,7 +7274,7 @@ function Nx.ToolBar:SetFade (fade)
 
 --	Nx.prtVar ("TB Fade", fade)
 
-	self.Frm:SetAlpha (fade)
+	self.Frm:SetAlpha (tonumber(fade))
 end
 
 ---------------------------------------------------------------------------------------
