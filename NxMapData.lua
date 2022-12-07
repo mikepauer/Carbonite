@@ -1789,7 +1789,16 @@ Map.MapWorldInfo = {
 		Name = L["Thaldraszus"],
 		Overlay = "thaldraszus",
 	},
-	
+	[2112] = {
+		Scale = 2.925,
+		X = 38.75,
+		Y = -130.4168,
+		Name = L["Valdrakken"],
+		Overlay = "valdrakken",
+		City = true,
+		TileX = 15,
+		TileY = 10,
+	},
 	
 	-- 1726 NPE SHIP
 	
