@@ -15163,7 +15163,7 @@ Map.MiniMapBlks = {
 		Map.DragonIslesBlks,
 		0712,
 		07, 12,
-		Map.MapWorldInfo[1978].X + Map.MapInfo[14].X + 1, Map.MapWorldInfo[1978].Y + Map.MapInfo[14].Y - 446,
+		Map.MapWorldInfo[1978].X + Map.MapInfo[14].X + 3, Map.MapWorldInfo[1978].Y + Map.MapInfo[14].Y - 444.5,
 		"World\\Minimaps\\2444"
 	},
 	[94] = {
