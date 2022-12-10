@@ -5114,11 +5114,8 @@ function Nx.Map:Update (elapsed)
 	local flagNum = GetNumBattlefieldFlagPositions()
 
 	for i = 1, flagNum do
-
-		fX, fY, fToken = GetBattlefieldFlagPosition (i)
-
+		fX, fY, fToken = C_PvP.GetBattlefieldFlagPosition (i, C_Map.GetBestMapForUnit("player"))
 		if fX ~= 0 or fY ~= 0 then
-
 			local f = self:GetIconNI()
 			f.texture:SetTexture (fToken)
 			self:ClipFrameZ (f, (fX or 0) * 100, (fY or 0) * 100, 36, 36, 0)
