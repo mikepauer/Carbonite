@@ -232,7 +232,15 @@ local num, itemString
 function lib.eventFrame:GUILDBANKBAGSLOTS_CHANGED()
 	if (GuildBankFrame and GuildBankFrame:IsVisible()) or (BagnonFrameguildbank and BagnonFrameguildbank:IsVisible()) then
 		local page = GetCurrentGuildBankTab()
-		
+		if not guildBank[page] then
+			local name, icon = GetGuildBankTabInfo(page)
+			guildBank[page] = {
+				links = {},
+				stacks = {},
+				name = name,
+				texture = icon
+			}
+		end
 		--98 slots on a page
 		for slot = 1, 98 do
 			--see if the slot has an item in it

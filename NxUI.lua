@@ -5149,6 +5149,7 @@ function Nx.List:GetFrame (list, typ)
 			f = CreateFrame ("ColorSelect", nil, list.Frm)
 		elseif typ == "WatchItem" then							
 				f = CreateFrame ("Button", "NxListFrms" .. self.FrmsUniqueI, list.Frm, "NxWatchListItem")
+				f:RegisterForClicks("AnyUp", "AnyDown")
 				f:SetAttribute ("type1", "item")			
 		elseif typ == "Info" then
 			f = Nx.Info:CreateFrame (list.Frm)
@@ -5909,13 +5910,10 @@ function Nx.List:Update (showLast)
 
 					local id = tonumber (v1)					
 					f:SetID (id)
-
 					SetItemButtonTexture (f, v2);
 					SetItemButtonCount (f, tonumber (v3));
 					f["charges"] = tonumber (v3);
-
 					f["questLogIndex"] = id
-
 					local start, duration, enable = GetQuestLogSpecialItemCooldown (id)
 					if start then
 						CooldownFrame_Set (f.Cooldown, start, duration, enable)
@@ -5927,6 +5925,8 @@ function Nx.List:Update (showLast)
  					end
 
 					local link, item, charges, showItemWhenComplete = GetQuestLogSpecialItemInfo (id)
+					f["item"] = item
+					f["link"] = link
 					f:SetAttribute ("item", link)
 
 					if doBind then
@@ -6330,8 +6330,7 @@ function Nx.List:ItemSetFrame (typ)
 	if not self.FrmData then
 		self.FrmData = {}
 --		self.FrmDataFrm = {}
-	end
-
+	end	
 	self.FrmData[self.Num] = typ
 end
 
