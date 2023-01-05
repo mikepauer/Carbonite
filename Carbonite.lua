@@ -1,4 +1,4 @@
-﻿---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- Carbonite - Addon for World of Warcraft(tm)
 -- Copyright 2007-2012 Carbon Based Creations, LLC
 --
@@ -28,7 +28,7 @@ NXTITLEFULL = L["Carbonite"]
 Nx.VERMAJOR			= 10.0
 Nx.VERMINOR			= .0				-- Not 0 is a test version
 Nx.BUILD			= "6377da4"
-if Nx.BUILD:find("Format:%h", 1, true) then Nx.BUILD = string.sub("@project-revision@", 0, 7) end
+if Nx.BUILD:find("Format:%h", 1, true) then Nx.BUILD = string.sub("624165b247dd74f7fe02d6636439f3cee42f1bc2", 0, 7) end
 if Nx.BUILD:find("project-revision", 1, true) then Nx.BUILD = "0" end
 
 Nx.VERSION			= Nx.VERMAJOR + Nx.VERMINOR / 100
@@ -300,6 +300,18 @@ local defaults = {
 				[72] = true,
 				[73] = true,
 				[74] = true,
+        [75] = true,
+        [76] = true,
+        [77] = true,
+        [78] = true,
+        [79] = true,
+        [80] = true,
+        [81] = true,
+        [82] = true,
+        [83] = true,
+        [84] = true,
+        [85] = true,
+        [86] = true,
 			},
 			ShowHerbs = {
 				[1] = true,
@@ -392,6 +404,34 @@ local defaults = {
 				[88] = true,
 				[89] = true,
 				[90] = true,
+        [91] = true,
+        [92] = true,
+        [93] = true,
+        [94] = true,
+        [95] = true,
+        [96] = true,
+        [97] = true,
+        [98] = true,
+        [99] = true,
+        [100] = true,
+        [101] = true,
+        [102] = true,
+        [103] = true,
+        [104] = true,
+        [105] = true,
+        [106] = true,
+        [107] = true,
+        [108] = true,
+        [109] = true,
+        [110] = true,
+        [111] = true,
+        [112] = true,
+        [113] = true,
+        [114] = true,
+        [115] = true,
+        [116] = true,
+        [117] = true,
+        [118] = true,
 			},
 			ShowTimber = {
 				[1] = true,
@@ -2996,6 +3036,36 @@ Nx.GatherInfo = {
 		{ 1,  "inv_ misc_herb_marrowroot",L["Marrowroot"]},
 		{ 1,  "inv_ misc_herb_ardenweald",L["Vigil's Torch"]},
 		{ 1,  "inv_ misc_herb_nightshade",L["Nightshade"]},
+    --dragonflight
+    { 1,  "Inv_misc_herb_dragonsbreath",L["Hochenblume"]},
+    { 1,  "Inv_misc_herb_dragonsbreath",L["Decayed Hochenblume"]},
+    { 1,  "Inv_misc_herb_dragonsbreath",L["Frigid Hochenblume"]},
+    { 1,  "Inv_misc_herb_dragonsbreath",L["Infurious Hochenblume"]},
+    { 1,  "Inv_misc_herb_dragonsbreath",L["Lush Hochenblume"]},
+    { 1,  "Inv_misc_herb_dragonsbreath",L["Titan-Touched Hochenblume"]},
+    { 1,  "Inv_misc_herb_dragonsbreath",L["Windswept Hochenblume"]},
+    { 1,  "Inv_misc_herb_bubblepoppy",L["Bubble Poppy"]},
+    { 1,  "Inv_misc_herb_bubblepoppy",L["Decayed Bubble Poppy"]},
+    { 1,  "Inv_misc_herb_bubblepoppy",L["Frigid Bubble Poppy"]},
+    { 1,  "Inv_misc_herb_bubblepoppy",L["Infurious Bubble Poppy"]},
+    { 1,  "Inv_misc_herb_bubblepoppy",L["Lush Bubble Poppy"]},
+    { 1,  "Inv_misc_herb_bubblepoppy",L["Titan-Touched Bubble Poppy"]},
+    { 1,  "Inv_misc_herb_bubblepoppy",L["Windswept Bubble Poppy"]},
+    { 1,  "Inv_misc_herb_saxifrage",L["Saxifrage"]},
+    { 1,  "Inv_misc_herb_saxifrage",L["Decayed Saxifrage"]},
+    { 1,  "Inv_misc_herb_saxifrage",L["Frigid Saxifrage"]},
+    { 1,  "Inv_misc_herb_saxifrage",L["Infurious Saxifrage"]},
+    { 1,  "Inv_misc_herb_saxifrage",L["Lush Saxifrage"]},
+    { 1,  "Inv_misc_herb_saxifrage",L["Titan-Touched Saxifrage"]},
+    { 1,  "Inv_misc_herb_saxifrage",L["Windswept Saxifrage"]},
+    { 1,  "Inv_misc_herb_writhebark",L["Writhebark"]},
+    { 1,  "Inv_misc_herb_writhebark",L["Decayed Writhebark"]},
+    { 1,  "Inv_misc_herb_writhebark",L["Frigid Writhebark"]},
+    { 1,  "Inv_misc_herb_writhebark",L["Infurious Writhebark"]},
+    { 1,  "Inv_misc_herb_writhebark",L["Lush Writhebark"]},
+    { 1,  "Inv_misc_herb_writhebark",L["Titan-Touched Writhebark"]},
+    { 1,  "Inv_misc_herb_writhebark",L["Windswept Writhebark"]},
+    
 	},
 	["M"] = {	-- Mine node
 		{ 1,	"inv_ore_adamantium",L["Adamantite Deposit"]},
@@ -3072,6 +3142,22 @@ Nx.GatherInfo = {
 		{ 1,  "inv_ore_phaedrite",L["Rich Phaedrum Deposit"]},
 		{ 1,  "inv_ore_sinvyr",L["Sinvyr Deposit"]},
 		{ 1,  "inv_ore_sinvyr",L["Rich Sinvyr Deposit"]},
+    --dragonflight
+    { 1,  "Inv_ore_tyrivite",L["Serevite Deposit"]},
+    { 1,  "Inv_ore_tyrivite",L["Hardened Serevite Deposit"]},
+    { 1,  "Inv_ore_tyrivite",L["Infurious Serevite Deposit"]},
+    { 1,  "Inv_ore_tyrivite",L["Molten Serevite Deposit"]},
+    { 1,  "Inv_ore_tyrivite",L["Primal Serevite Deposit"]},
+    { 1,  "Inv_ore_tyrivite",L["Rich Serevite Deposit"]},
+    { 1,  "Inv_ore_tyrivite",L["Titan-Touched Serevite Deposit"]},
+    { 1,  "Inv_ore_draconium",L["Draconium Deposit"]},
+    { 1,  "Inv_ore_draconium",L["Hardened Draconium Deposit"]},
+    { 1,  "Inv_ore_draconium",L["Infurious Draconium Deposit"]},
+    { 1,  "Inv_ore_draconium",L["Molten Draconium Deposit"]},
+    { 1,  "Inv_ore_draconium",L["Primal Draconium Deposit"]},
+    { 1,  "Inv_ore_draconium",L["Rich Draconium Deposit"]},
+    { 1,  "Inv_ore_draconium",L["Titan-Touched Draconium Deposit"]},
+    
 	}
 }
 
