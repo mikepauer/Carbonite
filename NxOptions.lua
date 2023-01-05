@@ -3133,7 +3133,372 @@ local function guidegatherConfig ()
               end,
               set = function()
                 Nx.db.profile.Guide.ShowHerbs[90] = not Nx.db.profile.Guide.ShowHerbs[90]
-                end,
+              end,
+              },
+            hochenblume = {
+              order = 93,
+              type = "toggle",
+              width = "full",
+              name = L["Hochenblume"],
+              desc = L["Display"] .. " " .. L["Hochenblume"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[91]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[91] = not Nx.db.profile.Guide.ShowHerbs[91]
+              end,
+            },
+            decayedhochenblume = {
+              order = 94,
+              type = "toggle",
+              width = "full",
+              name = L["Decayed Hochenblume"],
+              desc = L["Display"] .. " " .. L["Decayed Hochenblume"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[92]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[92] = not Nx.db.profile.Guide.ShowHerbs[92]
+              end,
+            },
+            frigidhochenblume = {
+              order = 95,
+              type = "toggle",
+              width = "full",
+              name = L["Frigid Hochenblume"],
+              desc = L["Display"] .. " " .. L["Frigid Hochenblume"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[93]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[93] = not Nx.db.profile.Guide.ShowHerbs[93]
+              end,
+            },
+            infurioushochenblume = {
+              order = 96,
+              type = "toggle",
+              width = "full",
+              name = L["Infurious Hochenblume"],
+              desc = L["Display"] .. " " .. L["Infurious Hochenblume"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[94]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[94] = not Nx.db.profile.Guide.ShowHerbs[94]
+              end,
+            },
+            lushochenblume = {
+              order = 97,
+              type = "toggle",
+              width = "full",
+              name = L["Lush Hochenblume"],
+              desc = L["Display"] .. " " .. L["Lush Hochenblume"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[95]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[95] = not Nx.db.profile.Guide.ShowHerbs[95]
+              end,
+            },
+            titanhochenblume = {
+              order = 98,
+              type = "toggle",
+              width = "full",
+              name = L["Titan-Touched Hochenblume"],
+              desc = L["Display"] .. " " .. L["Titan-Touched Hochenblume"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[96]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[96] = not Nx.db.profile.Guide.ShowHerbs[96]
+              end,
+              },
+            windhochenblume = {
+              order = 99,
+              type = "toggle",
+              width = "full",
+              name = L["Windswept Hochenblume"],
+              desc = L["Display"] .. " " .. L["Windswept Hochenblume"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[97]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[97] = not Nx.db.profile.Guide.ShowHerbs[97]
+              end,
+               },
+            bubblepoppy = {
+              order = 100,
+              type = "toggle",
+              width = "full",
+              name = L["Bubble Poppy"],
+              desc = L["Display"] .. " " .. L["Bubble Poppy"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[98]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[98] = not Nx.db.profile.Guide.ShowHerbs[98]
+              end,
+              },
+            decayedbubblepoppy = {
+              order = 101,
+              type = "toggle",
+              width = "full",
+              name = L["Decayed Bubble Poppy"],
+              desc = L["Display"] .. " " .. L["Decayed Bubble Poppy"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[99]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[99] = not Nx.db.profile.Guide.ShowHerbs[99]
+              end,
+              },
+            fribubblepoppy = {
+              order = 102,
+              type = "toggle",
+              width = "full",
+              name = L["Frigid Bubble Poppy"],
+              desc = L["Display"] .. " " .. L["Frigid Bubble Poppy"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[100]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[100] = not Nx.db.profile.Guide.ShowHerbs[100]
+              end,
+              },
+            infububblepoppy = {
+              order = 103,
+              type = "toggle",
+              width = "full",
+              name = L["Infurious Bubble Poppy"],
+              desc = L["Display"] .. " " .. L["Infurious Bubble Poppy"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[101]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[101] = not Nx.db.profile.Guide.ShowHerbs[101]
+              end,
+              },
+            lushbubblepoppy = {
+              order = 104,
+              type = "toggle",
+              width = "full",
+              name = L["Lush Bubble Poppy"],
+              desc = L["Display"] .. " " .. L["Lush Bubble Poppy"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[102]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[102] = not Nx.db.profile.Guide.ShowHerbs[102]
+              end,
+              },
+            titanbubblepoppy = {
+              order = 105,
+              type = "toggle",
+              width = "full",
+              name = L["Titan-Touched Bubble Poppy"],
+              desc = L["Display"] .. " " .. L["Titan-Touched Bubble Poppy"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[103]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[103] = not Nx.db.profile.Guide.ShowHerbs[103]
+              end,
+              },
+            windbubblepoppy = {
+              order = 106,
+              type = "toggle",
+              width = "full",
+              name = L["Windswept Bubble Poppy"],
+              desc = L["Display"] .. " " .. L["Windswept Bubble Poppy"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[104]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[104] = not Nx.db.profile.Guide.ShowHerbs[104]
+              end,
+              },
+            saxifrage = {
+              order = 107,
+              type = "toggle",
+              width = "full",
+              name = L["Saxifrage"],
+              desc = L["Display"] .. " " .. L["Saxifrage"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[105]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[105] = not Nx.db.profile.Guide.ShowHerbs[105]
+              end,
+              },
+            decayedsaxifrage = {
+              order = 108,
+              type = "toggle",
+              width = "full",
+              name = L["Decayed Saxifrage"],
+              desc = L["Display"] .. " " .. L["Decayed Saxifrage"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[106]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[106] = not Nx.db.profile.Guide.ShowHerbs[106]
+              end,
+              },
+            frisaxifrage = {
+              order = 109,
+              type = "toggle",
+              width = "full",
+              name = L["Frigid Saxifrage"],
+              desc = L["Display"] .. " " .. L["Frigid Saxifrage"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[107]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[107] = not Nx.db.profile.Guide.ShowHerbs[107]
+              end,
+              },
+            infusaxifrage = {
+              order = 110,
+              type = "toggle",
+              width = "full",
+              name = L["Infurious Saxifrage"],
+              desc = L["Display"] .. " " .. L["Infurious Saxifrage"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[108]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[108] = not Nx.db.profile.Guide.ShowHerbs[108]
+              end,
+              },
+            lushsaxifrage = {
+              order = 111,
+              type = "toggle",
+              width = "full",
+              name = L["Lush Saxifrage"],
+              desc = L["Display"] .. " " .. L["Lush Saxifrage"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[109]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[109] = not Nx.db.profile.Guide.ShowHerbs[109]
+              end,
+              },
+            titansaxifrage = {
+              order = 112,
+              type = "toggle",
+              width = "full",
+              name = L["Titan-Touched Saxifrage"],
+              desc = L["Display"] .. " " .. L["Titan-Touched Saxifrage"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[110]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[110] = not Nx.db.profile.Guide.ShowHerbs[110]
+              end,
+              },
+            windsaxifrage = {
+              order = 113,
+              type = "toggle",
+              width = "full",
+              name = L["Windswept Saxifrage"],
+              desc = L["Display"] .. " " .. L["Windswept Saxifrage"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[111]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[111] = not Nx.db.profile.Guide.ShowHerbs[111]
+              end,
+              },
+            writhebark = {
+              order = 114,
+              type = "toggle",
+              width = "full",
+              name = L["Writhebark"],
+              desc = L["Display"] .. " " .. L["Writhebark"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[112]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[112] = not Nx.db.profile.Guide.ShowHerbs[112]
+              end,
+              },
+              decayedwrithebark = {
+              order = 115,
+              type = "toggle",
+              width = "full",
+              name = L["Decayed Writhebark"],
+              desc = L["Display"] .. " " .. L["Decayed Writhebark"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[113]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[113] = not Nx.db.profile.Guide.ShowHerbs[113]
+              end,
+              },
+            friwrithebark = {
+              order = 116,
+              type = "toggle",
+              width = "full",
+              name = L["Frigid Writhebark"],
+              desc = L["Display"] .. " " .. L["Frigid Writhebark"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[114]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[114] = not Nx.db.profile.Guide.ShowHerbs[114]
+              end,
+              },
+            infuwrithebark = {
+              order = 117,
+              type = "toggle",
+              width = "full",
+              name = L["Infurious Writhebark"],
+              desc = L["Display"] .. " " .. L["Infurious Writhebark"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[115]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[115] = not Nx.db.profile.Guide.ShowHerbs[115]
+              end,
+              },
+            lushwrithebark = {
+              order = 118,
+              type = "toggle",
+              width = "full",
+              name = L["Lush Writhebark"],
+              desc = L["Display"] .. " " .. L["Lush Writhebark"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[116]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[116] = not Nx.db.profile.Guide.ShowHerbs[116]
+              end,
+              },
+            titanwrithebark = {
+              order = 119,
+              type = "toggle",
+              width = "full",
+              name = L["Titan-Touched Writhebark"],
+              desc = L["Display"] .. " " .. L["Titan-Touched Writhebark"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[117]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[117] = not Nx.db.profile.Guide.ShowHerbs[117]
+              end,
+              },
+            windwrithebark = {
+              order = 120,
+              type = "toggle",
+              width = "full",
+              name = L["Windswept Writhebark"],
+              desc = L["Display"] .. " " .. L["Windswept Writhebark"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowHerbs[118]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowHerbs[118] = not Nx.db.profile.Guide.ShowHerbs[118]
+              end,
+              
 						},
 					},
 				},
@@ -4099,7 +4464,190 @@ local function guidegatherConfig ()
               set = function()
                 Nx.db.profile.Guide.ShowMines[72] = not Nx.db.profile.Guide.ShowMines[72]
               end,
+              },
+            serevite = {
+              order = 75,
+              type = "toggle",
+              width = "full",
+              name = L["Serevite Deposit"],
+              desc = L["Display"] .. " " .. L["Serevite Deposit"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[73]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[73] = not Nx.db.profile.Guide.ShowMines[73]
+              end,
+              },
+            hardserevite = {
+              order = 76,
+              type = "toggle",
+              width = "full",
+              name = L["Hardened Serevite Deposit"],
+              desc = L["Display"] .. " " .. L["Hardened Serevite Deposit"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[74]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[74] = not Nx.db.profile.Guide.ShowMines[74]
+              end,
+              },
+            infuserevite = {
+              order = 77,
+              type = "toggle",
+              width = "full",
+              name = L["Infurious Serevite Deposit"],
+              desc = L["Display"] .. " " .. L["Infurious Serevite Deposit"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[75]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[75] = not Nx.db.profile.Guide.ShowMines[75]
+              end,
+              },
+            moltserevite = {
+              order = 78,
+              type = "toggle",
+              width = "full",
+              name = L["Molten Serevite Deposit"],
+              desc = L["Display"] .. " " .. L["Molten Serevite Deposit"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[76]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[76] = not Nx.db.profile.Guide.ShowMines[76]
+              end,
+              },
+            primserevite = {
+              order = 79,
+              type = "toggle",
+              width = "full",
+              name = L["Primal Serevite Deposit"],
+              desc = L["Display"] .. " " .. L["Primal Serevite Deposit"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[77]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[77] = not Nx.db.profile.Guide.ShowMines[77]
+              end,
+              },
+            richserevite = {
+              order = 80,
+              type = "toggle",
+              width = "full",
+              name = L["Rich Serevite Deposit"],
+              desc = L["Display"] .. " " .. L["Rich Serevite Deposit"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[78]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[78] = not Nx.db.profile.Guide.ShowMines[78]
+              end,
+              },
+            titanserevite = {
+              order = 81,
+              type = "toggle",
+              width = "full",
+              name = L["Titan-Touched Serevite Deposit"],
+              desc = L["Display"] .. " " .. L["Titan-Touched Serevite Deposit"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[79]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[79] = not Nx.db.profile.Guide.ShowMines[79]
+              end,
 						},
+            draconium = {
+              order = 82,
+              type = "toggle",
+              width = "full",
+              name = L["Draconium Deposit"],
+              desc = L["Display"] .. " " .. L["Draconium Deposit"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[80]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[80] = not Nx.db.profile.Guide.ShowMines[80]
+              end,
+              },
+            harddraconium = {
+              order = 83,
+              type = "toggle",
+              width = "full",
+              name = L["Hardened Draconium Deposit"],
+              desc = L["Display"] .. " " .. L["Hardened Draconium Deposit"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[81]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[81] = not Nx.db.profile.Guide.ShowMines[81]
+              end,
+              },
+            infudraconium = {
+              order = 84,
+              type = "toggle",
+              width = "full",
+              name = L["Infurious Draconium Deposit"],
+              desc = L["Display"] .. " " .. L["Infurious Draconium Deposit"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[82]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[82] = not Nx.db.profile.Guide.ShowMines[82]
+              end,
+              },
+            moltdraconium = {
+              order = 85,
+              type = "toggle",
+              width = "full",
+              name = L["Molten Draconium Deposit"],
+              desc = L["Display"] .. " " .. L["Molten Draconium Deposit"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[83]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[83] = not Nx.db.profile.Guide.ShowMines[83]
+              end,
+              },
+            primdraconium = {
+              order = 86,
+              type = "toggle",
+              width = "full",
+              name = L["Primal Draconium Deposit"],
+              desc = L["Display"] .. " " .. L["Primal Draconium Deposit"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[84]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[84] = not Nx.db.profile.Guide.ShowMines[84]
+              end,
+              },
+            richdraconium = {
+              order = 87,
+              type = "toggle",
+              width = "full",
+              name = L["Rich Draconium Deposit"],
+              desc = L["Display"] .. " " .. L["Rich Draconium Deposit"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[85]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[85] = not Nx.db.profile.Guide.ShowMines[85]
+              end,
+              },
+            titandraconium = {
+              order = 88,
+              type = "toggle",
+              width = "full",
+              name = L["Titan-Touched Draconium Deposit"],
+              desc = L["Display"] .. " " .. L["Titan-Touched Draconium Deposit"] .. " " .. L["Nodes On Map"],
+              get = function()
+                return Nx.db.profile.Guide.ShowMines[86]
+              end,
+              set = function()
+                Nx.db.profile.Guide.ShowMines[86] = not Nx.db.profile.Guide.ShowMines[86]
+              end,
+						},
+            
 					},
 				},
 				TimberDisp = {
