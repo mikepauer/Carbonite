@@ -1810,7 +1810,7 @@ Map.MapWorldInfo = {
 		Scale = 14.529168,
 		X = -1213.75 + 2279,
 		Y = -465.8334 + 1145,
-		Name = L["Zeralek Caverns"],
+		Name = L["Zaralek Cavern"],
 		Overlay = "underground",
 		MId = 2133,
 	},
@@ -15108,7 +15108,7 @@ Map.NPEBlks = {
 	[4559] = 3497281,
 }
 
-Map.ZerekCavernsBlks = {
+Map.ZaralekCavernBlks = {
 	[2226] = 4295636,
 	[2227] = 4295638,
 	[2228] = 4295642,
@@ -15427,7 +15427,7 @@ Map.MiniMapBlks = {
 		"World\\Minimaps\\2374"
 	},
 	[2133] = {
-		Map.ZerekCavernsBlks,
+		Map.ZaralekCavernBlks,
 		2226,
 		22, 26,
 		Map.MapWorldInfo[2133].X + Map.MapInfo[14].X + 147.5, Map.MapWorldInfo[2133].Y + Map.MapInfo[14].Y - 174,
