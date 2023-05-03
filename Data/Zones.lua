@@ -562,7 +562,7 @@ Nx.Zones = {
 	[2025] = L["Thaldraszus"] .. "|110|120|2|14||",
 	[2112] = L["Valdrakken"] .. "|110|120|2|14||",
 	[2151] = L["The Forbidden Reach"] .. "|110|120|2|14||",
-	[2133] = L["Zeralek Caverns"] .. "|110|120|2|14||",
+	[2133] = L["Zaralek Cavern"] .. "|110|120|2|14||",
 	
 	
 	[1409] = L["Exile's Reach"] .. "|0|0|2|0||",
