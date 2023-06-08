@@ -10365,7 +10365,7 @@ function Nx.Map:ParseTargetStr (str)
 
 	local mid = Nx.Map.UpdateMapID
 
-	if zone then		
+	if zone then
 		mid = nil
 		local cont = 0
 		local curmid = Nx.Map:GetCurrentMapAreaID()				
@@ -10379,15 +10379,19 @@ function Nx.Map:ParseTargetStr (str)
 		end
 		
 		for id, zonedesc in pairs (Nx.Zones) do
-			local name = strlower (string.gsub (zonedesc, "|.*", ""))
-			if name == zone or string.sub (name, 1, #zone) == zone then
-				if (cont > 0) and Nx.Map.MapWorldInfo[id].Cont == cont then
-					mid = id
-				elseif (cont == 0) then
-					if not mid or math.abs(mid - curmid) > math.abs(mid - id) then
+			if "#" .. id == zone then
+				mid = id
+			else
+				local name = strlower (string.gsub (zonedesc, "|.*", ""))
+				if name == zone or string.sub (name, 1, #zone) == zone then
+					if (cont > 0) and Nx.Map.MapWorldInfo[id].Cont == cont then
 						mid = id
-					end				
-				end			
+					elseif (cont == 0) then
+						if not mid or math.abs(mid - curmid) > math.abs(mid - id) then
+							mid = id
+						end				
+					end			
+				end
 			end
 		end
 
