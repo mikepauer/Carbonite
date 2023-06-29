@@ -4901,7 +4901,7 @@ local function skinConfig()
 						local g = arr[2]
 						local b = arr[3]
 						local a = arr[4]
-						return r,g,b,a
+						return r,g,b,tonumber(a)
 					end,
 					set = function(_,r,g,b,a)
 						Nx.db.profile.Skin.WinBdColor = r .. "|" .. g .. "|" .. b .. "|" .. a
@@ -4920,7 +4920,7 @@ local function skinConfig()
 						local g = arr[2]
 						local b = arr[3]
 						local a = arr[4]
-						return r,g,b,a
+						return r,g,b,tonumber(a)
 					end,
 					set = function(_,r,g,b,a)
 						Nx.db.profile.Skin.WinFixedBgColor = r .. "|" .. g .. "|" .. b .. "|" .. a
@@ -4939,7 +4939,7 @@ local function skinConfig()
 						local g = arr[2]
 						local b = arr[3]
 						local a = arr[4]
-						return r,g,b,a
+						return r,g,b,tonumber(a)
 					end,
 					set = function(_,r,g,b,a)
 						Nx.db.profile.Skin.WinSizedBgColor = r .. "|" .. g .. "|" .. b .. "|" .. a
@@ -5121,7 +5121,7 @@ local function trackConfig()
 						local g = arr[2]
 						local b = arr[3]
 						local a = arr[4]
-						return r,g,b,a
+						return r,g,b,tonumber(a)
 					end,
 					set = function(_,r,g,b,a)
 						Nx.db.profile.Track.TButColor = r .. "|" .. g .. "|" .. b .. "|" .. a
@@ -5140,7 +5140,7 @@ local function trackConfig()
 						local g = arr[2]
 						local b = arr[3]
 						local a = arr[4]
-						return r,g,b,a
+						return r,g,b,tonumber(a)
 					end,
 					set = function(_,r,g,b,a)
 						Nx.db.profile.Track.TButCombatColor = r .. "|" .. g .. "|" .. b .. "|" .. a
