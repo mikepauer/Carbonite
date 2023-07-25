@@ -1,4 +1,4 @@
-## Interface: 100100
+## Interface: 100105
 ## Title: Carbonite Maps @project-version@
 ## Version: @project-version@
 ## Author: No one
