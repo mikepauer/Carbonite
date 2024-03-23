@@ -26,29 +26,28 @@ local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite")
 local HideFramesOnEsc = {}
 
 function Nx:UIInit()
+    local qc = {}
+    self.QualityColors = qc
 
-	local qc = {}
-	self.QualityColors = qc
+    for n = 0, 10 do
+        local r, g, b, hex = C_Item.GetItemQualityColor(n)
+        qc[n] = hex
+    end
 
-	for n = -1, 10 do		-- Blizz max is currently 7
-		local r, g, b, hex = GetItemQualityColor (n)
-		qc[n] = hex
-	end
+    qc[1] = "|cffe7e7e7" -- Dim the white
 
-	qc[1] = "|cffe7e7e7"		-- Dim the white
+    Nx.Font:Init()
+    Nx.Skin:Init()
 
-	Nx.Font:Init()
-	Nx.Skin:Init()
+    Nx.Menu:Init()
+    Nx.Window:Init()
 
-	Nx.Menu:Init()
-	Nx.Window:Init()
+    Nx.Button:Init()
+    Nx.List:Init()
+    Nx.DropDown:Init()
+    Nx.ToolBar:Init()
 
-	Nx.Button:Init()
-	Nx.List:Init()
-	Nx.DropDown:Init()
-	Nx.ToolBar:Init()
-
---	Nx.GList:Init()
+    -- Nx.GList:Init()
 end
 
 ---------------------------------------------------------------------------------------
