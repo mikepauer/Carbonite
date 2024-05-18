@@ -7933,31 +7933,31 @@ function Nx.Graph:OnLeave (motion)
 end
 
 function NxWatchListItem_OnUpdate(self, elapsed)
-	-- Handle range indicator
-	local rangeTimer = self.rangeTimer;
-	if ( rangeTimer ) then
-		rangeTimer = rangeTimer - elapsed;
-		if ( rangeTimer <= 0 ) then
-			local link, item, charges, showItemWhenComplete = GetQuestLogSpecialItemInfo(self.questLogIndex);
-			if ( not charges or charges ~= self.charges ) then
-				--ObjectiveTracker_Update(OBJECTIVE_TRACKER_UPDATE_MODULE_QUEST);
-				return;
-			end
-			local count = self.HotKey;
-			local valid = IsQuestLogSpecialItemInRange(self.questLogIndex);
-			if ( valid == 0 ) then
-				count:Show();
-				count:SetVertexColor(1.0, 0.1, 0.1);
-			elseif ( valid == 1 ) then
-				count:Show();
-				count:SetVertexColor(0.6, 0.6, 0.6);
-			else
-				count:Hide();
-			end
-			rangeTimer = TOOLTIP_UPDATE_TIME;
-		end
-		self.rangeTimer = rangeTimer;
-	end
+    -- Handle range indicator
+    local rangeTimer = self.rangeTimer
+    if rangeTimer then
+        rangeTimer = rangeTimer - elapsed
+        if rangeTimer <= 0 then
+            local link, item, charges, showItemWhenComplete = GetQuestLogSpecialItemInfo(self.questLogIndex)
+            if not charges or charges ~= self.charges then
+                -- ObjectiveTracker_Update(OBJECTIVE_TRACKER_UPDATE_MODULE_QUEST)
+                return
+            end
+            local count = self.HotKey
+            local valid = IsQuestLogSpecialItemInRange(self.questLogIndex)
+            if valid == 0 then
+                count:Show()
+                count:SetVertexColor(1.0, 0.1, 0.1)
+            elseif valid == 1 then
+                count:Show()
+                count:SetVertexColor(0.6, 0.6, 0.6)
+            else
+                count:Hide()
+            end
+            rangeTimer = TOOLTIP_UPDATE_TIME
+        end
+        self.rangeTimer = rangeTimer
+    end
 end
 
 ---------------------------------------------------------------------------------------
