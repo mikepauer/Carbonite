@@ -2471,7 +2471,7 @@ function Nx.AuctionAssist.OnAuction_house_show()
 
 --	Nx.prt ("OnAUCTION_HOUSE_SHOW")
 
-	if IsAddOnLoaded ("Blizzard_AuctionUI") then
+	if C_AddOns.IsAddOnLoaded ("Blizzard_AuctionUI") then
 		hooksecurefunc ("AuctionFrameBrowse_Update", Nx.AuctionAssist.AuctionFrameBrowse_Update)
 		Nx.AuctionAssist:Create()
 	end
