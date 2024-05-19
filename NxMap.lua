@@ -3932,7 +3932,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 			_G['ReputationFrameEvents']:UnregisterEvent('QUEST_LOG_UPDATE')
 			_G['ReputationFrameEvents']:RegisterEvent('UNIT_QUEST_LOG_CHANGED')
 			_G['ReputationFrameEvents']:HookScript('OnShow', function(self, event, ...)
-				_G['RReputationFrameEvents']:UnregisterEvent('QUEST_LOG_UPDATE')
+				_G['ReputationFrameEvents']:UnregisterEvent('QUEST_LOG_UPDATE')
 				_G['ReputationFrameEvents']:RegisterEvent('UNIT_QUEST_LOG_CHANGED')
 			end)
 			_G['ReputationFrameEvents']:HookScript('OnEvent', function(self, event, ...)
