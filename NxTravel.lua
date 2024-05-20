@@ -909,7 +909,7 @@ function Nx.Travel:GetRidingSkill()
         [75] = 33388,   -- Apprentice Riding
         [150] = 33391,  -- Journeyman Riding
         [225] = 34090,  -- Expert Riding
-        [300] = 34091,  -- Artisan Riding
+--        [300] = 34091,  -- Artisan Riding
         [375] = 90265,  -- Master Riding
     }
 
