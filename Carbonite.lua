@@ -807,7 +807,7 @@ function Nx.slashCommand (txt)
 		local id = format ("Hitem:%s", a1)
 		GameTooltip:SetOwner (UIParent, "ANCHOR_LEFT", 0, 0)
 		GameTooltip:SetHyperlink (id)
-		local name, iLink, iRarity, lvl, minLvl, type, subType, stackCount, equipLoc, tx = GetItemInfo (id)
+		local name, iLink, iRarity, lvl, minLvl, type, subType, stackCount, equipLoc, tx = C_Item.GetItemInfo (id)
 		Nx.prt ("Item: %s %s", name or "nil", iLink or "")
 
 	elseif cmd == "kill" then
@@ -2471,7 +2471,7 @@ function Nx.AuctionAssist.OnAuction_house_show()
 
 --	Nx.prt ("OnAUCTION_HOUSE_SHOW")
 
-	if IsAddOnLoaded ("Blizzard_AuctionUI") then
+	if C_AddOns.IsAddOnLoaded ("Blizzard_AuctionUI") then
 		hooksecurefunc ("AuctionFrameBrowse_Update", Nx.AuctionAssist.AuctionFrameBrowse_Update)
 		Nx.AuctionAssist:Create()
 	end
@@ -3622,7 +3622,7 @@ end
 
 function Nx.Item:Load (id)
 	if not self.Asked[id] then			-- Ask once
-		local name, link = GetItemInfo (id)
+		local name, link = C_Item.GetItemInfo (id)
 		if name then			
 			self.Asked[id] = name
 		end
@@ -3997,5 +3997,41 @@ function Nx.Proc:OnUpdate (elapsed)
 
 	self.TimeLeft = elapsed
 end
+
+-- Carbonite/Carbonite.lua
+
+-- This function initializes the quest objective item
+function QuestObjectiveItem_OnLoad(self)
+    -- Initialization code here
+--    print("QuestObjectiveItem_OnLoad called")
+end
+
+-- This function handles events for the quest objective item
+function QuestObjectiveItem_OnEvent(self, event, ...)
+    -- Event handling code here
+    if event == "QUEST_LOG_UPDATE" then
+        -- Handle quest log update event
+--        print("QuestObjectiveItem_OnEvent called with QUEST_LOG_UPDATE")
+    end
+end
+
+-- This function is called when the quest objective item is shown
+function QuestObjectiveItem_OnShow(self)
+    -- Code to run when the item is shown
+--    print("QuestObjectiveItem_OnShow called")
+end
+
+-- This function is called when the quest objective item is hidden
+function QuestObjectiveItem_OnHide(self)
+    -- Code to run when the item is hidden
+--    print("QuestObjectiveItem_OnHide called")
+end
+
+-- This function updates the watch list item
+function NxWatchListItem_OnUpdate(self, elapsed)
+    -- Update code here
+--    print("NxWatchListItem_OnUpdate called")
+end
+
 ---------------------------------------------------------------------------------------
 --EOF

@@ -15909,7 +15909,7 @@ function Nx.Map:GetMiniBlkName (miniT, x, y)
 		if (strfind(miniT[7],"HawaiiMainLand")) then
 			local hasFac = false
 			for factionIndex = 1, GetNumFactions() do
-				local name, description, standingId, bottomValue, topValue, earnedValue, atWarWith,canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild = GetFactionInfo(factionIndex)
+				local name, description, standingId, bottomValue, topValue, earnedValue, atWarWith,canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild = C_CreatureInfo.GetFactionInfo(factionIndex)
 				if (name == "Operation: Shieldwall") or (name == "Dominance Offensive") then
 					hasFac = true
 				end
