@@ -4130,6 +4130,7 @@ function Nx.Map.OnUpdate(this, elapsed)
         end
         map.Win:SetTitle(format("%s %s", s, cursorLocXY), 2)
     end
+end
 
 --------
 -- Handle mouse click on icon
