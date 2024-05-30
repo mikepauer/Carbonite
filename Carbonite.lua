@@ -3997,5 +3997,41 @@ function Nx.Proc:OnUpdate (elapsed)
 
 	self.TimeLeft = elapsed
 end
+
+-- Carbonite/Carbonite.lua
+
+-- This function initializes the quest objective item
+function QuestObjectiveItem_OnLoad(self)
+    -- Initialization code here
+--    print("QuestObjectiveItem_OnLoad called")
+end
+
+-- This function handles events for the quest objective item
+function QuestObjectiveItem_OnEvent(self, event, ...)
+    -- Event handling code here
+    if event == "QUEST_LOG_UPDATE" then
+        -- Handle quest log update event
+--        print("QuestObjectiveItem_OnEvent called with QUEST_LOG_UPDATE")
+    end
+end
+
+-- This function is called when the quest objective item is shown
+function QuestObjectiveItem_OnShow(self)
+    -- Code to run when the item is shown
+--    print("QuestObjectiveItem_OnShow called")
+end
+
+-- This function is called when the quest objective item is hidden
+function QuestObjectiveItem_OnHide(self)
+    -- Code to run when the item is hidden
+--    print("QuestObjectiveItem_OnHide called")
+end
+
+-- This function updates the watch list item
+function NxWatchListItem_OnUpdate(self, elapsed)
+    -- Update code here
+--    print("NxWatchListItem_OnUpdate called")
+end
+
 ---------------------------------------------------------------------------------------
 --EOF

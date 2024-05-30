@@ -3904,7 +3904,8 @@ function Nx.Map:SetScaleOverTime (steps)
 	self.StepTime = 10
 end
 
--- NxMap.lua
+--------
+-- Update event handler
 
 local ttl = 0
 
@@ -3926,24 +3927,24 @@ function Nx.Map.OnUpdate(this, elapsed)
             end
         end
     end
-
-    -- Fix Reputation Frame Events
-    local repFrameEvents = _G['ReputationFrameEvents']
-    if repFrameEvents and not repFrameEvents.CarbFix then
-        repFrameEvents.CarbFix = true
-        repFrameEvents:UnregisterEvent('QUEST_LOG_UPDATE')
-        repFrameEvents:RegisterEvent('UNIT_QUEST_LOG_CHANGED')
-        repFrameEvents:HookScript('OnShow', function(self)
-            self:UnregisterEvent('QUEST_LOG_UPDATE')
-            self:RegisterEvent('UNIT_QUEST_LOG_CHANGED')
-        end)
-        repFrameEvents:HookScript('OnEvent', function(self, event)
-            if event == "UPDATE_FACTION" or event == "LFG_BONUS_FACTION_ID_UPDATED" or event == "UNIT_QUEST_LOG_CHANGED" then
-                ReputationFrame_Update()
-            end
-        end)
-    end
-
+	
+	if _G['ReputationFrameEvents'] then
+		if not _G['ReputationFrameEvents'].CarbFix then
+			_G['ReputationFrameEvents'].CarbFix = true
+			_G['ReputationFrameEvents']:UnregisterEvent('QUEST_LOG_UPDATE')
+			_G['ReputationFrameEvents']:RegisterEvent('UNIT_QUEST_LOG_CHANGED')
+			_G['ReputationFrameEvents']:HookScript('OnShow', function(self, event, ...)
+				_G['ReputationFrameEvents']:UnregisterEvent('QUEST_LOG_UPDATE')
+				_G['ReputationFrameEvents']:RegisterEvent('UNIT_QUEST_LOG_CHANGED')
+			end)
+			_G['RReputationFrameEvents']:HookScript('OnEvent', function(self, event, ...)
+				if ( event == "UPDATE_FACTION" or event == "LFG_BONUS_FACTION_ID_UPDATED" or event == "UNIT_QUEST_LOG_CHANGED" ) then
+					ReputationFrame:Update();
+				end
+			end)
+		end
+	end
+	
     local map = this.NxMap
     map.Tick = map.Tick + 1
 
@@ -4129,7 +4130,6 @@ function Nx.Map.OnUpdate(this, elapsed)
         end
         map.Win:SetTitle(format("%s %s", s, cursorLocXY), 2)
     end
-end
 
 --------
 -- Handle mouse click on icon

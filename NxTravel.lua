@@ -426,7 +426,7 @@ function Nx.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX, dst
 		elseif cont1 == 6 then
 			self.FlyingMount = C_Spell.GetSpellInfo(self.PandariaFlyName)
         elseif cont1 == 7 then
-			local _,_,_,complete = GetAchievementInfo(10018)
+			local _,_,_,complete = C_Spell.GetAchievementInfo(10018)
 			if complete then
 				self.FlyingMount = C_Spell.GetSpellInfo(self.DraenorFlyName)
 			end
@@ -924,7 +924,6 @@ function Nx.Travel:GetRidingSkill()
 
     return SkillRiding
 end
-
 
 ---------------------------------------------------------------------------------------
 -- EOF
