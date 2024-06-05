@@ -370,6 +370,23 @@ local function mapConfig ()
 							end,
 						},
 						
+						mapUpdate = {
+							order = 7,
+							type = "range",
+							name = L["Map update rate"],
+							desc = L["sets map update refresh rate"],
+							min = 0,
+							max = .25,
+							step = .01,
+							bigStep = .01,
+							get = function()
+								return Nx.db.profile.Map.mapUpdate
+							end,
+							set = function(info,value)
+								Nx.db.profile.Map.mapUpdate = value
+							end,
+						},
+						
 						mZGVUpdateGoto = {
 							order = 7,
 							type = "toggle",
