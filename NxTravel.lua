@@ -905,21 +905,22 @@ function Nx.Travel:DebugCaptureTaxi()
 end
 
 function Nx.Travel:GetRidingSkill()
-	local RidingSpells = {
-		[10] = C_Spell.GetSpellInfo (33388) or "", -- Apprentice Riding
-		[75] = C_Spell.GetSpellInfo (33391) or "", -- Journeyman Riding
-		[150] = C_Spell.GetSpellInfo (34090) or "", -- Expert Riding
-		[300] = C_Spell.GetSpellInfo (90265) or "", -- Master Riding
-	}
-	local SkillRiding = 0
+  local RidingSpells = {
+    [10] = 33388, -- Apprentice Riding
+    [75] = 33391, -- Journeyman Riding
+    [150] = 34090, -- Expert Riding
+    [300] = 90265, -- Master Riding
+  }
+  local SkillRiding = 0
 
-	for skill, name in pairs (RidingSpells) do
-		if C_Spell.GetSpellInfo (name) then
-			SkillRiding = skill
-			break
-		end
-	end
-	return SkillRiding
+  for skill, spellId in pairs(RidingSpells) do
+    local spellName = C_Spell.GetSpellInfo(spellId)
+    if spellName then
+      SkillRiding = skill
+      break
+    end
+  end
+  return SkillRiding
 end
 
 ---------------------------------------------------------------------------------------
