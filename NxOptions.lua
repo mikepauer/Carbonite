@@ -5397,8 +5397,8 @@ end
 -- Open options
 
 function Nx.Opts:Open (pageName)
-	InterfaceOptionsFrame_OpenToCategory("Carbonite")
-	InterfaceOptionsFrame_OpenToCategory("Carbonite")
+	Settings.OpenToCategory("Carbonite")
+	Settings.OpenToCategory("Carbonite")
 end
 
 --------
