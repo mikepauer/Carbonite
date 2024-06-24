@@ -45,11 +45,11 @@ function Nx.Travel:Init()
 --		taxiT[""] = true
 --	end
 
-	self.WrathFlyName = GetSpellInfo (54197) or ""
-	self.AzerothFlyName = GetSpellInfo (90267) or ""
-	self.PandariaFlyName = GetSpellInfo(115913) or ""
-	self.DraenorFlyName = GetSpellInfo(191645) or ""
-	self.LegionFlyName = GetSpellInfo(233368) or ""
+	self.WrathFlyName = C_Spell.GetSpellInfo (54197) or ""
+	self.AzerothFlyName = C_Spell.GetSpellInfo (90267) or ""
+	self.PandariaFlyName = C_Spell.GetSpellInfo(115913) or ""
+	self.DraenorFlyName = C_Spell.GetSpellInfo(191645) or ""
+	self.LegionFlyName = C_Spell.GetSpellInfo(233368) or ""
 end
 
 function Nx.Travel:Add (typ)
@@ -418,22 +418,22 @@ function Nx.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX, dst
 
 	if riding >= 225 then
 		if cont1 == 1 or cont1 == 2 or cont1 == 5 then
-			self.FlyingMount = GetSpellInfo (self.AzerothFlyName)
+			self.FlyingMount = C_Spell.GetSpellInfo (self.AzerothFlyName)
 		elseif cont1 == 3 then
 			self.FlyingMount = true
 		elseif cont1 == 4 then
-			self.FlyingMount = GetSpellInfo(self.WrathFlyName)
+			self.FlyingMount = C_Spell.GetSpellInfo(self.WrathFlyName)
 		elseif cont1 == 6 then
-			self.FlyingMount = GetSpellInfo(self.PandariaFlyName)
+			self.FlyingMount = C_Spell.GetSpellInfo(self.PandariaFlyName)
         elseif cont1 == 7 then
 			local _,_,_,complete = GetAchievementInfo(10018)
 			if complete then
-				self.FlyingMount = GetSpellInfo(self.DraenorFlyName)
+				self.FlyingMount = C_Spell.GetSpellInfo(self.DraenorFlyName)
 			end
 		elseif cont1 == 8 then
 			local _,_,_,complete = GetAchievementInfo(11446)
 			if complete then
-				self.FlyingMount = GetSpellInfo(self.LegionFlyName)
+				self.FlyingMount = C_Spell.GetSpellInfo(self.LegionFlyName)
 			end
 		end
 	end
@@ -905,22 +905,22 @@ function Nx.Travel:DebugCaptureTaxi()
 end
 
 function Nx.Travel:GetRidingSkill()
-	local RidingSpells = {
-		[75] = GetSpellInfo (33389) or "",
-		[150] = GetSpellInfo (33392) or "",
-		[225] = GetSpellInfo (34092) or "",		-- Expert
-		[300] = GetSpellInfo (34093) or "",		-- Artisan
-		[375] = GetSpellInfo (90265) or "",		-- Master
-	}
-	local SkillRiding = 0
+  local RidingSpells = {
+    [10] = 33388, -- Apprentice Riding
+    [75] = 33391, -- Journeyman Riding
+    [150] = 34090, -- Expert Riding
+    [300] = 90265, -- Master Riding
+  }
+  local SkillRiding = 0
 
-	for skill, name in pairs (RidingSpells) do
-		if GetSpellInfo (name) then
-			SkillRiding = skill
-			break
-		end
-	end
-	return SkillRiding
+  for skill, spellId in pairs(RidingSpells) do
+    local spellName = C_Spell.GetSpellInfo(spellId)
+    if spellName then
+      SkillRiding = skill
+      break
+    end
+  end
+  return SkillRiding
 end
 
 ---------------------------------------------------------------------------------------
