@@ -1545,8 +1545,8 @@ function Nx.Map:UpdateWorldMap()
 
 	local f = self.WorldMapFrm
 
-	for factionIndex = 1, GetNumFactions() do
-		local name, description, standingId, bottomValue, topValue, earnedValue, atWarWith,canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild = GetFactionInfo(factionIndex)
+	for factionIndex = 1, C_Reputation.GetNumFactions() do
+		local name, description, standingId, bottomValue, topValue, earnedValue, atWarWith,canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild = C_CreatureInfo.GetFactionInfo(factionIndex)
 		if (name == L["Operation: Shieldwall"]) or (name == L["Dominance Offensive"]) then
 			self.MapWorldInfo[857].Overlay = "krasarang_terrain1"
 		end
@@ -3905,313 +3905,246 @@ function Nx.Map:SetScaleOverTime (steps)
 end
 
 --------
--- Update event handler
+-- NxMap.lua
+
 local ttl = 0
-function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
-	ttl = ttl + elapsed
-	if ttl < (Nx.db.profile.Map.mapUpdate or .05) then
-		return
-	end
-	ttl = 0
-	
-	-- Temp HACK - Hide unused HANDYNOTES icons
-	if not WorldMapFrame:IsShown() then
-		for n = 1, 2000 do 
-			if _G["HandyNotesPin"..n] then
-				_G["HandyNotesPin"..n]:Hide()
-			else
-				break
-			end 
-		end
-	end
-	
-	if _G['ReputationFrame'] then
-		if not _G['ReputationFrame'].CarbFix then
-			_G['ReputationFrame'].CarbFix = true
-			_G['ReputationFrame']:UnregisterEvent('QUEST_LOG_UPDATE')
-			_G['ReputationFrame']:RegisterEvent('UNIT_QUEST_LOG_CHANGED')
-			_G['ReputationFrame']:HookScript('OnShow', function(self, event, ...)
-				_G['ReputationFrame']:UnregisterEvent('QUEST_LOG_UPDATE')
-				_G['ReputationFrame']:RegisterEvent('UNIT_QUEST_LOG_CHANGED')
-			end)
-			_G['ReputationFrame']:HookScript('OnEvent', function(self, event, ...)
-				if ( event == "UPDATE_FACTION" or event == "LFG_BONUS_FACTION_ID_UPDATED" or event == "UNIT_QUEST_LOG_CHANGED" ) then
-					ReputationFrame_Update();
-				end
-			end)
-		end
-	end
-	
-	local Nx = Nx
+-- List of reputation frame events to handle
+local ReputationFrameEvents = {
+  "MAJOR_FACTION_RENOWN_LEVEL_CHANGED",
+  "MAJOR_FACTION_UNLOCKED",
+  "QUEST_LOG_UPDATE",
+  "UPDATE_FACTION",
+}
 
-	local profileTime = GetTime()
+function Nx.Map.OnUpdate(this, elapsed)
+  ttl = ttl + elapsed
+  if ttl < 0.05 then
+    return
+  end
+  ttl = 0
 
-	local map = this.NxMap
-	local gopts = map.GOpts
+  -- Hide unused HandyNotes icons
+  if not WorldMapFrame:IsShown() then
+    for n = 1, 2000 do
+      local pin = _G["HandyNotesPin" .. n]
+      if pin then
+        pin:Hide()
+      else
+        break
+      end
+    end
+  end
 
-	map.Tick = map.Tick + 1
+  -- Fix Reputation Frame Events
+  local repFrameEvents = _G['ReputationFrameEvents']
+  if repFrameEvents and not repFrameEvents.CarbFix then
+    repFrameEvents.CarbFix = true
 
-	map.EffScale = this:GetEffectiveScale()
-	map.Size1 = Nx.db.profile.Map.LineThick * .75 / map.EffScale
+    for _, event in ipairs(ReputationFrameEvents) do
+      repFrameEvents:UnregisterEvent(event)
+    end
+    repFrameEvents:RegisterEvent('UNIT_QUEST_LOG_CHANGED')
 
-	Nx.Map:UpdateOptions (map.MapIndex)
+    repFrameEvents:HookScript('OnShow', function(self)
+      for _, event in ipairs(ReputationFrameEvents) do
+        self:UnregisterEvent(event)
+      end
+      self:RegisterEvent('UNIT_QUEST_LOG_CHANGED')
+    end)
 
-	local winx, winy = Nx.Util_IsMouseOver (this)
-	if not this:IsVisible() or not map.MouseEnabled then
-		winx = nil
-		map.Scrolling = false
-	end
+    repFrameEvents:HookScript('OnEvent', function(self, event)
+      if (event == "UPDATE_FACTION" or event == "LFG_BONUS_FACTION_ID_UPDATED" or event == "UNIT_QUEST_LOG_CHANGED") and ReputationFrame_Update then
+        ReputationFrame_Update()
+      end
+    end)
+  end
 
-	if (Nx.Map:IsInstanceMap(Nx.Map.RMapId) or Nx.Map:IsBattleGroundMap(Nx.Map.RMapId)) and map.CurOpts.NXInstanceMaps then	
-		winx = nil	
-		map.Scrolling = false
-	end
+  local map = this.NxMap
+  map.Tick = map.Tick + 1
 
-	if map.MMZoomType == 0 and Nx.Util_IsMouseOver (map.MMFrm) then
-		winx = nil
-	end
+  map.EffScale = this:GetEffectiveScale()
+  map.Size1 = Nx.db.profile.Map.LineThick * 0.75 / map.EffScale
 
-	map.MouseIsOver = winx
+  Nx.Map:UpdateOptions(map.MapIndex)
 
-	if winx then
-		Nx.Map.MouseOver = true
-	else
-		Nx.Map.MouseOver = false
-	end
-	
-	if Nx.Map:IsInstanceMap(Nx.Map.RMapId) then 												
-		--winx = nil	
-		--Nx.Map.MouseOver = false
-	end
-	
-	-- Scroll map with mouse
+  local winx, winy = Nx.Util_IsMouseOver(this)
+  if not this:IsVisible() or not map.MouseEnabled then
+    winx = nil
+    map.Scrolling = false
+  end
 
-	if map.Scrolling then		
-		local cx, cy = GetCursorPosition()
-		cx = cx / map.EffScale
-		cy = cy / map.EffScale		
-		local x = cx - map.ScrollingX
-		local y = cy - map.ScrollingY
+  if (Nx.Map:IsInstanceMap(Nx.Map.RMapId) or Nx.Map:IsBattleGroundMap(Nx.Map.RMapId)) and map.CurOpts.NXInstanceMaps then
+    winx = nil
+    map.Scrolling = false
+  end
 
---[[
-		if map["DebugHotspots"] or (map.Debug and IsAltKeyDown()) then
-			if map:OnButScrollDebug (0, 0, x, -y) then
-				x = 0
-				y = 0
-			end
-		end
---]]
+  if map.MMZoomType == 0 and Nx.Util_IsMouseOver(map.MMFrm) then
+    winx = nil
+  end
 
-		if x ~= 0 or y ~= 0 then		-- Moved? Cancel double click
-			map.LClickTime = 0
-		end
+  map.MouseIsOver = winx
+  Nx.Map.MouseOver = winx and true or false
 
-		map.ScrollingX = cx
-		map.ScrollingY = cy
+  -- Scroll map with mouse
+  if map.Scrolling then
+    local cx, cy = GetCursorPosition()
+    cx = cx / map.EffScale
+    cy = cy / map.EffScale
+    local x, y = cx - map.ScrollingX, cy - map.ScrollingY
 
-		local left = this:GetLeft()
-		local top = this:GetTop()
+    if x ~= 0 or y ~= 0 then
+      map.LClickTime = 0
+    end
 
-		local mx = x / map.ScaleDraw
-		local my = y / map.ScaleDraw
-		map.MapPosXDraw = map.MapPosXDraw - mx
-		map.MapPosYDraw = map.MapPosYDraw + my
+    map.ScrollingX = cx
+    map.ScrollingY = cy
 
-		map.MapPosX = map.MapPosXDraw
-		map.MapPosY = map.MapPosYDraw
-		map.Scale = map.ScaleDraw
-	end
+    map.MapPosXDraw = map.MapPosXDraw - x / map.ScaleDraw
+    map.MapPosYDraw = map.MapPosYDraw + y / map.ScaleDraw
 
-	map:Update (elapsed)
+    map.MapPosX = map.MapPosXDraw
+    map.MapPosY = map.MapPosYDraw
+    map.Scale = map.ScaleDraw
+  end
 
-	-- Title text
+  map:Update(elapsed)
 
-	local title = ""
-	if Nx.db.profile.Map.ShowTitleName then
-		title = map:IdToName (map.UpdateMapID)
---		for n = 1, MAX_BATTLEFIELD_QUEUES do
-		for n = 1, GetMaxBattlefieldID() do		-- Patch 4.3
+  -- Title text
+  local title = ""
+  if Nx.db.profile.Map.ShowTitleName then
+    title = map:IdToName(map.UpdateMapID)
+    for n = 1, GetMaxBattlefieldID() do
+      local status, _, instId = GetBattlefieldStatus(n)
+      if status == "active" then
+        title = title .. format(" #%s", instId)
+        break
+      end
+    end
+  end
 
-			local status, _, instId = GetBattlefieldStatus (n)
-			if status == "active" then
-				title = title .. format (" #%s", instId)
-				break
-			end
-		end
-	end
+  if Nx.db.profile.Map.ShowTitleXY then
+    if map.PlyrRZX ~= 0 or map.PlyrRZY ~= 0 then
+      local formatStr = map.DebugFullCoords and " %4.2f, %4.2f" or " %4.1f, %4.1f"
+      title = title .. format(formatStr, map.PlyrRZX, map.PlyrRZY)
+    end
+  end
 
-	if Nx.db.profile.Map.ShowTitleXY then
-		if map.PlyrRZX ~= 0 or map.PlyrRZY ~= 0 then				
-			if map.DebugFullCoords then
-				title = title .. format (" %4.2f, %4.2f", map.PlyrRZX, map.PlyrRZY)
-			else
-				title = title .. format (" %4.1f, %4.1f", map.PlyrRZX, map.PlyrRZY)
-			end		
-		end
-	end
+  if map.PlyrSpeed > 0 and Nx.db.profile.Map.ShowTitleSpeed then
+    local speed = map.PlyrSpeed
+    local sa = Nx.Map.MapWorldInfo[map.MapId] and Nx.Map.MapWorldInfo[map.MapId].ScaleAdjust or 1
+    speed = speed * sa / 6.4 * 100 - 100
+    speed = abs(speed) < 0.5 and 0 or speed
+    title = title .. format(" |cffa0a0a0" .. L["Speed"] .. "%+.0f%%", speed)
+  end
 
-	if map.PlyrSpeed > 0 and Nx.db.profile.Map.ShowTitleSpeed then
+  -- Cursor location
+  local cursorLocStr, cursorLocXY = "", ""
+  local menuOpened = Nx.Menu:IsAnyOpened()
 
-		local speed = map.PlyrSpeed
+  if winx then
+    map.BackgndAlphaTarget = map.BackgndAlphaFull
+    winy = this:GetHeight() - winy
 
-		local sa = Nx.Map.MapWorldInfo[map.MapId] and Nx.Map.MapWorldInfo[map.MapId].ScaleAdjust or 1
-		if sa then
-			speed = speed * sa
-		end
+    if winy >= map.TitleH then
+      local wx, wy = map:FramePosToWorldPos(winx, winy)
+      if not menuOpened then
+        map:CheckWorldHotspots(wx, wy)
+      end
 
-		speed = speed / 6.4 * 100 - 100
-		if abs (speed) < .5 then	-- Removes small -0%
-			speed = 0
-		end
-		title = title..format (" |cffa0a0a0" .. L["Speed"] .. "%+.0f%%", speed)
---		Nx.prt ("Speed %f %f, Tm %.4f, %.3f %.3f", map.PlyrSpeed, speed, elapsed, map.PlyrX, map.PlyrY)		-- DEBUG!
-	end
+      local x, y = map:GetZonePos(Nx.Map.RMapId, wx, wy)
+      x, y = floor(x * 10) / 10, floor(y * 10) / 10
+      local dist = ((wx - map.PlyrX) ^ 2 + (wy - map.PlyrY) ^ 2) ^ 0.5 * 4.575
 
---	title = title..format (" Dir %.1f", map.PlyrDir)
+      cursorLocXY = format("|cff80b080%.1f %.1f %.0f " .. L["yds"], x, y, dist)
+      cursorLocStr = cursorLocXY
+    end
+  else
+    if not map.Scrolling and not menuOpened then
+      map.BackgndAlphaTarget = map.BackgndAlphaFade
 
-	local cursorLocStr = ""
-	local cursorLocXY = ""
+      local rid = map.RMapId
+      if rid ~= 9000 then
+        local mapId = map:GetCurrentMapId()
+        if map:IsInstanceMap(rid) then
+          if not Nx.Map.InstanceInfo[rid] then
+            local lrid = Nx.Map.MapWorldInfo[rid].EntryMId
+            if lrid then rid = lrid end
+          end
+          local lvl = Nx.Map:GetCurrentMapDungeonLevel()
+          if lvl ~= map.InstLevelSet then
+            map.MapId = 0
+          end
+        end
 
-	local menuOpened = Nx.Menu:IsAnyOpened()
+        if map.UpdateMapID ~= rid then
+          if map:IsBattleGroundMap(rid) then
+            Nx.Map:SetToCurrentZone()
+            Nx.Map.UpdateMapID = WorldMapFrame.mapID
+          else
+            map:SetCurrentMap(rid)
+          end
+        end
+      end
+    end
+  end
 
-	if winx then
+  -- Check quest window
+  if Nx.Quest and (map.Guide.Win.Frm:IsVisible() or Nx.Quest.List.Win and Nx.Quest.List.Win.Frm:IsVisible()) then
+    map.BackgndAlphaTarget = map.BackgndAlphaFull
+  end
 
-		map.BackgndAlphaTarget = map.BackgndAlphaFull
+  -- Profiling
+  if map.DebugTime then
+    local profileTime = GetTime() - profileTime
+    local t = map.DebugProfileTime or 0.01
+    t = t * 0.95 + profileTime * 0.05
+    map.DebugProfileTime = t
 
-		winy = this:GetHeight() - winy
+    UpdateAddOnMemoryUsage()
+    local mem = GetAddOnMemoryUsage("Carbonite")
+    local memdif = mem - (map.DebugMemUse or 0)
+    map.DebugMemUse = mem
 
-		if winy >= map.TitleH then
+    title = title .. format(" Time %.4f Mem %d %.4f", t, mem, memdif)
+  end
 
-			local wx, wy = map:FramePosToWorldPos (winx, winy)			
-			if not menuOpened then
---				local tm = GetTime()
-				map:CheckWorldHotspots (wx, wy)
---				Nx.prt ("CheckWorldHotspots Time %s", GetTime() - tm)
-			end
+  if GetCVar("scriptProfile") == "1" then
+    UpdateAddOnCPUUsage()
+    title = title .. format(" |cffffffffCPU %6.3f %6.3f", GetAddOnCPUUsage("CARBONITE"), GetScriptCPUUsage())
+    ResetCPUUsage()
+  end
 
-			local x, y = map:GetZonePos (Nx.Map.RMapId, wx, wy)			
-			x = floor (x * 10) / 10	-- Chop fraction to tenths
-			y = floor (y * 10) / 10
-			local dist = ((wx - map.PlyrX) ^ 2 + (wy - map.PlyrY) ^ 2) ^ .5 * 4.575
+  if Nx.Tick % 3 == 0 then
+    local tip = format(" %s", cursorLocStr)
+    if map.Debug and winx then
+      local x, y = map:FramePosToWorldPos(winx, winy)
+      tip = tip .. format("\n|cffc080a0%.2f WXY %6.2f %6.2f PXY %6.2f %6.2f", map.Scale, x, y, map.PlyrX, map.PlyrY)
+      map.DebugWX = x
+      map.DebugWY = y
+    end
 
-			cursorLocXY = format ("|cff80b080%.1f %.1f %.0f " .. L["yds"], x, y, dist)
-			cursorLocStr = cursorLocXY
+    local over = winx and not Nx.Util_IsMouseOver(map.ToolBar.Frm)
+    map:SetLocationTip(over and not menuOpened and map.WorldHotspotTipStr and (map.WorldHotspotTipStr .. tip))
+  end
 
-			--[[local name = UpdateMapHighlight (x / 100, y / 100)
-			if name then
-				cursorLocStr = format ("%s\n|cffafafaf%s", cursorLocStr, name)
-			end]]--
-		end
+  if map.Win:IsSizeMax() then
+    local s = Nx.Map:GetZoneAchievement(true)
+    if s then
+      title = title .. "  " .. s
+    end
+  end
 
-	else
---		if GameTooltip:IsOwned (map.Win.Frm) and map.TooltipType == 1 then
---			Nx.prt ("map TT hide")
---			map.TooltipType = 0
---			GameTooltip:Hide()
---		end
+  map.Win:SetTitle(title, 1)
 
-		if not map.Scrolling and not menuOpened then
-
-			map.BackgndAlphaTarget = map.BackgndAlphaFade
-
-			local rid = map.RMapId
-
-			if rid ~= 9000 then
-
-				local mapId = map:GetCurrentMapId()
-				if map:IsInstanceMap (rid) then
-					if not Nx.Map.InstanceInfo[rid] then		-- Don't convert WotLK/Cata instances
-						local lrid = Nx.Map.MapWorldInfo[rid].EntryMId
-						if lrid ~= nil then rid = lrid end
-					end
-					local lvl = Nx.Map:GetCurrentMapDungeonLevel()
-					if lvl ~= map.InstLevelSet then
-						map.MapId = 0	-- Force set
---						Nx.prt ("map force set inst")
-					end
-				end
-
-				if map.UpdateMapID ~= rid then
-					if map:IsBattleGroundMap (rid) then
-						Nx.Map:SetToCurrentZone()
-						Nx.Map.UpdateMapID = WorldMapFrame.mapID										
-					else										
-						map:SetCurrentMap (rid)
-					end
-				end
-			end
-		end
-	end
-	
-	-- Check quest window
-	if Nx.Quest then
-		if map.Guide.Win.Frm:IsVisible() or Nx.Quest.List.Win and Nx.Quest.List.Win.Frm:IsVisible() then
-			map.BackgndAlphaTarget = map.BackgndAlphaFull
-		end
-	end
-
-	-- Profiling
-
-	if map.DebugTime then
-
-		profileTime = GetTime() - profileTime
-		local t = map.DebugProfileTime or .01
-		t = t * .95 + profileTime * .05
-		map.DebugProfileTime = t
-
-		UpdateAddOnMemoryUsage()
-		local mem = GetAddOnMemoryUsage ("Carbonite")
-
-		local memdif = mem - (map.DebugMemUse or 0)
-		map.DebugMemUse = mem
-
-		title = title..format (" Time %.4f Mem %d %.4f", t, mem, memdif)
-	end
-
-	if GetCVar ("scriptProfile") == "1" then
-
-		UpdateAddOnCPUUsage()
-
-		title = title..format (" |cffffffffCPU %6.3f %6.3f", GetAddOnCPUUsage ("CARBONITE"), GetScriptCPUUsage())
-
-		ResetCPUUsage()
-	end
-
-	--
-
-	if Nx.Tick % 3 == 0 then	-- Do less often, since tip makes garbage
-
-		local tip = format (" %s", cursorLocStr)
-		if map.Debug and winx then
-			local x, y = map:FramePosToWorldPos (winx, winy)
-			tip = tip .. format ("\n|cffc080a0%.2f WXY %6.2f %6.2f PXY %6.2f %6.2f", map.Scale, x, y, map.PlyrX, map.PlyrY)
-			map.DebugWX = x
-			map.DebugWY = y
-		end
-
-		local over = winx and not Nx.Util_IsMouseOver (map.ToolBar.Frm)
-		map:SetLocationTip (over and not menuOpened and map.WorldHotspotTipStr and (map.WorldHotspotTipStr .. tip))
-	end
-
-	if map.Win:IsSizeMax() then
-		local s = Nx.Map:GetZoneAchievement (true)
-		if s then
-			title = title .. "  " .. s
-		end
-	end
-
-	map.Win:SetTitle (title, 1)
-
-	if Nx.db.profile.Map.ShowTitle2 then
-
-		local s = GetSubZoneText()
-		local pvpType = GetZonePVPInfo()
-		if pvpType then
-			s = s .. " (" .. pvpType .. ")"
-		end
-		map.Win:SetTitle (format ("%s %s", s, cursorLocXY), 2)
-	end
+  if Nx.db.profile.Map.ShowTitle2 then
+    local s = GetSubZoneText()
+    local pvpType = C_PvP.GetZonePVPInfo()
+    if pvpType then
+      s = s .. " (" .. pvpType .. ")"
+    end
+    map.Win:SetTitle(format("%s %s", s, cursorLocXY), 2)
+  end
 end
 
 --------
@@ -4387,7 +4320,7 @@ function Nx.Map:Update (elapsed)
 	local mapId = Nx.Map:GetCurrentMapAreaID()
 	self.Cont, self.Zone = self:IdToContZone (mapId)
 
-	Nx.InSanctuary = GetZonePVPInfo() == "sanctuary"
+	Nx.InSanctuary = C_PvP.GetZonePVPInfo() == "sanctuary"
 
 	local doSetCurZone
 	local mapChange
