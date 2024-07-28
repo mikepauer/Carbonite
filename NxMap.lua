@@ -8395,128 +8395,150 @@ end
 
 ------
 -- Get next available map icon for WorldQuest or create one
--- ret: icon frame
 
-function Nx.Map:GetIconWQ (levelAdd)
-	
-	local frms = self.IconWQFrms
-	local pos = frms.Next
+function Nx.Map:GetIconWQ(levelAdd)
+  local frms = self.IconWQFrms
+  local pos = frms.Next
 
-	if pos > 1500 then
-		pos = 1500	-- Too many used. Reuse
-	end
+  if pos > 1500 then
+    pos = 1500 -- Too many used. Reuse
+  end
 
-	local f = frms[pos]
-	if not f then
+  local f = frms[pos]
+  if not f then
+    f = CreateFrame("Button", "NxIconWQ"..pos, self.Frm)
+    frms[pos] = f
+    f.NxMap = self
 
-		f = CreateFrame ("Button", "NxIconWQ"..pos, self.Frm)
-		frms[pos] = f
-		f.NxMap = self
+    f:EnableMouse(true)
 
-		f:EnableMouse (true)
+    local t = f:CreateTexture()
+    f.texture = t
+    t:SetAllPoints(f)
+    f.texture:SetSnapToPixelGrid(false)
+    f.texture:SetTexelSnappingBias(0)
 
-		local t = f:CreateTexture()
-		f.texture = t
-		t:SetAllPoints (f)
-		f.texture:SetSnapToPixelGrid(false)
-		f.texture:SetTexelSnappingBias(0)
-		
-		f:SetFlattensRenderLayers(true);
-		
-		--[[f:RegisterForClicks("LeftButtonUp", "RightButtonUp");
-		f:SetScript("OnEnter", TaskPOI_OnEnter);
-		f:SetScript("OnLeave", TaskPOI_OnLeave);
-		f:SetScript("OnClick", TaskPOI_OnClick);]]--
+    f:SetFlattensRenderLayers(true)
 
-		f.Texture = f:CreateTexture(f:GetName().."Texture", "BACKGROUND");
+    f.Texture = f:CreateTexture(f:GetName().."Texture", "BACKGROUND")
 
-		f.Glow = f:CreateTexture(f:GetName().."Glow", "BACKGROUND");
-		f.Glow:SetSize(50, 50);
-		f.Glow:SetPoint("CENTER");
-		f.Glow:SetTexture("Interface/WorldMap/UI-QuestPoi-IconGlow.tga");
-		f.Glow:SetBlendMode("ADD");
-		f.Glow:SetSnapToPixelGrid(false)
-		f.Glow:SetTexelSnappingBias(0)
-		
-		f.CriteriaMatchRing = f:CreateTexture(f:GetName().."CriteriaMatchRing", "BACKGROUND", nil);
-		f.CriteriaMatchRing:SetAtlas("worldquest-emissary-ring", true)
-		f.CriteriaMatchRing:SetPoint("CENTER", 0, 0)
-		
-		f.SelectedGlow = f:CreateTexture(f:GetName().."SelectedGlow", "OVERLAY");
-		f.SelectedGlow:SetBlendMode("ADD");
-		f.SelectedGlow:SetSnapToPixelGrid(false)
-		f.SelectedGlow:SetTexelSnappingBias(0)
-		
-		f.CriteriaMatchGlow = f:CreateTexture(f:GetName().."CriteriaMatchGlow", "BACKGROUND");
-		f.CriteriaMatchGlow:SetAlpha(.6);
-		f.CriteriaMatchGlow:SetBlendMode("ADD");
-		f.CriteriaMatchGlow:SetSnapToPixelGrid(false)
-		f.CriteriaMatchGlow:SetTexelSnappingBias(0)
-		
-		f.SpellTargetGlow = f:CreateTexture(f:GetName().."SpellTargetGlow", "OVERLAY");
-		f.SpellTargetGlow:SetAtlas("worldquest-questmarker-abilityhighlight", true);
-		f.SpellTargetGlow:SetAlpha(.6);
-		f.SpellTargetGlow:SetBlendMode("ADD");
-		f.SpellTargetGlow:SetPoint("CENTER", 0, 0);
-		f.SpellTargetGlow:SetSnapToPixelGrid(false)
-		f.SpellTargetGlow:SetTexelSnappingBias(0)
-		
-		f.Underlay = f:CreateTexture(f:GetName().."Underlay", "BACKGROUND");
-		f.Underlay:SetWidth(34);
-		f.Underlay:SetHeight(34);
-		f.Underlay:SetPoint("CENTER", 0, -1);
-		f.Underlay:SetSnapToPixelGrid(false)
-		f.Underlay:SetTexelSnappingBias(0)
-		
-		f.TimeLowFrame = CreateFrame("Frame", nil, f);
-		f.TimeLowFrame:SetSize(22, 22);
-		f.TimeLowFrame:SetPoint("CENTER", -10, -10);
-		f.TimeLowFrame.Texture = f.TimeLowFrame:CreateTexture(nil, "OVERLAY");
-		f.TimeLowFrame.Texture:SetAllPoints(f.TimeLowFrame);
-		f.TimeLowFrame.Texture:SetAtlas("worldquest-icon-clock");
-		
-		--f:SetNormalTexture(nil)
-		--f:SetPushedTexture(nil)
-		--f:SetHighlightTexture(nil)
-	end
-	
-	f:SetWidth(32);
-	f:SetHeight(32);
-	f.Texture:SetWidth(28);
-	f.Texture:SetHeight(28);
-	f.Texture:SetPoint("CENTER", 0, 0);
-	f.Texture:SetTexture("Interface\\Minimap\\ObjectIconsAtlas");
-	if f.HighlightTexture then
-		f.HighlightTexture:SetTexture("Interface\\Minimap\\ObjectIconsAtlas");
-		f.HighlightTexture:SetSnapToPixelGrid(false)
-		f.HighlightTexture:SetTexelSnappingBias(0)
-	end
-	
-	f.Texture:SetSnapToPixelGrid(false)
-	f.Texture:SetTexelSnappingBias(0)
-	
-	--[[f:SetScript ("OnMouseDown", self.IconOnMouseDown)
-	f:SetScript ("OnMouseUp", self.IconOnMouseUp)]]--
-	f:SetScript ("OnEnter", function (self) 
-		TaskPOI_OnEnter(self) 
-		GameTooltip:SetFrameStrata("TOOLTIP");
-		GameTooltip.ItemTooltip.Tooltip:SetClampedToScreen(false)
-	end)
-	f:SetScript ("OnLeave", TaskPOI_OnLeave)
-	--f:SetScript ("OnHide", self.IconOnLeave)]]--
+    f.Glow = f:CreateTexture(f:GetName().."Glow", "BACKGROUND")
+    f.Glow:SetSize(50, 50)
+    f.Glow:SetPoint("CENTER")
+    f.Glow:SetTexture("Interface/WorldMap/UI-QuestPoi-IconGlow.tga")
+    f.Glow:SetBlendMode("ADD")
+    f.Glow:SetSnapToPixelGrid(false)
+    f.Glow:SetTexelSnappingBias(0)
 
-	f:SetFrameLevel (self.Level + (levelAdd or 0))
-	
-	--f.texture:SetVertexColor (1, 1, 1, 1)
-	
-	f.NxTip = nil
-	f.NXType = nil			-- 1000 plyr, 2000 BG, 3000 POI, 8000 debug, 9000+ quest
-	f.NXData = nil
-	f.NXData2 = nil
-	
-	frms.Next = pos + 1
+    f.CriteriaMatchRing = f:CreateTexture(f:GetName().."CriteriaMatchRing", "BACKGROUND", nil)
+    f.CriteriaMatchRing:SetAtlas("worldquest-emissary-ring", true)
+    f.CriteriaMatchRing:SetPoint("CENTER", 0, 0)
 
-	return f
+    f.SelectedGlow = f:CreateTexture(f:GetName().."SelectedGlow", "OVERLAY")
+    f.SelectedGlow:SetBlendMode("ADD")
+    f.SelectedGlow:SetSnapToPixelGrid(false)
+    f.SelectedGlow:SetTexelSnappingBias(0)
+
+    f.CriteriaMatchGlow = f:CreateTexture(f:GetName().."CriteriaMatchGlow", "BACKGROUND")
+    f.CriteriaMatchGlow:SetAlpha(.6)
+    f.CriteriaMatchGlow:SetBlendMode("ADD")
+    f.CriteriaMatchGlow:SetSnapToPixelGrid(false)
+    f.CriteriaMatchGlow:SetTexelSnappingBias(0)
+
+    f.SpellTargetGlow = f:CreateTexture(f:GetName().."SpellTargetGlow", "OVERLAY")
+    f.SpellTargetGlow:SetAtlas("worldquest-questmarker-abilityhighlight", true)
+    f.SpellTargetGlow:SetAlpha(.6)
+    f.SpellTargetGlow:SetBlendMode("ADD")
+    f.SpellTargetGlow:SetPoint("CENTER", 0, 0)
+    f.SpellTargetGlow:SetSnapToPixelGrid(false)
+    f.SpellTargetGlow:SetTexelSnappingBias(0)
+
+    f.Underlay = f:CreateTexture(f:GetName().."Underlay", "BACKGROUND")
+    f.Underlay:SetWidth(34)
+    f.Underlay:SetHeight(34)
+    f.Underlay:SetPoint("CENTER", 0, -1)
+    f.Underlay:SetSnapToPixelGrid(false)
+    f.Underlay:SetTexelSnappingBias(0)
+
+    f.TimeLowFrame = CreateFrame("Frame", nil, f)
+    f.TimeLowFrame:SetSize(22, 22)
+    f.TimeLowFrame:SetPoint("CENTER", -10, -10)
+    f.TimeLowFrame.Texture = f.TimeLowFrame:CreateTexture(nil, "OVERLAY")
+    f.TimeLowFrame.Texture:SetAllPoints(f.TimeLowFrame)
+    f.TimeLowFrame.Texture:SetAtlas("worldquest-icon-clock")
+  end
+
+  f:SetWidth(32)
+  f:SetHeight(32)
+  f.Texture:SetWidth(28)
+  f.Texture:SetHeight(28)
+  f.Texture:SetPoint("CENTER", 0, 0)
+  f.Texture:SetTexture("Interface\\Minimap\\ObjectIconsAtlas")
+  if f.HighlightTexture then
+    f.HighlightTexture:SetTexture("Interface\\Minimap\\ObjectIconsAtlas")
+    f.HighlightTexture:SetSnapToPixelGrid(false)
+    f.HighlightTexture:SetTexelSnappingBias(0)
+  end
+
+  f.Texture:SetSnapToPixelGrid(false)
+  f.Texture:SetTexelSnappingBias(0)
+
+  f:SetScript("OnEnter", function(self) 
+    TaskPOI_OnEnter(self) 
+    GameTooltip:SetFrameStrata("TOOLTIP")
+    GameTooltip.ItemTooltip.Tooltip:SetClampedToScreen(false)
+  end)
+  f:SetScript("OnLeave", function(self)
+    TaskPOI_OnLeave(self)
+    if self.OnLegendPinMouseLeave then
+      self:OnLegendPinMouseLeave()
+    end
+  end)
+
+  f:SetFrameLevel(self.Level + (levelAdd or 0))
+
+  f.NxTip = nil
+  f.NXType = nil -- 1000 plyr, 2000 BG, 3000 POI, 8000 debug, 9000+ quest
+  f.NXData = nil
+  f.NXData2 = nil
+
+  frms.Next = pos + 1
+
+  return f
+end
+
+function TaskPOI_OnEnter(self, skipSetOwner)
+  if not skipSetOwner then
+    GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+  end
+
+  if not HaveQuestData(self.questID) then
+    GameTooltip_SetTitle(GameTooltip, RETRIEVING_DATA, RED_FONT_COLOR)
+    GameTooltip_SetTooltipWaitingForData(GameTooltip, true)
+    GameTooltip:Show()
+    return
+  end
+
+  if C_QuestLog.IsQuestCalling(self.questID) then
+    CallingPOI_OnEnter(self)
+    return
+  end
+
+  GameTooltip_AddQuest(self)
+  EventRegistry:TriggerEvent("TaskPOI.TooltipShown", self, self.questID, self)
+  
+  if self.OnLegendPinMouseEnter then
+    self:OnLegendPinMouseEnter()
+  end
+end
+
+function TaskPOI_OnLeave(self)
+  GameTooltip:Hide()
+  EventRegistry:TriggerEvent("TaskPOI.TooltipHidden", self, self.questID, self)
+  
+  if self.OnLegendPinMouseLeave then
+    self:OnLegendPinMouseLeave()
+  end
 end
 
 ------
