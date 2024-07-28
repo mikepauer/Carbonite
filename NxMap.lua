@@ -8495,6 +8495,9 @@ function Nx.Map:GetIconWQ (levelAdd)
 	f.Texture:SetSnapToPixelGrid(false)
 	f.Texture:SetTexelSnappingBias(0)
 	
+	f.OnLegendPinMouseEnter = function() end
+	f.OnLegendPinMouseLeave = function() end
+	
 	--[[f:SetScript ("OnMouseDown", self.IconOnMouseDown)
 	f:SetScript ("OnMouseUp", self.IconOnMouseUp)]]--
 	f:SetScript ("OnEnter", function (self) 
