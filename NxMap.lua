@@ -2521,16 +2521,22 @@ function Nx.Map:MinimapUpdateEnd()
 		if self.Win:IsSizeMax() and Nx.db.profile.MiniMap.HideOnMax 
 			or self.MMFScale < .02 
 			or Nx.Map.NInstMapId ~= nil -- Instance
-			or info.City and not info.MMOutside -- Cites
-			or C_Garrison.IsPlayerInGarrison(Enum.GarrisonType.Type_7_0) -- Order Halls 
+			or info.City and not info.MMOutside -- Cities
+			-- Ensure garrTypeID is valid before calling IsPlayerInGarrison
+			or (Enum.GarrisonType and (
+				(Enum.GarrisonType.Type_6_0_Garrison and C_Garrison.IsPlayerInGarrison(Enum.GarrisonType.Type_6_0_Garrison)) or
+				(Enum.GarrisonType.Type_7_0_Garrison and C_Garrison.IsPlayerInGarrison(Enum.GarrisonType.Type_7_0_Garrison)) or
+				(Enum.GarrisonType.Type_8_0_Garrison and C_Garrison.IsPlayerInGarrison(Enum.GarrisonType.Type_8_0_Garrison)) or
+				(Enum.GarrisonType.Type_9_0_Garrison and C_Garrison.IsPlayerInGarrison(Enum.GarrisonType.Type_9_0_Garrison))
+			)) 
 		then
-			mm:SetPoint ("TOPLEFT", 1, 0)
-			mm:SetScale (.02)
-			mm:SetFrameLevel (1)
---		mm:Hide()
+			mm:SetPoint("TOPLEFT", 1, 0)
+			mm:SetScale(.02)
+			mm:SetFrameLevel(1)
+			-- mm:Hide()
 
-			for n, f in ipairs (self.MMModels) do
-				f:SetScale (.001)
+			for n, f in ipairs(self.MMModels) do
+				f:SetScale(.001)
 			end
 			return
 		end
@@ -4255,12 +4261,16 @@ function Nx.Map:UpdateWorld()
 	if dungeonLevel>0 then texName = texName..dungeonLevel.."_" end
 	if winfo.MapBaseName and not winfo.Garrison then texName = winfo.MapBaseName end
 	if winfo.Garrison and not isMicro then
-		local level, mapname, x, y = C_Garrison.GetGarrisonInfo(Enum.GarrisonType.Type_6_0)
-		if not level then
-			level = "1"
+		local level, mapTextureKit, townHallX, townHallY = C_Garrison.GetGarrisonInfo(Enum.GarrisonType.Type_6_0_Garrison)
+		
+		if level and mapTextureKit then
+			texPath = "Interface\\WorldMap\\" .. winfo.MapBaseName .. level .. "\\"
+			texName = winfo.MapBaseName .. level
+		else
+			level = "1"  -- Default to level 1 if no valid level is returned
+			texPath = "Interface\\WorldMap\\" .. winfo.MapBaseName .. level .. "\\"
+			texName = winfo.MapBaseName .. level
 		end
-		texPath = "Interface\\WorldMap\\" .. winfo.MapBaseName .. level.."\\"
-		texName = winfo.MapBaseName .. level
 	end
 	
 	if self.Debug then
