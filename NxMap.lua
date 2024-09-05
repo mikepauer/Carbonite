@@ -27,6 +27,8 @@
 local _G = getfenv(0)
 local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite")
 
+local ExtToolTip = LibStub('LibQTip-1.0RS')
+
 NxMAPOPTS_VERSION	= .30
 
 NxMapOptsDefaults = {
@@ -156,6 +158,8 @@ function Nx.Map:Init()
 
 	self.Maps = {}
 	self.Created = false
+
+	self.RareScannerOverlays = {}
 
 	self:InitFuncs()
 	self:InitTables()
@@ -8668,7 +8672,13 @@ function Nx.Map:IconOnMouseDown (button)
 				end
 
 			else
-				map.OnMouseDown (map.Frm, button)
+				if map.ClickIcon.iconType == "!RSR" and RareScanner then
+					local rspin = this.NXData.UData
+					rspin:OnMouseDown(button)
+					Nx.Notes:RareScanner(map.MapId)
+				else
+					map.OnMouseDown (map.Frm, button)
+				end
 			end
 		end
 
@@ -8779,6 +8789,16 @@ function Nx.Map:IconOnEnter (motion)
 
 	local map = this.NxMap
 
+	if this.NXData then
+		if this.NXData.iconType == "!RSR" and RareScanner then
+			local rspin = this.NXData.UData
+			rspin:OnMouseEnter()
+			tooltip = ExtToolTip:Acquire("RsSimpleMapToolTip")
+			tooltip:SmartAnchorTo(self)
+			this.NxTip = nil
+		end
+	end
+
 --	map.BackgndAlphaTarget = map.BackgndAlphaFull
 
 	map:BuildPlyrLists()
@@ -8848,6 +8868,14 @@ function Nx.Map:IconOnLeave (motion)
 
 	local this = self			--V4
 	local t = this.NXType or -1
+
+	if this.NXData then
+		if this.NXData.iconType == "!RSR" and RareScanner then
+			local rspin = this.NXData.UData
+			rspin:OnMouseLeave()
+			this.NxTip = rspin.POI.name
+		end
+	end
 
 	if t >= 9000 then					-- Quest
 		Nx.Quest:IconOnLeave (this)
