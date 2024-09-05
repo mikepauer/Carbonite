@@ -27,6 +27,8 @@
 local _G = getfenv(0)
 local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite")
 
+local ExtToolTip = LibStub('LibQTip-1.0RS')
+
 NxMAPOPTS_VERSION	= .30
 
 NxMapOptsDefaults = {
