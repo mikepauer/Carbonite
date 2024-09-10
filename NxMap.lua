@@ -5630,7 +5630,7 @@ function Nx.Map:UpdateGroup (plX, plY)
 
 				local inactive
 				for n = 1, MAX_TARGET_DEBUFFS do
-					if UnitDebuff (unit, n) == "Inactive" then
+					if C_UnitAuras.GetBuffDataByIndex (unit, n) == "Inactive" then
 						inactive = true
 						per = 0
 						break
