@@ -564,7 +564,16 @@ Nx.Zones = {
 	[2151] = L["The Forbidden Reach"] .. "|110|120|2|14||",
 	[2133] = L["Zaralek Cavern"] .. "|110|120|2|14||",
 	[2200] = L["Emerald Dream"] .. "|110|120|2|14||",
-	
+
+	[2214] = L["The Ringing Deeps"] .. "|70|80|2|15||",
+	[2248] = L["Isle of Dorn"] .. "|70|80|2|15||",
+	[2215] = L["Hallowfall"] .. "|70|80|2|15||",
+	[2255] = L["Azj-Kahet"] .. "|70|80|2|15||",
+	[2256] = L["Azj-Kahet - Lower"] .. "|70|80|2|15||",
+	[2339] = L["Dornogal"] .. "|70|80|2|15||",
+	[2213] = L["City of Threads"] .. "|70|80|2|15||",
+	[2216] = L["City of Threads - Lower"] .. "|70|80|2|15||",
+
 	[1409] = L["Exile's Reach"] .. "|0|0|2|0||",
 }
 
