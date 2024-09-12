@@ -6232,6 +6232,10 @@ function Nx.Map:CheckWorldHotspotsType (wx, wy, quad)
 			local curId = self:GetCurrentMapId()
 
 			if spot.MapId ~= curId then
+				local winfo = self.MapWorldInfo[curId]
+				if winfo and winfo.Underground then
+					return false
+				end
 
 --				Nx.prt ("hotspot %s %s %s %s %s", spot.MapId, spot.WX1, spot.WX2, spot.WY1, spot.WY2)
 				self:SetCurrentMap (spot.MapId)			
