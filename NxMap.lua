@@ -1796,6 +1796,11 @@ function Nx.Map:InitFrames()
 			1,1,1,1,
 			1,1,1,1
 		},
+		{
+			1,1,1,1,
+			1,1,1,1,
+			1,1,1,1
+		},
 	}
 
 	self.ContFrms = {}
@@ -6683,9 +6688,6 @@ function Nx.Map:UpdateOverlayUnexplored()
 	end
 
 	if not overlays or not self.ShowUnexplored then		
---		local overlayNum = GetNumMapOverlays()		-- Cartographer makes this return 0
---		Nx.prt ("Overlays %s", overlayNum)
-
 		local s1, s2, file
 		local ol = {}
 
@@ -6823,7 +6825,7 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 	local layerInfo = layers[layerIndex];
 	local TILE_SIZE_WIDTH = layerInfo.tileWidth;
 	local TILE_SIZE_HEIGHT = layerInfo.tileHeight;
-	--Nx.prt ("%s TW TH: %s %s", mapId, TILE_SIZE_WIDTH, TILE_SIZE_HEIGHT)
+--	Nx.prt ("%s with path %s TW TH: %s %s", mapId, path, TILE_SIZE_WIDTH, TILE_SIZE_HEIGHT)
 	
 	for txName, whxyStr in pairs (overlays) do		
 		local lev = 0
@@ -9187,7 +9189,7 @@ function Nx.Map:InitTables()
 	--V403
 
 	Nx.Map.MapZones = {
-		 [0] = {12,13,101,113,948,424,572,619,905,875,876,1409,1550,1978,0,-1},
+		 [0] = {12,13,101,113,948,424,572,619,905,875,876,1409,1550,1978,2274,0,-1},
 		 [1] = {1,7,10,57,62,63,64,65,66,69,70,71,76,77,78,80,81,83,85,86,88,89,97,103,106,198,199,249,327,338,460,461,462,463,468,1469,1527},
 		 [2] = {14,15,17,18,21,22,23,25,26,27,32,36,37,42,47,48,49,50,51,52,56,84,87,90,94,95,110,122,124,179,201,202,204,205,203,210,217,218,224,241,244,245,425,427,465,467,469,1470},
 		 [3] = {100,102,104,105,107,108,109,111},
@@ -9202,6 +9204,7 @@ function Nx.Map:InitTables()
 		 [12] = {1355},
 		 [13] = {1525,1533,1536,1543,1565,1648,1670,1671,1672,1673,1961,1701,1702,1703,1970},
 		 [14] = {2022,2023,2024,2025,2112,2151,2133,2200},
+		 [15] = {2248,2214,2215,2255,2256,2339,2213,2216},
 		 [90] = {91,92,93,112,128,169,206,275,397,417,423,519,623},		 
 		 [100] = {},
 	}
@@ -9218,7 +9221,7 @@ function Nx.Map:InitTables()
 	self.ZoneOverlays["lakewintergrasp"]["lakewintergrasp"] = "0,0,1024,768"
 
 	-- Support maps with multiple level
-	self.ContCnt = 14
+	self.ContCnt = 15
 
 --	continentNums = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 90 }
 	for k, v in pairs (worldInfo) do
