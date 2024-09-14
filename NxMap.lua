@@ -9434,61 +9434,60 @@ function Nx.Map:InitTables()
 	Nx.ZoneConnections = Nx["ZoneConnections"] or Nx.ZoneConnections	-- Copy unmunged data to munged data
 
 	-- Init zone connections
-		for n = 0, 1999 do
+		for n = 0, 2999 do
 			local mapId = n
 			local winfo = worldInfo[mapId]
-			if not winfo then
-				break
-			end
-			local cons = {}
-			winfo.Connections = cons
-			if winfo.Short then
+			if winfo then
+				local cons = {}
+				winfo.Connections = cons
+				if winfo.Short then
 
-			end
-			for _, str in ipairs (Nx.ZoneConnections) do
-
-				local flags, conTime, name1, z1, x1, y1, name2, z2, x2, y2 = Nx.Split ("|",str)
-
-				local mapId1 = tonumber(z1)
-				local mapId2 = tonumber(z2)
-				conTime = tonumber(conTime)
-				flags = tonumber(flags)
-
-				if not (mapId1 and mapId2) then
---					Nx.prt ("zone conn err %s to %s", z1 - 35, z2 - 35)
-					conTime = 0
 				end
+				for _, str in ipairs (Nx.ZoneConnections) do
 
-				if conTime == 1 and (mapId == mapId1 or (mapId == mapId2 and bit.band (flags, 1) == 1)) then
+					local flags, conTime, name1, z1, x1, y1, name2, z2, x2, y2 = Nx.Split ("|",str)
 
-					local cont1 = self:IdToContZone (mapId1)
-					local cont2 = self:IdToContZone (mapId2)
+					local mapId1 = tonumber(z1)
+					local mapId2 = tonumber(z2)
+					conTime = tonumber(conTime)
+					flags = tonumber(flags)
 
-					if cont1 == cont2 then
+					if not (mapId1 and mapId2) then
+	--					Nx.prt ("zone conn err %s to %s", z1 - 35, z2 - 35)
+						conTime = 0
+					end
 
-						if mapId == mapId2 then		-- Swap?
-							mapId1, mapId2 = mapId2, mapId1
-							x1, y1, x2, y2 = x2, y2, x1, y1
-						end
+					if conTime == 1 and (mapId == mapId1 or (mapId == mapId2 and bit.band (flags, 1) == 1)) then
 
-						local zcons = cons[mapId2] or {}
-						cons[mapId2] = zcons
+						local cont1 = self:IdToContZone (mapId1)
+						local cont2 = self:IdToContZone (mapId2)
 
-						if x1 ~= 0 and y1 ~= 0 then	-- Specific connection? Else connects anywhere
+						if cont1 == cont2 then
 
-							local con = {}
-							tinsert (zcons, con)
+							if mapId == mapId2 then		-- Swap?
+								mapId1, mapId2 = mapId2, mapId1
+								x1, y1, x2, y2 = x2, y2, x1, y1
+							end
 
-							x1, y1 = self:GetWorldPos (mapId1, x1, y1)
-							x2, y2 = self:GetWorldPos (mapId2, x2, y2)
+							local zcons = cons[mapId2] or {}
+							cons[mapId2] = zcons
 
-							con.StartMapId = mapId1
-							con.StartX = x1
-							con.StartY = y1
-							con.EndMapId = mapId2
-							con.EndX = x2
-							con.EndY = y2
-							con.Dist = ((x1 - x2) ^ 2 + (y1 - y2) ^ 2) ^ .5
+							if x1 ~= 0 and y1 ~= 0 then	-- Specific connection? Else connects anywhere
+
+								local con = {}
+								tinsert (zcons, con)
+
+								x1, y1 = self:GetWorldPos (mapId1, x1, y1)
+								x2, y2 = self:GetWorldPos (mapId2, x2, y2)
+
+								con.StartMapId = mapId1
+								con.StartX = x1
+								con.StartY = y1
+								con.EndMapId = mapId2
+								con.EndX = x2
+								con.EndY = y2
+								con.Dist = ((x1 - x2) ^ 2 + (y1 - y2) ^ 2) ^ .5
+							end
 						end
 
 --					else

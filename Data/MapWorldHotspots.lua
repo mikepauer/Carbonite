@@ -1,4 +1,4 @@
-﻿Nx.MapWorldHotspots = {
+Nx.MapWorldHotspots = {
 }
 
 Nx.MapWorldHotspots2 = {
@@ -128,8 +128,11 @@ Nx.MapWorldHotspots2 = {
 -- Alli and horde cities - need? what about ashran?
 		[588] = "000000fffffe",
 		[622] = "000000fffffe",
-		[624] = "000000fffffe"
-}
+		[624] = "000000fffffe",
 
+-- Khaz Algar
+		[2214] = "6140511eb7d67d6051428f09",
+		[2215] = "3ff0a3451dc18510a32b8a8eb090a307a028b980a310a8f5"
+}
 -------------------------------------------------------------------------------
 --EOF
