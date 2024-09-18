@@ -8678,7 +8678,7 @@ function Nx.Map:IconOnMouseDown (button)
 				end
 
 			else
-				if map.ClickIcon.iconType == "!RSR" and RareScanner then
+				if map.ClickIcon and map.ClickIcon.iconType == "!RSR" and RareScanner then
 					local rspin = this.NXData.UData
 					if not rspin.owningMap then
 						rspin.owningMap = WorldMapFrame
