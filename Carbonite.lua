@@ -3254,7 +3254,7 @@ Nx.GatherInfo = {
     { 1,  "inv_ore_nerubian_red",L["EZ-Mine Aqirite"]},
     { 1,  "inv_ore_nerubian_red",L["Rich Aqirite"]},
     { 1,  "inv_ore_nerubian_red",L["Weeping Aqirite"]},
-    { 1,  "ui_profession_mining",L["Webbed Ore"]},
+    { 1,  "ui_profession_mining",L["Webbed Ore Deposit"]},
     
 	}
 }
