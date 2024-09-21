@@ -1869,7 +1869,6 @@ Map.MapWorldInfo = {
 		MapLevel = 1,
 	},
 	[2256] = {
-
 		Scale = 13.7625,
 		X = -168.58,
 		Y = 485.5,
@@ -1900,7 +1899,6 @@ Map.MapWorldInfo = {
 		MapLevel = 1,
 	},
 	[2216] = {
-
 		Scale = 4.79999212646484,
 		X = 264,
 		Y = 1083.5,
