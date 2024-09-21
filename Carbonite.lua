@@ -334,8 +334,7 @@ local defaults = {
 				[100] = true,
 				[101] = true,
 				[102] = true,
-				[103] = true,
-				[104] = true,
+				
 			},
 			ShowHerbs = {
 				[1] = true,
@@ -3244,20 +3243,18 @@ Nx.GatherInfo = {
     { 1,  "inv_ore_bismuth",L["Crystallized Bismuth"]},
     { 1,  "inv_ore_bismuth",L["EZ-Mine Bismuth"]},
     { 1,  "inv_ore_bismuth",L["Rich Bismuth"]},
-    { 1,  "inv_ore_bismuth",L["Webbed Bismuth"]},
     { 1,  "inv_ore_bismuth",L["Weeping Bismuth"]},
     { 1,  "inv_ore_ironclaw_normal",L["Ironclaw"]},
     { 1,  "inv_ore_ironclaw_normal",L["Crystallized Ironclaw"]},
     { 1,  "inv_ore_ironclaw_normal",L["EZ-Mine Ironclaw"]},
     { 1,  "inv_ore_ironclaw_normal",L["Rich Ironclaw"]},
-    { 1,  "inv_ore_ironclaw_normal",L["Webbed Ironclaw"]},
     { 1,  "inv_ore_ironclaw_normal",L["Weeping Ironclaw"]},
     { 1,  "inv_ore_nerubian_red",L["Aqirite"]},
     { 1,  "inv_ore_nerubian_red",L["Crystallized Aqirite"]},
     { 1,  "inv_ore_nerubian_red",L["EZ-Mine Aqirite"]},
     { 1,  "inv_ore_nerubian_red",L["Rich Aqirite"]},
-    { 1,  "inv_ore_nerubian_red",L["Webbed Aqirite"]},
     { 1,  "inv_ore_nerubian_red",L["Weeping Aqirite"]},
+    { 1,  "ui_profession_mining",L["Webbed Ore Deposit"]},
     
 	}
 }

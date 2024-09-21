@@ -5079,12 +5079,12 @@ richbismuth = {
         Nx.db.profile.Guide.ShowMines[90] = not Nx.db.profile.Guide.ShowMines[90]
     end,
 },
-webbedbismuth = {
+webbedore = {
     order = 93,
     type = "toggle",
     width = "full",
-    name = L["Webbed Bismuth Deposit"],
-    desc = L["Display"] .. " " .. L["Webbed Bismuth Deposit"] .. " " .. L["Nodes On Map"],
+    name = L["Webbed Ore Deposit"],
+    desc = L["Display"] .. " " .. L["Webbed Ore Deposit"] .. " " .. L["Nodes On Map"],
     get = function()
         return Nx.db.profile.Guide.ShowMines[91]
     end,
@@ -5157,12 +5157,12 @@ richironclaw = {
         Nx.db.profile.Guide.ShowMines[96] = not Nx.db.profile.Guide.ShowMines[96]
     end,
 },
-webbedironclaw = {
+weepingironclaw = {
     order = 99,
     type = "toggle",
     width = "full",
-    name = L["Webbed Ironclaw Deposit"],
-    desc = L["Display"] .. " " .. L["Webbed Ironclaw Deposit"] .. " " .. L["Nodes On Map"],
+    name = L["Weeping Ironclaw Deposit"],
+    desc = L["Display"] .. " " .. L["Weeping Ironclaw Deposit"] .. " " .. L["Nodes On Map"],
     get = function()
         return Nx.db.profile.Guide.ShowMines[97]
     end,
@@ -5170,12 +5170,12 @@ webbedironclaw = {
         Nx.db.profile.Guide.ShowMines[97] = not Nx.db.profile.Guide.ShowMines[97]
     end,
 },
-weepingironclaw = {
+aqirite = {
     order = 100,
     type = "toggle",
     width = "full",
-    name = L["Weeping Ironclaw Deposit"],
-    desc = L["Display"] .. " " .. L["Weeping Ironclaw Deposit"] .. " " .. L["Nodes On Map"],
+    name = L["Aqirite Deposit"],
+    desc = L["Display"] .. " " .. L["Aqirite Deposit"] .. " " .. L["Nodes On Map"],
     get = function()
         return Nx.db.profile.Guide.ShowMines[98]
     end,
@@ -5183,12 +5183,12 @@ weepingironclaw = {
         Nx.db.profile.Guide.ShowMines[98] = not Nx.db.profile.Guide.ShowMines[98]
     end,
 },
-aqirite = {
+crystallizedaqirite = {
     order = 101,
     type = "toggle",
     width = "full",
-    name = L["Aqirite Deposit"],
-    desc = L["Display"] .. " " .. L["Aqirite Deposit"] .. " " .. L["Nodes On Map"],
+    name = L["Crystallized Aqirite Deposit"],
+    desc = L["Display"] .. " " .. L["Crystallized Aqirite Deposit"] .. " " .. L["Nodes On Map"],
     get = function()
         return Nx.db.profile.Guide.ShowMines[99]
     end,
@@ -5196,12 +5196,12 @@ aqirite = {
         Nx.db.profile.Guide.ShowMines[99] = not Nx.db.profile.Guide.ShowMines[99]
     end,
 },
-crystallizedaqirite = {
+ezmineaqirite = {
     order = 102,
     type = "toggle",
     width = "full",
-    name = L["Crystallized Aqirite Deposit"],
-    desc = L["Display"] .. " " .. L["Crystallized Aqirite Deposit"] .. " " .. L["Nodes On Map"],
+    name = L["EZ-Mine Aqirite Deposit"],
+    desc = L["Display"] .. " " .. L["EZ-Mine Aqirite Deposit"] .. " " .. L["Nodes On Map"],
     get = function()
         return Nx.db.profile.Guide.ShowMines[100]
     end,
@@ -5209,12 +5209,12 @@ crystallizedaqirite = {
         Nx.db.profile.Guide.ShowMines[100] = not Nx.db.profile.Guide.ShowMines[100]
     end,
 },
-ezmineaqirite = {
+richaqirite = {
     order = 103,
     type = "toggle",
     width = "full",
-    name = L["EZ-Mine Aqirite Deposit"],
-    desc = L["Display"] .. " " .. L["EZ-Mine Aqirite Deposit"] .. " " .. L["Nodes On Map"],
+    name = L["Rich Aqirite Deposit"],
+    desc = L["Display"] .. " " .. L["Rich Aqirite Deposit"] .. " " .. L["Nodes On Map"],
     get = function()
         return Nx.db.profile.Guide.ShowMines[101]
     end,
@@ -5222,43 +5222,17 @@ ezmineaqirite = {
         Nx.db.profile.Guide.ShowMines[101] = not Nx.db.profile.Guide.ShowMines[101]
     end,
 },
-richaqirite = {
-    order = 104,
-    type = "toggle",
-    width = "full",
-    name = L["Rich Aqirite Deposit"],
-    desc = L["Display"] .. " " .. L["Rich Aqirite Deposit"] .. " " .. L["Nodes On Map"],
-    get = function()
-        return Nx.db.profile.Guide.ShowMines[102]
-    end,
-    set = function()
-        Nx.db.profile.Guide.ShowMines[102] = not Nx.db.profile.Guide.ShowMines[102]
-    end,
-},
-webbedaqirite = {
-    order = 105,
-    type = "toggle",
-    width = "full",
-    name = L["Webbed Aqirite Deposit"],
-    desc = L["Display"] .. " " .. L["Webbed Aqirite Deposit"] .. " " .. L["Nodes On Map"],
-    get = function()
-        return Nx.db.profile.Guide.ShowMines[103]
-    end,
-    set = function()
-        Nx.db.profile.Guide.ShowMines[103] = not Nx.db.profile.Guide.ShowMines[103]
-    end,
-},
 weepingaqirite = {
-    order = 106,
+    order = 104,
     type = "toggle",
     width = "full",
     name = L["Weeping Aqirite Deposit"],
     desc = L["Display"] .. " " .. L["Weeping Aqirite Deposit"] .. " " .. L["Nodes On Map"],
     get = function()
-        return Nx.db.profile.Guide.ShowMines[104]
+        return Nx.db.profile.Guide.ShowMines[102]
     end,
     set = function()
-        Nx.db.profile.Guide.ShowMines[104] = not Nx.db.profile.Guide.ShowMines[104]
+        Nx.db.profile.Guide.ShowMines[102] = not Nx.db.profile.Guide.ShowMines[102]
     end,
 },
             
