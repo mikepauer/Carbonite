@@ -17186,7 +17186,7 @@ function Nx.Map:GetZoneInfo (mapid, force)
 				
 				local parentMapID = mapinfo.parentMapID or 0
 				Nx.Zones[mapid] = L[mapinfo.name] .. "|110|120|3|5|"..(parentMapID > 0 and parentMapID or 100).."|0|0|0"
-				Nx.Map:InitTables()
+				Nx.Map:InitTables(true)
 			end
 			if mapinfo.parentMapID then
 				winfo[mapid].parentMapID = mapinfo.parentMapID

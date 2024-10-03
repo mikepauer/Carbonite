@@ -9181,7 +9181,7 @@ end
 --------
 -- Init map tables
 
-function Nx.Map:InitTables()
+function Nx.Map:InitTables(skipZoneConnections)
 
 	local Nx = Nx
 
@@ -9433,7 +9433,8 @@ function Nx.Map:InitTables()
 
 	Nx.ZoneConnections = Nx["ZoneConnections"] or Nx.ZoneConnections	-- Copy unmunged data to munged data
 
-	-- Init zone connections
+	if not skipZoneConnections then
+		-- Init zone connections
 		for n = 0, 2999 do
 			local mapId = n
 			local winfo = worldInfo[mapId]
@@ -9490,12 +9491,13 @@ function Nx.Map:InitTables()
 							end
 						end
 
---					else
---						Nx.prt ("%s to %s", mapId1, mapId2)
+	--					else
+	--						Nx.prt ("%s to %s", mapId1, mapId2)
 					end
 				end
 			end
 		end
+	end
 end
 
 --------
