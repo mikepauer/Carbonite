@@ -3043,7 +3043,7 @@ function Nx.Map.Guide:ItemsAddItem (folder, id)
 	end
 	local flags = strbyte (info, 2) - 35
 	local unique = bit.band (flags, 4) > 0
-	local binding = bit.band (bit.rshift (flags, 3), 3) + 1
+	local binding = bit.band (Nx.rshift (flags, 3), 3) + 1
 	local iMin = strbyte (info, 3) - 35
 	local iLvl = (strbyte (info, 4) - 35) * 221 + strbyte (info, 5) - 35
 	local quality = strbyte (info, 6) - 35

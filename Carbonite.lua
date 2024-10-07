@@ -147,7 +147,7 @@ Nx.Whatsnew.WhichCat = 1
 Nx.Whatsnew.HasWhatsNew = nil
 
 -- FIX TO PREVENT INTEGER OVERFLOW IN C
-bit.rshift = function(n, r)
+Nx.rshift = function(n, r)
 	return math.floor(n / math.pow(2, r)) % math.pow(2, 32)
 end;
 
