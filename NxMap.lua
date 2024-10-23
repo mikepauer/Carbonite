@@ -9048,7 +9048,7 @@ function Nx.Map:UpdateInstanceMap()
 			end
 		end
 		
-		if not ((Nx.Map:IsInstanceMap(Nx.Map.RMapId) or Nx.Map:IsBattleGroundMap(Nx.Map.RMapId)) and self.CurOpts.NXInstanceMaps) and not C_Garrison.IsPlayerInGarrison(Enum.GarrisonType.Type_7_0) then		
+		if not ((Nx.Map:IsInstanceMap(Nx.Map.RMapId) or Nx.Map:IsBattleGroundMap(Nx.Map.RMapId)) and self.CurOpts.NXInstanceMaps) and not C_Garrison.IsPlayerInGarrison(Enum.GarrisonType.Type_7_0_Garrison) then		
 			
 			Nx.Map.MouseOver = false
 			Nx.Map:GetMap(1).PlyrFrm:Hide()
@@ -9069,7 +9069,7 @@ function Nx.Map:UpdateInstanceMap()
 				--f.texture:SetColorTexture (1, 0, 0, 0.5)
 			end
 			
-			if C_Garrison.IsPlayerInGarrison(Enum.GarrisonType.Type_6_0) then
+			if C_Garrison.IsPlayerInGarrison(Enum.GarrisonType.Type_6_0_Garrison) then
 			
 				c:SetParent(f)
 				c:SetAllPoints();

@@ -1,4 +1,4 @@
-## Interface: 110000, 110002
+## Interface: 110000, 110005
 ## Title: Carbonite Maps @project-version@
 ## Version: @project-version@
 ## Author: No one
@@ -6,6 +6,7 @@
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
 ## SavedVariables: CarbData
+## IconTexture: Interface\AddOns\Carbonite\Gfx\MMBut.tga
 
 ## X-WoWI-ID: 12965
 ## X-Curse-Project-ID: 28460
