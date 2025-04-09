@@ -29,7 +29,7 @@ function Nx:UIInit()
     local qc = {}
     self.QualityColors = qc
 
-    for n = 0, 10 do
+    for n = 0, 8 do
         local r, g, b, hex = C_Item.GetItemQualityColor(n)
         qc[n] = hex
     end

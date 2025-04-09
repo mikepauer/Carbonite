@@ -3279,7 +3279,9 @@ WorldMapFrame:HookScript("OnShow", function()
 			if WorldMapFrame:IsShown() then
 				Nx.Map:RestoreBlizzBountyMap()	
 				local map = Nx.Map:GetMap (1)
-				map:DetachWorldMap()
+				if map then
+					map:DetachWorldMap()
+				end
 			end
 		else
 			-- DugisGuide FIX
