@@ -1,3 +1,5 @@
+Carbonite is no longer being worked on or maintained with the release of Midnight. The cost of the expansion and monthly fees is just not in the budget any longer.
+----------------------------------------------
 # Carbonite Maps [![Release](https://img.shields.io/badge/release-8.1.2.1-brightgreen.svg)](https://github.com/mikepauer/Carbonite/releases) [![Total Downloads](https://dirk.hekko.pl/badge.php)](https://mods.curse.com/addons/wow/carbonite) [![Type](https://img.shields.io/badge/type-LUA-blue.svg)](https://www.lua.org/) #
 
 ## General Information ##
